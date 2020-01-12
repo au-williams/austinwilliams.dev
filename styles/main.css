@@ -45,8 +45,8 @@ body {
 .slide:nth-child(3) { background: linear-gradient(rgba(33, 36, 45, 0.40) 95%, rgba(33, 36, 45, 0.45)); }
 
 #construction.slide {
-    font-size: 1.5em;
     flex-direction: column;
+    font-size: 1.5em;
 }
 
 .show-s { display: none; }
@@ -65,8 +65,8 @@ body {
 #landing > .column > hr {
     background: white;
     border: .1em solid white;
-    width: 100%;
     height: 1px;
+    width: 100%;
 }
 
 #landing > .column > div:first-child,
@@ -138,33 +138,36 @@ body {
 }
 
 #navbar *:first-child {
-    padding-left: 0em;
     margin-left: 0em;
+    padding-left: 0em;
 }
 
 #navbar *:last-child {
-    padding-right: 0em;
     margin-right: 0em;
+    padding-right: 0em;
 }
 
 #navbar .avatar {
     border-width: .15em;
-    margin-top: 1em;
     height: 5em;
+    margin-top: 1em;
 }
 
 #navbar button {
-    color: white;
-    cursor: pointer;
     background: none;
     border: none;
+    color: white;
+    cursor: pointer;
     font-size: 1.25em;
     height: 100%;
 }
 
 #navbar a {
-    display: flex;
     align-items: center;
+}
+
+#navbar a:not(.show-s) {
+    display: flex;
 }
 
 .spacer {
@@ -194,7 +197,7 @@ body {
     40.00%, 55.00%   { transform: translate3d(0, -40%, 0); }
     60.00%, 75.00%   { transform: translate3d(0, -60%, 0); }
     80.00%, 95%      { transform: translate3d(0, -80%, 0); }
-}   
+}
 
 @-o-keyframes change {
     0%, 15.00%, 100% { transform: translate3d(0, 0, 0);    }
@@ -221,26 +224,15 @@ body {
 }
 
 @media (max-width: 1200px) {
-    .hide-s { display: none;  }
-    .show-s { display: block; }
+    .hide-s { display: none; }
+    .show-s { display: flex; }
 
-    .slide {
-        padding: 1em;
-        flex-direction: column;
-    }
-
+    .slide    { flex-direction: column; padding: 1em; }
     .margin-l { margin-left:  0; }
     .margin-r { margin-right: 0; }
 
-    #landing > .column { 
-        height: unset;
-        margin-top: 1em;
-    }
-
-    #landing > img {
-        margin-bottom: 1em;
-    }
-
+    #landing > .avatar { margin-bottom: 1em; }
+    #landing > .column { height: unset; margin-top: 1em; }
     #landing > .column > div:first-child,
     #landing > .column > div:last-child {
         flex: 0;
@@ -248,12 +240,12 @@ body {
 
     #landing-mask,
     #landing > .column ul {
-        width: 100%;
         text-align: center;
+        width: 100%;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 575px) {
     .hide-xs { display: none; }
 
     #landing > .avatar                   { height: 15em; }
@@ -263,4 +255,8 @@ body {
 
     #navbar         { padding: 0 1em; }
     #navbar .avatar { margin-top: .75em; height: 4.5em; }
+}
+
+@media (max-width: 425px) {
+    .hide-xxs { display: none; }
 }
