@@ -118,7 +118,7 @@ body {
     top: -400px;
     width: 100%;
     z-index: 1;
-    transition: all .7s linear;
+    transition: top .7s linear;
 }
 
 #navbar > button {
@@ -252,11 +252,11 @@ body {
     #landing > .column > div:first-child { font-size: 2.5em;  }
     #landing > .column > div:last-child  { font-size: 1.25em; }
     #landing-mask                        { height: 27px; }
+}
+
+@media (max-width: 475px) {
+    .hide-xxs { display: none; }
 
     #navbar         { padding: 0 1em; }
     #navbar .avatar { margin-top: .75em; height: 4.5em; }
-}
-
-@media (max-width: 425px) {
-    .hide-xxs { display: none; }
 }
