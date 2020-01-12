@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Austin Williams</title>
         <link rel="stylesheet" href="styles/main.css">
         <link rel="shortcut icon" href="favicon.ico" />
@@ -10,9 +10,12 @@
     <body>
         <div id="navbar">
             <img src="assets/avatar.jpg" class="avatar" draggable="false"/>
-            <button onclick="scrollToId('landing')">Austin Williams</button>
+            <button class="hide-xs" onclick="scrollToId('landing')">Austin Williams</button>
             <div class="spacer"></div>
-            <button onclick="scrollToId('construction')">Under construction</button>
+            <button class="hide-s" onclick="scrollToId('construction')">Under construction</button>
+            <a class="show-s" href="#">
+                <img src="assets/overflow.svg">
+            </a>
             <div class="separator"></div>
             <a href="https://www.linkedin.com/in/auwilliams/">
                 <img src="assets/linkedin.svg">
@@ -22,18 +25,18 @@
         <div id="landing" class="slide">
             <img class="margin-r avatar" src="assets/avatar.jpg">
             <div class="margin-l column">
-                <div>Austin Williams</div>
+                <div id="test">Austin Williams</div>
                 <hr></hr>
                 <div>
-                  <div id="landing-mask">
-                    <ul>
-                      <li>Software Developer</li>
-                      <li>Application Developer</li>
-                      <li>Full-Stack Web Developer</li>
-                      <li>System Administrator</li>
-                      <li>Computer Enthusiast</li>
-                    </ul>
-                  </div>
+                    <div id="landing-mask">
+                        <ul>
+                            <li>Software Developer</li>
+                            <li>Application Developer</li>
+                            <li>Full-Stack Web Developer</li>
+                            <li>System Administrator</li>
+                            <li>Computer Enthusiast</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,6 +47,6 @@
             <p>Come back soon!</p>
         </div>
 
-        <script src="scripts/main.js"></script> 
-    </body>
+        <script src="scripts/main.js"></script>
+    </body >
 </html>
