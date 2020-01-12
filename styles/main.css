@@ -1,4 +1,12 @@
 html, body {
+    height: 100%;
+    margin: 0;
+    min-height: 610px;
+    min-width: 580px;
+    padding: 0;
+}
+
+body {
     background-attachment: fixed;
     background-image: url("../assets/background.jpg");
     background-position: center; 
@@ -6,11 +14,6 @@ html, body {
     background-size: cover;
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
-    height: 100%;
-    margin: 0;
-    min-height: 610px;
-    min-width: 580px;
-    padding: 0;
 }
 
 /* convenience */
