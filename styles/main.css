@@ -6,13 +6,21 @@ html, body {
 }
 
 body {
-    background-attachment: fixed;
-    background-image: url("../assets/background.jpg");
-    background-position: center; 
-    background-repeat: no-repeat;
-    background-size: cover;
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+#background {
+    background-attachment: fixed;
+    background-image: url("../assets/background.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    z-index: -1;
 }
 
 /* convenience */
@@ -41,8 +49,8 @@ body {
     padding: 4.25em;
 }
 
-.slide:nth-child(2) { background: linear-gradient(transparent 60%,              rgba(33, 36, 45, 0.40)); }
-.slide:nth-child(3) { background: linear-gradient(rgba(33, 36, 45, 0.40) 95%, rgba(33, 36, 45, 0.45)); }
+#landing      { background: linear-gradient(transparent 60%,              rgba(33, 36, 45, 0.40)); }
+#construction { background: linear-gradient(rgba(33, 36, 45, 0.40) 95%, rgba(33, 36, 45, 0.45)); }
 
 #construction.slide {
     flex-direction: column;
