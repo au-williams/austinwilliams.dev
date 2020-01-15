@@ -54,9 +54,6 @@ body {
 .margin-r { margin-right: 1em; }
 .margin-t { margin-top:   1em; }
 
-/* show on small window */
-.show-s { display: none; }
-
 /* consume space between elements */
 .spacer { display: flex; flex: 1; }
 
@@ -123,6 +120,48 @@ body {
     font-size: 1.5em;
 }
 
+/* --- navbar --- */
+
+#navbar {
+    background-color: rgba(45, 49, 57, .95);
+    border-bottom: 1.25px solid rgba(255, 255, 255, 0.33);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    height: 3.75em;
+    padding: 0 3.75em;
+    position: fixed;
+    top: -400px;
+    width: 100%;
+    z-index: 1;
+    transition: top .7s linear;
+}
+
+#navbar > a { display: flex; }
+
+#navbar > a > img {
+    height: 2.25em;
+    width: 2.25em;
+}
+
+/* apply even spacing between navbar items */
+#navbar > *:not(.avatar) { padding: 0 .5em; }
+/* apply special spacing for the navbar avatar which cannot use padding with the solid border */
+#navbar > .avatar { margin: 1em .5em 0 2em; border-width: .15em; height: 4.125em; cursor: pointer; }
+/* apply right margin to copy avatar size sum */
+#navbar > *:last-child { margin-right: 1.5em; }
+
+#navbar button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    height: 100%;
+}
+
 /* --- landing --- */
 
 #landing > div,
@@ -169,43 +208,6 @@ body {
     animation-iteration-count: infinite;
 }
 
-/* --- navbar --- */
-
-#navbar {
-    background-color: rgba(45, 49, 57, .95);
-    border-bottom: 1.25px solid rgba(255, 255, 255, 0.33);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    box-sizing: border-box;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    height: 3.75em;
-    position: fixed;
-    top: -400px;
-    width: 100%;
-    z-index: 1;
-    transition: top .7s linear;
-}
-
-#navbar > a > img        { height: 2.25em; width: 2.25em; }
-#navbar > a:not(.show-s) { display: flex;   }
-
-/* apply even spacing between navbar items */
-#navbar > *:not(.avatar) { padding: 0 .5em; }
-/* apply special spacing for the navbar avatar which cannot use padding with the solid border */
-#navbar > .avatar { margin: 1em .5em 0 2em; border-width: .15em; height: 4.125em; cursor: pointer; }
-/* apply right margin to copy avatar size sum */
-#navbar > *:last-child { margin-right: 1.5em; }
-
-#navbar button {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 1.2em;
-    height: 100%;
-}
-
 /* --- animations --- */
 
 @-webkit-keyframes cycle {
@@ -242,6 +244,11 @@ body {
 
 /* --- responsive layouts --- */
 
+/* style rules:
+ * layout will scale by changing layout font-weight
+ * navbar padding shall equal (slide padding ÷ 2.2)
+ */
+
 /* larger portrait screens need larger page items */
 @media (min-height: 1600px) and (min-width: 900px) {
     #landing.slide       { font-size: 1.65em; }
@@ -252,6 +259,10 @@ body {
     .slide {
         font-size: 1.25em;
         padding: 2.75em;
+    }
+
+    #navbar {
+        padding: 0 1.5em;
     }
 }
 
@@ -293,19 +304,23 @@ body {
 
 /* non-portrait code here */
 @media (max-width: 1300px) {
-
 }
 
 /* tablet device layout  */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .slide  { padding: 2.25em; }
+    #navbar { padding: 0 1em;  }  
 
-    .hide-s { display: none; }
-    .show-s { display: flex; }
+    #navbar > ul { display: none; }
+    .separator   { display: none; }
+}
+
+@media (max-width: 475px) {
+    #navbar > button { display: none; }
 }
 
 /* phone device layout   */
-@media (max-width: 480px) {
+@media (max-width: 550px) {
     .slide-header {
         border: none;
         font-size: 1em;
@@ -313,11 +328,9 @@ body {
         margin-bottom: 20px;
         text-align: start;
     }
-
-    .hide-xs { display: none; }
 }
 
-@media (max-width: 480px), (max-height: 480px) {
+@media (max-width: 550px), (max-height: 480px) {
     .slide { 
         font-size: 1em;
         padding: 1.5em;
@@ -327,6 +340,8 @@ body {
     #landing > div > div:first-child { font-size: 2em; }
     #landing > div > div:last-child  { font-size: 1.125em; }
 
+    #navbar { padding: 0 .5em; }
+
     #navbar > .avatar { margin: 1em .5em 0 1.25em; }
 
     #navbar > *:last-child { 
@@ -335,10 +350,4 @@ body {
     }
 
     #construction.slide { font-size: 1.25em; }
-}
-
-@media (max-height: 657px) {
-    .slide { font-size: 1em; }
-
-    #construction.slide { font-size: 1.125em; }
 }
