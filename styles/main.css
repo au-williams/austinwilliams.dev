@@ -45,9 +45,7 @@ body {
 }
 
 /* align first column item to the same margin amount */
-.column-wrapper > div:first-child { margin-top: 0;    }
-.column-wrapper > div:last-child  { margin-bottom: 0; }
-.column-wrapper > div             { width: 50%;       }
+.column-wrapper > div { width: 50%; }
 
 /* non-mobile margin classes */
 .margin-l { margin-left:  1em; }
@@ -56,14 +54,6 @@ body {
 
 /* consume space between elements */
 .spacer { display: flex; flex: 1; }
-
-.separator {
-    align-self: center;
-    background: linear-gradient(rgba(255, 255, 255, 0.33), rgba(255, 255, 255, 0.33)) no-repeat center/2px 100%;
-    display: flex;
-    height: 57.5%;
-    width: 4px;
-}
 
 .text-wrapper {
     background: rgba(24, 28, 37, .40);
@@ -83,7 +73,7 @@ body {
     transition: color .05s linear;
 }
 
-.text-wrapper-section:hover > .gray:first-child { color: white; }
+.text-wrapper-section:hover > .gray { color: white; }
 
 /* --- slides --- */
 
@@ -91,10 +81,10 @@ body {
     align-items: center;
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    padding: 4.25em;
     font-size: 1.33em;
+    justify-content: center;
     min-height: 100%; /* remove this to make slides fit content */
+    padding: 4.25em;
 }
 
 .slide-header {
@@ -114,12 +104,6 @@ body {
     flex-direction: column;
 }
 
-#construction.slide {
-    background: linear-gradient(rgba(33, 36, 45, 0.45) 95%, rgba(33, 36, 45, 0.50));
-    flex-direction: column;
-    font-size: 1.5em;
-}
-
 /* --- navbar --- */
 
 #navbar {
@@ -134,9 +118,9 @@ body {
     padding: 0 3.75em;
     position: fixed;
     top: -400px;
+    transition: top .725s linear;
     width: 100%;
     z-index: 1;
-    transition: top .7s linear;
 }
 
 #navbar > a { display: flex; }
@@ -148,7 +132,7 @@ body {
 
 /* apply even spacing between navbar items */
 #navbar > *:not(.avatar) { padding: 0 .5em; }
-/* apply special spacing for the navbar avatar which cannot use padding with the solid border */
+/* apply margin to navbar avatar to fix lack of padding — must match padding+margin of last child */
 #navbar > .avatar { margin: 1em .5em 0 2em; border-width: .15em; height: 4.125em; cursor: pointer; }
 /* apply right margin to copy avatar size sum */
 #navbar > *:last-child { margin-right: 1.5em; }
@@ -309,7 +293,7 @@ body {
 /* tablet device layout  */
 @media (max-width: 800px) {
     .slide  { padding: 2.25em; }
-    #navbar { padding: 0 1em;  }  
+    #navbar { padding: 0 1em;  }
 
     #navbar > ul { display: none; }
     .separator   { display: none; }
@@ -348,6 +332,4 @@ body {
         margin-right: .75em;
         padding-right: .5em;
     }
-
-    #construction.slide { font-size: 1.25em; }
 }
