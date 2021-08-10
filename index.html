@@ -1,158 +1,140 @@
-<!--
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Austin Williams</title>
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="shortcut icon" href="favicon.ico" />
-    </head>
-    <body>
--->
-        <!-- required for some mobile devices -->
-        <!-- "fixed background" does not work -->
- <!--
-        <div id="background"></div>
-        <div id="navbar">
-            <img src="assets/avatar.jpg" class="avatar" draggable="false" onclick="scrollToId('landing')"/>
-            <button onclick="scrollToId('landing')">Austin Williams</button>
-            <div class="spacer"></div>
-            <a class="center-v" href="mailto:me@austinwilliams.dev" title="me@austinwilliams.dev">
-                <img src="assets/email.svg">
-            </a>
-            <a class="center-v" href="https://github.com/au-williams/au-williams.github.io" title="https://github.com/au-williams">
-                <img src="assets/github.svg">
-            </a>
-            <a class="center-v" href="https://www.linkedin.com/in/auwilliams/" title="https://linkedin.com/in/auwilliams">
-                <img src="assets/linkedin.svg">
-            </a>
-        </div>
 
-        <div id="landing" class="slide">
-            <img class="margin-r avatar" src="assets/avatar.jpg">
-            <div class="margin-l">
-                <div>Austin Williams</div>
-                <hr>
-                <div>
-                    <div id="landing-mask">
-                        <ul>
-                            <li>Software Developer</li>
-                            <li>Application Developer</li>
-                            <li>Full-Stack Web Developer</li>
-                            <li>System Administrator</li>
-                            <li>Computer Enthusiast</li>
-                        </ul>
-                    </div>
+<head>
+    <title>Austin Williams</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <header>
+        <div id="window-container">
+            <div id="window-contents">
+                <div id="window-title">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
-            </div>
-        </div>
+                <div id="window-body">
+                    <div id="window-background"></div>
+                    <div id="window-scroller">
+                        <div class="code-line">
+                            <div class="line-number"></div>
+                            <div class="left triangle"></div>
+                            <div class="dark-blue block size three"></div>
+                            <div class="sky-blue block"></div>
+                            <div class="right triangle"></div>
+                        </div>
+                        <div class="code-line">
+                            <div class="line-number"></div>
+                            <div class="left triangle"></div>
+                            <div class="dark-blue block size two"></div>
+                            <div class="right triangle"></div>
+                        </div>
+                        <div class="code-line">
+                            <div class="line-number"></div>
+                            <div class="space"></div>
+                            <div class="left triangle"></div>
+                            <div class="dark-blue block size two"></div>
+                            <div class="right triangle"></div>
+                        </div>
+                        <div class="code-line">
+                            <div class="line-number"></div>
+                            <div class="space size two"></div>
+                            <div class="triangle left"></div>
+                            <div class="block dark-blue size two"></div>
+                            <div class="triangle right"></div>
+                            <div class="block size four"></div>
+                            <div class="triangle left"></div>
+                            <div class="block dark-blue size two"></div>
+                            <div class="triangle right"></div>
+                        </div>
+                        <div class="code-line">
+                            <div class="line-number"></div>
+                            <div class="space size two"></div>
+                            <div class="green left triangle"></div>
+                            <div class="green operator"></div>
+                            <div class="green operator"></div>
+                            <div class="green block size two"></div>
+                            <div class="green block size two"></div>
+                            <div class="green block"></div>
+                            <div class="green operator"></div>
+                            <div class="green operator"></div>
+                            <div class="green right triangle"></div>
+                        </div>
+                        <div class="code-line">
+                            <div class="line-number"></div>
+                            <div class="space size two"></div>
+                            <div class="left triangle"></div>
+                            <div class="dark-blue block size three"></div>
+                            <div class="sky-blue block"></div>
+                            <div class="operator"></div>
+                            <div class="orange block size four"></div>
+                            <div class="right triangle"></div>
+                        </div>
+                        <div class="code-line">
+                            <div class="line-number"></div>
+                            <div class="space size two"></div>
+                            <div class="triangle left"></div>
+                            <div class="block size two dark-blue"></div>
+                            <div class="block size two sky-blue"></div>
+                            <div class="operator"></div>
+                            <div class="orange block size three"></div>
+                            <div class="right triangle"></div>
+                        </div>
 
-        <div id="overview" class="slide">
-            <div class="slide-header">
-                <strong>I'm a professional developer who's quick at learning new technologies</strong> — I can write applications, programs, websites, and more!
-            </div>
-            <div class="column-wrapper font-m">
-                <div class="margin-r center-v">
-                    <div class="text-wrapper">
-                        <div>I'm familiar with...</div>
-                        <div class="text-wrapper-section">
-                            <div class="gray margin-t">Languages:</div>
-                            <a href="https://en.wikipedia.org/wiki/Batch_file">Batch</a>,
-                            <a href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)">C#</a>,
-                            <a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS</a>,
-                            <a href="https://en.wikipedia.org/wiki/HTML">HTML</a>,
-                            <a href="https://www.lua.org/about.html">Lua</a>,
-                            <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>,
-                            <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>,
-                            <a href="https://www.json.org/">JSON</a>,
-                            <a href="https://reactjs.org/docs/introducing-jsx.html">JSX</a>,
-                            <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>,
-                            <a href="https://en.wikipedia.org/wiki/SQL">SQL</a>,
-                            <a href="https://en.wikipedia.org/wiki/Transact-SQL">T-SQL</a>,
-                            <a href="https://www.typescriptlang.org/">TypeScript</a>,
-                            <a href="https://docs.microsoft.com/en-us/dynamicsax-2012/developer/x-language-programming-guide">X++</a>,
-                            <a href="https://en.wikipedia.org/wiki/XML">XML</a>,
-                            and
-                            <a href="https://en.wikipedia.org/wiki/XSLT">XSLT</a>
-                        </div>
-                        <div class="text-wrapper-section">
-                            <div class="gray margin-t">Libraries &amp; frameworks:</div>
-                            <a href="https://dotnet.microsoft.com/">.NET</a>,
-                            <a href="https://dotnet.microsoft.com/apps/aspnet">ASP.NET</a>,
-                            <a href="https://getbootstrap.com/">Bootstrap</a>,
-                            <a href="https://dbup.github.io/">DbUp</a>,
-                            <a href="https://docs.microsoft.com/en-us/ef/">Entity Framework</a>,
-                            <a href="https://expressjs.com/">Express</a>,
-                            <a href="https://firebase.google.com/">Firebase</a>,
-                            <a href="https://handlebarsjs.com/">Handlebars</a>,
-                            <a href="https://jestjs.io/">Jest</a>,
-                            <a href="https://jquery.com/">jQuery</a>,
-                            <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/">LINQ</a>,
-                            <a href="https://dynamics.microsoft.com/en-us/?cdn=disable">Microsoft Dynamics 365 CRM</a>,
-                            <a href="https://dynamics.microsoft.com/en-us/finance-and-operations/overview/">Microsoft Dynamics 365 Finance &amp; Operations</a>,
-                            <a href="https://github.com/Moq/moq4/wiki/Quickstart">Moq</a>,
-                            <a href="https://particular.net/nservicebus">NServiceBus</a>,
-                            <a href="https://reactjs.org/">React</a>,
-                            <a href="https://github.com/shouldly/shouldly">Shouldly</a>,
-                            <a href="https://vuejs.org/">Vue.js</a>
-                            and
-                            <a href="https://xunit.net/">xUnit</a>
-                        </div>
-                        <div class="text-wrapper-section">
-                            <div class="gray margin-t">Programs &amp; services:</div>
-                            <a href="https://developer.android.com/studio/">Android Studio</a>,
-                            <a href="https://azure.microsoft.com/en-us/">Azure</a>,
-                            <a href="https://azure.microsoft.com/en-us/services/devops/">Azure DevOps</a>,
-                            <a href="https://www.gnu.org/software/bash/">Bash</a>,
-                            <a href="https://chocolatey.org/">Chocolatey</a>,
-                            <a href="https://en.wikipedia.org/wiki/Cmd.exe">CMD</a>,
-                            <a href="https://git-scm.com/">Git</a>,
-                            <a href="https://www.gitkraken.com/">GitKraken</a>,
-                            <a href="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/about/">Hyper-V</a>,
-                            <a href="https://products.office.com/en-us/home">Microsoft Office 365</a>,
-                            <a href="https://www.mongodb.com/">MongoDB</a>,
-                            <a href="https://www.mysql.com/">MySQL</a>,
-                            <a href="https://nodejs.org/en/">Node.js</a>,
-                            <a href="https://www.nuget.org/">NuGet</a>,
-                            <a href="https://www.getpostman.com/">Postman</a>,
-                            <a href="https://docs.microsoft.com/en-us/powershell/scripting/overview">PowerShell</a>,
-                            <a href="https://www.seleniumhq.org/">Selenium</a>,
-                            <a href="https://www.sonarqube.org/">SonarQube</a>,
-                            <a href="https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017">SQL Server Management Studio</a>,
-                            <a href="https://docs.microsoft.com/en-us/sql/reporting-services/create-deploy-and-manage-mobile-and-paginated-reports?view=sql-server-2017">SQL Server Reporting Services</a>,
-                            <a href="https://www.veracode.com/">Veracode</a>,
-                            <a href="https://www.virtualbox.org">VirtualBox</a>,
-                            <a href="https://visualstudio.microsoft.com/">Visual Studio</a>,
-                            <a href="https://wave.webaim.org/">WAVE</a>
-                            and
-                            <a href="https://winscp.net/eng/index.php">WinSCP</a>
+                        <div class="code-line">
+                            <div class="line-number"></div>
+                            <div class="space"></div>
+                            <div class="left triangle"></div>
+                            <div class="dark-blue block size two"></div>
+                            <div class="right triangle"></div>
                         </div>
                     </div>
-                </div>
-                <div class="margin-l">
-                    <p>
-                        I'm currently employed by Washington State's Employment Security Department, developing the upcoming Paid Family and Medical Leave program.
-                        We're a mix of government employees with contractors from Microsoft, Deloitte, and Crema Development.
-                        I'm heavily involved with our full-stack web portal and our financial backend.
-                        We use a lot of technology stacks, but the most prevalent are ASP.NET and Vue.js using C#, SQL, HTML, CSS, and JavaScript.
-                    </p>
-                    <p>
-                        I occasionally work part-time at the University of Washington as instructional staff for ongoing full-stack web development bootcamps.
-                        I teach various topics on web development and back-end software development, grade student homework, perform code reviews, provide input on student learning materials, and tutor students one-on-one to ensure that everyone is able to succeed.
-                        These typically take place at the Seattle and Bellevue campuses.
-                    </p>
-                    <p>
-                        I have vast knowledge regarding computer hardware and I find working with computers to be very enjoyable and rewarding.
-                        I'm comfortable with the installation and repair of computer components; I've assembled desktops and servers by hand, and performed repair on many different hardware configurations.
-                        I'm great at troubleshooting issues, installing (and dual-booting) operating systems, managing drive partitions, and many other hardware-related tasks.
-                        I'm always trying out new things when it comes to my personal hardware.
-                    </p>
+                    <h1>Austin Williams</h1>
                 </div>
             </div>
         </div>
+        <button onclick="scrollDown()">
+            <span>About</span>
+            <span>&darr;</span>
+        </button>
+    </header>
+    <main>
+        <article>
+            <div>
+                <img src="./assets/avatar.png" draggable="false" />
+            </div>
+            <div>
+                Hey 👋 — My name's <a href="https://www.linkedin.com/in/auwilliams">Austin</a>. I started off my career
+                developing government programs and collaborating with big tech organizations who taught me the art of
+                delivering great software from start to finish.
+            </div>
+        </article>
+        <article>
+            <div>
+                <img src="./assets/banner.png" />
+            </div>
+            <div>
+                I'm developing this webpage in my sparse free time. My CSS art is designed to be dynamically
+                generated and scrolled using JavaScript so please check back later for those changes to be deployed.
+                Thanks!
+                😄
+            </div>
+        </article>
+        <article>
+            Send work and other inquiries to <a href="mailto:me@austinwilliams.dev">me@austinwilliams.dev</a> ✉
+        </article>
+    </main>
+    <footer>
+        <button onclick="scrollToTop()">Back to top</button>
+    </footer>
+    <script src="scripts/script.js" type="text/javascript"></script>
+</body>
 
-        <script src="scripts/main.js"></script>
-    </body>
 </html>
--->
