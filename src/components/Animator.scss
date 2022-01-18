@@ -1,0 +1,189 @@
+@import "../config";
+
+#animator-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  font-size: $modifier--animator-shrink;
+  height: (9em * $modifier--animator-scale);
+  margin: $size--wrapper-margin 0 ($size--wrapper-margin * 0.5) 0;
+  position: relative;
+  width: (16em * $modifier--animator-scale);
+  z-index: 1;
+
+  // background color is positioned ::before to not cause minor gaps between elements
+
+  &::before {
+    background-color: #1e1e1e;
+    border-left: $size--animator-sidebar solid $color--animator-sidebar;
+    border-radius: $size--animator-border-radius;
+    box-sizing: border-box;
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+  }
+
+  #animator-title {
+    align-items: center;
+    background-color: $color--animator-title;
+    border-top-left-radius: $size--animator-border-radius;
+    border-top-right-radius: $size--animator-border-radius;
+    box-sizing: border-box;
+    display: flex;
+    height: $size--animator-title;
+    padding: $size--animator-border;
+    width: 100%;
+
+    // div {
+    //   transition:
+    //     background-color $time--animation-speed linear,
+    //     box-shadow $time--animation-speed linear;
+    // }
+
+    // ide icon
+    div:nth-child(1) {
+      background-color: rgb(0, 120, 215);
+      border-radius: $size--animator-border-radius;
+      height: ($size--animator-title * $modifier--animator-title-buttons-scale);
+      margin: 0 ($size--animator-sidebar * 0.5) - ($size--animator-title * ($modifier--animator-title-buttons-scale * 0.5)) - ($size--animator-border * 0.5); // half of sidebar - half of element width
+      width: ($size--animator-title * $modifier--animator-title-buttons-scale);
+
+      &:hover {
+        background-color: #00ccff;
+        box-shadow: 0 0 0.5em #00ccff15;
+      }
+    }
+
+    div:nth-child(2),
+    div:nth-child(3),
+    div:nth-child(4) {
+      border-radius: 100%;
+      height: ($size--animator-title * $modifier--animator-title-buttons-scale);
+      margin: 0 $size--animator-border;
+      width: ($size--animator-title * $modifier--animator-title-buttons-scale);
+    }
+
+    div:nth-child(2) {
+      background-color: $color--animator-title-max;
+      margin-left: auto;
+
+      &:hover {
+        background-color: $color--animator-title-max-hover;
+        box-shadow: 0 0 0.5em $color--animator-title-max-hover-shadow;
+      }
+    }
+
+    div:nth-child(3) {
+      background-color: $color--animator-title-min;
+
+      &:hover {
+        background-color: $color--animator-title-min-hover;
+        box-shadow: 0 0 0.5em $color--animator-title-min-hover-shadow;
+      }
+    }
+
+    div:nth-child(4) {
+      background-color: $color--animator-title-close;
+
+      &:hover {
+        background-color: $color--animator-title-close-hover;
+        box-shadow: 0 0 0.5em $color--animator-title-close-hover-shadow;
+      }
+    }
+  }
+
+  #animator-body {
+    align-items: center;
+    border-bottom-left-radius: $size--animator-border-radius;
+    border-bottom-right-radius: $size--animator-border-radius;
+    border-color: $color--animator-title;
+    border-style: solid;
+    border-width: 0 $size--animator-border $size--animator-border $size--animator-border;
+    box-sizing: border-box;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    position: relative;
+
+    &:hover #animator-name {
+      opacity: 0.125;
+    }
+
+    #animator-name {
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 2px;
+      font-family: "Roboto", sans-serif;
+      font-size: 2.75em;
+      padding: 0.125em 0.25em;
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+      transition: opacity $time--name-fade-speed;
+    }
+
+    #animator-code {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column-reverse;
+      height: 100%;
+      overflow-y: scroll;
+      position: absolute;
+      scrollbar-color: $color--animator-sidebar $color--site-background;
+      width: 100%;
+
+      #animator-spacer {
+        height: 100%;
+        min-height: 32.75%;
+        // min-height: 50% + ($size--code-block-spacing * 4);
+      }
+
+      // webkit scrollbar
+
+      &::-webkit-scrollbar {
+        width: 1em;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $color--site-background;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $color--animator-sidebar;
+        
+        &:hover {
+          background-color: #4F4F4F;
+        }
+      }
+
+      // &::-webkit-scrollbar-button:single-button {
+      //   border-style: solid;
+      //   display: block;
+      //   height: 12px;
+      //   width: 16px;
+
+      //   // up button
+      //   &:vertical:decrement {
+      //     border-width: 0 8px 8px 8px;
+      //     border-color: transparent transparent #555555 transparent;
+  
+      //     &:hover {
+      //       border-color: transparent transparent #777777 transparent;
+      //     }
+      //   }
+
+      //   // down button
+      //   &:vertical:increment {
+      //     border-width: 8px 8px 0 8px;
+      //     border-color: #555555 transparent transparent transparent;
+  
+      //     &:hover {
+      //       border-color: #777777 transparent transparent transparent;
+      //     }
+      //   }
+      // }
+    }
+  }
+}

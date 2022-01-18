@@ -1,0 +1,16 @@
+@import "config";
+
+#hover-button {
+  background: none;
+  border: none;
+  color: #d4d4d4;
+  cursor: pointer;
+  font-size: $modifier--animator-shrink; // match animator margin 
+  margin: ($size--wrapper-margin * 0.5) 0 $size--wrapper-margin 0;
+
+  span {
+    font-size: $modifier--animator-shrink * 1.75;
+    // font-size: 2em;
+    display: block;
+  }
+}

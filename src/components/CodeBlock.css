@@ -1,0 +1,135 @@
+.attribute,
+.indent,
+.space,
+.string,
+.tag-name,
+.value {
+  background-color: #333333;
+  border-radius: 0.15em;
+  height: 1.2em;
+  margin: 0 0.24em;
+  width: 1.2em;
+}
+
+.attribute.size-2,
+.indent.size-2,
+.space.size-2,
+.string.size-2,
+.tag-name.size-2,
+.value.size-2 {
+  width: 2.88em;
+}
+
+.attribute.size-3,
+.indent.size-3,
+.space.size-3,
+.string.size-3,
+.tag-name.size-3,
+.value.size-3 {
+  width: 4.56em;
+}
+
+.attribute.size-4,
+.indent.size-4,
+.space.size-4,
+.string.size-4,
+.tag-name.size-4,
+.value.size-4 {
+  width: 6.24em;
+}
+
+.attribute.size-5,
+.indent.size-5,
+.space.size-5,
+.string.size-5,
+.tag-name.size-5,
+.value.size-5 {
+  width: 7.92em;
+}
+
+.operator {
+  background-color: #333333;
+  border-radius: 0.15em;
+  height: 0.6em;
+  margin: 0.54em;
+  width: 0.6em;
+}
+
+.indent,
+.space {
+  background-color: transparent;
+}
+
+.angle {
+  border-bottom: 0.6em solid transparent;
+  border-radius: 0.15em;
+  border-top: 0.6em solid transparent;
+  height: 0;
+  margin: 0 0.39em;
+  width: 0;
+}
+
+.angle.close {
+  border-left: 0.9em solid #333333;
+}
+
+.angle.close.clicked, .angle.close.hovered {
+  border-left-color: #D4D4D4;
+}
+
+.angle.close.clicked.comment, .angle.close.hovered.comment {
+  border-left-color: #6A9955;
+}
+
+.angle.start {
+  border-right: 0.9em solid #333333;
+}
+
+.angle.start.clicked, .angle.start.hovered {
+  border-right-color: #D4D4D4;
+}
+
+.angle.start.clicked.comment, .angle.start.hovered.comment {
+  border-right-color: #6A9955;
+}
+
+.angle:nth-child(2) {
+  margin-left: 0.63em;
+}
+
+.attribute.clicked, .attribute.hovered {
+  background-color: #9CDCFE;
+}
+
+.attribute.clicked.comment, .attribute.hovered.comment {
+  background-color: #6A9955;
+}
+
+.string.clicked, .string.hovered {
+  background-color: #CE9178;
+}
+
+.string.clicked.comment, .string.hovered.comment {
+  background-color: #6A9955;
+}
+
+.tag-name.clicked, .tag-name.hovered {
+  background-color: #569CD6;
+}
+
+.tag-name.clicked.comment, .tag-name.hovered.comment {
+  background-color: #6A9955;
+}
+
+.operator.clicked, .operator.hovered,
+.value.clicked,
+.value.hovered {
+  background-color: #D4D4D4;
+}
+
+.operator.clicked.comment, .operator.hovered.comment,
+.value.clicked.comment,
+.value.hovered.comment {
+  background-color: #6A9955;
+}
+/*# sourceMappingURL=CodeBlock.css.map */

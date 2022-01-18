@@ -1,0 +1,14 @@
+#hover-button {
+  background: none;
+  border: none;
+  color: #d4d4d4;
+  cursor: pointer;
+  font-size: 1.5vmin;
+  margin: 2em 0 4em 0;
+}
+
+#hover-button span {
+  font-size: 2.625vmin;
+  display: block;
+}
+/*# sourceMappingURL=HoverButton.css.map */

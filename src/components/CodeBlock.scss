@@ -1,0 +1,116 @@
+@import "../config";
+
+.attribute,
+.indent,
+.space,
+.string,
+.tag-name,
+.value {
+  background-color: $color--code-block-unfocused;
+  border-radius: $size--animator-border-radius;
+  height: $size--code-block-scale;
+  margin: 0 ($size--code-block-scale * $size--code-block-spacing);
+  width: $size--code-block-scale;
+
+  &.size-2 { width: ($size--code-block-scale * 2) + (($size--code-block-scale * $size--code-block-spacing) * 2); }
+  &.size-3 { width: ($size--code-block-scale * 3) + (($size--code-block-scale * $size--code-block-spacing) * 4); }
+  &.size-4 { width: ($size--code-block-scale * 4) + (($size--code-block-scale * $size--code-block-spacing) * 6); }
+  &.size-5 { width: ($size--code-block-scale * 5) + (($size--code-block-scale * $size--code-block-spacing) * 8); }
+}
+
+.operator {
+  background-color: $color--code-block-unfocused;
+  border-radius: $size--animator-border-radius;
+  height: ($size--code-block-scale * 0.5);
+  margin: (($size--code-block-scale * 0.25) + ($size--code-block-scale * $size--code-block-spacing));
+  width: ($size--code-block-scale * 0.5); // width and margin make 1 block size
+}
+
+.indent,
+.space {
+  background-color: transparent;
+}
+
+.angle {
+  border-bottom: ($size--code-block-scale * 0.5) solid transparent;
+  border-radius: $size--animator-border-radius;
+  border-top: ($size--code-block-scale * 0.5) solid transparent;
+  height: 0;
+  margin: 0 (($size--code-block-scale * 0.125) + ($size--code-block-scale * $size--code-block-spacing));
+  width: 0;
+
+  &.close {
+    border-left: ($size--code-block-scale * 0.75) solid $color--code-block-unfocused;
+
+    &.clicked,
+    &.hovered {
+      border-left-color: #D4D4D4;
+
+      &.comment {
+        border-left-color: #6A9955;
+      }
+    }
+  }
+
+  &.start {
+    border-right: ($size--code-block-scale * 0.75) solid $color--code-block-unfocused;
+
+    &.clicked,
+    &.hovered {
+      border-right-color: #D4D4D4;
+
+      &.comment {
+        border-right-color: #6A9955;
+      }
+    }
+  }
+
+  &:nth-child(2) {
+    margin-left: ($size--code-block-scale * 0.125) + (($size--code-block-scale * $size--code-block-spacing) * 2);
+  }
+}
+
+.attribute {
+  &.clicked,
+  &.hovered {
+    background-color: #9CDCFE;
+
+    &.comment {
+      background-color: #6A9955;
+    }
+  }
+}
+
+.string {
+  &.clicked,
+  &.hovered {
+    background-color: #CE9178;
+
+    &.comment {
+      background-color: #6A9955;
+    }
+  }
+}
+
+.tag-name {
+  &.clicked,
+  &.hovered {
+    background-color: #569CD6; 
+
+    &.comment {
+      background-color: #6A9955;
+    }
+  }
+}
+
+.operator,
+.value {
+  &.clicked,
+  &.hovered {
+    background-color: #D4D4D4;
+
+    &.comment {
+      background-color: #6A9955;
+    }
+  }
+}

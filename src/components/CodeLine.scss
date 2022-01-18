@@ -1,0 +1,42 @@
+@import "../config";
+
+.code-line {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  height: ($size--code-block-scale * $modifier--code-block-code-line-height);
+  position: relative;
+
+  .line-number {
+    border-radius: 100%;
+    background-color: $color--code-block-line-number;
+    height: ($size--code-block-scale * $size--code-block-line-number-scale);
+    margin: 0 ($size--animator-sidebar * 0.5) - ($size--code-block-scale * ($size--code-block-line-number-scale * 0.5)) - ($size--animator-border * 0.5); // half of sidebar - half of element width
+    width: ($size--code-block-scale * $size--code-block-line-number-scale); // width and margin make 1 block size
+
+    &.clicked {
+      background-color: #EE4B2B;
+      box-shadow: 0 0 0.5em #EE4B2B15;
+    }
+
+    &.hovered {
+      background-color: #D4D4D4;
+      box-shadow: 0 0 0.5em #D4D4D415;
+    }
+  }
+
+  &:last-of-type {
+    margin-top: ($size--code-block-scale * $size--code-block-spacing);
+  }
+
+  div {
+    pointer-events: none;
+    flex-shrink: 0;
+
+    &:nth-child(2) {
+      // add spacing to item after the line number element
+      margin-left: ($size--code-block-scale * $size--code-block-spacing) * 2;
+    }
+  }
+}

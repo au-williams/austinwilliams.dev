@@ -1,0 +1,48 @@
+.code-line {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  height: 1.8em;
+  position: relative;
+}
+
+.code-line .line-number {
+  border-radius: 100%;
+  background-color: #888888;
+  height: 0.54em;
+  margin: 0 0.855em;
+  width: 0.54em;
+}
+
+.code-line .line-number.clicked {
+  background-color: #EE4B2B;
+  -webkit-box-shadow: 0 0 0.5em #EE4B2B15;
+          box-shadow: 0 0 0.5em #EE4B2B15;
+}
+
+.code-line .line-number.hovered {
+  background-color: #D4D4D4;
+  -webkit-box-shadow: 0 0 0.5em #D4D4D415;
+          box-shadow: 0 0 0.5em #D4D4D415;
+}
+
+.code-line:last-of-type {
+  margin-top: 0.24em;
+}
+
+.code-line div {
+  pointer-events: none;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.code-line div:nth-child(2) {
+  margin-left: 0.48em;
+}
+/*# sourceMappingURL=CodeLine.css.map */
