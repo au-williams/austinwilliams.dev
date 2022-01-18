@@ -95,7 +95,7 @@
 .tag-name {
   &.clicked,
   &.hovered {
-    background-color: #569CD6; 
+    background-color: $color--code-block-tag-name; 
 
     &.comment {
       background-color: #6A9955;

@@ -15,7 +15,7 @@
   // background color is positioned ::before to not cause minor gaps between elements
 
   &::before {
-    background-color: #1e1e1e;
+    background-color: $color--animator-wrapper;
     border-left: $size--animator-sidebar solid $color--animator-sidebar;
     border-radius: $size--animator-border-radius;
     box-sizing: border-box;
@@ -37,13 +37,6 @@
     padding: $size--animator-border;
     width: 100%;
 
-    // div {
-    //   transition:
-    //     background-color $time--animation-speed linear,
-    //     box-shadow $time--animation-speed linear;
-    // }
-
-    // ide icon
     div:nth-child(1) {
       background-color: rgb(0, 120, 215);
       border-radius: $size--animator-border-radius;
@@ -137,7 +130,6 @@
       #animator-spacer {
         height: 100%;
         min-height: 32.75%;
-        // min-height: 50% + ($size--code-block-spacing * 4);
       }
 
       // webkit scrollbar
@@ -157,33 +149,6 @@
           background-color: #4F4F4F;
         }
       }
-
-      // &::-webkit-scrollbar-button:single-button {
-      //   border-style: solid;
-      //   display: block;
-      //   height: 12px;
-      //   width: 16px;
-
-      //   // up button
-      //   &:vertical:decrement {
-      //     border-width: 0 8px 8px 8px;
-      //     border-color: transparent transparent #555555 transparent;
-  
-      //     &:hover {
-      //       border-color: transparent transparent #777777 transparent;
-      //     }
-      //   }
-
-      //   // down button
-      //   &:vertical:increment {
-      //     border-width: 8px 8px 0 8px;
-      //     border-color: #555555 transparent transparent transparent;
-  
-      //     &:hover {
-      //       border-color: #777777 transparent transparent transparent;
-      //     }
-      //   }
-      // }
     }
   }
 }

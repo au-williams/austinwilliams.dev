@@ -114,7 +114,7 @@
 }
 
 .tag-name.clicked, .tag-name.hovered {
-  background-color: #569CD6;
+  background-color: #569cd6;
 }
 
 .tag-name.clicked.comment, .tag-name.hovered.comment {
