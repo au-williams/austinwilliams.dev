@@ -1,4 +1,5 @@
 import "./Animator.css";
+import Emoji from "../assets/emoji.png";
 import BLOCK_TYPES from "../constants/BlockTypes";
 import CodeBlockModel from "../models/CodeBlock";
 import CodeLineModel from "../models/CodeLine";
@@ -149,7 +150,10 @@ export default function Animator() {
         <div/>
       </div>
       <div id='animator-body'>
-        <div id='animator-name'>👨‍💻 Austin Williams</div>
+        <div id='animator-name'>
+          <img src={Emoji} alt="man technologist emoji"></img>
+          <span>Austin Williams</span>
+        </div>
         <div id='animator-code'>
           <div id="animator-spacer"/>
           {codeLines.map(codeLine =>
@@ -165,13 +169,13 @@ export default function Animator() {
 }
 
 const getIndentSize = (lastIndentSize) => {
-  if (CODE_LINE_MIN_INDENT_SIZE == lastIndentSize)
-    return lastIndentSize + getRandomBool(.5);
-  if (CODE_LINE_MAX_INDENT_SIZE == lastIndentSize)
-    return lastIndentSize - getRandomBool(.5);
+  if (CODE_LINE_MIN_INDENT_SIZE === lastIndentSize)
+    return lastIndentSize + getRandomBool();
+  if (CODE_LINE_MAX_INDENT_SIZE === lastIndentSize)
+    return lastIndentSize - getRandomBool();
 
   const randomNumber = getRandomNumber(4);
-  if (randomNumber == 3) return lastIndentSize + 1;
-  if (randomNumber == 4) return lastIndentSize - 1;
+  if (randomNumber === 3) return lastIndentSize + 1;
+  if (randomNumber === 4) return lastIndentSize - 1;
   return lastIndentSize;
 }

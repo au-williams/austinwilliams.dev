@@ -132,14 +132,33 @@
 #animator-wrapper #animator-body #animator-name {
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   font-family: "Roboto", sans-serif;
   font-size: 2.75em;
-  padding: 0.125em 0.25em;
+  padding: 0.2125em 0.325em;
   pointer-events: none;
   position: absolute;
   z-index: 1;
   -webkit-transition: opacity 150ms;
   transition: opacity 150ms;
+}
+
+#animator-wrapper #animator-body #animator-name img {
+  height: 1.125em;
+  width: 1.125em;
+  margin-right: 0.125em;
+}
+
+#animator-wrapper #animator-body #animator-name span {
+  margin-left: 0.125em;
 }
 
 #animator-wrapper #animator-body #animator-code {

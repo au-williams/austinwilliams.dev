@@ -108,13 +108,26 @@
     #animator-name {
       background-color: rgba(0, 0, 0, 0.75);
       border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: "Roboto", sans-serif;
       font-size: 2.75em;
-      padding: 0.125em 0.25em;
+      padding: 0.2125em 0.325em;
       pointer-events: none;
       position: absolute;
       z-index: 1;
       transition: opacity $time--name-fade-speed;
+
+      img {
+        height: 1.125em;
+        width: 1.125em;
+        margin-right: 0.125em;
+      }
+
+      span {
+        margin-left: 0.125em;
+      }
     }
 
     #animator-code {

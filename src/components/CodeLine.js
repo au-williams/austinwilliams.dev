@@ -11,8 +11,8 @@ export default function CodeLine(props) {
 
   const lineNumberClasses = classNames(
     "line-number",
-    {["clicked"]: isClicked},
-    {["hovered"]: isHovered && !isClicked}
+    {"clicked": isClicked},
+    {"hovered": isHovered && !isClicked}
   );
 
   return (
@@ -22,7 +22,6 @@ export default function CodeLine(props) {
       onMouseOut={() => setIsHovered(false)}
       onMouseOver={() => setIsHovered(true)}>
       {
-        // display line number if any line content is visible
         codeBlocks.some(codeBlock => codeBlock.isVisible) &&
           <div className={lineNumberClasses}></div>
       }

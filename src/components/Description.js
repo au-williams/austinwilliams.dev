@@ -19,11 +19,11 @@ export default function Description(props) {
       </article>
       <footer>
         <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <img src={Scroll}/>
+          <img src={Scroll} alt="return icon"/>
           Back to top
         </button>
-        <a href='https://github.com/au-williams/au-williams.github.io' target="_blank">
-          <img src={GitHub}/>
+        <a href='https://github.com/au-williams/au-williams.github.io' target="_blank" rel="noopener noreferrer">
+          <img src={GitHub} alt="github logo"/>
           GitHub
         </a>
       </footer>
