@@ -1,19 +1,19 @@
 import "./App.css";
 import Animator from "./Animator";
-import Description from "./Description";
+import Content from "./Content";
 import HoverButton from "./HoverButton";
 import React, { useRef } from "react";
 
-export default function App(props) {
-  const descriptionRef = useRef(null);
+export default function App() {
+  const ref = useRef(null);
 
   return (
     <>
-      <div id="vh-wrapper">
+      <div className="viewport-wrapper">
         <Animator/>
-        <HoverButton toRef={descriptionRef}/>
+        <HoverButton toRef={ref}/>
       </div>
-      <Description asRef={descriptionRef}/>
+      <Content isRef={ref}/>
     </>
   );
 }

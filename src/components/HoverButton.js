@@ -5,8 +5,8 @@ export default function HoverButton(props) {
 
   return (
     <button id='hover-button' onClick={() => toRef.current.scrollIntoView({ behavior: 'smooth' })}>
-      <span>About</span>
-      <span>&darr;</span>
+      <div>About</div>
+      <div>&darr;</div>
     </button>
   );
 }

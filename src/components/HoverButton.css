@@ -3,12 +3,11 @@
   border: none;
   color: #d4d4d4;
   cursor: pointer;
-  font-size: 1.5vmin;
-  margin: 2em 0 4em 0;
+  margin: 5vh 0;
 }
 
-#hover-button span {
-  font-size: 2.625vmin;
-  display: block;
+#hover-button div {
+  font-family: "Roboto", sans-serif;
+  font-size: 2.75vmin;
 }
 /*# sourceMappingURL=HoverButton.css.map */

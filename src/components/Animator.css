@@ -12,7 +12,7 @@
       flex-shrink: 0;
   font-size: 1.5vmin;
   height: 27em;
-  margin: 4em 0 2em 0;
+  margin: 5vh 0;
   position: relative;
   width: 48em;
   z-index: 1;
@@ -135,26 +135,19 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   font-family: "Roboto", sans-serif;
   font-size: 2.75em;
   padding: 0.2125em 0.325em;
   pointer-events: none;
-  position: absolute;
-  z-index: 1;
   -webkit-transition: opacity 150ms;
   transition: opacity 150ms;
+  z-index: 1;
 }
 
 #animator-wrapper #animator-body #animator-name img {
   height: 1.125em;
-  width: 1.125em;
   margin-right: 0.125em;
+  width: 1.125em;
 }
 
 #animator-wrapper #animator-body #animator-name span {
@@ -162,6 +155,7 @@
 }
 
 #animator-wrapper #animator-body #animator-code {
+  bottom: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: -webkit-box;
@@ -172,9 +166,12 @@
       -ms-flex-direction: column-reverse;
           flex-direction: column-reverse;
   height: 100%;
+  left: 0;
   overflow-y: scroll;
   position: absolute;
+  right: 0;
   scrollbar-color: #333333 #18191a;
+  top: 0;
   width: 100%;
 }
 

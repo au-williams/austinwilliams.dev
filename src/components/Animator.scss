@@ -7,7 +7,7 @@
   flex-shrink: 0;
   font-size: $modifier--animator-shrink;
   height: (9em * $modifier--animator-scale);
-  margin: $size--wrapper-margin 0 ($size--wrapper-margin * 0.5) 0;
+  margin: 5vh 0;
   position: relative;
   width: (16em * $modifier--animator-scale);
   z-index: 1;
@@ -106,23 +106,23 @@
     }
 
     #animator-name {
+      // align-items: center;
+      // justify-content: center;
+      // position: absolute;
       background-color: rgba(0, 0, 0, 0.75);
       border-radius: 2px;
       display: flex;
-      align-items: center;
-      justify-content: center;
       font-family: "Roboto", sans-serif;
       font-size: 2.75em;
       padding: 0.2125em 0.325em;
       pointer-events: none;
-      position: absolute;
-      z-index: 1;
       transition: opacity $time--name-fade-speed;
+      z-index: 1;
 
       img {
         height: 1.125em;
-        width: 1.125em;
         margin-right: 0.125em;
+        width: 1.125em;
       }
 
       span {
@@ -131,13 +131,17 @@
     }
 
     #animator-code {
+      bottom: 0;
       box-sizing: border-box;
       display: flex;
       flex-direction: column-reverse;
       height: 100%;
+      left: 0;
       overflow-y: scroll;
       position: absolute;
+      right: 0;
       scrollbar-color: $color--animator-sidebar $color--site-background;
+      top: 0;
       width: 100%;
 
       #animator-spacer {

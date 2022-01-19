@@ -1,11 +1,14 @@
 @import "../config";
 
-html {
-  font-family: "Roboto", sans-serif;
-}
+/////////////////////////////////////
+// style sheet is cleaned for IE11 //
+// (remove after all sheets clean) //
+/////////////////////////////////////
 
 html,
-body {
+body,
+#root {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -14,17 +17,19 @@ body {
   background-color: $color--site-background;
   box-sizing: border-box;
   color: $color--site-text;
+  padding: 0 4.75vw;
+}
+
+.flex-wrapper {
+  align-items: center;
   display: flex;
   justify-content: center;
-  min-height: 100%;
-  padding: 0 4.75vw;
+}
 
-  #vh-wrapper {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    min-height: 100vh;
-    width: 100%;
-  }
+.viewport-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
 }

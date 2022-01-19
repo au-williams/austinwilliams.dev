@@ -142,7 +142,7 @@ export default function Animator() {
   }, [codeLines]);
 
   return (
-    <header id='animator-wrapper'>
+    <div id='animator-wrapper'>
       <div id='animator-title'>
         <div/>
         <div/>
@@ -164,7 +164,7 @@ export default function Animator() {
             />)}
         </div>
       </div>
-    </header>
+    </div>
   );
 }
 
