@@ -1,11 +1,10 @@
 import BLOCK_TYPES from "../constants/BlockTypes";
-import { animatorConfig } from "../_config";
 import { v4 as uuid } from 'uuid';
 
 export default class CodeLine {
   constructor(...codeBlocks) {
-    this.codeBlocks = codeBlocks.filter(x => typeof x !== "boolean");
-    this.key = uuid(); // required to not lose state when rerendering
+    this.codeBlocks = codeBlocks;
+    this.key = uuid();
   }
 
   get activeCodeBlock() {
