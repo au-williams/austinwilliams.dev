@@ -82,12 +82,17 @@
 (max-width: 800px) {
   #content-wrapper {
     font-size: 2.5vmin;
+  }
+}
 
+@media screen and (max-width: 800px) {
+  #content-wrapper {
     div.flex-wrapper {
       flex-direction: column;
       padding-left: 5vw;
       padding-right: 5vw; 
       text-align: center;
+
       div {
         margin: 0 auto;
       }

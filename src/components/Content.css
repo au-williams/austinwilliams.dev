@@ -88,6 +88,9 @@
   #content-wrapper {
     font-size: 2.5vmin;
   }
+}
+
+@media screen and (max-width: 800px) {
   #content-wrapper div.flex-wrapper {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
