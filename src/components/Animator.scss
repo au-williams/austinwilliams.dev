@@ -1,23 +1,20 @@
 @import "../config";
 
 #animator-wrapper {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
-  font-size: $modifier--animator-shrink;
-  height: (9em * $modifier--animator-scale);
+  font-size: $modifier--animator-shrink; // todo: change this
+  height: $animator--window-scale * 9;
   margin: 5vh 0;
   position: relative;
-  width: (16em * $modifier--animator-scale);
-  z-index: 1;
+  width: $animator--window-scale * 16;
 
   // background color is positioned ::before to not cause minor gaps between elements
 
   &::before {
-    background-color: $color--animator-wrapper;
-    border-left: $size--animator-sidebar solid $color--animator-sidebar;
-    border-radius: $size--animator-border-radius;
+    background-color: $animator--window-editor-color;
+    border-left: $animator--sidebar-width solid $animator--sidebar-color;
+    border-radius: $animator--window-border-radius;
     box-sizing: border-box;
     content: "";
     height: 100%;
@@ -26,27 +23,26 @@
     z-index: -1;
   }
 
-  #animator-title {
+  #animator-title-bar {
     align-items: center;
-    background-color: $color--animator-title;
-    border-top-left-radius: $size--animator-border-radius;
-    border-top-right-radius: $size--animator-border-radius;
+    background-color: $animator--window-border-color;
+    border-radius: $animator--window-border-radius $animator--window-border-radius 0 0;
     box-sizing: border-box;
     display: flex;
     height: $size--animator-title;
-    padding: $size--animator-border;
-    width: 100%;
+    padding: $animator--window-border-size;
 
     div:nth-child(1) {
-      background-color: rgb(0, 120, 215);
-      border-radius: $size--animator-border-radius;
-      height: ($size--animator-title * $modifier--animator-title-buttons-scale);
-      margin: 0 ($size--animator-sidebar * 0.5) - ($size--animator-title * ($modifier--animator-title-buttons-scale * 0.5)) - ($size--animator-border * 0.5); // half of sidebar - half of element width
-      width: ($size--animator-title * $modifier--animator-title-buttons-scale);
+      background-color: $animator--title-bar-button-1-color;
+      border-radius: $animator--window-border-radius;
+      height: $animator--title-bar-button-size;
+      margin: 0 (($animator--sidebar-width * 0.5) - ($animator--title-bar-button-size * 0.5) - ($animator--window-border-size * 0.5));
+      width: $animator--title-bar-button-size;
 
       &:hover {
-        background-color: #00ccff;
-        box-shadow: 0 0 0.5em #00ccff15;
+        $color: lighten($animator--title-bar-button-1-color, $animator--title-bar-button-hover-brightness);
+        background-color: $color;
+        box-shadow: 0 0 0.5em rgba($color, .15);
       }
     }
 
@@ -54,47 +50,50 @@
     div:nth-child(3),
     div:nth-child(4) {
       border-radius: 100%;
-      height: ($size--animator-title * $modifier--animator-title-buttons-scale);
-      margin: 0 $size--animator-border;
-      width: ($size--animator-title * $modifier--animator-title-buttons-scale);
+      height: $animator--title-bar-button-size;
+      margin: 0 $animator--window-border-size;
+      width: $animator--title-bar-button-size;
     }
 
     div:nth-child(2) {
-      background-color: $color--animator-title-max;
+      background-color: $animator--title-bar-button-2-color;
       margin-left: auto;
 
       &:hover {
-        background-color: $color--animator-title-max-hover;
-        box-shadow: 0 0 0.5em $color--animator-title-max-hover-shadow;
+        $color: lighten($animator--title-bar-button-2-color, $animator--title-bar-button-hover-brightness / 1.5); // green is too bright
+        background-color: $color;
+        box-shadow: 0 0 0.5em rgba($color, .15);
       }
     }
 
     div:nth-child(3) {
-      background-color: $color--animator-title-min;
+      background-color: $animator--title-bar-button-3-color;
 
       &:hover {
-        background-color: $color--animator-title-min-hover;
-        box-shadow: 0 0 0.5em $color--animator-title-min-hover-shadow;
+        $color: lighten($animator--title-bar-button-3-color, $animator--title-bar-button-hover-brightness);
+        background-color: $color;
+        box-shadow: 0 0 0.5em rgba($color, .15);
       }
     }
 
     div:nth-child(4) {
-      background-color: $color--animator-title-close;
+      background-color: $animator--title-bar-button-4-color;
 
       &:hover {
-        background-color: $color--animator-title-close-hover;
-        box-shadow: 0 0 0.5em $color--animator-title-close-hover-shadow;
+        $color: lighten($animator--title-bar-button-4-color, $animator--title-bar-button-hover-brightness);
+        background-color: $color;
+        box-shadow: 0 0 0.5em rgba($color, .15);
       }
     }
   }
 
   #animator-body {
     align-items: center;
-    border-bottom-left-radius: $size--animator-border-radius;
-    border-bottom-right-radius: $size--animator-border-radius;
-    border-color: $color--animator-title;
+    border-bottom-left-radius: $animator--window-border-radius;
+    border-bottom-right-radius: $animator--window-border-radius;
+    border-color: $animator--window-border-color;
     border-style: solid;
-    border-width: 0 $size--animator-border $size--animator-border $size--animator-border;
+    border-width: 0 $animator--window-border-size $animator--window-border-size $animator--window-border-size;
     box-sizing: border-box;
     display: flex;
     flex-grow: 1;
@@ -106,11 +105,8 @@
     }
 
     #animator-name {
-      // align-items: center;
-      // justify-content: center;
-      // position: absolute;
       background-color: rgba(0, 0, 0, 0.75);
-      border-radius: 2px;
+      border-radius: $animator--window-border-radius / 2;
       display: flex;
       font-family: "Roboto", sans-serif;
       font-size: 2.75em;
@@ -131,17 +127,16 @@
     }
 
     #animator-code {
-      bottom: 0;
-      box-sizing: border-box;
+      bottom: 0; // IE11
       display: flex;
       flex-direction: column-reverse;
       height: 100%;
-      left: 0;
+      left: 0; // IE11
       overflow-y: scroll;
       position: absolute;
-      right: 0;
-      scrollbar-color: $color--animator-sidebar $color--site-background;
-      top: 0;
+      right: 0; // IE11
+      scrollbar-color: $animator--sidebar-color $webpage--background-color; // chrome
+      top: 0; // IE11
       width: 100%;
 
       #animator-spacer {
@@ -149,23 +144,10 @@
         min-height: 32.75%;
       }
 
-      // webkit scrollbar
-
-      &::-webkit-scrollbar {
-        width: 1em;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: $color--site-background;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: $color--animator-sidebar;
-        
-        &:hover {
-          background-color: #4F4F4F;
-        }
-      }
+      &::-webkit-scrollbar { width: 1em; }
+      &::-webkit-scrollbar-track { background: $webpage--background-color; }
+      &::-webkit-scrollbar-thumb { background-color: $animator--sidebar-color; }
+      &::-webkit-scrollbar-thumb:hover { background-color: #4F4F4F; }
     }
   }
 }

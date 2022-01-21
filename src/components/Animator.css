@@ -1,6 +1,4 @@
 #animator-wrapper {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,14 +6,11 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
   font-size: 1.5vmin;
   height: 27em;
   margin: 5vh 0;
   position: relative;
   width: 48em;
-  z-index: 1;
 }
 
 #animator-wrapper::before {
@@ -31,13 +26,12 @@
   z-index: -1;
 }
 
-#animator-wrapper #animator-title {
+#animator-wrapper #animator-title-bar {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   background-color: #3c3c3c;
-  border-top-left-radius: 0.15em;
-  border-top-right-radius: 0.15em;
+  border-radius: 0.15em 0.15em 0 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: -webkit-box;
@@ -45,61 +39,60 @@
   display: flex;
   height: 2.25em;
   padding: 0.25em;
-  width: 100%;
 }
 
-#animator-wrapper #animator-title div:nth-child(1) {
+#animator-wrapper #animator-title-bar div:nth-child(1) {
   background-color: #0078d7;
   border-radius: 0.15em;
-  height: 0.95625em;
-  margin: 0 0.64688em;
-  width: 0.95625em;
+  height: 0.95em;
+  margin: 0 0.65em;
+  width: 0.95em;
 }
 
-#animator-wrapper #animator-title div:nth-child(1):hover {
-  background-color: #00ccff;
-  -webkit-box-shadow: 0 0 0.5em #00ccff15;
-          box-shadow: 0 0 0.5em #00ccff15;
+#animator-wrapper #animator-title-bar div:nth-child(1):hover {
+  background-color: #3eaaff;
+  -webkit-box-shadow: 0 0 0.5em rgba(62, 170, 255, 0.15);
+          box-shadow: 0 0 0.5em rgba(62, 170, 255, 0.15);
 }
 
-#animator-wrapper #animator-title div:nth-child(2),
-#animator-wrapper #animator-title div:nth-child(3),
-#animator-wrapper #animator-title div:nth-child(4) {
+#animator-wrapper #animator-title-bar div:nth-child(2),
+#animator-wrapper #animator-title-bar div:nth-child(3),
+#animator-wrapper #animator-title-bar div:nth-child(4) {
   border-radius: 100%;
-  height: 0.95625em;
+  height: 0.95em;
   margin: 0 0.25em;
-  width: 0.95625em;
+  width: 0.95em;
 }
 
-#animator-wrapper #animator-title div:nth-child(2) {
+#animator-wrapper #animator-title-bar div:nth-child(2) {
   background-color: #498205;
   margin-left: auto;
 }
 
-#animator-wrapper #animator-title div:nth-child(2):hover {
-  background-color: #00CA4E;
-  -webkit-box-shadow: 0 0 0.5em #00CA4E15;
-          box-shadow: 0 0 0.5em #00CA4E15;
+#animator-wrapper #animator-title-bar div:nth-child(2):hover {
+  background-color: #6ec308;
+  -webkit-box-shadow: 0 0 0.5em rgba(110, 195, 8, 0.15);
+          box-shadow: 0 0 0.5em rgba(110, 195, 8, 0.15);
 }
 
-#animator-wrapper #animator-title div:nth-child(3) {
+#animator-wrapper #animator-title-bar div:nth-child(3) {
   background-color: #ffb900;
 }
 
-#animator-wrapper #animator-title div:nth-child(3):hover {
-  background-color: #ffdd4d;
-  -webkit-box-shadow: 0 0 0.5em #ffdd4d15;
-          box-shadow: 0 0 0.5em #ffdd4d15;
+#animator-wrapper #animator-title-bar div:nth-child(3):hover {
+  background-color: #ffd566;
+  -webkit-box-shadow: 0 0 0.5em rgba(255, 213, 102, 0.15);
+          box-shadow: 0 0 0.5em rgba(255, 213, 102, 0.15);
 }
 
-#animator-wrapper #animator-title div:nth-child(4) {
+#animator-wrapper #animator-title-bar div:nth-child(4) {
   background-color: #de3249;
 }
 
-#animator-wrapper #animator-title div:nth-child(4):hover {
-  background-color: #FF605C;
-  -webkit-box-shadow: 0 0 0.5em #FF605C15;
-          box-shadow: 0 0 0.5em #FF605C15;
+#animator-wrapper #animator-title-bar div:nth-child(4):hover {
+  background-color: #ec8a97;
+  -webkit-box-shadow: 0 0 0.5em rgba(236, 138, 151, 0.15);
+          box-shadow: 0 0 0.5em rgba(236, 138, 151, 0.15);
 }
 
 #animator-wrapper #animator-body {
@@ -131,7 +124,7 @@
 
 #animator-wrapper #animator-body #animator-name {
   background-color: rgba(0, 0, 0, 0.75);
-  border-radius: 2px;
+  border-radius: 0.075em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -156,8 +149,6 @@
 
 #animator-wrapper #animator-body #animator-code {
   bottom: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

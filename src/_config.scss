@@ -1,15 +1,21 @@
-$color--animator-sidebar: #333333;
-$color--animator-title-close-hover-shadow: #FF605C15;
-$color--animator-title-close-hover: #FF605C;
-$color--animator-title-close: #de3249;
-$color--animator-title-max-hover-shadow: #00CA4E15;
-$color--animator-title-max-hover: #00CA4E;
-$color--animator-title-max: #498205;
-$color--animator-title-min-hover-shadow: #ffdd4d15;
-$color--animator-title-min-hover: #ffdd4d;
-$color--animator-title-min: #ffb900;
-$color--animator-title: #3c3c3c;
-$color--animator-wrapper: #1e1e1e;
+// updated
+$animator--sidebar-color: #333333;
+$animator--sidebar-width: 2.5em;
+$animator--title-bar-button-size: 0.95em;
+$animator--title-bar-button-hover-brightness: 20%;
+$animator--title-bar-button-1-color: #0078d7;
+$animator--title-bar-button-2-color: #498205;
+$animator--title-bar-button-3-color: #ffb900;
+$animator--title-bar-button-4-color: #de3249;
+$animator--title-bar-height: 2.25em;
+$animator--window-border-color: #3c3c3c;
+$animator--window-border-radius: 0.15em;
+$animator--window-border-size: 0.25em;
+$animator--window-editor-color: #1e1e1e;
+$animator--window-scale: 3em;
+$webpage--background-color: #18191a;
+
+// needs updating
 $color--code-block-tag-name-shadow: #569cd615;
 $color--code-block-tag-name: #569cd6;
 $color--code-block-gray-shadow: #d4d4d415;
@@ -26,9 +32,7 @@ $color--site-background: #18191a;
 $color--site-description: #18191a;
 $color--site-link: #ce9178;
 $color--site-text: #d4d4d4;
-$modifier--animator-scale: 3;
 $modifier--animator-shrink: 1.5vmin;
-$modifier--animator-title-buttons-scale: 0.425;
 $modifier--code-block-code-line-height: 1.5;
 $size--animator-border-radius: 0.15em;
 $size--animator-border: 0.25em;

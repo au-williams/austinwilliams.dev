@@ -143,7 +143,7 @@ export default function Animator() {
 
   return (
     <div id='animator-wrapper'>
-      <div id='animator-title'>
+      <div id='animator-title-bar'>
         <div/>
         <div/>
         <div/>
