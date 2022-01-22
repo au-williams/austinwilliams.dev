@@ -14,7 +14,7 @@
 }
 
 #animator-wrapper::before {
-  background-color: #1e1e1e;
+  background-color: #1E1E1E;
   border-left: 2.5em solid #333333;
   border-radius: 0.15em;
   -webkit-box-sizing: border-box;
@@ -30,7 +30,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #3c3c3c;
+  background-color: #3C3C3C;
   border-radius: 0.15em 0.15em 0 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -42,7 +42,7 @@
 }
 
 #animator-wrapper #animator-title-bar div:nth-child(1) {
-  background-color: #0078d7;
+  background-color: #0078D7;
   border-radius: 0.15em;
   height: 0.95em;
   margin: 0 0.65em;
@@ -76,7 +76,7 @@
 }
 
 #animator-wrapper #animator-title-bar div:nth-child(3) {
-  background-color: #ffb900;
+  background-color: #FFB900;
 }
 
 #animator-wrapper #animator-title-bar div:nth-child(3):hover {
@@ -86,7 +86,7 @@
 }
 
 #animator-wrapper #animator-title-bar div:nth-child(4) {
-  background-color: #de3249;
+  background-color: #DE3249;
 }
 
 #animator-wrapper #animator-title-bar div:nth-child(4):hover {
@@ -101,7 +101,7 @@
           align-items: center;
   border-bottom-left-radius: 0.15em;
   border-bottom-right-radius: 0.15em;
-  border-color: #3c3c3c;
+  border-color: #3C3C3C;
   border-style: solid;
   border-width: 0 0.25em 0.25em 0.25em;
   -webkit-box-sizing: border-box;
@@ -161,7 +161,7 @@
   overflow-y: scroll;
   position: absolute;
   right: 0;
-  scrollbar-color: #333333 #18191a;
+  scrollbar-color: #333333 #18191A;
   top: 0;
   width: 100%;
 }
@@ -176,7 +176,7 @@
 }
 
 #animator-wrapper #animator-body #animator-code::-webkit-scrollbar-track {
-  background: #18191a;
+  background: #18191A;
 }
 
 #animator-wrapper #animator-body #animator-code::-webkit-scrollbar-thumb {

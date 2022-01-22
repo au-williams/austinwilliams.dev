@@ -10,10 +10,10 @@
 
   .line-number {
     border-radius: 100%;
-    background-color: $color--code-block-line-number;
-    height: ($code-block--base-scale * $size--code-block-line-number-scale);
-    margin: 0 ($size--animator-sidebar * 0.5) - ($code-block--base-scale * ($size--code-block-line-number-scale * 0.5)) - ($size--animator-border * 0.5); // half of sidebar - half of element width
-    width: ($code-block--base-scale * $size--code-block-line-number-scale); // width and margin make 1 block size
+    background-color: $code-block--line-number-color;
+    height: ($code-block--base-scale * $code-block--line-number-scale);
+    margin: 0 ($animator--sidebar-width * 0.5) - ($code-block--base-scale * ($code-block--line-number-scale * 0.5)) - ($animator--window-border-size * 0.5); // half of sidebar - half of element width
+    width: ($code-block--base-scale * $code-block--line-number-scale); // width and margin make 1 block size
 
     &.clicked {
       background-color: #EE4B2B;

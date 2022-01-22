@@ -3,55 +3,47 @@
 // --------------- //
 
 // animator component config
+$animator--name-fade-speed: 150ms;
 $animator--sidebar-color: #333333;
 $animator--sidebar-width: 2.5em;
 $animator--title-bar-button-size: 0.95em;
 $animator--title-bar-button-hover-brightness: 20%;
-$animator--title-bar-button-1-color: #0078d7;
+$animator--title-bar-button-1-color: #0078D7;
 $animator--title-bar-button-2-color: #498205;
-$animator--title-bar-button-3-color: #ffb900;
-$animator--title-bar-button-4-color: #de3249;
+$animator--title-bar-button-3-color: #FFB900;
+$animator--title-bar-button-4-color: #DE3249;
 $animator--title-bar-height: 2.25em;
-$animator--window-border-color: #3c3c3c;
+$animator--window-border-color: #3C3C3C;
 $animator--window-border-radius: 0.15em;
 $animator--window-border-size: 0.25em;
-$animator--window-editor-color: #1e1e1e;
+$animator--window-editor-color: #1E1E1E;
 $animator--window-scale: 3em;
 
 // code block component base config
 $code-block--base-border-radius: $animator--window-border-radius;
 $code-block--base-color: $animator--sidebar-color;
-$code-block--base-scale: 1.2em; // 1.125em
+$code-block--base-scale: 1.2em; // was 1.125em
 $code-block--base-space: 0.2; // todo: should this be exposed?
 
 // code block component type config
 $code-block--attribute-color: #9CDCFE;
 $code-block--close-angle-color: #D4D4D4;
+$code-block--line-number-color: #888888;
+$code-block--line-number-scale: 0.45;
 $code-block--operator-color: #D4D4D4;
 $code-block--start-angle-color: #D4D4D4;
 $code-block--string-color: #CE9178;
 $code-block--tag-name-color: #569CD6;
 $code-block--value-color: #D4D4D4;
 
-$webpage--background-color: #18191a;
+// webpage config
+$webpage--background-color: #18191A;
+$webpage--link-color: #CE9178;
+$webpage--text-color: #D4D4D4;
 
 // ---------------- //
 // need refactoring //
 // ---------------- //
 
-$color--code-block-line-number: #888888;
-$color--site-background: #18191a;
-$color--site-description: #18191a;
-$color--site-link: #ce9178;
-$color--site-text: #d4d4d4;
 $modifier--animator-shrink: 1.5vmin;
 $modifier--code-block-code-line-height: 1.5;
-$size--animator-border-radius: 0.15em;
-$size--animator-border: 0.25em;
-$size--animator-sidebar: 2.5em;
-$size--animator-title: 2.25em;
-$size--code-block-line-number-scale: 0.45;
-
-$size--wrapper-margin: 4em;
-$time--animation-speed: 10ms; // does this work?
-$time--name-fade-speed: 150ms;
