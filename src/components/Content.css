@@ -18,6 +18,7 @@
 }
 
 #content-wrapper div.flex-wrapper > img {
+  background-color: #18191A;
   border-radius: 100%;
   border: 0.33em solid #18191A;
   -webkit-box-sizing: border-box;
