@@ -105,6 +105,7 @@
     }
 
     #animator-name {
+      align-items: center;
       background-color: rgba(0, 0, 0, 0.75);
       border-radius: $animator--window-border-radius / 2;
       display: flex;
