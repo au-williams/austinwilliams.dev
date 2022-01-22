@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { v4 as uuid } from 'uuid';
 
 export default function CodeLine(props) {
-  const { codeBlocks, isActive } = props;
+  const { codeBlocks } = props;
   const [ isClicked, setIsClicked ] = useState(false);
   const [ isHovered, setIsHovered ] = useState(false);
 
@@ -31,8 +31,7 @@ export default function CodeLine(props) {
           blockType = {codeBlock.blockType}
           currentSize = {codeBlock.currentSize}
           isVisible = {codeBlock.isVisible}
-          isClicked = {isClicked}
-          isHovered = {isHovered}
+          isColored = {isClicked || isHovered}
         />
       )}
     </div>

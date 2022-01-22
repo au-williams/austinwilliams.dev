@@ -1,4 +1,8 @@
-// updated
+// --------------- //
+// refactored vars //
+// --------------- //
+
+// animator component config
 $animator--sidebar-color: #333333;
 $animator--sidebar-width: 2.5em;
 $animator--title-bar-button-size: 0.95em;
@@ -13,21 +17,29 @@ $animator--window-border-radius: 0.15em;
 $animator--window-border-size: 0.25em;
 $animator--window-editor-color: #1e1e1e;
 $animator--window-scale: 3em;
+
+// code block component base config
+$code-block--base-border-radius: $animator--window-border-radius;
+$code-block--base-color: $animator--sidebar-color;
+$code-block--base-scale: 1.2em; // 1.125em
+$code-block--base-space: 0.2; // todo: should this be exposed?
+
+// code block component type config
+$code-block--attribute-color: #9CDCFE;
+$code-block--close-angle-color: #D4D4D4;
+$code-block--operator-color: #D4D4D4;
+$code-block--start-angle-color: #D4D4D4;
+$code-block--string-color: #CE9178;
+$code-block--tag-name-color: #569CD6;
+$code-block--value-color: #D4D4D4;
+
 $webpage--background-color: #18191a;
 
-// needs updating
-$color--code-block-tag-name-shadow: #569cd615;
-$color--code-block-tag-name: #569cd6;
-$color--code-block-gray-shadow: #d4d4d415;
-$color--code-block-gray: #d4d4d4;
-$color--code-block-green-shadow: #6a995515;
+// ---------------- //
+// need refactoring //
+// ---------------- //
+
 $color--code-block-line-number: #888888;
-$color--code-block-green: #6a9955;
-$color--code-block-orange-shadow: #ce917815;
-$color--code-block-orange: #ce9178;
-$color--code-block-sky-blue-shadow: #9cdcfe15;
-$color--code-block-sky-blue: #9cdcfe;
-$color--code-block-unfocused: #333333;
 $color--site-background: #18191a;
 $color--site-description: #18191a;
 $color--site-link: #ce9178;
@@ -39,8 +51,7 @@ $size--animator-border: 0.25em;
 $size--animator-sidebar: 2.5em;
 $size--animator-title: 2.25em;
 $size--code-block-line-number-scale: 0.45;
-$size--code-block-scale: 1.2em; // 1.125em
-$size--code-block-spacing: 0.2;
+
 $size--wrapper-margin: 4em;
 $time--animation-speed: 10ms; // does this work?
 $time--name-fade-speed: 150ms;

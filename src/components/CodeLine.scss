@@ -5,15 +5,15 @@
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
-  height: ($size--code-block-scale * $modifier--code-block-code-line-height);
+  height: ($code-block--base-scale * $modifier--code-block-code-line-height);
   position: relative;
 
   .line-number {
     border-radius: 100%;
     background-color: $color--code-block-line-number;
-    height: ($size--code-block-scale * $size--code-block-line-number-scale);
-    margin: 0 ($size--animator-sidebar * 0.5) - ($size--code-block-scale * ($size--code-block-line-number-scale * 0.5)) - ($size--animator-border * 0.5); // half of sidebar - half of element width
-    width: ($size--code-block-scale * $size--code-block-line-number-scale); // width and margin make 1 block size
+    height: ($code-block--base-scale * $size--code-block-line-number-scale);
+    margin: 0 ($size--animator-sidebar * 0.5) - ($code-block--base-scale * ($size--code-block-line-number-scale * 0.5)) - ($size--animator-border * 0.5); // half of sidebar - half of element width
+    width: ($code-block--base-scale * $size--code-block-line-number-scale); // width and margin make 1 block size
 
     &.clicked {
       background-color: #EE4B2B;
@@ -27,7 +27,7 @@
   }
 
   &:last-of-type {
-    margin-top: ($size--code-block-scale * $size--code-block-spacing);
+    margin-top: ($code-block--base-scale * $code-block--base-space);
   }
 
   div {
@@ -36,7 +36,7 @@
 
     &:nth-child(2) {
       // add spacing to item after the line number element
-      margin-left: ($size--code-block-scale * $size--code-block-spacing) * 2;
+      margin-left: ($code-block--base-scale * $code-block--base-space) * 2;
     }
   }
 }
