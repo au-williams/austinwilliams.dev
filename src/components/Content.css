@@ -19,7 +19,7 @@
 
 #content-wrapper div.flex-wrapper > img {
   border-radius: 100%;
-  border: .33em solid #18191a;
+  border: 0.33em solid #18191A;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   height: 8em;
@@ -28,7 +28,7 @@
 }
 
 #content-wrapper div.flex-wrapper a {
-  color: #ce9178;
+  color: #CE9178;
   text-decoration: none;
 }
 
@@ -64,7 +64,7 @@
           align-items: center;
   background-color: #161616;
   border: none;
-  color: #d4d4d4;
+  color: #D4D4D4;
   cursor: pointer;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -81,7 +81,7 @@
 
 #footer a:hover,
 #footer button:hover {
-  background-color: #121212;
+  background-color: #101010;
 }
 
 #footer a img,
