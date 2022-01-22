@@ -5,9 +5,10 @@ import CodeBlockModel from "../models/CodeBlock";
 import CodeLineModel from "../models/CodeLine";
 import CodeLine from "./CodeLine";
 import React, { useEffect, useState } from "react";
-import { animatorConfig } from "../_config";
+import animatorConfig from "../_config.json";
 import { getRandomBool, getRandomNumber } from "../utils";
 
+const ANIMATOR_GENERATION_SPEED = animatorConfig.animatorGenerationSpeed;
 const CODE_LINE_MAX_INDENT_SIZE = animatorConfig.codeLineMaxIndentSize;
 const CODE_LINE_MIN_INDENT_SIZE = animatorConfig.codeLineMinIndentSize;
 const CODE_LINE_MAX_TOTAL_SIZE = animatorConfig.codeLineMaxTotalSize;
@@ -136,7 +137,7 @@ export default function Animator() {
       }
 
       setCodeLines(updatedCodeLines);
-    }, animatorConfig.animatorGenerateSpeed);
+    }, ANIMATOR_GENERATION_SPEED);
 
     return () => clearInterval(interval);
   }, [codeLines]);
