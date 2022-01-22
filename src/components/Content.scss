@@ -6,7 +6,7 @@
 /////////////////////////////////////
 
 #content-wrapper {
-  background-color: $app--content-background-color;
+  background-color: $webpage--content-background-color;
   font-family: "Roboto", sans-serif;
   margin: 0 auto;
   max-width: 800px;
@@ -18,9 +18,9 @@
     &:nth-child(2) { padding-bottom: 2.25em; }
 
     > img {
-      background-color: $app--body-background-color;
+      background-color: $webpage--body-background-color;
       border-radius: 100%;
-      border: .33em solid $app--body-background-color;
+      border: .33em solid $webpage--body-background-color;
       box-sizing: border-box;
       height: 8em;
       margin-right: 1.125em;
@@ -28,7 +28,7 @@
     }
 
     a {
-      color: $app--link-color;
+      color: $webpage--link-color;
       text-decoration: none;
 
       &:hover { text-decoration: underline; }
@@ -59,9 +59,9 @@
   a,
   button {
     align-items: center;
-    background-color: $app--footer-background-color;
+    background-color: $webpage--footer-background-color;
     border: none;
-    color: $app--text-color;
+    color: $webpage--text-color;
     cursor: pointer;
     display: inline-flex;
     font-family: "Roboto", sans-serif;
@@ -72,7 +72,7 @@
     width: 50%;
 
     &:hover {
-      background-color: darken($app--footer-background-color, 2.5%);
+      background-color: darken($webpage--footer-background-color, $webpage--footer-hover-darkness);
     }
 
     img {

@@ -1,6 +1,10 @@
-// --------------- //
-// refactored vars //
-// --------------- //
+// webpage config
+$webpage--body-background-color: #18191A;
+$webpage--content-background-color: #202020;
+$webpage--footer-background-color: #161616;
+$webpage--footer-hover-darkness: 2.5%;
+$webpage--link-color: #CE9178;
+$webpage--text-color: #D4D4D4;
 
 // animator component config
 $animator--name-fade-speed: 150ms;
@@ -36,16 +40,6 @@ $code-block--string-color: #CE9178;
 $code-block--tag-name-color: #569CD6;
 $code-block--value-color: #D4D4D4;
 
-// webpage config
-$app--body-background-color: #18191A;
-$app--content-background-color: #202020;
-$app--footer-background-color: #161616;
-$app--link-color: #CE9178;
-$app--text-color: #D4D4D4;
-
-// ---------------- //
-// need refactoring //
-// ---------------- //
-
+// todo: both need refactoring!
 $modifier--animator-shrink: 1.5vmin;
 $modifier--code-block-code-line-height: 1.5;
