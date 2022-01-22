@@ -1,5 +1,5 @@
 import "./Animator.css";
-import Emoji from "../assets/emoji.png";
+import PersonEmoji from "../assets/person emoji.png";
 import BLOCK_TYPES from "../constants/BlockTypes";
 import CodeBlockModel from "../models/CodeBlock";
 import CodeLineModel from "../models/CodeLine";
@@ -152,7 +152,7 @@ export default function Animator() {
       </div>
       <div id='animator-body'>
         <div id='animator-name'>
-          <img src={Emoji} alt="man technologist emoji"></img>
+          <img src={PersonEmoji} alt="man technologist emoji"></img>
           <span>Austin Williams</span>
         </div>
         <div id='animator-code'>
