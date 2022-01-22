@@ -172,6 +172,7 @@
 #animator-wrapper #animator-body #animator-code #animator-spacer {
   height: 100%;
   min-height: 32.75%;
+  pointer-events: none;
 }
 
 #animator-wrapper #animator-body #animator-code::-webkit-scrollbar {

@@ -143,6 +143,7 @@
       #animator-spacer {
         height: 100%;
         min-height: 32.75%;
+        pointer-events: none;
       }
 
       &::-webkit-scrollbar { width: 1em; }
