@@ -1,11 +1,18 @@
 import "./App.css";
+import { googleAnalyticsId } from "../_config.json";
 import Animator from "./Animator";
 import Content from "./Content";
 import HoverButton from "./HoverButton";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import ReactGA from 'react-ga4';
 
 export default function App() {
   const ref = useRef(null);
+
+  useEffect(() => {
+    ReactGA.initialize(googleAnalyticsId);
+    ReactGA.send("pageview");
+  });
 
   return (
     <>
