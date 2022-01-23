@@ -2,18 +2,10 @@ import "./CodeLine.css";
 import classNames from 'classnames';
 import CodeBlock from "./CodeBlock";
 import React, { useState } from "react";
-import { v4 as uuid } from 'uuid';
 
-export default function CodeLine(props) {
-  const { codeBlocks } = props;
+const CodeLine = ({ codeBlocks }) => {
   const [ isClicked, setIsClicked ] = useState(false);
   const [ isHovered, setIsHovered ] = useState(false);
-
-  const lineNumberClasses = classNames(
-    "line-number",
-    {"clicked": isClicked},
-    {"hovered": isHovered && !isClicked}
-  );
 
   return (
     <div
@@ -23,17 +15,25 @@ export default function CodeLine(props) {
       onMouseOver={() => setIsHovered(true)}>
       {
         codeBlocks.some(codeBlock => codeBlock.isVisible) &&
-          <div className={lineNumberClasses}></div>
+          <div className={classNames(
+            "line-number",
+            {"clicked": isClicked},
+            {"hovered": isHovered && !isClicked}
+          )}/>
       }
-      {codeBlocks.map(codeBlock => 
-        <CodeBlock
-          key = {uuid()}
-          blockType = {codeBlock.blockType}
-          currentSize = {codeBlock.currentSize}
-          isVisible = {codeBlock.isVisible}
-          isColored = {isClicked || isHovered}
-        />
-      )}
+      {
+        codeBlocks.map((codeBlock, key) => 
+          <CodeBlock
+            key = {key}
+            blockType = {codeBlock.blockType}
+            currentSize = {codeBlock.currentSize}
+            isColored = {isClicked || isHovered}
+            isVisible = {codeBlock.isVisible}
+          />
+        )
+      }
     </div>
   );
-}
+};
+
+export default CodeLine;

@@ -1,10 +1,6 @@
-export default {
+const BlockTypes = {
   ATTRIBUTE: 'attribute',
   CLOSE_ANGLE: 'close angle',
-  COMMENT_BLOCK: 'comment value',
-  COMMENT_CLOSE_ANGLE: 'comment close angle',
-  COMMENT_START_ANGLE: 'comment start angle',
-  COMMENT_OPERATOR: 'comment operator',
   INDENT: 'indent',
   START_ANGLE: 'start angle',
   OPERATOR: 'operator',
@@ -13,3 +9,5 @@ export default {
   TAG_NAME: 'tag-name',
   VALUE: 'value'
 }
+
+export default BlockTypes;
