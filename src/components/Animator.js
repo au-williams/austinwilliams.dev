@@ -113,9 +113,9 @@ function Animator() {
         }
 
         else {
-          const useValueBlockOnly =
-            (isIndentIncreased && lastCodeBlockTypes.length <= 4 && getRandomBool(.5)) // [4]  = indent, start angle, tag name, close angle
-            || (lastCodeBlockTypes.length <= 2 && lastCodeLine.hasCodeBlock(BLOCK_TYPES.VALUE)); // [||] = last code line only uses value block types
+          const useValueBlockOnly = false;
+            // (isIndentIncreased && lastCodeBlockTypes.length <= 4 && getRandomBool(.5)) // [4]  = indent, start angle, tag name, close angle
+            // || (lastCodeBlockTypes.length <= 2 && lastCodeLine.hasCodeBlock(BLOCK_TYPES.VALUE)); // [||] = last code line only uses value block types
 
           if (useValueBlockOnly) {
             let remainingSize;
