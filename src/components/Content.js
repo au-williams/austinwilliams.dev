@@ -35,7 +35,7 @@ export default function Description(props) {
       <div id='footer'>
         <button
           onClick={() => {
-            sendGaEvent('click', 'back to top button');
+            sendGaEvent('click', 'back_to_top_button');
             scrollToTop();
           }}>
           <img src={ScrollIcon} alt='return icon'/>
@@ -43,7 +43,7 @@ export default function Description(props) {
         </button>
         <a
           href='https://github.com/au-williams/au-williams.github.io'
-          onClick={() => sendGaEvent('click', 'GitHub outbound link')}
+          onClick={() => sendGaEvent('click', 'github_outbound_link')}
           rel='noopener noreferrer'
           target='_blank'
         >
