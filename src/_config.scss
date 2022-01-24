@@ -7,7 +7,8 @@ $webpage--link-color: #CE9178;
 $webpage--text-color: #D4D4D4;
 
 // animator component config
-$animator--name-fade-speed: 150ms;
+$animator--name-fade-speed: 100ms; // was 150ms
+$animator--name-fade-opacity: 0; // was 0.125
 $animator--sidebar-color: #333333;
 $animator--sidebar-width: 2.5em;
 $animator--title-bar-button-size: 0.95em;

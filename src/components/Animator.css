@@ -119,7 +119,7 @@
 }
 
 #animator-wrapper #animator-body:hover #animator-name {
-  opacity: 0.125;
+  opacity: 0;
 }
 
 #animator-wrapper #animator-body #animator-name {
@@ -135,8 +135,8 @@
   font-size: 2.75em;
   padding: 0.2125em 0.325em;
   pointer-events: none;
-  -webkit-transition: opacity 150ms;
-  transition: opacity 150ms;
+  -webkit-transition: opacity 100ms;
+  transition: opacity 100ms;
   z-index: 1;
 }
 

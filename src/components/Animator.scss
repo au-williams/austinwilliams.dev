@@ -101,7 +101,7 @@
     position: relative;
 
     &:hover #animator-name {
-      opacity: 0.125;
+      opacity: $animator--name-fade-opacity;
     }
 
     #animator-name {
