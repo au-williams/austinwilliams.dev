@@ -30,7 +30,7 @@ export default function Description(props) {
       </div>
       <div className='flex-wrapper'>
         <img src={Banner} alt='banner' draggable='false'/>
-        <div>I love working with computers and I'm always open to new opportunities. Feel free to send an email for side-work or employment inquiries — you can reach me at <a href='mailto:me@austinwilliams.dev'>me@austinwilliams.dev</a>. <img src={MailboxEmoji} alt='mailbox emoji'/></div>
+        <div>I love working with computers and I&apos;m always open to new opportunities. Feel free to send an email for side-work or employment inquiries — you can reach me at <a href='mailto:me@austinwilliams.dev'>me@austinwilliams.dev</a>. <img src={MailboxEmoji} alt='mailbox emoji'/></div>
       </div>
       <div id='footer'>
         <button

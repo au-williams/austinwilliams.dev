@@ -12,9 +12,4 @@ export default class CodeBlock {
   get isActive() {
     return !this.isVisible || this.currentSize < this.maximumSize;
   }
-
-  update() {
-    if (!this.isVisible) this.isVisible = true;
-    else this.currentSize++;
-  }
 }

@@ -1,5 +1,5 @@
 import "./App.css";
-import { googleAnalyticsId } from "../_config.json";
+import { GOOGLE_ANALYTICS_MEASUREMENT_ID } from "../_config.json";
 import Animator from "./Animator";
 import Content from "./Content";
 import HoverButton from "./HoverButton";

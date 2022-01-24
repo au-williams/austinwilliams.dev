@@ -1,11 +1,12 @@
-import "./CodeBlock.css";
+import React from 'react';
+import './CodeBlock.css';
 import classNames from 'classnames';
 
-const CodeBlock = ({ blockType, currentSize, isColored, isVisible }) => {
+const CodeBlock = ({ blockType, currentSize, useColor }) => {
   return (
-    isVisible && <div className={classNames(
+    <div className={classNames(
       [blockType],
-      {"color": isColored},
+      {'color': useColor},
       {[`size-${currentSize}`]: currentSize > 1}
     )}/>
   );

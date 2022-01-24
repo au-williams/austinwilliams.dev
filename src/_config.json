@@ -1,9 +1,9 @@
 {
-  "animatorGenerationSpeed": 175,
-  "codeBlockMaxSize": 5,
-  "codeLineMaxIndentSize": 3,
-  "codeLineMaxTotalCount": 14,
-  "codeLineMaxTotalSize": 16,
-  "codeLineMinIndentSize": 1,
-  "googleAnalyticsId": "G-JFBLY5T1C0"
+  "CODE_BLOCK_MAX_BASE_SIZE": 5,
+  "CODE_BLOCK_MAX_INDENT_SIZE": 3,
+  "CODE_LINE_MAX_CONSECUTIVE_INDENT": 5,
+  "CODE_LINE_MAX_TOTAL_SIZE": 16,
+  "CODE_LINE_MAX_TOTAL_STACK": 14,
+  "ANIMATOR_GENERATION_SPEED": 175,
+  "GOOGLE_ANALYTICS_MEASUREMENT_ID": "G-JFBLY5T1C0"
 }
