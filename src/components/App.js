@@ -10,7 +10,7 @@ export default function App() {
   const ref = useRef(null);
 
   useEffect(() => {
-    ReactGA.initialize(googleAnalyticsId);
+    ReactGA.initialize(GOOGLE_ANALYTICS_MEASUREMENT_ID);
     ReactGA.send("pageview");
   });
 
