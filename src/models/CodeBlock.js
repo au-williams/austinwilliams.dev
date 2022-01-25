@@ -12,4 +12,19 @@ export default class CodeBlock {
   get isActive() {
     return !this.isVisible || this.currentSize < this.maximumSize;
   }
+
+  decreaseSize = () => {
+    if (this.currentSize >= --this.maximumSize) this.currentSize = this.maximumSize;
+  }
+
+  increaseSize = () => {
+    if (this.currentSize >= this.maximumSize++) this.currentSize = this.maximumSize;
+  }
+
+  updateSize = () => {
+    if (!this.isVisible)
+      this.isVisible = true;
+    else if (this.maximumSize < ++this.currentSize)
+      console.error("CodeBlock CurrentSize property is out of range");
+  }
 }

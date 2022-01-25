@@ -3,13 +3,13 @@ import PersonEmoji from '../assets/person emoji.png';
 import BLOCK_TYPES from '../constants/BlockTypes';
 import CodeBlockModel from '../models/CodeBlock';
 import CodeLineModel from '../models/CodeLine';
-import { getRandomBool, getRandomNumber } from '../utils';
 import './Animator.css';
 import CodeLine from './CodeLine';
 import {
   ANIMATOR_GENERATION_SPEED,
   CODE_BLOCK_MAX_BASE_SIZE,
   CODE_BLOCK_MAX_INDENT_SIZE,
+  CODE_BLOCK_MIN_INDENT_SIZE,
   CODE_LINE_MAX_TOTAL_SIZE,
   CODE_LINE_MAX_TOTAL_STACK,
   CODE_LINE_MAX_CONSECUTIVE_INDENT
@@ -54,134 +54,113 @@ function Animator() {
         // ----------------------------------------- //
         // animator is parsing a generated code line //
         // ----------------------------------------- //
-        const activeCodeBlock = activeCodeLine.activeCodeBlock;
 
-        if (!activeCodeBlock.isVisible)
-          activeCodeBlock.isVisible = true;
-        else
-          activeCodeBlock.currentSize++;
+        activeCodeLine.activeCodeBlock.updateSize();
       }
 
       else {
         // ----------------------------------------- //
         // animator is generating the next code line //
         // ----------------------------------------- //
+
         const lastCodeLine = updatedCodeLines[0];
         const nextCodeLine = new CodeLineModel();
 
+        // get details on how the previous code line was built
+        const lastCodeLineHadValueBlock = lastCodeLine.hasCodeBlock(BLOCK_TYPES.VALUE); // value blocks already have closing tags so adding more is a syntax error
+        const lastCodeLineWasClosingTag = lastCodeLine.getCodeBlockTypes().length <= 4; // we shouldn't increase the code line indent immediately after a decrease
+
+        // get details on the next indent code block size
         const consecutiveIndentCount = getConsecutiveIndentCount(updatedCodeLines);
         const mustDecreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastCodeLine.indentSize >= CODE_BLOCK_MAX_INDENT_SIZE;
         const mustIncreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastCodeLine.indentSize <= 1;
         const randomUpdateIndentSize = consecutiveIndentCount >= getRandomNumber(CODE_LINE_MAX_CONSECUTIVE_INDENT);
 
-        const lastCodeBlockTypes = lastCodeLine.getCodeBlockTypes();
-        const isSequentialValues = lastCodeBlockTypes.length <= 2 && lastCodeBlockTypes.includes(BLOCK_TYPES.VALUE);
+        // get helper properties
+        const canDecreaseIndentSize = randomUpdateIndentSize && lastCodeLine.indentSize > CODE_BLOCK_MIN_INDENT_SIZE;
+        const canIncreaseIndentSize = randomUpdateIndentSize && lastCodeLine.indentSize < CODE_BLOCK_MAX_INDENT_SIZE && !lastCodeLineHadValueBlock && !lastCodeLineWasClosingTag;
 
-        let nextIndentSize = lastCodeLine.indentSize;
+        const indentCodeBlock = new CodeBlockModel(BLOCK_TYPES.INDENT, lastCodeLine.indentSize);
 
-        if (mustIncreaseIndentSize)
-          nextIndentSize++;
-        else if (mustDecreaseIndentSize)
-          nextIndentSize--;
-        else if (randomUpdateIndentSize && isSequentialValues)
-          nextIndentSize--;
-        else if (randomUpdateIndentSize && lastCodeLine.indentSize >= CODE_BLOCK_MAX_INDENT_SIZE)
-          nextIndentSize--;
-        else if (randomUpdateIndentSize && lastCodeLine.indentSize <= 1)
-          nextIndentSize++;
-        else if (randomUpdateIndentSize)
-          nextIndentSize += getRandomBool() ? 1 : -1;
+        if (mustIncreaseIndentSize || canIncreaseIndentSize)
+          indentCodeBlock.increaseSize();
+        else if (mustDecreaseIndentSize || canDecreaseIndentSize)
+          indentCodeBlock.decreaseSize();
 
-        nextCodeLine.addCodeBlocks(
-          new CodeBlockModel(BLOCK_TYPES.INDENT, nextIndentSize),
-        );
+        nextCodeLine.addCodeBlocks(indentCodeBlock);
 
-        const isIndentDecreased = nextIndentSize < lastCodeLine.indentSize;
-        const isIndentIncreased = nextIndentSize > lastCodeLine.indentSize;
+        const isIndentDecreased = nextCodeLine.indentSize < lastCodeLine.indentSize;
+        const isIndentIncreased = nextCodeLine.indentSize > lastCodeLine.indentSize;
 
         if (isIndentDecreased) {
-          const openTagNameSize = updatedCodeLines
-            .find(codeLine => codeLine.indentSize === nextIndentSize)
-            ?.codeBlocks.find(codeBlock => codeBlock.blockType === BLOCK_TYPES.TAG_NAME)
-            ?.maximumSize || getNextTagNameSize(); // take random value if not available
+          const tagNameSize = updatedCodeLines
+            // get size of the opening tag name, or random if its been removed
+            .find(codeLine => codeLine.indentSize === nextCodeLine.indentSize)
+            ?.findCodeBlock(BLOCK_TYPES.TAG_NAME)?.maximumSize
+            || getRandomNumber(2) + getRandomBool(.75);
 
           nextCodeLine.addCodeBlocks(
             new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
-            new CodeBlockModel(BLOCK_TYPES.TAG_NAME, openTagNameSize),
+            new CodeBlockModel(BLOCK_TYPES.TAG_NAME, tagNameSize),
             new CodeBlockModel(BLOCK_TYPES.CLOSE_ANGLE)
           );
         }
 
         else {
-          const useValueBlockOnly = false;
-            // (isIndentIncreased && lastCodeBlockTypes.length <= 4 && getRandomBool(.5)) // [4]  = indent, start angle, tag name, close angle
-            // || (lastCodeBlockTypes.length <= 2 && lastCodeLine.hasCodeBlock(BLOCK_TYPES.VALUE)); // [||] = last code line only uses value block types
+          const isLastConsecutiveIndent = consecutiveIndentCount === CODE_LINE_MAX_CONSECUTIVE_INDENT - 1;
 
-          if (useValueBlockOnly) {
-            let remainingSize;
+          // determine what code block types to build
+          const useAttributeBlock = getRandomBool(.80);
+          const useAttributeBlockWithString = useAttributeBlock && getRandomBool(.675);
+          const useValueBlock = !isLastConsecutiveIndent && getRandomBool(useAttributeBlockWithString ? .25 : .50);
 
-            if (isSequentialValues)
-              remainingSize = lastCodeLine.getCodeBlockSizes(BLOCK_TYPES.VALUE);
-            else {
-              const maximumRandomValue = CODE_LINE_MAX_TOTAL_SIZE - nextIndentSize;
-              remainingSize = Math.max(lastCodeLine.maximumSize, getRandomNumber(maximumRandomValue));
-            }
+          // get the remaining space available to use by generated code blocks
+          // [2] = reserved space for the pair of start and close angle blocks
+          let remainingCodeLineSize = CODE_LINE_MAX_TOTAL_SIZE - indentCodeBlock.maximumSize - 2;
+          if (useAttributeBlockWithString) remainingCodeLineSize -= 1; // reserved for operator block
+          if (useValueBlock) remainingCodeLineSize -= 2; // reserved for second start and close pair
 
-            while (remainingSize > 0) {
-              const maximumRandomValue = Math.min(remainingSize, Math.round(CODE_BLOCK_MAX_BASE_SIZE / 2));
-              const valueCodeBlockSize = getRandomNumber(maximumRandomValue);
-              const valueCodeBlock = new CodeBlockModel(BLOCK_TYPES.VALUE, valueCodeBlockSize);
-              remainingSize -= valueCodeBlock.maximumSize;
-              nextCodeLine.addCodeBlocks(valueCodeBlock);
-            }
+          // get the remaining number of code block size calculations to perform
+          // [1] = reserved space for tag name (ran twice using [useValueBlock])
+          let remainingCalculations = 1 + useAttributeBlock + useAttributeBlockWithString + (useValueBlock * 2);
+
+          // generate random value less than or equal to the configured maximum code block size (configured for style restrictions)
+          const getAvailableSize = (codeBlockMaxSize = CODE_BLOCK_MAX_BASE_SIZE) => {
+            const averageSize = Math.floor(remainingCodeLineSize / remainingCalculations);
+            const minimumSize = 1 + (remainingCodeLineSize > remainingCalculations ? getRandomBool() : 0);
+            const maximumSize = Math.min(averageSize, codeBlockMaxSize);
+            const result = getRandomRange(minimumSize, maximumSize);
+            remainingCodeLineSize -= result;
+            remainingCalculations -= 1;
+            return result;
           }
 
-          else {
-            const nextTagNameSize = getNextTagNameSize();
+          const tagNameSize = getAvailableSize(3);
 
-            const useAttributeBlock = getRandomBool(.8);
-            const useAttributeBlockWithValue = useAttributeBlock && getRandomBool();
-            const useValueBlock = getRandomBool(useAttributeBlockWithValue ? .25 : .5);
-            const useValueBlockWithOperator = useValueBlock && !useAttributeBlockWithValue && getRandomBool(.25);
-
-            // calculate remaining space to generate code blocks from
-            // [2] = space used by initial start and close angle tags
-            let remainingCodeLineSize = CODE_LINE_MAX_TOTAL_SIZE - nextIndentSize - nextTagNameSize - 2;
-            remainingCodeLineSize -= useAttributeBlockWithValue + useValueBlockWithOperator;
-            if (useValueBlock) remainingCodeLineSize -= nextTagNameSize + 2;
-
-            // calculate the remaining number of calculations to be performed using the remaining size
-            // [remaining size / remaining calculations] = max size of each block to stay within limit
-            let remainingCalculations =
-              useValueBlockOnly + useAttributeBlock + useAttributeBlockWithValue + useValueBlock + useValueBlockWithOperator;
-
-            const getAvailableSize = () => {
-              const maximumRandomValue = Math.min(Math.floor(remainingCodeLineSize / remainingCalculations), CODE_BLOCK_MAX_BASE_SIZE);
-              const nextCodeBlockSize = getRandomNumber(maximumRandomValue);
-              remainingCodeLineSize -= nextCodeBlockSize;
-              remainingCalculations -= 1;
-              return nextCodeBlockSize;
-            }
-
-            nextCodeLine.addConditionalCodeBlocks(
-              new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
-              new CodeBlockModel(BLOCK_TYPES.TAG_NAME, nextTagNameSize),
-              useAttributeBlock && new CodeBlockModel(BLOCK_TYPES.ATTRIBUTE, getAvailableSize()),
-              useAttributeBlockWithValue && new CodeBlockModel(BLOCK_TYPES.OPERATOR),
-              useAttributeBlockWithValue && new CodeBlockModel(BLOCK_TYPES.STRING, getAvailableSize()),
-              new CodeBlockModel(BLOCK_TYPES.CLOSE_ANGLE),
-              useValueBlock && new CodeBlockModel(BLOCK_TYPES.VALUE, getAvailableSize()),
-              useValueBlockWithOperator && new CodeBlockModel(BLOCK_TYPES.OPERATOR),
-              useValueBlockWithOperator && new CodeBlockModel(BLOCK_TYPES.VALUE, getAvailableSize()),
-              useValueBlock && new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
-              useValueBlock && new CodeBlockModel(BLOCK_TYPES.TAG_NAME, nextTagNameSize),
-              useValueBlock && new CodeBlockModel(BLOCK_TYPES.CLOSE_ANGLE)
-            );
+          if (useValueBlock) {
+            // remove trailing tag name after value blocks
+            // <[tag_name] [attribute]>[value]<[tag_name]>
+            remainingCodeLineSize -= tagNameSize;
+            remainingCalculations -= 1;
           }
+
+          nextCodeLine.addConditionalCodeBlocks(
+            new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
+            new CodeBlockModel(BLOCK_TYPES.TAG_NAME, tagNameSize),
+            useAttributeBlock && new CodeBlockModel(BLOCK_TYPES.ATTRIBUTE, getAvailableSize()),
+            useAttributeBlockWithString && new CodeBlockModel(BLOCK_TYPES.OPERATOR),
+            useAttributeBlockWithString && new CodeBlockModel(BLOCK_TYPES.STRING, getAvailableSize()),
+            new CodeBlockModel(BLOCK_TYPES.CLOSE_ANGLE),
+            useValueBlock && new CodeBlockModel(BLOCK_TYPES.VALUE, getAvailableSize()),
+            useValueBlock && new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
+            useValueBlock && new CodeBlockModel(BLOCK_TYPES.TAG_NAME, tagNameSize),
+            useValueBlock && new CodeBlockModel(BLOCK_TYPES.CLOSE_ANGLE)
+          );
         }
 
         if (updatedCodeLines.length >= CODE_LINE_MAX_TOTAL_STACK)
-          updatedCodeLines.pop();
+          // remove expired array elements to prevent memory leaks
+          updatedCodeLines.length = CODE_LINE_MAX_TOTAL_STACK - 1;
 
         updatedCodeLines.unshift(nextCodeLine);
       }
@@ -230,9 +209,13 @@ const getConsecutiveIndentCount = codeLines => {
   return result;
 }
 
-const getNextTagNameSize = () => {
-  // add random 1 value to reduce return 1 values
-  return getRandomNumber(2) + getRandomBool(.75);
-}
+// probability is the chance for a return true ... 0.5 equals 50% chance
+const getRandomBool = (probability = 0.5) => Math.random() < probability;
+
+// max is the maximum random return value ... max = 5 ranges 1 to 5
+const getRandomNumber = max => Math.floor(Math.random() * max) + 1;
+
+// same as getRandomNumber but with min because JS doesn't support function overloading
+const getRandomRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 export default Animator;
