@@ -3,7 +3,6 @@ import PersonEmoji from '../assets/person emoji.png';
 import BLOCK_TYPES from '../constants/BlockTypes';
 import CodeBlockModel from '../models/CodeBlock';
 import CodeLineModel from '../models/CodeLine';
-import { CODE_BLOCK_RESTRICTED_SIZE } from '../_config.json';
 import './Animator.css';
 import CodeLine from './CodeLine';
 import {
@@ -11,9 +10,10 @@ import {
   CODE_BLOCK_MAX_BASE_SIZE,
   CODE_BLOCK_MAX_INDENT_SIZE,
   CODE_BLOCK_MIN_INDENT_SIZE,
+  CODE_BLOCK_RESTRICTED_SIZE,
+  CODE_LINE_MAX_CONSECUTIVE_INDENT,
   CODE_LINE_MAX_TOTAL_SIZE,
-  CODE_LINE_MAX_TOTAL_STACK,
-  CODE_LINE_MAX_CONSECUTIVE_INDENT
+  CODE_LINE_MAX_TOTAL_STACK
 } from '../_config.json';
 
 const INITIAL_DATA = [
