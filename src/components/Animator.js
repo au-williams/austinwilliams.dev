@@ -3,6 +3,7 @@ import PersonEmoji from '../assets/person emoji.png';
 import BLOCK_TYPES from '../constants/BlockTypes';
 import CodeBlockModel from '../models/CodeBlock';
 import CodeLineModel from '../models/CodeLine';
+import { CODE_BLOCK_RESTRICTED_SIZE } from '../_config.json';
 import './Animator.css';
 import CodeLine from './CodeLine';
 import {
@@ -89,10 +90,7 @@ function Animator() {
 
         nextCodeLine.addCodeBlocks(indentCodeBlock);
 
-        const isIndentDecreased = nextCodeLine.indentSize < lastCodeLine.indentSize;
-        const isIndentIncreased = nextCodeLine.indentSize > lastCodeLine.indentSize;
-
-        if (isIndentDecreased) {
+        if (nextCodeLine.indentSize < lastCodeLine.indentSize) {
           const tagNameSize = updatedCodeLines
             // get size of the opening tag name, or random if its been removed
             .find(codeLine => codeLine.indentSize === nextCodeLine.indentSize)
@@ -124,11 +122,19 @@ function Animator() {
           // [1] = reserved space for tag name (ran twice using [useValueBlock])
           let remainingCalculations = 1 + useAttributeBlock + useAttributeBlockWithString + (useValueBlock * 2);
 
-          // generate random value less than or equal to the configured maximum code block size (configured for style restrictions)
+          // get a random value less than or equal to the configured maximum size
           const getAvailableSize = (codeBlockMaxSize = CODE_BLOCK_MAX_BASE_SIZE) => {
             const averageSize = Math.floor(remainingCodeLineSize / remainingCalculations);
-            const minimumSize = 1 + (remainingCodeLineSize > remainingCalculations ? getRandomBool() : 0);
             const maximumSize = Math.min(averageSize, codeBlockMaxSize);
+
+            // lower the number of single sizes because it gets excessive
+            // single, single, single ... all this line space was wasted!
+            let minimumSize = Math.min(averageSize, 1 + getRandomBool());
+            const nextCodeLineHasSingleSize = nextCodeLine.codeBlocks.some(codeBlock => codeBlock.maximumSize === 1 && !CODE_BLOCK_RESTRICTED_SIZE.includes(codeBlock.blockType));
+            const nextCodeLineIsTagNameOnly = nextCodeLine.getCodeBlockTypes().length <= 3 && remainingCalculations <= 1;
+            if (minimumSize === 1 && nextCodeLineHasSingleSize) minimumSize = Math.min(2, averageSize);
+            if (minimumSize === 1 && nextCodeLineIsTagNameOnly) minimumSize += getRandomBool(.8);
+
             const result = getRandomRange(minimumSize, maximumSize);
             remainingCodeLineSize -= result;
             remainingCalculations -= 1;
@@ -144,9 +150,15 @@ function Animator() {
             remainingCalculations -= 1;
           }
 
-          nextCodeLine.addConditionalCodeBlocks(
+          nextCodeLine.addCodeBlocks(
             new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
-            new CodeBlockModel(BLOCK_TYPES.TAG_NAME, tagNameSize),
+            new CodeBlockModel(BLOCK_TYPES.TAG_NAME, tagNameSize)
+          );
+
+          // insert conditional code blocks separately so getAvailableSize()
+          // can observe the tag name to accurately generate available sizes
+
+          nextCodeLine.addConditionalCodeBlocks(
             useAttributeBlock && new CodeBlockModel(BLOCK_TYPES.ATTRIBUTE, getAvailableSize()),
             useAttributeBlockWithString && new CodeBlockModel(BLOCK_TYPES.OPERATOR),
             useAttributeBlockWithString && new CodeBlockModel(BLOCK_TYPES.STRING, getAvailableSize()),
