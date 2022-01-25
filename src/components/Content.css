@@ -1,5 +1,7 @@
 #content-wrapper {
   background-color: #202020;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-family: "Roboto", sans-serif;
   margin: 0 auto;
   max-width: 800px;

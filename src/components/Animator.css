@@ -1,4 +1,6 @@
 #animator-wrapper {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -128,6 +130,8 @@
           align-items: center;
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 0.075em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
