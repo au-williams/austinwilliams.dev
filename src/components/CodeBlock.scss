@@ -10,14 +10,12 @@
   border-radius: $code-block--base-border-radius;
 }
 
-.indent,
-.space {
+.indent {
   background-color: transparent;
 }
 
 .attribute,
 .indent,
-.space,
 .string,
 .tag-name,
 .value {

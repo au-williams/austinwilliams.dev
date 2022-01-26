@@ -4,7 +4,6 @@ const BlockTypes = {
   INDENT: 'indent',
   START_ANGLE: 'start angle',
   OPERATOR: 'operator',
-  SPACE: 'space',
   STRING: 'string',
   TAG_NAME: 'tag-name',
   VALUE: 'value'
