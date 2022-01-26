@@ -40,6 +40,28 @@ const INITIAL_DATA = [
   ),
 ];
 
+// get the number of recent code lines that have
+// the same indentation level to help generation
+const getConsecutiveIndentCount = codeLines => {
+  const indentSize = codeLines[0].indentSize;
+  let result = 0;
+
+  for (const codeLine of codeLines)
+    if (codeLine.indentSize === indentSize) result++;
+    else break;
+
+  return result;
+}
+
+// get a random boolean with probability ... 0.5 equals 50% return true
+const getRandomBool = (probability = 0.5) => Math.random() < probability;
+
+// get a random number between 1 and max ... max = 5 ranges 1 to 5
+const getRandomNumber = max => Math.floor(Math.random() * max) + 1;
+
+// get a random number with min because javascript doesn't support function overloading
+const getRandomRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 function Animator() {
   const [codeLines, setCodeLines] = useState(INITIAL_DATA);
 
@@ -77,17 +99,17 @@ function Animator() {
         const mustIncreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastCodeLine.indentSize <= 1;
         const randomUpdateIndentSize = consecutiveIndentCount >= getRandomNumber(CODE_LINE_MAX_CONSECUTIVE_INDENT);
 
-        // get helper properties
         const canDecreaseIndentSize = randomUpdateIndentSize && lastCodeLine.indentSize > CODE_BLOCK_MIN_INDENT_SIZE;
         const canIncreaseIndentSize = randomUpdateIndentSize && lastCodeLine.indentSize < CODE_BLOCK_MAX_INDENT_SIZE && !lastCodeLineHadValueBlock && !lastCodeLineWasClosingTag;
 
-        const indentCodeBlock = new CodeBlockModel(BLOCK_TYPES.INDENT, lastCodeLine.indentSize);
+        let indentSize = lastCodeLine.indentSize;
 
         if (mustIncreaseIndentSize || canIncreaseIndentSize)
-          indentCodeBlock.increaseSize();
+          indentSize++;
         else if (mustDecreaseIndentSize || canDecreaseIndentSize)
-          indentCodeBlock.decreaseSize();
+          indentSize--;
 
+        const indentCodeBlock = new CodeBlockModel(BLOCK_TYPES.INDENT, indentSize);
         nextCodeLine.addCodeBlocks(indentCodeBlock);
 
         if (nextCodeLine.indentSize < lastCodeLine.indentSize) {
@@ -209,25 +231,5 @@ function Animator() {
     </div>
   );
 }
-
-const getConsecutiveIndentCount = codeLines => {
-  const indentSize = codeLines[0].indentSize;
-  let result = 0;
-
-  for (const codeLine of codeLines)
-    if (codeLine.indentSize === indentSize) result++;
-    else break;
-
-  return result;
-}
-
-// probability is the chance for a return true ... 0.5 equals 50% chance
-const getRandomBool = (probability = 0.5) => Math.random() < probability;
-
-// max is the maximum random return value ... max = 5 ranges 1 to 5
-const getRandomNumber = max => Math.floor(Math.random() * max) + 1;
-
-// same as getRandomNumber but with min because JS doesn't support function overloading
-const getRandomRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 export default Animator;
