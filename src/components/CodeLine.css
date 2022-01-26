@@ -17,6 +17,10 @@
   background-color: #888888;
   height: 0.54em;
   margin: 0 0.855em;
+  -webkit-transition: background-color 25ms, -webkit-box-shadow 25ms;
+  transition: background-color 25ms, -webkit-box-shadow 25ms;
+  transition: background-color 25ms, box-shadow 25ms;
+  transition: background-color 25ms, box-shadow 25ms, -webkit-box-shadow 25ms;
   width: 0.54em;
 }
 
@@ -24,6 +28,10 @@
   background-color: #EE4B2B;
   -webkit-box-shadow: 0 0 0.5em #EE4B2B15;
           box-shadow: 0 0 0.5em #EE4B2B15;
+  -webkit-transition: background-color 50ms, -webkit-box-shadow 50ms;
+  transition: background-color 50ms, -webkit-box-shadow 50ms;
+  transition: background-color 50ms, box-shadow 50ms;
+  transition: background-color 50ms, box-shadow 50ms, -webkit-box-shadow 50ms;
 }
 
 .code-line .line-number.hovered {

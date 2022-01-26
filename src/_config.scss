@@ -27,6 +27,7 @@ $animator--window-scale: 3em;
 // code block component base config
 $code-block--base-border-radius: $animator--window-border-radius;
 $code-block--base-color: $animator--sidebar-color;
+$code-block--base-color-speed: 25ms;
 $code-block--base-scale: 1.2em; // was 1.125em
 $code-block--base-space: 0.2; // todo: should this be exposed?
 

@@ -6,6 +6,7 @@
 .string,
 .tag-name,
 .value {
+  transition: background-color $code-block--base-color-speed;
   background-color: $code-block--base-color;
   border-radius: $code-block--base-border-radius;
 }
@@ -40,6 +41,7 @@
   border-radius: $code-block--base-border-radius;
   border-top: ($code-block--base-scale * 0.5) solid transparent;
   margin: 0 (($code-block--base-scale * 0.125) + ($code-block--base-scale * $code-block--base-space));
+  transition: border-color $code-block--base-color-speed;
 
   &.close { border-left: ($code-block--base-scale * 0.75) solid $code-block--base-color;  }
   &.start { border-right: ($code-block--base-scale * 0.75) solid $code-block--base-color; }

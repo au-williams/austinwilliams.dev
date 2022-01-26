@@ -13,13 +13,15 @@
     background-color: $code-block--line-number-color;
     height: ($code-block--base-scale * $code-block--line-number-scale);
     margin: 0 ($animator--sidebar-width * 0.5) - ($code-block--base-scale * ($code-block--line-number-scale * 0.5)) - ($animator--window-border-size * 0.5); // half of sidebar - half of element width
+    transition: background-color $code-block--base-color-speed, box-shadow $code-block--base-color-speed;
     width: ($code-block--base-scale * $code-block--line-number-scale); // width and margin make 1 block size
 
     &.clicked {
       background-color: #EE4B2B;
       box-shadow: 0 0 0.5em #EE4B2B15;
+      transition: background-color $code-block--base-color-speed * 2, box-shadow $code-block--base-color-speed * 2;
     }
-
+    
     &.hovered {
       background-color: #D4D4D4;
       box-shadow: 0 0 0.5em #D4D4D415;

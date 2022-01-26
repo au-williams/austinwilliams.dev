@@ -4,18 +4,18 @@
 .string,
 .tag-name,
 .value {
+  -webkit-transition: background-color 25ms;
+  transition: background-color 25ms;
   background-color: #333333;
   border-radius: 0.15em;
 }
 
-.indent,
-.space {
+.indent {
   background-color: transparent;
 }
 
 .attribute,
 .indent,
-.space,
 .string,
 .tag-name,
 .value {
@@ -26,7 +26,6 @@
 
 .attribute.size-2,
 .indent.size-2,
-.space.size-2,
 .string.size-2,
 .tag-name.size-2,
 .value.size-2 {
@@ -35,7 +34,6 @@
 
 .attribute.size-3,
 .indent.size-3,
-.space.size-3,
 .string.size-3,
 .tag-name.size-3,
 .value.size-3 {
@@ -44,7 +42,6 @@
 
 .attribute.size-4,
 .indent.size-4,
-.space.size-4,
 .string.size-4,
 .tag-name.size-4,
 .value.size-4 {
@@ -53,7 +50,6 @@
 
 .attribute.size-5,
 .indent.size-5,
-.space.size-5,
 .string.size-5,
 .tag-name.size-5,
 .value.size-5 {
@@ -71,6 +67,8 @@
   border-radius: 0.15em;
   border-top: 0.6em solid transparent;
   margin: 0 0.39em;
+  -webkit-transition: border-color 25ms;
+  transition: border-color 25ms;
 }
 
 .angle.close {
