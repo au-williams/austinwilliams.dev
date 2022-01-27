@@ -3,14 +3,13 @@ import React, { useState } from 'react';
 import CodeBlock from './CodeBlock';
 import './CodeLine.css';
 
-function CodeLine({ codeBlocks }) {
-  const [ isClicked, setIsClicked ] = useState(false);
+function CodeLine({ codeBlocks, isClicked, onClick }) {
   const [ isHovered, setIsHovered ] = useState(false);
 
   return (
     <div
       className='code-line'
-      onClick={() => setIsClicked(!isClicked)}
+      onClick={() => onClick(!isClicked)}
       onMouseOut={() => setIsHovered(false)}
       onMouseOver={() => setIsHovered(true)}>
       {

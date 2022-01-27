@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 export default class CodeLine {
   constructor(...codeBlocks) {
     this.codeBlocks = codeBlocks;
+    this.isClicked = false;
     this.key = uuid();
   }
 
@@ -17,6 +18,10 @@ export default class CodeLine {
 
   get isActive() {
     return this.codeBlocks.some(codeBlock => codeBlock.isActive);
+  }
+
+  get isNewLine() {
+    return this.codeBlocks.reduce((sum, codeBlock) => sum + codeBlock.isVisible, 0) === 0;
   }
 
   get maximumSize() {

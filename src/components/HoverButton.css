@@ -8,6 +8,12 @@
 
 #hover-button div {
   font-family: "Roboto", sans-serif;
-  font-size: 2.75vmin;
+  font-size: 2.25em;
+}
+
+@media only screen and (max-width: 885px) {
+  #hover-button {
+    font-size: 1.8vmin;
+  }
 }
 /*# sourceMappingURL=HoverButton.css.map */

@@ -18,6 +18,10 @@ $animator--title-bar-button-2-color: #498205;
 $animator--title-bar-button-3-color: #FFB900;
 $animator--title-bar-button-4-color: #DE3249;
 $animator--title-bar-height: 2.25em;
+$animator--footer-debug-color: #CC6633;
+$animator--footer-pause-color: #CD2026;
+$animator--footer-color: #68217A;
+$animator--footer-height: 1.5em;
 $animator--window-border-color: #3C3C3C;
 $animator--window-border-radius: 0.15em;
 $animator--window-border-size: 0.25em;
@@ -43,5 +47,5 @@ $code-block--tag-name-color: #569CD6;
 $code-block--value-color: #D4D4D4;
 
 // todo: both need refactoring!
-$modifier--animator-shrink: 1.5vmin;
+$modifier--animator-shrink: 1em;//1.5vmin;
 $modifier--code-block-code-line-height: 1.5;
