@@ -1,20 +1,20 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import EraserIcon from '../assets/icon/eraser.svg';
-import PauseIcon from '../assets/icon/pause.svg';
-import RewindIcon from '../assets/icon/rewind.svg';
-import PinOnIcon from '../assets/icon/pin_on.svg';
-import PinOffIcon from '../assets/icon/pin_off.svg';
-import PersonEmoji from '../assets/emoji/person.png';
-import PlayIcon from '../assets/icon/play.svg';
-import FastForwardIcon from '../assets/icon/fast_forward.svg';
-import BLOCK_TYPES from '../constants/BlockTypes';
-import CodeBlockModel from '../models/CodeBlock';
-import CodeLineModel from '../models/CodeLine';
-import './Animator.css';
-import CodeLine from './CodeLine';
+import EraserIcon from '../../assets/icon/eraser.svg';
+import PauseIcon from '../../assets/icon/pause.svg';
+import RewindIcon from '../../assets/icon/rewind.svg';
+import PinOnIcon from '../../assets/icon/pin_on.svg';
+import PinOffIcon from '../../assets/icon/pin_off.svg';
+import PersonEmoji from '../../assets/emoji/person.png';
+import PlayIcon from '../../assets/icon/play.svg';
+import FastForwardIcon from '../../assets/icon/fast_forward.svg';
+import BLOCK_TYPES from '../../constants/BlockTypes';
+import CodeBlockModel from './CodeBlock/CodeBlockModel';
+import CodeLineModel from './CodeLine/CodeLineModel';
+import './CodeWindow.css';
+import CodeLine from './CodeLine/CodeLine';
 import {
-  ANIMATOR_GENERATION_SPEED,
+  CODE_WINDOW_GENERATION_SPEED,
   CODE_BLOCK_MAX_BASE_SIZE,
   CODE_BLOCK_MAX_INDENT_SIZE,
   CODE_BLOCK_MIN_INDENT_SIZE,
@@ -22,7 +22,7 @@ import {
   CODE_LINE_MAX_CONSECUTIVE_INDENT,
   CODE_LINE_MAX_TOTAL_SIZE,
   CODE_LINE_MAX_TOTAL_STACK
-} from '../_config.json';
+} from '../../_config.json';
 
 const INITIAL_DATA = [
   // initial data is displayed in ascending order to match
@@ -73,12 +73,12 @@ const getRandomNumber = max => Math.floor(Math.random() * max) + 1;
 // get a random number with min because javascript doesn't support function overloading
 const getRandomRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-function Animator() {
+function CodeWindow() {
   // ---------------------------------------- //
   // state for rendering code lines on screen //
   // ---------------------------------------- //
   const [codeLines, setCodeLines] = useState(INITIAL_DATA);
-  const [codeSpeed, setCodeSpeed] = useState(ANIMATOR_GENERATION_SPEED);
+  const [codeSpeed, setCodeSpeed] = useState(CODE_WINDOW_GENERATION_SPEED);
   const updatedCodeLines = codeLines.slice();
 
   const decreaseCodeSpeed = number => !isCodePaused && setCodeSpeed(codeSpeed => Math.min(codeSpeed + number, 1000));
@@ -88,9 +88,9 @@ function Animator() {
     setCodeLines(updatedCodeLines);
   }
 
-  // ----------------------------------- //
-  // state for styling animator elements //
-  // ----------------------------------- //
+  // ------------------------------------ //
+  // state for styling component elements //
+  // ------------------------------------ //
   const [isMouseHovering, setIsMouseHovering] = useState(false);
   const onMouseLeave = () => setIsMouseHovering(false);
   const onMouseOver = () => setIsMouseHovering(true);
@@ -123,7 +123,7 @@ function Animator() {
 
     setIsCodePaused(false);
     setIsFooterPinned(false);
-    setCodeSpeed(ANIMATOR_GENERATION_SPEED);
+    setCodeSpeed(CODE_WINDOW_GENERATION_SPEED);
   }
 
   // ---------------- //
@@ -140,7 +140,10 @@ function Animator() {
       const updateLineCount = activeCodeLine.isNewLine; 
       if (updateCharCount) setCharCount(charCount => charCount + 1);
       if (updateLineCount) setLineCount(lineCount => lineCount + 1);
-      activeCodeLine.activeCodeBlock.updateSize();
+
+      if (!activeCodeLine.activeCodeBlock.isVisible)
+        activeCodeLine.activeCodeBlock.isVisible = true;
+      else activeCodeLine.activeCodeBlock.currentSize++;
     }
 
     const generateCodeLine = () => {
@@ -285,64 +288,62 @@ function Animator() {
   }, [codeLines, codeSpeed, isCodePaused, updatedCodeLines]);
 
   return (
-    <div className='aspect-ratio-wrapper'>
-      <div id='animator-wrapper' onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-        <div id='animator-title'>
-          <div/>
-          <div/>
-          <div/>
-          <div/>
+    <div id='code-window-wrapper' onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+      <div id='code-window-title'>
+        <div/>
+        <div/>
+        <div/>
+        <div/>
+      </div>
+      <div id='code-window-body'>
+        <div id='code-window-code'>
+        {
+          updatedCodeLines.map(codeLine =>
+            <CodeLine
+              key={codeLine.key}
+              codeBlocks={codeLine.codeBlocks}
+              isClicked={codeLine.isClicked}
+              onClick={isClicked => onCodeLineClick(codeLine, isClicked)}
+            />
+          )
+        }
         </div>
-        <div id='animator-body'>
-          <div id='animator-code'>
-            {
-              updatedCodeLines.map(codeLine =>
-                <CodeLine
-                  key={codeLine.key}
-                  codeBlocks={codeLine.codeBlocks}
-                  isClicked={codeLine.isClicked}
-                  onClick={isClicked => onCodeLineClick(codeLine, isClicked)}
-                />
-              )
-            }
-          </div>
-          <div id='animator-name'>
-            <img src={PersonEmoji} alt='man technologist emoji'></img>
-            <span>Austin Williams</span>
-          </div>
+        <div id='code-window-name'>
+          <img src={PersonEmoji} alt='man technologist emoji'></img>
+          <span>Austin Williams</span>
         </div>
-        <div id='animator-footer' className={footerClassNames}>
-          <button onClick={onPinClick}>
-          {
-            isFooterPinned
-              ? <img src={PinOffIcon} alt='pin off'/>
-              : <img src={PinOnIcon} alt='pin on'/>
-          }
-          </button>
-          <button onClick={() => decreaseCodeSpeed(25)}>
-            <img src={RewindIcon} alt='rewind'/>
-          </button>
-          <button onClick={onPauseClick}>
-          {
-            isCodePaused
-              ? <img src={PlayIcon} alt='play'/>
-              : <img src={PauseIcon} alt='pause'/>
-          }
-          </button>
-          <button onClick={() => increaseCodeSpeed(25)}>
-            <img src={FastForwardIcon} alt='fast forward'/>
-          </button>
-          <button>{ isCodePaused ? 'Paused' : `${codeSpeed}ms` }
-          </button>
-          <button onClick={onResetClick}>
-            <img src={EraserIcon} alt='reset'/>
-          </button>
-          <button>Lines: {formattedLineCount}</button>
-          <button>Chars: {formattedCharCount}</button>
-        </div>
+      </div>
+      <div id='code-window-footer' className={footerClassNames}>
+        <button onClick={onPinClick}>
+        {
+          isFooterPinned
+            ? <img src={PinOffIcon} alt='pin off'/>
+            : <img src={PinOnIcon} alt='pin on'/>
+        }
+        </button>
+        <button onClick={() => decreaseCodeSpeed(25)}>
+          <img src={RewindIcon} alt='rewind'/>
+        </button>
+        <button onClick={onPauseClick}>
+        {
+          isCodePaused
+            ? <img src={PlayIcon} alt='play'/>
+            : <img src={PauseIcon} alt='pause'/>
+        }
+        </button>
+        <button onClick={() => increaseCodeSpeed(25)}>
+          <img src={FastForwardIcon} alt='fast forward'/>
+        </button>
+        <button>{ isCodePaused ? 'Paused' : `${codeSpeed}ms` }
+        </button>
+        <button onClick={onResetClick}>
+          <img src={EraserIcon} alt='reset'/>
+        </button>
+        <button>Lines: {formattedLineCount}</button>
+        <button>Chars: {formattedCharCount}</button>
       </div>
     </div>
   );
 }
 
-export default Animator;
+export default CodeWindow;

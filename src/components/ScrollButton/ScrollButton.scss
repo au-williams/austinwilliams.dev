@@ -1,14 +1,14 @@
-@import "../_config";
+@import "../../config";
 
 /////////////////////////////////////
 // style sheet is cleaned for IE11 //
 // (remove after all sheets clean) //
 /////////////////////////////////////
 
-#hover-button {
+#scroll-button {
   background: none;
   border: none;
-  color: #d4d4d4;
+  color: $webpage--text-color;
   cursor: pointer;
   margin: 5vh 0;
 
@@ -18,8 +18,10 @@
   }
 }
 
-@media only screen and (max-width: 885px) {
-  #hover-button {
+@media only
+screen and (max-height: 675px),
+screen and (max-width: 885px) {
+  #scroll-button {
     font-size: 1.8vmin;
   }
 }

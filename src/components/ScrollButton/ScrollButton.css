@@ -1,0 +1,19 @@
+#scroll-button {
+  background: none;
+  border: none;
+  color: #D4D4D4;
+  cursor: pointer;
+  margin: 5vh 0;
+}
+
+#scroll-button div {
+  font-family: "Roboto", sans-serif;
+  font-size: 2.25em;
+}
+
+@media only screen and (max-height: 675px), screen and (max-width: 885px) {
+  #scroll-button {
+    font-size: 1.8vmin;
+  }
+}
+/*# sourceMappingURL=ScrollButton.css.map */

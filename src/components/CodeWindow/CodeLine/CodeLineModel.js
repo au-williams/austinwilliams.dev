@@ -1,7 +1,7 @@
-import BLOCK_TYPES from "../constants/BlockTypes";
+import BLOCK_TYPES from "../../../constants/BlockTypes";
 import { v4 as uuid } from 'uuid';
 
-export default class CodeLine {
+class CodeLineModel {
   constructor(...codeBlocks) {
     this.codeBlocks = codeBlocks;
     this.isClicked = false;
@@ -24,20 +24,12 @@ export default class CodeLine {
     return this.codeBlocks.reduce((sum, codeBlock) => sum + codeBlock.isVisible, 0) === 0;
   }
 
-  get maximumSize() {
-    return this.codeBlocks.reduce((sum, codeBlock) => sum + codeBlock.maximumSize, 0);
-  }
-
   addCodeBlocks(...codeBlocks) {
     this.codeBlocks.push(...codeBlocks);
   }
 
   addConditionalCodeBlocks(...codeBlocks) {
     this.codeBlocks.push(...codeBlocks.filter(codeBlock => codeBlock !== null && typeof codeBlock === 'object'));
-  }
-  
-  getCodeBlockSizes(...blockTypes) {
-    return this.codeBlocks.filter(codeBlock => blockTypes.includes(codeBlock.blockType)).reduce((sum, codeBlock) => sum + codeBlock.maximumSize, 0);
   }
 
   getCodeBlockTypes() {
@@ -52,3 +44,5 @@ export default class CodeLine {
     return this.codeBlocks.some(codeBlock => codeBlock.blockType === blockType);
   }
 }
+
+export default CodeLineModel;

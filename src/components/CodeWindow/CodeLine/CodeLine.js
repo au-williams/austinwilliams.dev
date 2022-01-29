@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import CodeBlock from './CodeBlock';
+import CodeBlock from '../CodeBlock/CodeBlock';
 import './CodeLine.css';
 
 function CodeLine({ codeBlocks, isClicked, onClick }) {
