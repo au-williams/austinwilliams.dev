@@ -107,6 +107,10 @@ body {
     margin: 0;
     width: 50%;
 
+    &:active {
+      transform: translateY(4px);
+    }
+
     &:hover {
       background-color: darken($webpage--footer-background-color, $webpage--footer-hover-darkness);
     }

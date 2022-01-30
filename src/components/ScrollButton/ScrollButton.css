@@ -9,6 +9,20 @@
 #scroll-button div {
   font-family: "Roboto", sans-serif;
   font-size: 2.25em;
+  -webkit-transition: -webkit-transform 100ms;
+  transition: -webkit-transform 100ms;
+  transition: transform 100ms;
+  transition: transform 100ms, -webkit-transform 100ms;
+}
+
+#scroll-button div.hover {
+  -webkit-transform: translateY(5px);
+          transform: translateY(5px);
+}
+
+#scroll-button:active {
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
 }
 
 @media only screen and (max-height: 675px), screen and (max-width: 885px) {

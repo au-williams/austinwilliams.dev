@@ -217,7 +217,14 @@
 
     button {
       cursor: pointer;
-      img { height: 1.2em; }
+
+      img {
+        height: 1.2em;
+      }
+
+      &:active img {
+        transform: translateY(1.5px)
+      }
     }
   }
 }

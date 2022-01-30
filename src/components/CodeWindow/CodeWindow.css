@@ -275,6 +275,11 @@
   height: 1.2em;
 }
 
+#code-window-wrapper #code-window-footer button:active img {
+  -webkit-transform: translateY(1.5px);
+          transform: translateY(1.5px);
+}
+
 @media only screen and (max-height: 675px), screen and (max-width: 885px) {
   #code-window-wrapper {
     font-size: 1.8vmin;

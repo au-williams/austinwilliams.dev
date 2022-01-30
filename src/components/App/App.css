@@ -130,6 +130,12 @@ body {
   width: 50%;
 }
 
+#app-footer a:active,
+#app-footer button:active {
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
 #app-footer a:hover,
 #app-footer button:hover {
   background-color: #101010;
