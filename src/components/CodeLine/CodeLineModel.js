@@ -1,4 +1,4 @@
-import BLOCK_TYPES from "../../../constants/BlockTypes";
+import BLOCK_TYPES from "../../constants/BlockTypes";
 import { v4 as uuid } from 'uuid';
 
 class CodeLineModel {

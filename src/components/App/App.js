@@ -8,7 +8,6 @@ import GitHub from '../../assets/icon/github.svg';
 import Scroll from '../../assets/icon/scroll.svg';
 import { GOOGLE_ANALYTICS_MEASUREMENT_ID } from '../../_config.json';
 import CodeWindow from '../CodeWindow/CodeWindow';
-import ScrollButton from '../ScrollButton/ScrollButton';
 import './App.css';
 
 // google analytics
@@ -22,7 +21,7 @@ const sendGoogleAnalyticsEvent = (category, action) => ReactGA.event({category, 
 
 // react events
 
-const onButtonClick = () => {
+const onBackClick = () => {
   sendGoogleAnalyticsEvent('click', 'back_to_top_button');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -33,13 +32,17 @@ const onLinkClick = () => sendGoogleAnalyticsEvent('click', 'github_outbound_lin
 
 export default function App() {
   const [avatar, setAvatar] = useState(Avatar);
-  const scrollRef = useRef(null);
+  const sectionRef = useRef(null);
 
   const fetchGitHubAvatar = () => {
     fetch('https://api.github.com/users/au-williams')
     .then(res => res.json())
     .then(result => setAvatar(result.avatar_url))
     .catch(error => console.error('Error:', error));
+  }
+
+  const onAboutClick = () => {
+    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   useEffect(() => {
@@ -51,10 +54,11 @@ export default function App() {
     <>
       <header className='viewport-wrapper'>
         <CodeWindow/>
-        <ScrollButton toRef={scrollRef}/>
+        <button onClick={onAboutClick}>
+          About<br/>&darr;
+        </button>
       </header>
-
-      <section id='app-section' ref={scrollRef}>
+      <section id='app-section' ref={sectionRef}>
         <article className='flex-wrapper'>
           <img src={avatar} alt='avatar' draggable='false' />
           <p>
@@ -74,7 +78,7 @@ export default function App() {
           </p>
         </article>
         <footer id='app-footer'>
-          <button onClick={onButtonClick}>
+          <button onClick={onBackClick}>
             <img src={Scroll} alt='return icon'/>
             Back to top
           </button>

@@ -33,6 +33,20 @@ body {
   flex-direction: column;
   height: 100vh;
   justify-content: center;
+
+  > button {
+    background: none;
+    border: none;
+    color: $webpage--text-color;
+    cursor: pointer;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.875em;
+    margin: 5vh 0;
+
+    &:active {
+      transform: translateY(4px)
+    }
+  }
 }
 
 #app-section {
@@ -136,31 +150,26 @@ screen and (max-width: 885px) {
   body { padding: 0 1.8vw; }
   #app-footer { font-size: 1.8vmin; }
   #app-section { font-size: 1.8vmin; }
+  .viewport-wrapper button { font-size: 4vmin; }
 }
 
 // portrait orientation
 
 @media only screen and (max-width: 610px) {
+  #app-section .flex-wrapper,
+  #app-footer {
+    font-size: 1.375em;
+  }
+
   #app-section {
     .flex-wrapper {
       flex-direction: column;
       text-align: center;
       padding-left: 3em;
       padding-right: 3em;
-      font-size: 1.375em;
 
-      > img {
-        margin-right: 0;
-        margin-bottom: 1.125em;
-      }
-
-      > p {
-        margin: 0 auto;
-      }
-    }
-
-    #app-footer {
-      font-size: 1.375em;
+      > img { margin: 0 0 1.125em; }
+      > p { margin: 0 auto; }
     }
   }
 }

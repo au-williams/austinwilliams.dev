@@ -9,10 +9,10 @@ import PersonEmoji from '../../assets/emoji/person.png';
 import PlayIcon from '../../assets/icon/play.svg';
 import FastForwardIcon from '../../assets/icon/fast_forward.svg';
 import BLOCK_TYPES from '../../constants/BlockTypes';
-import CodeBlockModel from './CodeBlock/CodeBlockModel';
-import CodeLineModel from './CodeLine/CodeLineModel';
+import CodeBlockModel from '../CodeBlock/CodeBlockModel';
+import CodeLineModel from '../CodeLine/CodeLineModel';
 import './CodeWindow.css';
-import CodeLine from './CodeLine/CodeLine';
+import CodeLine from '../CodeLine/CodeLine';
 import {
   CODE_WINDOW_GENERATION_SPEED,
   CODE_BLOCK_MAX_BASE_SIZE,

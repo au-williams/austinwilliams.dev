@@ -1,4 +1,4 @@
-import { CODE_BLOCK_RESTRICTED_SIZE } from '../../../_config.json';
+import { CODE_BLOCK_RESTRICTED_SIZE } from '../../_config.json';
 
 class CodeBlockModel {
   constructor(blockType, maximumSize = 1) {

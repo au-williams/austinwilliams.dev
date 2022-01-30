@@ -44,6 +44,21 @@ body {
           justify-content: center;
 }
 
+.viewport-wrapper > button {
+  background: none;
+  border: none;
+  color: #D4D4D4;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.875em;
+  margin: 5vh 0;
+}
+
+.viewport-wrapper > button:active {
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
 #app-section {
   background-color: #202020;
   -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -171,9 +186,16 @@ body {
   #app-section {
     font-size: 1.8vmin;
   }
+  .viewport-wrapper button {
+    font-size: 4vmin;
+  }
 }
 
 @media only screen and (max-width: 610px) {
+  #app-section .flex-wrapper,
+  #app-footer {
+    font-size: 1.375em;
+  }
   #app-section .flex-wrapper {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -182,17 +204,12 @@ body {
     text-align: center;
     padding-left: 3em;
     padding-right: 3em;
-    font-size: 1.375em;
   }
   #app-section .flex-wrapper > img {
-    margin-right: 0;
-    margin-bottom: 1.125em;
+    margin: 0 0 1.125em;
   }
   #app-section .flex-wrapper > p {
     margin: 0 auto;
-  }
-  #app-section #app-footer {
-    font-size: 1.375em;
   }
 }
 /*# sourceMappingURL=App.css.map */
