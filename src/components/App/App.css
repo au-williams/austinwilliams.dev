@@ -1,7 +1,8 @@
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
+  max-width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -11,7 +12,7 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   color: #D4D4D4;
-  padding: 0 4.75vw;
+  padding: 0 1.5em;
 }
 
 .flex-wrapper {
@@ -49,7 +50,8 @@ body {
           box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-family: "Roboto", sans-serif;
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 100%;
+  width: 50em;
 }
 
 #app-section a {
@@ -102,6 +104,11 @@ body {
 
 #app-footer {
   height: 4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 #app-footer a:hover {
@@ -117,9 +124,12 @@ body {
   border: none;
   color: #D4D4D4;
   cursor: pointer;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   font-family: "Roboto", sans-serif;
   font-size: 1.5em;
   height: 100%;
@@ -127,7 +137,10 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   margin: 0;
-  width: 50%;
+  min-width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #app-footer a:active,
@@ -148,28 +161,38 @@ body {
   width: 1em;
 }
 
-@media screen and (max-height: 500px), (max-width: 800px) {
+@media only screen and (max-height: 675px), screen and (max-width: 885px) {
+  body {
+    padding: 0 1.8vw;
+  }
+  #app-footer {
+    font-size: 1.8vmin;
+  }
   #app-section {
-    font-size: 2.5vmin;
+    font-size: 1.8vmin;
   }
 }
 
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 610px) {
   #app-section .flex-wrapper {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    padding-left: 5vw;
-    padding-right: 5vw;
     text-align: center;
+    padding-left: 3em;
+    padding-right: 3em;
+    font-size: 1.375em;
   }
   #app-section .flex-wrapper > img {
-    margin-bottom: 1.125em;
     margin-right: 0;
+    margin-bottom: 1.125em;
   }
   #app-section .flex-wrapper > p {
     margin: 0 auto;
+  }
+  #app-section #app-footer {
+    font-size: 1.375em;
   }
 }
 /*# sourceMappingURL=App.css.map */

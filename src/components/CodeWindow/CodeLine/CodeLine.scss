@@ -1,4 +1,4 @@
-@import "../config";
+@import "../../../config";
 
 .code-line {
   align-items: center;
@@ -7,6 +7,10 @@
   flex-shrink: 0;
   height: ($code-block--base-scale * $modifier--code-block-code-line-height);
   position: relative;
+
+  &:active {
+    transform: translateY(1.5px);
+  }
 
   .line-number {
     border-radius: 100%;
@@ -21,7 +25,7 @@
       box-shadow: 0 0 0.5em #EE4B2B15;
       transition: background-color $code-block--base-color-speed * 2, box-shadow $code-block--base-color-speed * 2;
     }
-    
+
     &.hovered {
       background-color: #D4D4D4;
       box-shadow: 0 0 0.5em #D4D4D415;
@@ -33,7 +37,6 @@
   }
 
   div {
-    // filter: blur(1px);
     pointer-events: none;
     flex-shrink: 0;
 

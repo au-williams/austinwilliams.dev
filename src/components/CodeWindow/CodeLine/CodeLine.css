@@ -12,6 +12,11 @@
   position: relative;
 }
 
+.code-line:active {
+  -webkit-transform: translateY(1.5px);
+          transform: translateY(1.5px);
+}
+
 .code-line .line-number {
   border-radius: 100%;
   background-color: #888888;
