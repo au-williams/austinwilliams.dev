@@ -9,8 +9,8 @@ import PersonEmoji from '../../assets/emoji/person.png';
 import PlayIcon from '../../assets/icon/play.svg';
 import FastForwardIcon from '../../assets/icon/fast_forward.svg';
 import BLOCK_TYPES from '../../constants/BlockTypes';
-import CodeBlockModel from '../CodeBlock/CodeBlockModel';
-import CodeLineModel from '../CodeLine/CodeLineModel';
+import CodeBlockModel from '../../models/CodeBlockModel';
+import CodeLineModel from '../../models/CodeLineModel';
 import './CodeWindow.css';
 import CodeLine from '../CodeLine/CodeLine';
 import {
