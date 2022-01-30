@@ -334,13 +334,12 @@ function CodeWindow() {
         <button onClick={() => increaseCodeSpeed(25)}>
           <img src={FastForwardIcon} alt='fast forward'/>
         </button>
-        <button>{ isCodePaused ? 'Paused' : `${codeSpeed}ms` }
-        </button>
+        <span>{ isCodePaused ? 'Paused' : `${codeSpeed}ms` }</span>
         <button onClick={onResetClick}>
           <img src={EraserIcon} alt='reset'/>
         </button>
-        <button>Lines: {formattedLineCount}</button>
-        <button>Chars: {formattedCharCount}</button>
+        <span>Lines: {formattedLineCount}</span>
+        <span>Chars: {formattedCharCount}</span>
       </div>
     </div>
   );
