@@ -61,16 +61,12 @@ const getConsecutiveIndentCount = codeLines => {
   return result;
 }
 
-// get a formatted thousands decimal number ... 1000 returns 1.0k, 1120 returns 1.1k, etc
 const getFormattedNumber = number => number < 1000 ? number : `${(number/1000).toFixed(1)}k`;
 
-// get a random boolean of probability ... 0.5 equals 50% return true
 const getRandomBool = (probability = 0.5) => Math.random() < probability;
 
-// get a random number between 1 and max ... max = 5 ranges 1 to 5
 const getRandomNumber = max => Math.floor(Math.random() * max) + 1;
 
-// get a random number with min because javascript doesn't support function overloading
 const getRandomRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 function CodeWindow() {
@@ -83,6 +79,7 @@ function CodeWindow() {
 
   const decreaseCodeSpeed = number => !isCodePaused && setCodeSpeed(codeSpeed => Math.min(codeSpeed + number, 1000));
   const increaseCodeSpeed = number => !isCodePaused && setCodeSpeed(codeSpeed => Math.max(codeSpeed - number, 0));
+
   const onCodeLineClick = (codeLine, isClicked) => {
     codeLine.isClicked = isClicked;
     setCodeLines(updatedCodeLines);
@@ -151,7 +148,7 @@ function CodeWindow() {
       const nextCodeLine = new CodeLineModel();
 
       // get details on how the previous code line was built
-      const lastCodeLineHadValueBlock = lastCodeLine.codeBlocks.some(codeBlock => codeBlock.blockType === BLOCK_TYPES.VALUE);
+      const lastCodeLineHadValueBlock = lastCodeLine.codeBlockTypes.includes(BLOCK_TYPES.VALUE);
       const lastCodeLineWasClosingTag = lastCodeLine.codeBlockTypes.length <= 4;
 
       // get details on the next indent code block size
