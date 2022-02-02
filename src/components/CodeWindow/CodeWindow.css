@@ -230,6 +230,15 @@
   background-color: #a35229;
 }
 
+#code-window-footer.visible.debug .tooltip {
+  border-color: #CC6633;
+  background-color: #CC6633;
+}
+
+#code-window-footer.visible.debug .tooltip::after {
+  border-top-color: #CC6633;
+}
+
 #code-window-footer.visible.pause {
   background-color: #CD2026;
   border-color: #CD2026;
@@ -237,6 +246,15 @@
 
 #code-window-footer.visible.pause button:hover {
   background-color: #a1191e;
+}
+
+#code-window-footer.visible.pause .tooltip {
+  border-color: #CD2026;
+  background-color: #CD2026;
+}
+
+#code-window-footer.visible.pause .tooltip::after {
+  border-top-color: #CD2026;
 }
 
 #code-window-footer span,
@@ -276,11 +294,46 @@
 #code-window-footer button {
   cursor: pointer;
   min-width: 2.75em;
+  position: relative;
 }
 
 #code-window-footer button:active img {
   -webkit-transform: translateY(1.5px);
           transform: translateY(1.5px);
+}
+
+#code-window-footer .tooltip {
+  background-color: #68217A;
+  border-radius: 0.15em;
+  bottom: 150%;
+  color: #fff;
+  padding: 0.675em;
+  position: absolute;
+  text-align: center;
+  -webkit-transition: background-color 100ms;
+  transition: background-color 100ms;
+  visibility: hidden;
+  z-index: 1;
+}
+
+#code-window-footer .tooltip::after {
+  border-color: #68217A transparent transparent transparent;
+  border-style: solid;
+  border-width: 0.3125em;
+  content: "";
+  left: 50%;
+  margin-left: -0.3125em;
+  position: absolute;
+  top: 100%;
+}
+
+#code-window-footer button:hover .tooltip {
+  visibility: visible;
+}
+
+#code-window-footer button:active .tooltip {
+  -webkit-transform: translateY(0.09375em);
+          transform: translateY(0.09375em);
 }
 
 @media only screen and (max-height: 675px), screen and (max-width: 885px) {

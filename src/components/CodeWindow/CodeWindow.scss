@@ -188,13 +188,32 @@
     &.debug {
       background-color: $animator--footer-debug-color;
       border-color: $animator--footer-debug-color;
-      button:hover { background-color: darken($animator--footer-debug-color, 10%); }
+      button:hover { background-color: darken($animator--footer-debug-color, 10%) };
+
+      .tooltip {
+        border-color: $animator--footer-debug-color;
+        background-color: $animator--footer-debug-color;
+
+        &::after {
+          border-top-color: $animator--footer-debug-color;
+        }
+      }
     }
 
     &.pause {
       background-color: $animator--footer-pause-color;
       border-color: $animator--footer-pause-color;
-      button:hover { background-color: darken($animator--footer-pause-color, 10%); }
+
+      button:hover { background-color: darken($animator--footer-pause-color, 10%) };
+
+      .tooltip {
+        border-color: $animator--footer-pause-color;
+        background-color: $animator--footer-pause-color;
+
+        &::after {
+          border-top-color: $animator--footer-pause-color;
+        }
+      }
     }
   }
 
@@ -227,7 +246,40 @@
   button {
     cursor: pointer;
     min-width: $animator--sidebar-width + $animator--window-border-size;
+    position: relative;
     &:active img { transform: translateY(1.5px) }
+  }
+
+  .tooltip {
+    background-color: $animator--footer-color;
+    border-radius: $animator--window-border-radius;
+    bottom: 150%;
+    color: #fff;
+    padding: 0.675em;
+    position: absolute;
+    text-align: center;
+    transition: background-color 100ms;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  .tooltip::after {
+    border-color: $animator--footer-color transparent transparent transparent;
+    border-style: solid;
+    border-width: 0.3125em;
+    content: "";
+    left: 50%;
+    margin-left: -0.3125em;
+    position: absolute;
+    top: 100%;
+  }
+
+  button:hover .tooltip {
+    visibility: visible;
+  }
+
+  button:active .tooltip {
+    transform: translateY(0.09375em);
   }
 }
 

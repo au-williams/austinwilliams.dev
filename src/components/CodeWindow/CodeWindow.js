@@ -324,25 +324,32 @@ function CodeWindow() {
       </div>
       <div id='code-window-footer' className={footerClassNames}>
         <button onClick={onPinClick}>
+          <div className='tooltip'>Pin</div>
           <img
             src={isFooterPinned ? PinOffIcon : PinOnIcon}
             alt={`pin ${isFooterPinned ? 'off' : 'on'}`}
           />
         </button>
         <button onClick={() => decreaseCodeSpeed(25)}>
+          <div className='tooltip'>Slow down</div>
           <img src={RewindIcon} alt='rewind'/>
         </button>
         <button onClick={onPauseClick}>
+          <div className='tooltip'>
+            {isCodePaused ? "Play" : "Pause"}
+          </div>
           <img
             src={isCodePaused ? PlayIcon : PauseIcon}
             alt={isCodePaused ? "play" : "pause"}
           />
         </button>
         <button onClick={() => increaseCodeSpeed(25)}>
+          <div className='tooltip'>Speed up</div>
           <img src={FastForwardIcon} alt='fast forward'/>
         </button>
         <span>{ isCodePaused ? 'Paused' : `${codeSpeed}ms` }</span>
         <button onClick={onResetClick}>
+          <div className='tooltip'>Reset</div>
           <img src={EraserIcon} alt='reset'/>
         </button>
         <span>Lines: {formattedLineCount}</span>
