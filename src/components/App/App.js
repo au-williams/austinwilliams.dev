@@ -8,7 +8,7 @@ import GitHub from '../../assets/icon/github.svg';
 import Scroll from '../../assets/icon/scroll.svg';
 import { GOOGLE_ANALYTICS_MEASUREMENT_ID } from '../../_config.json';
 import CodeWindow from '../CodeWindow/CodeWindow';
-import './App.css';
+import styles from './App.module.scss';
 
 // google analytics
 
@@ -52,14 +52,14 @@ export default function App() {
 
   return (
     <>
-      <header className='viewport-wrapper'>
+      <header className={styles.viewportWrapper}>
         <CodeWindow/>
         <button onClick={onAboutClick}>
           About<br/>&darr;
         </button>
       </header>
-      <section id='app-section' ref={sectionRef}>
-        <article className='flex-wrapper'>
+      <section className={styles.appSection} ref={sectionRef}>
+        <article className={styles.flexWrapper}>
           <img src={avatar} alt='avatar' draggable='false' />
           <p>
             Hey <img src={Wave} alt='waving emoji'/> —
@@ -69,7 +69,7 @@ export default function App() {
             software from start to finish.
           </p>
         </article>
-        <article className='flex-wrapper'>
+        <article className={styles.flexWrapper}>
           <img src={Banner} alt='banner' draggable='false'/>
           <p>
             I love working with computers and I&apos;m always open to new opportunities.
@@ -77,7 +77,7 @@ export default function App() {
             at <a href='mailto:me@austinwilliams.dev'>me@austinwilliams.dev</a>. <img src={Mailbox} alt='mailbox emoji'/>
           </p>
         </article>
-        <footer id='app-footer'>
+        <footer className={styles.appFooter}>
           <button onClick={onBackClick}>
             <img src={Scroll} alt='return icon'/>
             Back to top

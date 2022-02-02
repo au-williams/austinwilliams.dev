@@ -1,33 +1,28 @@
 @import "../../config";
 
-/////////////////////////////////////
-// style sheet is cleaned for IE11 //
-// (remove after all sheets clean) //
-/////////////////////////////////////
-
-html,
-body,
-#root {
+:global(html),
+:global(body),
+:global(#root) {
   min-height: 100%;
   max-width: 100%;
   margin: 0;
   padding: 0;
 }
 
-body {
+:global(body) {
   background-color: $webpage--body-background-color;
   box-sizing: border-box;
   color: $webpage--text-color;
   padding: 0 1.5em;
 }
 
-.flex-wrapper {
+.flexWrapper {
   align-items: center;
   display: flex;
   justify-content: center;
 }
 
-.viewport-wrapper {
+.viewportWrapper {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -49,7 +44,7 @@ body {
   }
 }
 
-#app-section {
+.appSection {
   background-color: $webpage--content-background-color;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-family: "Roboto", sans-serif;
@@ -62,7 +57,7 @@ body {
     &:hover { text-decoration: underline; }
   }
 
-  .flex-wrapper {
+  .flexWrapper {
     padding: 1.125em 2.25em;
 
     &:nth-child(1) { padding-top: 2.25em;    }
@@ -98,7 +93,7 @@ body {
   }
 }
 
-#app-footer {
+.appFooter {
   height: 4em;
   display: flex;
   flex-wrap: wrap;
@@ -147,29 +142,27 @@ body {
 @media only
 screen and (max-height: 675px),
 screen and (max-width: 885px) {
-  body { padding: 0 1.8vw; }
-  #app-footer { font-size: 1.8vmin; }
-  #app-section { font-size: 1.8vmin; }
-  .viewport-wrapper button { font-size: 4vmin; }
+  :global(body) { padding: 0 1.8vw; }
+  .appFooter { font-size: 1.8vmin; }
+  .appSection { font-size: 1.8vmin; }
+  .viewportWrapper button { font-size: 4vmin; }
 }
 
 // portrait orientation
 
 @media only screen and (max-width: 610px) {
-  #app-section .flex-wrapper,
-  #app-footer {
+  .appSection .flexWrapper,
+  .appFooter {
     font-size: 1.375em;
   }
 
-  #app-section {
-    .flex-wrapper {
-      flex-direction: column;
-      text-align: center;
-      padding-left: 3em;
-      padding-right: 3em;
+  .appSection .flexWrapper {
+    flex-direction: column;
+    text-align: center;
+    padding-left: 3em;
+    padding-right: 3em;
 
-      > img { margin: 0 0 1.125em; }
-      > p { margin: 0 auto; }
-    }
+    > img { margin: 0 0 1.125em; }
+    > p { margin: 0 auto; }
   }
 }
