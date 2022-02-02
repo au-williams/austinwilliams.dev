@@ -1,13 +1,13 @@
 import React from 'react';
-import './CodeBlock.css';
+import styles from './CodeBlock.module.scss';
 import classNames from 'classnames';
 
 const CodeBlock = ({ blockType, currentSize, useColor }) => {
   return (
     <div className={classNames(
-      [blockType],
-      {'color': useColor},
-      {[`size-${currentSize}`]: currentSize > 1}
+      styles[blockType],
+      {[styles.color]: useColor},
+      {[styles[`size-${currentSize}`]]: currentSize > 1}
     )}/>
   );
 };

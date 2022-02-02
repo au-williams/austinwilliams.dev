@@ -1,7 +1,7 @@
 #code-window-wrapper {
   background-color: #1E1E1E;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 0.3125em 0.9375em;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 0.3125em 0.9375em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -159,8 +159,8 @@
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 0.075em;
   bottom: 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 0.3125em 0.9375em;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 0.3125em 0.9375em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -286,12 +286,6 @@
 @media only screen and (max-height: 675px), screen and (max-width: 885px) {
   #code-window-wrapper {
     font-size: 1.8vmin;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 0.5vmin 2vmin;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 0.5vmin 2vmin;
-  }
-  #code-window-name {
-    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 0.5vmin 2vmin;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 0.5vmin 2vmin;
   }
   #code-window-footer span,
   #code-window-footer button {

@@ -1,4 +1,4 @@
-@import "../../../config";
+@import "../../config";
 
 .attribute,
 .indent,
@@ -36,19 +36,26 @@
   width: ($code-block--base-scale * 0.5); // width and margin make 1 block size
 }
 
-.angle {
+.close-angle,
+.start-angle {
   border-bottom: ($code-block--base-scale * 0.5) solid transparent;
   border-radius: $code-block--base-border-radius;
   border-top: ($code-block--base-scale * 0.5) solid transparent;
   margin: 0 (($code-block--base-scale * 0.125) + ($code-block--base-scale * $code-block--base-space));
   transition: border-color $code-block--base-color-speed;
 
-  &.close { border-left: ($code-block--base-scale * 0.75) solid $code-block--base-color;  }
-  &.start { border-right: ($code-block--base-scale * 0.75) solid $code-block--base-color; }
 }
 
-.close.angle.color { border-left-color: $code-block--close-angle-color;  }
-.start.angle.color { border-right-color: $code-block--start-angle-color; }
+.close-angle {
+  border-left: ($code-block--base-scale * 0.75) solid $code-block--base-color;
+}
+
+.start-angle {
+  border-right: ($code-block--base-scale * 0.75) solid $code-block--base-color;
+}
+
+.close-angle.color { border-left-color: $code-block--close-angle-color;  }
+.start-angle.color { border-right-color: $code-block--start-angle-color; }
 
 .attribute.color   { background-color: $code-block--attribute-color; }
 .operator.color    { background-color: $code-block--operator-color;  }

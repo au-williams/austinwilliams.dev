@@ -2,7 +2,7 @@
 
 #code-window-wrapper {
   background-color: $animator--window-editor-color;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0.3125em 0.9375em;
   display: flex;
   flex-direction: column;
   height: 28.125em;
@@ -134,7 +134,7 @@
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: $animator--window-border-radius / 2;
   bottom: 0;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0.3125em 0.9375em;
   display: flex;
   font-family: "Roboto", sans-serif;
   font-size: 2.875em;
@@ -236,11 +236,6 @@ screen and (max-height: 675px) ,
 screen and (max-width: 885px) {
   #code-window-wrapper {
     font-size: 1.8vmin;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px .5vmin 2vmin;
-  }
-
-  #code-window-name {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px .5vmin 2vmin;
   }
 
   #code-window-footer span,

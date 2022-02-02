@@ -1,31 +1,29 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import CodeBlock from '../CodeBlock/CodeBlock';
-import './CodeLine.css';
+import styles from './CodeLine.module.scss';
 
 function CodeLine({ codeBlocks, isClicked, onClick }) {
   const [ isHovered, setIsHovered ] = useState(false);
 
   return (
     <div
-      className='code-line'
+      className={styles.codeLine}
       onClick={() => onClick(!isClicked)}
       onMouseOut={() => setIsHovered(false)}
-      onMouseOver={() => setIsHovered(true)}>
+      onMouseOver={() => setIsHovered(true)}
+    >
+      <div className={classNames(
+        styles.lineNumber,
+        {[styles.clicked]: isClicked},
+        {[styles.hovered]: isHovered && !isClicked}
+      )}/>
       {
-        codeBlocks.some(codeBlock => codeBlock.isVisible) &&
-          <div className={classNames(
-            'line-number',
-            {'clicked': isClicked},
-            {'hovered': isHovered && !isClicked}
-          )}/>
-      }
-      {
-        codeBlocks.map((codeBlock, key) => 
-          codeBlock.isVisible && <CodeBlock
+        codeBlocks.map(({ blockType, currentSize }, key) =>
+          <CodeBlock
             key = {key}
-            blockType = {codeBlock.blockType}
-            currentSize = {codeBlock.currentSize}
+            blockType = {blockType}
+            currentSize = {currentSize}
             useColor = {isClicked || isHovered}
           />
         )

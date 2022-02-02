@@ -9,8 +9,8 @@ import PersonEmoji from '../../assets/emoji/person.png';
 import PlayIcon from '../../assets/icon/play.svg';
 import FastForwardIcon from '../../assets/icon/fast_forward.svg';
 import BLOCK_TYPES from '../../constants/BlockTypes';
-import CodeBlockModel from '../../models/CodeBlockModel';
-import CodeLineModel from '../../models/CodeLineModel';
+import CodeBlockModel from '../CodeBlock/CodeBlockModel';
+import CodeLineModel from '../CodeLine/CodeLineModel';
 import './CodeWindow.css';
 import CodeLine from '../CodeLine/CodeLine';
 import {
@@ -151,8 +151,8 @@ function CodeWindow() {
       const nextCodeLine = new CodeLineModel();
 
       // get details on how the previous code line was built
-      const lastCodeLineHadValueBlock = lastCodeLine.hasCodeBlock(BLOCK_TYPES.VALUE); // value blocks already have closing tags so adding more is a syntax error
-      const lastCodeLineWasClosingTag = lastCodeLine.getCodeBlockTypes().length <= 4; // we shouldn't increase the code line indent immediately after a decrease
+      const lastCodeLineHadValueBlock = lastCodeLine.codeBlocks.some(codeBlock => codeBlock.blockType === BLOCK_TYPES.VALUE);
+      const lastCodeLineWasClosingTag = lastCodeLine.codeBlockTypes.length <= 4;
 
       // get details on the next indent code block size
       const consecutiveIndentCount = getConsecutiveIndentCount(updatedCodeLines);
@@ -171,20 +171,21 @@ function CodeWindow() {
         indentSize--;
 
       const indentCodeBlock = new CodeBlockModel(BLOCK_TYPES.INDENT, indentSize);
-      nextCodeLine.addCodeBlocks(indentCodeBlock);
+      indentCodeBlock.currentSize = indentCodeBlock.maximumSize;
+      nextCodeLine.codeBlocks.push(indentCodeBlock);
 
       if (nextCodeLine.indentSize < lastCodeLine.indentSize) {
         // -------------------------------------------------------- //
         // indent was decreased, generate a closing tag from parent //
         // -------------------------------------------------------- //
 
-        const tagNameSize = updatedCodeLines
-          // get size of the parent tag name, or random if has been removed
-          .find(codeLine => codeLine.indentSize === nextCodeLine.indentSize)
-          ?.findCodeBlock(BLOCK_TYPES.TAG_NAME)?.maximumSize
-          || getRandomNumber(2) + getRandomBool(.75);
+        const tagNameSize =
+          // get the opening tag name size to generate the closing tag, or random if removed
+          updatedCodeLines.find(codeLine => codeLine.indentSize === nextCodeLine.indentSize)
+          ?.codeBlocks.find(codeBlock => codeBlock.blockType === BLOCK_TYPES.TAG_NAME)
+          ?.maximumSize || getRandomRange(2, 3);
 
-        nextCodeLine.addCodeBlocks(
+        nextCodeLine.codeBlocks.push(
           new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
           new CodeBlockModel(BLOCK_TYPES.TAG_NAME, tagNameSize),
           new CodeBlockModel(BLOCK_TYPES.CLOSE_ANGLE)
@@ -225,7 +226,7 @@ function CodeWindow() {
           // single, single, single ... all this line space was wasted!
           let minimumSize = Math.min(averageSize, 1 + getRandomBool());
           const nextCodeLineHasSingleSize = nextCodeLine.codeBlocks.some(codeBlock => codeBlock.maximumSize === 1 && !CODE_BLOCK_RESTRICTED_SIZE.includes(codeBlock.blockType));
-          const nextCodeLineIsTagNameOnly = nextCodeLine.getCodeBlockTypes().length <= 3 && remainingCalculations <= 1;
+          const nextCodeLineIsTagNameOnly = nextCodeLine.codeBlockTypes.length <= 3 && remainingCalculations <= 1;
 
           // limit code lines to one single-size block because multiple makes it appear small and ugly
           if (minimumSize === 1 && nextCodeLineHasSingleSize) minimumSize = Math.min(2, averageSize);
@@ -247,7 +248,7 @@ function CodeWindow() {
           remainingCalculations -= 1;
         }
 
-        nextCodeLine.addCodeBlocks(
+        nextCodeLine.codeBlocks.push(
           new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
           new CodeBlockModel(BLOCK_TYPES.TAG_NAME, tagNameSize)
         );
@@ -255,7 +256,7 @@ function CodeWindow() {
         // insert conditional code blocks separately so getAvailableSize()
         // can observe the tag name to accurately generate available sizes
 
-        nextCodeLine.addConditionalCodeBlocks(
+        const conditionalCodeBlocks = [
           useAttributeBlock && new CodeBlockModel(BLOCK_TYPES.ATTRIBUTE, getAvailableSize()),
           useAttributeBlockWithString && new CodeBlockModel(BLOCK_TYPES.OPERATOR),
           useAttributeBlockWithString && new CodeBlockModel(BLOCK_TYPES.STRING, getAvailableSize()),
@@ -264,7 +265,9 @@ function CodeWindow() {
           useValueBlock && new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
           useValueBlock && new CodeBlockModel(BLOCK_TYPES.TAG_NAME, tagNameSize),
           useValueBlock && new CodeBlockModel(BLOCK_TYPES.CLOSE_ANGLE)
-        );
+        ].filter(item => typeof item !== 'boolean');
+
+        nextCodeLine.codeBlocks.push(...conditionalCodeBlocks);
       }
 
       if (updatedCodeLines.length >= CODE_LINE_MAX_TOTAL_STACK)
@@ -298,14 +301,20 @@ function CodeWindow() {
       <div id='code-window-body'>
         <div id='code-window-code'>
         {
-          updatedCodeLines.map(codeLine =>
-            <CodeLine
+          updatedCodeLines.map(codeLine => {
+            // code lines are generated once with code blocks
+            // made visible iteratively, giving them a typing
+            // appearance — only pass visible blocks as props
+            const visibleCodeBlocks =
+              codeLine.codeBlocks.filter(codeBlock => codeBlock.isVisible);
+
+            return visibleCodeBlocks.length > 0 && <CodeLine
               key={codeLine.key}
-              codeBlocks={codeLine.codeBlocks}
+              codeBlocks={visibleCodeBlocks}
               isClicked={codeLine.isClicked}
               onClick={isClicked => onCodeLineClick(codeLine, isClicked)}
             />
-          )
+          })
         }
         </div>
         <div id='code-window-name'>
@@ -315,21 +324,19 @@ function CodeWindow() {
       </div>
       <div id='code-window-footer' className={footerClassNames}>
         <button onClick={onPinClick}>
-        {
-          isFooterPinned
-            ? <img src={PinOffIcon} alt='pin off'/>
-            : <img src={PinOnIcon} alt='pin on'/>
-        }
+          <img
+            src={isFooterPinned ? PinOffIcon : PinOnIcon}
+            alt={`pin ${isFooterPinned ? 'off' : 'on'}`}
+          />
         </button>
         <button onClick={() => decreaseCodeSpeed(25)}>
           <img src={RewindIcon} alt='rewind'/>
         </button>
         <button onClick={onPauseClick}>
-        {
-          isCodePaused
-            ? <img src={PlayIcon} alt='play'/>
-            : <img src={PauseIcon} alt='pause'/>
-        }
+          <img
+            src={isCodePaused ? PlayIcon : PauseIcon}
+            alt={isCodePaused ? "play" : "pause"}
+          />
         </button>
         <button onClick={() => increaseCodeSpeed(25)}>
           <img src={FastForwardIcon} alt='fast forward'/>
