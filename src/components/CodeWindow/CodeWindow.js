@@ -1,18 +1,17 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import EraserIcon from '../../assets/icon/eraser.svg';
-import PauseIcon from '../../assets/icon/pause.svg';
-import RewindIcon from '../../assets/icon/rewind.svg';
-import PinOnIcon from '../../assets/icon/pin_on.svg';
-import PinOffIcon from '../../assets/icon/pin_off.svg';
+import { v4 as uuid } from 'uuid';
 import PersonEmoji from '../../assets/emoji/person.png';
-import PlayIcon from '../../assets/icon/play.svg';
+import EraserIcon from '../../assets/icon/eraser.svg';
 import FastForwardIcon from '../../assets/icon/fast_forward.svg';
+import PauseIcon from '../../assets/icon/pause.svg';
+import PinOffIcon from '../../assets/icon/pin_off.svg';
+import PinOnIcon from '../../assets/icon/pin_on.svg';
+import PlayIcon from '../../assets/icon/play.svg';
+import RewindIcon from '../../assets/icon/rewind.svg';
 import BLOCK_TYPES from '../../constants/BlockTypes';
-import CodeBlockModel from '../CodeBlock/CodeBlockModel';
-import CodeLineModel from '../CodeLine/CodeLineModel';
-import './CodeWindow.css';
 import CodeLine from '../CodeLine/CodeLine';
+import './CodeWindow.css';
 import {
   CODE_WINDOW_GENERATION_SPEED,
   CODE_BLOCK_MAX_BASE_SIZE,
@@ -23,6 +22,27 @@ import {
   CODE_LINE_MAX_TOTAL_SIZE,
   CODE_LINE_MAX_TOTAL_STACK
 } from '../../_config.json';
+
+class CodeBlockModel {
+  constructor(blockType, maximumSize = 1) {
+    this.blockType = blockType;
+    this.isVisible = false;
+    this.currentSize = 1;
+    this.maximumSize = maximumSize;
+  }
+
+  get isActive() { return !this.isVisible || this.currentSize < this.maximumSize; }
+}
+
+class CodeLineModel {
+  constructor(...codeBlocks) {
+    this.codeBlocks = codeBlocks;
+    this.isClicked = false;
+    this.key = uuid();
+  }
+
+  get isActive() { return this.codeBlocks.some(codeBlock => codeBlock.isActive); }
+}
 
 const INITIAL_DATA = [
   // initial data is displayed in ascending order to match
@@ -51,12 +71,14 @@ const INITIAL_DATA = [
 // get the number of recent code lines that use
 // same indent size to improve block generation
 const getConsecutiveIndentCount = codeLines => {
-  const indentSize = codeLines[0].indentSize;
+  const lastIndentSize = codeLines[0].codeBlocks[0].maximumSize;
   let result = 0;
 
-  for (const codeLine of codeLines)
-    if (codeLine.indentSize === indentSize) result++;
+  for (const codeLine of codeLines) {
+    const thisIndentSize = codeLine.codeBlocks[0].maximumSize;
+    if (thisIndentSize === lastIndentSize) result++;
     else break;
+  }
 
   return result;
 }
@@ -129,18 +151,20 @@ function CodeWindow() {
 
   useEffect(() => {
     // check for an active CodeLine object (no index means CodeLine was completed)
-    const activeArrIndex = updatedCodeLines.map(x => x.isActive).lastIndexOf(true);
-    const activeCodeLine = activeArrIndex > -1 && updatedCodeLines[activeArrIndex];
+    const isActiveIndex = updatedCodeLines.map(x => x.isActive).lastIndexOf(true);
+    const currentCodeLine = isActiveIndex > -1 && updatedCodeLines[isActiveIndex];
 
     const animateCodeBlock = () => {
-      const updateCharCount = activeCodeLine.activeCodeBlock.blockType !== BLOCK_TYPES.INDENT;
-      const updateLineCount = activeCodeLine.isNewLine; 
-      if (updateCharCount) setCharCount(charCount => charCount + 1);
-      if (updateLineCount) setLineCount(lineCount => lineCount + 1);
+      const currentCodeBlock = currentCodeLine.codeBlocks.find(codeBlock => codeBlock.isActive);
 
-      if (!activeCodeLine.activeCodeBlock.isVisible)
-        activeCodeLine.activeCodeBlock.isVisible = true;
-      else activeCodeLine.activeCodeBlock.currentSize++;
+      const canUpdateCharCount = currentCodeBlock.blockType !== BLOCK_TYPES.INDENT;
+      const canUpdateLineCount = currentCodeLine.codeBlocks.reduce((sum, codeBlock) => sum + codeBlock.isVisible, 0) === 0; 
+      if (canUpdateCharCount) setCharCount(charCount => charCount + 1);
+      if (canUpdateLineCount) setLineCount(lineCount => lineCount + 1);
+
+      if (!currentCodeBlock.isVisible)
+        currentCodeBlock.isVisible = true;
+      else currentCodeBlock.currentSize++;
     }
 
     const generateCodeLine = () => {
@@ -148,37 +172,40 @@ function CodeWindow() {
       const nextCodeLine = new CodeLineModel();
 
       // get details on how the previous code line was built
-      const lastCodeLineHadValueBlock = lastCodeLine.codeBlockTypes.includes(BLOCK_TYPES.VALUE);
-      const lastCodeLineWasClosingTag = lastCodeLine.codeBlockTypes.length <= 4;
+      const lastCodeBlockTypes = [...new Set(lastCodeLine.codeBlocks.map(codeBlock => codeBlock.blockType))];
+
+      const lastCodeLineHadValueBlock = lastCodeBlockTypes.includes(BLOCK_TYPES.VALUE);
+      const lastCodeLineWasClosingTag = lastCodeBlockTypes.length <= 4;
+
+      const lastIndentSize = lastCodeLine.codeBlocks[0].maximumSize;
+      let nextIndentSize = lastIndentSize;
 
       // get details on the next indent code block size
       const consecutiveIndentCount = getConsecutiveIndentCount(updatedCodeLines);
-      const mustDecreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastCodeLine.indentSize >= CODE_BLOCK_MAX_INDENT_SIZE;
-      const mustIncreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastCodeLine.indentSize <= 1;
+      const mustDecreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastIndentSize >= CODE_BLOCK_MAX_INDENT_SIZE;
+      const mustIncreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastIndentSize <= 1;
       const randomUpdateIndentSize = consecutiveIndentCount >= getRandomNumber(CODE_LINE_MAX_CONSECUTIVE_INDENT);
 
-      const canDecreaseIndentSize = randomUpdateIndentSize && lastCodeLine.indentSize > CODE_BLOCK_MIN_INDENT_SIZE;
-      const canIncreaseIndentSize = randomUpdateIndentSize && lastCodeLine.indentSize < CODE_BLOCK_MAX_INDENT_SIZE && !lastCodeLineHadValueBlock && !lastCodeLineWasClosingTag;
-
-      let indentSize = lastCodeLine.indentSize;
+      const canDecreaseIndentSize = randomUpdateIndentSize && lastIndentSize > CODE_BLOCK_MIN_INDENT_SIZE;
+      const canIncreaseIndentSize = randomUpdateIndentSize && lastIndentSize < CODE_BLOCK_MAX_INDENT_SIZE && !lastCodeLineHadValueBlock && !lastCodeLineWasClosingTag;
 
       if (mustIncreaseIndentSize || canIncreaseIndentSize)
-        indentSize++;
+        nextIndentSize++;
       else if (mustDecreaseIndentSize || canDecreaseIndentSize)
-        indentSize--;
+        nextIndentSize--;
 
-      const indentCodeBlock = new CodeBlockModel(BLOCK_TYPES.INDENT, indentSize);
+      const indentCodeBlock = new CodeBlockModel(BLOCK_TYPES.INDENT, nextIndentSize);
       indentCodeBlock.currentSize = indentCodeBlock.maximumSize;
       nextCodeLine.codeBlocks.push(indentCodeBlock);
 
-      if (nextCodeLine.indentSize < lastCodeLine.indentSize) {
+      if (nextIndentSize < lastIndentSize) {
         // -------------------------------------------------------- //
         // indent was decreased, generate a closing tag from parent //
         // -------------------------------------------------------- //
 
         const tagNameSize =
           // get the opening tag name size to generate the closing tag, or random if removed
-          updatedCodeLines.find(codeLine => codeLine.indentSize === nextCodeLine.indentSize)
+          updatedCodeLines.find(codeLine => codeLine.codeBlocks[0].maximumSize === nextIndentSize)
           ?.codeBlocks.find(codeBlock => codeBlock.blockType === BLOCK_TYPES.TAG_NAME)
           ?.maximumSize || getRandomRange(2, 3);
 
@@ -222,8 +249,10 @@ function CodeWindow() {
           // lower the number of single-sizes because it gets excessive
           // single, single, single ... all this line space was wasted!
           let minimumSize = Math.min(averageSize, 1 + getRandomBool());
+
+          const nextCodeBlockTypes = [...new Set(nextCodeLine.codeBlocks.map(codeBlock => codeBlock.blockType))];
           const nextCodeLineHasSingleSize = nextCodeLine.codeBlocks.some(codeBlock => codeBlock.maximumSize === 1 && !CODE_BLOCK_RESTRICTED_SIZE.includes(codeBlock.blockType));
-          const nextCodeLineIsTagNameOnly = nextCodeLine.codeBlockTypes.length <= 3 && remainingCalculations <= 1;
+          const nextCodeLineIsTagNameOnly = nextCodeBlockTypes.length <= 3 && remainingCalculations <= 1;
 
           // limit code lines to one single-size block because multiple makes it appear small and ugly
           if (minimumSize === 1 && nextCodeLineHasSingleSize) minimumSize = Math.min(2, averageSize);
@@ -276,12 +305,9 @@ function CodeWindow() {
 
     const interval = setInterval(() => {
       if (!isCodePaused) {
-        activeCodeLine
-          ? animateCodeBlock()
-          : generateCodeLine();
+        currentCodeLine ? animateCodeBlock() : generateCodeLine();
         setCodeLines(updatedCodeLines);
       }
-
     }, codeSpeed);
 
     return () => clearInterval(interval);
