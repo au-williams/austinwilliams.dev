@@ -87,9 +87,7 @@ const getFormattedNumber = number => number < 1000 ? number : `${(number/1000).t
 
 const getRandomBool = (probability = 0.5) => Math.random() < probability;
 
-const getRandomNumber = max => Math.floor(Math.random() * max) + 1;
-
-const getRandomRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 function CodeWindow() {
   // ---------------------------------------- //
@@ -184,7 +182,7 @@ function CodeWindow() {
       const consecutiveIndentCount = getConsecutiveIndentCount(updatedCodeLines);
       const mustDecreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastIndentSize >= CODE_BLOCK_MAX_INDENT_SIZE;
       const mustIncreaseIndentSize = consecutiveIndentCount >= CODE_LINE_MAX_CONSECUTIVE_INDENT && lastIndentSize <= 1;
-      const randomUpdateIndentSize = consecutiveIndentCount >= getRandomNumber(CODE_LINE_MAX_CONSECUTIVE_INDENT);
+      const randomUpdateIndentSize = consecutiveIndentCount >= getRandomNumber(1, CODE_LINE_MAX_CONSECUTIVE_INDENT);
 
       const canDecreaseIndentSize = randomUpdateIndentSize && lastIndentSize > CODE_BLOCK_MIN_INDENT_SIZE;
       const canIncreaseIndentSize = randomUpdateIndentSize && lastIndentSize < CODE_BLOCK_MAX_INDENT_SIZE && !lastCodeLineHadValueBlock && !lastCodeLineWasClosingTag;
@@ -207,7 +205,7 @@ function CodeWindow() {
           // get the opening tag name size to generate the closing tag, or random if removed
           updatedCodeLines.find(codeLine => codeLine.codeBlocks[0].maximumSize === nextIndentSize)
           ?.codeBlocks.find(codeBlock => codeBlock.blockType === BLOCK_TYPES.TAG_NAME)
-          ?.maximumSize || getRandomRange(2, 3);
+          ?.maximumSize || getRandomNumber(2, 3);
 
         nextCodeLine.codeBlocks.push(
           new CodeBlockModel(BLOCK_TYPES.START_ANGLE),
@@ -259,7 +257,7 @@ function CodeWindow() {
           // reduce the likelihood of generating a code line with a single block of single size
           if (minimumSize === 1 && nextCodeLineIsTagNameOnly) minimumSize += getRandomBool(.8);
 
-          const result = getRandomRange(minimumSize, maximumSize);
+          const result = getRandomNumber(minimumSize, maximumSize);
           remainingCodeLineSize -= result;
           remainingCalculations -= 1;
           return result;
