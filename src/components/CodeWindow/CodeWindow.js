@@ -11,7 +11,7 @@ import PlayIcon from '../../assets/icon/play.svg';
 import RewindIcon from '../../assets/icon/rewind.svg';
 import BLOCK_TYPES from '../../constants/BlockTypes';
 import CodeLine from '../CodeLine/CodeLine';
-import './CodeWindow.css';
+import styles from './CodeWindow.module.scss';
 import {
   CODE_WINDOW_GENERATION_SPEED,
   CODE_BLOCK_MAX_BASE_SIZE,
@@ -128,9 +128,10 @@ function CodeWindow() {
 
   const isFooterVisible = isFooterPinned || isMouseHovering || isCodePaused;
   const footerClassNames = classNames(
-    {'visible': isFooterVisible},
-    {'pause': isFooterVisible && isCodePaused},
-    {'debug': isFooterVisible && !isCodePaused && codeLines.some(codeLine => codeLine.isClicked)},
+    styles.footer,
+    (isFooterVisible && styles.visible),
+    (isFooterVisible && isCodePaused && styles.pause),
+    (isFooterVisible && !isCodePaused && codeLines.some(codeLine => codeLine.isClicked) && styles.debug)
   );
 
   const onResetClick = () => {
@@ -312,51 +313,53 @@ function CodeWindow() {
   }, [codeLines, codeSpeed, isCodePaused, updatedCodeLines]);
 
   return (
-    <div id='code-window-wrapper' onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-      <div id='code-window-title'>
+    <div
+      className={styles.wrapper}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
+      <div className={styles.title}>
         <div/>
         <div/>
         <div/>
         <div/>
       </div>
-      <div id='code-window-body'>
-        <div id='code-window-code'>
-        {
-          updatedCodeLines.map(codeLine => {
-            // code lines are generated once with code blocks
-            // made visible iteratively, giving them a typing
-            // appearance — only pass visible blocks as props
-            const visibleCodeBlocks =
-              codeLine.codeBlocks.filter(codeBlock => codeBlock.isVisible);
+      <div className={styles.body}>
+        <div className={styles.code}>
+          {updatedCodeLines.map(codeLine => {
+              // code lines are generated once with code blocks
+              // made visible iteratively, giving them a typing
+              // appearance — only pass visible blocks as props
+              const visibleCodeBlocks =
+                codeLine.codeBlocks.filter(codeBlock => codeBlock.isVisible);
 
-            return visibleCodeBlocks.length > 0 && <CodeLine
-              key={codeLine.key}
-              codeBlocks={visibleCodeBlocks}
-              isClicked={codeLine.isClicked}
-              onClick={isClicked => onCodeLineClick(codeLine, isClicked)}
-            />
-          })
-        }
+              return visibleCodeBlocks.length > 0 && <CodeLine
+                key={codeLine.key}
+                codeBlocks={visibleCodeBlocks}
+                isClicked={codeLine.isClicked}
+                onClick={isClicked => onCodeLineClick(codeLine, isClicked)}
+              />
+          })}
         </div>
-        <div id='code-window-name'>
+        <div className={styles.name}>
           <img src={PersonEmoji} alt='man technologist emoji'></img>
           <span>Austin Williams</span>
         </div>
       </div>
-      <div id='code-window-footer' className={footerClassNames}>
+      <div className={footerClassNames}>
         <button onClick={onPinClick}>
-          <div className='tooltip'>Pin</div>
+          <div className={styles.tooltip}>Pin</div>
           <img
             src={isFooterPinned ? PinOffIcon : PinOnIcon}
             alt={`pin ${isFooterPinned ? 'off' : 'on'}`}
           />
         </button>
         <button onClick={() => decreaseCodeSpeed(25)}>
-          <div className='tooltip'>Slow down</div>
+          <div className={styles.tooltip}>Slow down</div>
           <img src={RewindIcon} alt='rewind'/>
         </button>
         <button onClick={onPauseClick}>
-          <div className='tooltip'>
+          <div className={styles.tooltip}>
             {isCodePaused ? "Play" : "Pause"}
           </div>
           <img
@@ -365,12 +368,12 @@ function CodeWindow() {
           />
         </button>
         <button onClick={() => increaseCodeSpeed(25)}>
-          <div className='tooltip'>Speed up</div>
+          <div className={styles.tooltip}>Speed up</div>
           <img src={FastForwardIcon} alt='fast forward'/>
         </button>
         <span>{ isCodePaused ? 'Paused' : `${codeSpeed}ms` }</span>
         <button onClick={onResetClick}>
-          <div className='tooltip'>Reset</div>
+          <div className={styles.tooltip}>Reset</div>
           <img src={EraserIcon} alt='reset'/>
         </button>
         <span>Lines: {formattedLineCount}</span>
