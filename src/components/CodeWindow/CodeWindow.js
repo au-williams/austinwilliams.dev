@@ -181,10 +181,10 @@ function CodeWindow() {
       const nextCodeLine = new CodeLineModel();
 
       // get details on how the previous code line was built
-      const lastCodeBlockTypes = [...new Set(lastCodeLine.codeBlocks.map(codeBlock => codeBlock.blockType))];
+      const lastCodeBlockTypes = new Set(lastCodeLine.codeBlocks.map(codeBlock => codeBlock.blockType));
 
-      const lastCodeLineHadValueBlock = lastCodeBlockTypes.includes(BLOCK_TYPES.VALUE);
-      const lastCodeLineWasClosingTag = lastCodeBlockTypes.length <= 4;
+      const lastCodeLineHadValueBlock = lastCodeBlockTypes.has(BLOCK_TYPES.VALUE);
+      const lastCodeLineWasClosingTag = lastCodeBlockTypes.size <= 4;
 
       const lastIndentSize = lastCodeLine.codeBlocks[0].maximumSize;
       let nextIndentSize = lastIndentSize;
@@ -259,9 +259,9 @@ function CodeWindow() {
           // single, single, single ... all this line space was wasted!
           let minimumSize = Math.min(averageSize, 1 + getRandomBool());
 
-          const nextCodeBlockTypes = [...new Set(nextCodeLine.codeBlocks.map(codeBlock => codeBlock.blockType))];
+          const nextCodeBlockTypes = new Set(nextCodeLine.codeBlocks.map(codeBlock => codeBlock.blockType));
           const nextCodeLineHasSingleSize = nextCodeLine.codeBlocks.some(codeBlock => codeBlock.maximumSize === 1 && !CODE_BLOCK_NO_RESIZE.includes(codeBlock.blockType));
-          const nextCodeLineIsTagNameOnly = nextCodeBlockTypes.length <= 3 && remainingCalculations <= 1;
+          const nextCodeLineIsTagNameOnly = nextCodeBlockTypes.size <= 3 && remainingCalculations <= 1;
 
           // limit code lines to one single-size block because multiple makes it appear small and ugly
           if (minimumSize === 1 && nextCodeLineHasSingleSize) minimumSize = Math.min(2, averageSize);
