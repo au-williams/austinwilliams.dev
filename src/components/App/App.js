@@ -6,14 +6,13 @@ import Mailbox from '../../assets/emoji/mailbox.png';
 import Wave from '../../assets/emoji/wave.png';
 import GitHub from '../../assets/icon/github.svg';
 import Scroll from '../../assets/icon/scroll.svg';
-import { GOOGLE_ANALYTICS_MEASUREMENT_ID } from '../../_config.json';
 import CodeWindow from '../CodeWindow/CodeWindow';
 import styles from './App.module.scss';
 
 // google analytics
 
 const startGoogleAnalytics = () => {
-  ReactGA.initialize(GOOGLE_ANALYTICS_MEASUREMENT_ID);
+  ReactGA.initialize('G-JFBLY5T1C0');
   ReactGA.send('pageview');
 }
 

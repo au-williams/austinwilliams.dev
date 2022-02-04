@@ -1,0 +1,11 @@
+// todo: refactor to sub styles!
+$animator--window-border-size: 0.25em;
+$code-block--base-scale: 1.2em;
+$modifier--animator-shrink: 1em;
+$modifier--code-block-code-line-height: 1.5;
+
+// todo: component config here
+$sidebar-width: 2.5em;
+$line-number-scale: 0.45;
+$line-number-space: ($sidebar-width * 0.5) - ($code-block--base-scale * ($line-number-scale * 0.5)) - ($animator--window-border-size * 0.5);
+$color-transition-speed: 25ms;

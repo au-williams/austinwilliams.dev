@@ -1,0 +1,29 @@
+$body-background-color: #18191A;
+$body-text-color: #D4D4D4;
+
+body {
+  background-color: $body-background-color;
+  box-sizing: border-box;
+  color: $body-text-color;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  padding: 0 1.5em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media only
+screen and (max-height: 675px),
+screen and (max-width: 885px) {
+  body { padding: 0 1.8vw; }
+}

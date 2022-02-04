@@ -1,20 +1,9 @@
-@import "../../config";
-
-:global(html),
-:global(body),
-:global(#root) {
-  min-height: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-:global(body) {
-  background-color: $webpage--body-background-color;
-  box-sizing: border-box;
-  color: $webpage--text-color;
-  padding: 0 1.5em;
-}
+$footer-background-color-hover-darkness: 2.5%;
+$footer-background-color: #161616;
+$link-color: #CE9178;
+$section-background-color: #202020;
+$section-image-border-color: #18191A;
+$text-color: #D4D4D4;
 
 .flexWrapper {
   align-items: center;
@@ -32,21 +21,21 @@
   > button {
     background: none;
     border: none;
-    color: $webpage--text-color;
+    color: $text-color;
     cursor: pointer;
     font-family: "Roboto", sans-serif;
     font-size: 1.875em;
     margin: 5vh 0;
 
     &:active {
-      transform: translateY(4px)
+      transform: translateY(0.1875em)
     }
   }
 }
 
 .appSection {
-  background-color: $webpage--content-background-color;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: $section-background-color;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 0.1875em 0.5em;
   font-family: "Roboto", sans-serif;
   margin: 0 auto;
   max-width: 100%;
@@ -64,9 +53,9 @@
     &:nth-child(2) { padding-bottom: 2.25em; }
 
     > img {
-      background-color: $webpage--body-background-color;
+      background-color: $section-image-border-color;
       border-radius: 100%;
-      border: .33em solid $webpage--body-background-color;
+      border: .33em solid $section-image-border-color;
       box-sizing: border-box;
       height: 8em;
       margin-right: 1.125em;
@@ -79,7 +68,7 @@
       width: 100%;
 
       > a {
-        color: $webpage--link-color;
+        color: $link-color;
       }
 
       > img {
@@ -105,9 +94,9 @@
   a,
   button {
     align-items: center;
-    background-color: $webpage--footer-background-color;
+    background-color: $footer-background-color;
     border: none;
-    color: $webpage--text-color;
+    color: $text-color;
     cursor: pointer;
     display: flex;
     flex-grow: 1;
@@ -122,11 +111,11 @@
     white-space: nowrap;
 
     &:active {
-      transform: translateY(4px);
+      transform: translateY(0.1875em)
     }
 
     &:hover {
-      background-color: darken($webpage--footer-background-color, $webpage--footer-hover-darkness);
+      background-color: darken($footer-background-color, $footer-background-color-hover-darkness);
     }
 
     > img {
@@ -142,10 +131,9 @@
 @media only
 screen and (max-height: 675px),
 screen and (max-width: 885px) {
-  :global(body) { padding: 0 1.8vw; }
   .appFooter { font-size: 1.8vmin; }
   .appSection { font-size: 1.8vmin; }
-  .viewportWrapper button { font-size: 4vmin; }
+  .viewportWrapper > button { font-size: 4vmin; }
 }
 
 // portrait orientation

@@ -1,0 +1,44 @@
+@import "../_config"; // todo: lower configs to sub components!
+
+$color-transition-speed: 25ms;
+$line-number-color: #888888;
+
+.codeLine {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  height: ($code-block--base-scale * $modifier--code-block-code-line-height);
+  position: relative;
+
+  &:active {transform: translateY(0.09375em)}
+  &:last-of-type {margin-top: ($code-block--base-scale * .2)}
+
+  div {
+    flex-shrink: 0;
+    pointer-events: none;
+
+    // match spacing after the line number element
+    &:nth-child(2) {margin-left: $line-number-space}
+  }
+}
+
+.lineNumber {
+  border-radius: 100%;
+  background-color: $line-number-color;
+  height: ($code-block--base-scale * $line-number-scale);
+  margin: 0 ($sidebar-width * 0.5) - ($code-block--base-scale * ($line-number-scale * 0.5)) - ($animator--window-border-size * 0.5); // half of sidebar - half of element width
+  transition: background-color $color-transition-speed, box-shadow $color-transition-speed;
+  width: ($code-block--base-scale * $line-number-scale); // width and margin make 1 block size
+
+  &.clicked {
+    background-color: #EE4B2B;
+    box-shadow: 0 0 0.5em #EE4B2B15;
+    transition: background-color $color-transition-speed * 2, box-shadow $color-transition-speed * 2;
+  }
+
+  &.hovered {
+    background-color: #D4D4D4;
+    box-shadow: 0 0 0.5em #D4D4D415;
+  }
+}

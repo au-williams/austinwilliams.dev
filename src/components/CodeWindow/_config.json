@@ -1,0 +1,10 @@
+{
+  "CODE_BLOCK_MAX_SIZE": 5,
+  "CODE_BLOCK_NO_RESIZE": ["close-angle", "indent", "start-angle", "operator", "space"],
+  "CODE_LINE_MAX_SCROLL": 14,
+  "CODE_LINE_MAX_SIZE": 16,
+  "DEFAULT_GENERATION_SPEED": 175,
+  "INDENT_MAX_CONSECUTIVE_COUNT": 4,
+  "INDENT_MAX_SIZE": 3,
+  "INDENT_MIN_SIZE": 1
+}

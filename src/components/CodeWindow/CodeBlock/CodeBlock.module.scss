@@ -1,0 +1,75 @@
+@import "../config"; // todo: lower configs to sub components!
+
+$attribute-color: #9CDCFE;
+$base-color: #333333;
+$base-space: 0.2;
+$border-radius: 0.15em;
+$close-angle-color: #D4D4D4;
+$operator-color: #D4D4D4;
+$start-angle-color: #D4D4D4;
+$string-color: #CE9178;
+$tag-name-color: #569CD6;
+$value-color: #D4D4D4;
+
+.attribute,
+.indent,
+.operator,
+.string,
+.tag-name,
+.value {
+  transition: background-color $color-transition-speed;
+  background-color: $base-color;
+  border-radius: $border-radius;
+}
+
+.indent {
+  background-color: transparent;
+}
+
+.attribute,
+.indent,
+.string,
+.tag-name,
+.value {
+  height: $code-block--base-scale;
+  margin: 0 ($code-block--base-scale * $base-space);
+  width: $code-block--base-scale;
+
+  &.size-2 { width: ($code-block--base-scale * 2) + (($code-block--base-scale * $base-space) * 2); }
+  &.size-3 { width: ($code-block--base-scale * 3) + (($code-block--base-scale * $base-space) * 4); }
+  &.size-4 { width: ($code-block--base-scale * 4) + (($code-block--base-scale * $base-space) * 6); }
+  &.size-5 { width: ($code-block--base-scale * 5) + (($code-block--base-scale * $base-space) * 8); }
+}
+
+.operator {
+  height: $code-block--base-scale * 0.5;
+  margin: ($code-block--base-scale * 0.25) + ($code-block--base-scale * $base-space);
+  width: ($code-block--base-scale * 0.5); // width and margin make 1 block size
+}
+
+.close-angle,
+.start-angle {
+  border-bottom: ($code-block--base-scale * 0.5) solid transparent;
+  border-radius: $border-radius;
+  border-top: ($code-block--base-scale * 0.5) solid transparent;
+  margin: 0 (($code-block--base-scale * 0.125) + ($code-block--base-scale * $base-space));
+  transition: border-color $color-transition-speed;
+
+}
+
+.close-angle {
+  border-left: ($code-block--base-scale * 0.75) solid $base-color;
+}
+
+.start-angle {
+  border-right: ($code-block--base-scale * 0.75) solid $base-color;
+}
+
+.close-angle.color { border-left-color: $close-angle-color;  }
+.start-angle.color { border-right-color: $start-angle-color; }
+
+.attribute.color   { background-color: $attribute-color; }
+.operator.color    { background-color: $operator-color;  }
+.string.color      { background-color: $string-color;    }
+.tag-name.color    { background-color: $tag-name-color;  }
+.value.color       { background-color: $value-color;     }
