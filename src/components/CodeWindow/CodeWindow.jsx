@@ -25,7 +25,7 @@ const BLOCK_TYPES = {
 
 // component configuration
 const COMPONENT_CONFIG = {
-  CODE_BLOCK_ANIMATE_SPEED: 175,
+  CODE_BLOCK_ANIMATE_SPEED: 150,
   CODE_BLOCK_MAX_SIZE: 5,
   CODE_BLOCK_NO_RESIZE: ['close-angle', 'indent', 'start-angle', 'operator'],
   CODE_LINE_MAX_SCROLL: 14,
@@ -51,6 +51,7 @@ class CodeBlockModel {
     this.isVisible = false;
     this.currentSize = 1;
     this.maximumSize = maximumSize;
+    this.key = uuid();
   }
 
   get isActive() {
@@ -139,9 +140,9 @@ const CodeWindow = () => {
   const isFooterVisible = isFooterPinned || isMouseHovering || isCodePaused;
   const footerClassNames = classNames(
     styles.footer,
-    isFooterVisible && styles.visible,
-    isFooterVisible && isCodePaused && styles.pause,
-    isFooterVisible && !isCodePaused && codeLines.some((codeLine) => codeLine.isClicked) && styles.debug
+    { [styles.visible]: isFooterVisible },
+    { [styles.pause]: isFooterVisible && isCodePaused },
+    { [styles.debug]: isFooterVisible && !isCodePaused && codeLines.some((codeLine) => codeLine.isClicked) }
   );
 
   const onResetClick = () => {

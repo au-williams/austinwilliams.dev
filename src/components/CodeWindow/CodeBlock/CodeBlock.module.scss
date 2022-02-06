@@ -2,7 +2,6 @@
 
 $base-space: 0.2;
 $border-radius: 0.15em;
-$angle-scale: 0.8;
 
 .press {
   transform: translateY(0.09375em);
@@ -81,8 +80,8 @@ $angle-scale: 0.8;
 }
 
 .close-angle {
-  border-left: ($code-block-size * $angle-scale) solid #333333;
-  margin-right: $code-line-space + ($code-block-size * (1 - $angle-scale));
+  border-left: ($code-block-size * 0.8) solid #333333;
+  margin-right: $code-line-space + ($code-block-size * 0.15);
 
   &.press {
     border-left-color: #2e2e2e;
@@ -94,8 +93,8 @@ $angle-scale: 0.8;
 }
 
 .start-angle {
-  border-right: ($code-block-size * $angle-scale) solid #333333;
-  margin-left: $code-line-space + ($code-block-size * (1 - $angle-scale));
+  border-right: ($code-block-size * 0.8) solid #333333;
+  margin-left: $code-line-space + ($code-block-size * 0.15);
 
   &.press {
     border-right-color: #2e2e2e;
@@ -107,7 +106,8 @@ $angle-scale: 0.8;
 }
 
 .attribute.color {
-  background-color: #9cdcfe;
+  $background-color: #9cdcfe;
+  background-color: $background-color;
 }
 .operator.color {
   background-color: #d4d4d4;

@@ -6,6 +6,7 @@ import styles from './CodeLine.module.scss';
 
 const CodeLine = ({ codeBlocks, isClicked, isCurrentLine, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const lastVisibleIndex = isCurrentLine && codeBlocks.map((x) => x.isVisible).lastIndexOf(true);
 
   return (
     <div
@@ -23,19 +24,15 @@ const CodeLine = ({ codeBlocks, isClicked, isCurrentLine, onClick }) => {
           { [styles.hovered]: isHovered && !isClicked }
         )}
       />
-      {codeBlocks.map(({ blockType, currentSize }, index) => {
-        const isCurrentBlock =
-          isCurrentLine && codeBlocks.map((x) => x.isVisible).lastIndexOf(true) === index;
-
-        return (
-          <CodeBlock
-            blockType={blockType}
-            currentSize={currentSize}
-            isCurrentBlock={isCurrentBlock}
-            useColor={isClicked || isHovered}
-          />
-        );
-      })}
+      {codeBlocks.map(({ blockType, currentSize, key }, index) => (
+        <CodeBlock
+          key={key}
+          blockType={blockType}
+          currentSize={currentSize}
+          isCurrentBlock={index === lastVisibleIndex}
+          useColor={isClicked || isHovered}
+        />
+      ))}
     </div>
   );
 };
@@ -44,7 +41,8 @@ CodeLine.propTypes = {
   codeBlocks: PropTypes.arrayOf(
     PropTypes.shape({
       blockType: PropTypes.string.isRequired,
-      currentSize: PropTypes.number.isRequired
+      currentSize: PropTypes.number.isRequired,
+      key: PropTypes.string.isRequired
     })
   ).isRequired,
   isClicked: PropTypes.bool.isRequired,
