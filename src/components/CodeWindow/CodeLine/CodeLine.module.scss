@@ -1,47 +1,48 @@
-@import '../_config'; // todo: lower configs to sub components!
+@use '../CodeWindow.module' as *; // todo: lower configs to sub components!
 
-$color-transition-speed: 25ms;
-$line-number-color: #888888;
+// config
+$line-number-size: $code-block-size * 0.45;
+
+// computed
+$line-number-horizontal-margin: calc($sidebar-width / 2) - calc($line-number-size / 2) -
+  calc($border-width / 2);
+$line-number-vertical-margin: calc($code-block-size / 2) - calc($line-number-size / 2);
 
 .codeLine {
   align-items: center;
+  border: none;
   cursor: pointer;
   display: flex;
-  flex-shrink: 0;
-  height: ($code-block--base-scale * $modifier--code-block-code-line-height);
-  position: relative;
+  padding: $code-line-space 0;
+
+  &:last-of-type {
+    margin-top: ($code-line-space);
+  }
 
   &:active {
     transform: translateY(0.09375em);
   }
-  &:last-of-type {
-    margin-top: ($code-block--base-scale * 0.2);
+
+  > div {
+    transition: background-color 25ms, border-color 25ms, box-shadow 25ms;
   }
 
-  div {
-    flex-shrink: 0;
-    pointer-events: none;
-
-    // match spacing after the line number element
-    &:nth-child(2) {
-      margin-left: $line-number-space;
-    }
+  > div:nth-child(2) {
+    margin-left: $line-number-horizontal-margin;
   }
 }
 
 .lineNumber {
   border-radius: 100%;
-  background-color: $line-number-color;
-  height: ($code-block--base-scale * $line-number-scale);
-  margin: 0 ($sidebar-width * 0.5) - ($code-block--base-scale * ($line-number-scale * 0.5)) -
-    ($animator--window-border-size * 0.5); // half of sidebar - half of element width
-  transition: background-color $color-transition-speed, box-shadow $color-transition-speed;
-  width: ($code-block--base-scale * $line-number-scale); // width and margin make 1 block size
+  background-color: #888888;
+  height: $line-number-size;
+  margin: $line-number-vertical-margin $line-number-horizontal-margin;
+  width: $line-number-size;
 
   &.clicked {
     background-color: #ee4b2b;
     box-shadow: 0 0 0.5em #ee4b2b15;
-    transition: background-color $color-transition-speed * 2, box-shadow $color-transition-speed * 2;
+    transition: background-color 50ms, box-shadow 50ms;
   }
 
   &.hovered {

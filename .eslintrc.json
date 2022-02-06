@@ -13,19 +13,20 @@
   },
   "plugins": ["react", "prettier", "import"],
   "rules": {
-    "max-classes-per-file": ["error", 2],
     "jsx-a11y/click-events-have-key-events": "off",
-    "no-shadow": "off",
-    "prettier/prettier": "warn",
-    "react/prop-types": "warn",
+    "no-console": ["error", { "allow": ["error"] }],
     "no-param-reassign": [2, { "props": false }],
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+    "no-shadow": "off",
+    "prettier/prettier": "warn",
     "react/function-component-definition": [
       "warn",
       {
         "namedComponents": "arrow-function",
         "unnamedComponents": "arrow-function"
       }
-    ]
+    ],
+    "react/no-this-in-sfc": "off",
+    "react/prop-types": "warn"
   }
 }

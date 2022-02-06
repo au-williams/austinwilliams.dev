@@ -1,11 +1,12 @@
-@import './_config';
-
 $border-radius: 0.15em;
-$border-size: 0.25em;
+$border-width: 0.25em;
+$code-block-size: 1.25em;
+$code-line-space: 0.275em;
+$sidebar-width: 2.5em;
 $title-bar-button-hover-brightness: 20%;
 $title-bar-button-size: 0.95em;
 $title-bar-height: 2.25em;
-$transition-speed: 100ms;
+$visibility-transition-speed: 100ms;
 
 .wrapper {
   background-color: #1e1e1e;
@@ -41,7 +42,7 @@ $transition-speed: 100ms;
   display: flex;
   flex-shrink: 0;
   height: $title-bar-height;
-  padding: 0 $border-size;
+  padding: 0 $border-width;
   z-index: 1;
 
   div:nth-child(1) {
@@ -50,7 +51,7 @@ $transition-speed: 100ms;
     border-radius: $border-radius;
     display: inline-block;
     height: $title-bar-button-size;
-    margin: 0 (($sidebar-width * 0.5) - ($title-bar-button-size * 0.5) - ($border-size * 0.5));
+    margin: 0 (($sidebar-width * 0.5) - ($title-bar-button-size * 0.5) - ($border-width * 0.5));
     width: $title-bar-button-size;
 
     &:hover {
@@ -65,7 +66,7 @@ $transition-speed: 100ms;
   div:nth-child(4) {
     border-radius: 100%;
     height: $title-bar-button-size;
-    margin: 0 $border-size;
+    margin: 0 $border-width;
     width: $title-bar-button-size;
   }
 
@@ -75,10 +76,7 @@ $transition-speed: 100ms;
     margin-left: auto;
 
     &:hover {
-      $hover-color: lighten(
-        $background-color,
-        $title-bar-button-hover-brightness / 1.5
-      ); // green is too bright
+      $hover-color: lighten($background-color, calc($title-bar-button-hover-brightness / 1.5));
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -110,7 +108,7 @@ $transition-speed: 100ms;
 .body {
   border-color: #3c3c3c;
   border-style: solid;
-  border-width: 0 $border-size;
+  border-width: 0 $border-width;
   height: inherit;
   position: relative;
 }
@@ -132,8 +130,10 @@ $transition-speed: 100ms;
     // empty padding to stick code to
     // the top of the animator Y axis
     content: '';
+    font-size: 1em;
     height: 100%;
-    min-height: 36%;
+    margin-bottom: $code-line-space;
+    min-height: 5 * ($code-block-size + ($code-line-space * 2)) - 0.115em; // [- val] hack to perfectly align scroll position
     pointer-events: none;
   }
 
@@ -154,9 +154,9 @@ $transition-speed: 100ms;
 .name {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.75);
-  border-radius: $border-radius / 2;
+  border-radius: calc($border-radius / 2);
   bottom: 0;
-  box-shadow: rgba(0, 0, 0, 0.35) 0 0.3125em 0.9375em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0 0.078em 0.235em;
   display: flex;
   font-family: 'Roboto', sans-serif;
   font-size: 2.875em;
@@ -168,7 +168,7 @@ $transition-speed: 100ms;
   position: absolute;
   right: 0;
   top: 0;
-  transition: opacity $transition-speed;
+  transition: opacity $visibility-transition-speed;
   width: 8.95em;
 
   img {
@@ -186,10 +186,10 @@ $transition-speed: 100ms;
   background-color: #3c3c3c;
   border-color: #3c3c3c;
   border-style: solid;
-  border-width: 0 $border-size;
-  height: $border-size;
-  transition: background-color $transition-speed, border-color $transition-speed,
-    height $transition-speed;
+  border-width: 0 $border-width;
+  height: $border-width;
+  transition: background-color $visibility-transition-speed,
+    border-color $visibility-transition-speed, height $visibility-transition-speed;
   z-index: 1;
 
   &.visible {
@@ -259,15 +259,14 @@ $transition-speed: 100ms;
     visibility: hidden;
   }
 
-  span {
+  > span {
     color: #d4d4d4;
     cursor: default;
     font-family: 'Roboto', sans-serif;
     font-size: 0.8em;
     vertical-align: top;
 
-    &:nth-last-child(1),
-    &:nth-last-child(2) {
+    &:nth-last-child(1) {
       float: right;
     }
   }
@@ -277,7 +276,7 @@ $transition-speed: 100ms;
     border: none;
     cursor: pointer;
     font-size: 0.8em;
-    min-width: $sidebar-width + $border-size;
+    min-width: $sidebar-width + $border-width;
     position: relative;
     &:active img {
       transform: translateY(0.09375em);
@@ -298,7 +297,7 @@ $transition-speed: 100ms;
   pointer-events: none;
   position: absolute;
   text-align: center;
-  transition: background-color $transition-speed;
+  transition: background-color $visibility-transition-speed;
   visibility: hidden;
   z-index: 1;
 

@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
-import Avatar from '../../assets/content/avatar.svg';
-import Banner from '../../assets/content/banner.png';
-import Mailbox from '../../assets/emoji/mailbox.png';
-import Wave from '../../assets/emoji/wave.png';
-import GitHub from '../../assets/icon/github.svg';
-import Scroll from '../../assets/icon/scroll.svg';
+import { Avatar, GitHub, Scroll } from '../../assets/icons';
+import { Banner, MailboxEmoji, WaveEmoji } from '../../assets/images';
 import CodeWindow from '../CodeWindow/CodeWindow';
 import styles from './App.module.scss';
 
@@ -25,7 +21,7 @@ const onBackClick = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-const onLinkClick = () => sendGoogleAnalyticsEvent('click', 'github_outbound_link');
+const onGitHubClick = () => sendGoogleAnalyticsEvent('click', 'github_outbound_link');
 
 // react render
 
@@ -33,15 +29,16 @@ const App = () => {
   const [avatar, setAvatar] = useState(Avatar);
   const sectionRef = useRef(null);
 
+  const onAboutClick = () => {
+    sendGoogleAnalyticsEvent('click', 'about_button');
+    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const fetchGitHubAvatar = () => {
     fetch('https://api.github.com/users/au-williams')
       .then((res) => res.json())
-      .then((result) => setAvatar(result.avatar_url));
-    // .catch((error) => console.error('Error:', error));
-  };
-
-  const onAboutClick = () => {
-    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+      .then((result) => setAvatar(result.avatar_url))
+      .catch((error) => console.error('Error:', error));
   };
 
   useEffect(() => {
@@ -63,7 +60,7 @@ const App = () => {
         <article className={styles.flexWrapper}>
           <img src={avatar} alt="avatar" draggable="false" />
           <p>
-            Hey <img src={Wave} alt="waving emoji" /> — My name is{' '}
+            Hey <img src={WaveEmoji} alt="waving emoji" /> — My name is{' '}
             <a href="https://www.linkedin.com/in/auwilliams">Austin</a>. I started my career by
             developing government programs and collaborating with major tech companies, who taught
             me their art of delivering great software from start to finish.
@@ -75,7 +72,7 @@ const App = () => {
             I love working with computers and I&apos;m always open to new opportunities. Feel free
             to send an email for side-work or employment inquiries — you can reach me at{' '}
             <a href="mailto:me@austinwilliams.dev">me@austinwilliams.dev</a>.{' '}
-            <img src={Mailbox} alt="mailbox emoji" />
+            <img src={MailboxEmoji} alt="mailbox emoji" />
           </p>
         </article>
         <footer className={styles.appFooter}>
@@ -85,7 +82,7 @@ const App = () => {
           </button>
           <a
             href="https://github.com/au-williams/au-williams.github.io"
-            onClick={onLinkClick}
+            onClick={onGitHubClick}
             rel="noopener noreferrer"
             target="_blank"
           >
