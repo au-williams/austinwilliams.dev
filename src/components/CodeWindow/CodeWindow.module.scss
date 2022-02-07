@@ -1,11 +1,14 @@
-$border-radius: 0.15em;
-$border-width: 0.25em;
+// global config
 $code-block-size: 1.25em;
 $code-line-space: 0.275em;
-$sidebar-width: 2.5em;
-$title-bar-button-hover-brightness: 20%;
-$title-bar-button-size: 0.95em;
-$title-bar-height: 2.25em;
+$code-window-sidebar-width: 2.25em;
+
+// component config
+$code-window-border-radius: 0.15em;
+$code-window-border-width: 0.25em;
+$code-window-title-bar-button-hover-brightness: 20%;
+$code-window-title-bar-button-size: 0.95em;
+$code-window-title-bar-height: 2.25em;
 $visibility-transition-speed: 100ms;
 
 .wrapper {
@@ -20,15 +23,16 @@ $visibility-transition-speed: 100ms;
   position: relative;
   white-space: nowrap;
   width: 50em;
-  border-radius: $border-radius;
+  border-radius: $code-window-border-radius;
 
   &::before {
     background: #333333;
-    border-radius: $border-radius 0 0 $border-radius;
+    border-left: $code-window-border-width solid #3c3c3c;
+    border-radius: $code-window-border-radius 0 0 $code-window-border-radius;
     content: '';
     height: 100%;
     position: absolute;
-    width: $sidebar-width;
+    width: $code-window-sidebar-width;
   }
 
   &:hover .name {
@@ -41,21 +45,21 @@ $visibility-transition-speed: 100ms;
   background-color: #3c3c3c;
   display: flex;
   flex-shrink: 0;
-  height: $title-bar-height;
-  padding: 0 $border-width;
+  height: $code-window-title-bar-height;
+  padding: 0 $code-window-border-width;
   z-index: 1;
 
   div:nth-child(1) {
     $background-color: #0078d7;
     background-color: $background-color;
-    border-radius: $border-radius;
+    border-radius: $code-window-border-radius;
     display: inline-block;
-    height: $title-bar-button-size;
-    margin: 0 (($sidebar-width * 0.5) - ($title-bar-button-size * 0.5) - ($border-width * 0.5));
-    width: $title-bar-button-size;
+    height: $code-window-title-bar-button-size;
+    margin: 0 (($code-window-sidebar-width * 0.5) - ($code-window-title-bar-button-size * 0.5));
+    width: $code-window-title-bar-button-size;
 
     &:hover {
-      $hover-color: lighten($background-color, $title-bar-button-hover-brightness);
+      $hover-color: lighten($background-color, $code-window-title-bar-button-hover-brightness);
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -65,9 +69,9 @@ $visibility-transition-speed: 100ms;
   div:nth-child(3),
   div:nth-child(4) {
     border-radius: 100%;
-    height: $title-bar-button-size;
-    margin: 0 $border-width;
-    width: $title-bar-button-size;
+    height: $code-window-title-bar-button-size;
+    margin: 0 $code-window-border-width;
+    width: $code-window-title-bar-button-size;
   }
 
   div:nth-child(2) {
@@ -76,7 +80,10 @@ $visibility-transition-speed: 100ms;
     margin-left: auto;
 
     &:hover {
-      $hover-color: lighten($background-color, calc($title-bar-button-hover-brightness / 1.5));
+      $hover-color: lighten(
+        $background-color,
+        calc($code-window-title-bar-button-hover-brightness / 1.5)
+      );
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -87,7 +94,7 @@ $visibility-transition-speed: 100ms;
     background-color: $background-color;
 
     &:hover {
-      $hover-color: lighten($background-color, $title-bar-button-hover-brightness);
+      $hover-color: lighten($background-color, $code-window-title-bar-button-hover-brightness);
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -98,7 +105,7 @@ $visibility-transition-speed: 100ms;
     background-color: $background-color;
 
     &:hover {
-      $hover-color: lighten($background-color, $title-bar-button-hover-brightness);
+      $hover-color: lighten($background-color, $code-window-title-bar-button-hover-brightness);
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -108,7 +115,7 @@ $visibility-transition-speed: 100ms;
 .body {
   border-color: #3c3c3c;
   border-style: solid;
-  border-width: 0 $border-width;
+  border-width: 0 $code-window-border-width;
   height: inherit;
   position: relative;
 }
@@ -133,7 +140,7 @@ $visibility-transition-speed: 100ms;
     font-size: 1em;
     height: 100%;
     margin-bottom: $code-line-space;
-    min-height: 5 * ($code-block-size + ($code-line-space * 2)) - 0.115em; // [- val] hack to perfectly align scroll position
+    min-height: 5 * ($code-block-size + ($code-line-space * 2)) - 0.1em; // [- val] hack to perfectly align scroll position
     pointer-events: none;
   }
 
@@ -154,7 +161,7 @@ $visibility-transition-speed: 100ms;
 .name {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.75);
-  border-radius: calc($border-radius / 2);
+  border-radius: calc($code-window-border-radius / 2);
   bottom: 0;
   box-shadow: rgba(0, 0, 0, 0.35) 0 0.078em 0.235em;
   display: flex;
@@ -186,8 +193,8 @@ $visibility-transition-speed: 100ms;
   background-color: #3c3c3c;
   border-color: #3c3c3c;
   border-style: solid;
-  border-width: 0 $border-width;
-  height: $border-width;
+  border-width: 0 $code-window-border-width;
+  height: $code-window-border-width;
   transition: background-color $visibility-transition-speed,
     border-color $visibility-transition-speed, height $visibility-transition-speed;
   z-index: 1;
@@ -257,6 +264,7 @@ $visibility-transition-speed: 100ms;
     justify-content: center;
     padding: 0 0.375em;
     visibility: hidden;
+    vertical-align: top;
   }
 
   > span {
@@ -264,7 +272,6 @@ $visibility-transition-speed: 100ms;
     cursor: default;
     font-family: 'Roboto', sans-serif;
     font-size: 0.8em;
-    vertical-align: top;
 
     &:nth-last-child(1) {
       float: right;
@@ -275,24 +282,27 @@ $visibility-transition-speed: 100ms;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 0.8em;
-    min-width: $sidebar-width + $border-width;
+    font-size: 1em;
+    min-width: $code-window-sidebar-width;
     position: relative;
+
     &:active img {
       transform: translateY(0.09375em);
     }
   }
 
-  img {
-    height: 1.2em;
+  svg {
+    height: 1em;
+    width: auto;
   }
 }
 
 .tooltip {
-  border-radius: $border-radius;
+  border-radius: $code-window-border-radius;
   bottom: 150%;
   color: #d4d4d4;
   font-family: 'Roboto', sans-serif;
+  font-size: 0.8em;
   padding: 0.675em;
   pointer-events: none;
   position: absolute;

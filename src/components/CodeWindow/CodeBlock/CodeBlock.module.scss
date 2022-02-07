@@ -1,7 +1,7 @@
 @use '../CodeWindow.module' as *; // todo: lower configs to sub components!
 
-$base-space: 0.2;
-$border-radius: 0.15em;
+$code-block-width-space: 0.2;
+$code-block-border-radius: 0.15em;
 
 .press {
   transform: translateY(0.09375em);
@@ -35,7 +35,7 @@ $border-radius: 0.15em;
 .tag-name,
 .value {
   background-color: #333333;
-  border-radius: $border-radius;
+  border-radius: $code-block-border-radius;
 }
 
 .indent {
@@ -52,29 +52,29 @@ $border-radius: 0.15em;
   width: $code-block-size;
 
   &.size-2 {
-    width: ($code-block-size * 2) + (($code-block-size * $base-space) * 2);
+    width: ($code-block-size * 2) + (($code-block-size * $code-block-width-space) * 2);
   }
   &.size-3 {
-    width: ($code-block-size * 3) + (($code-block-size * $base-space) * 4);
+    width: ($code-block-size * 3) + (($code-block-size * $code-block-width-space) * 4);
   }
   &.size-4 {
-    width: ($code-block-size * 4) + (($code-block-size * $base-space) * 6);
+    width: ($code-block-size * 4) + (($code-block-size * $code-block-width-space) * 6);
   }
   &.size-5 {
-    width: ($code-block-size * 5) + (($code-block-size * $base-space) * 8);
+    width: ($code-block-size * 5) + (($code-block-size * $code-block-width-space) * 8);
   }
 }
 
 .operator {
   height: $code-block-size * 0.5;
-  margin: 0 ($code-block-size * 0.25) + ($code-block-size * $base-space);
+  margin: 0 ($code-block-size * 0.25) + ($code-block-size * $code-block-width-space);
   width: ($code-block-size * 0.5); // width and margin make 1 block size
 }
 
 .close-angle,
 .start-angle {
   border-bottom: ($code-block-size * 0.5) solid transparent;
-  border-radius: $border-radius;
+  border-radius: $code-block-border-radius;
   border-top: ($code-block-size * 0.5) solid transparent;
   margin: 0 $code-line-space;
 }

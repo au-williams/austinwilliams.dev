@@ -1,7 +1,13 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { Eraser, FastForward, Pause, PinOff, PinOn, Play, Rewind } from '../../assets/icons';
+import { ReactComponent as IconEraser } from '../../assets/icons/eraser.svg';
+import { ReactComponent as IconFastForward } from '../../assets/icons/fast_forward.svg';
+import { ReactComponent as IconPause } from '../../assets/icons/pause.svg';
+import { ReactComponent as IconPinOff } from '../../assets/icons/pin_off.svg';
+import { ReactComponent as IconPinOn } from '../../assets/icons/pin_on.svg';
+import { ReactComponent as IconPlay } from '../../assets/icons/play.svg';
+import { ReactComponent as IconRewind } from '../../assets/icons/rewind.svg';
 import { PersonEmoji } from '../../assets/images';
 import CodeLine from './CodeLine/CodeLine';
 import styles from './CodeWindow.module.scss';
@@ -394,27 +400,24 @@ const CodeWindow = () => {
       <div className={footerClassNames}>
         <button onClick={onPinClick} type="button">
           <div className={styles.tooltip}>Pin</div>
-          <img
-            src={isFooterPinned ? PinOff : PinOn}
-            alt={`pin ${isFooterPinned ? 'off' : 'on'}`}
-          />
+          {isFooterPinned ? <IconPinOff /> : <IconPinOn />}
         </button>
         <button onClick={() => decreaseCodeSpeed(25)} type="button">
           <div className={styles.tooltip}>Slow down</div>
-          <img src={Rewind} alt="rewind" />
+          <IconRewind />
         </button>
         <button onClick={onPauseClick} type="button">
           <div className={styles.tooltip}>{isCodePaused ? 'Play' : 'Pause'}</div>
-          <img src={isCodePaused ? Play : Pause} alt={isCodePaused ? 'play' : 'pause'} />
+          {isCodePaused ? <IconPlay /> : <IconPause />}
         </button>
         <button onClick={() => increaseCodeSpeed(25)} type="button">
           <div className={styles.tooltip}>Speed up</div>
-          <img src={FastForward} alt="fast forward" />
+          <IconFastForward />
         </button>
         <span>{isCodePaused ? 'Paused' : `${codeSpeed}ms`}</span>
         <button onClick={onResetClick} type="button">
           <div className={styles.tooltip}>Reset</div>
-          <img src={Eraser} alt="reset" />
+          <IconEraser />
         </button>
         <span>
           <span>Lines: {formattedLineCount}</span>

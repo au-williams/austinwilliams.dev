@@ -1,12 +1,11 @@
-@use '../CodeWindow.module' as *; // todo: lower configs to sub components!
+@use '../CodeWindow.module' as *;
 
-// config
-$line-number-size: $code-block-size * 0.45;
+// component config
+$line-number-size: 0.45 * $code-block-size;
 
-// computed
-$line-number-horizontal-margin: calc($sidebar-width / 2) - calc($line-number-size / 2) -
-  calc($border-width / 2);
-$line-number-vertical-margin: calc($code-block-size / 2) - calc($line-number-size / 2);
+// computed values
+$line-number-left-right-margin: calc($code-window-sidebar-width / 2) - calc($line-number-size / 2);
+$line-number-top-bottom-margin: calc($code-block-size / 2) - calc($line-number-size / 2);
 
 .codeLine {
   align-items: center;
@@ -28,7 +27,7 @@ $line-number-vertical-margin: calc($code-block-size / 2) - calc($line-number-siz
   }
 
   > div:nth-child(2) {
-    margin-left: $line-number-horizontal-margin;
+    margin-left: $line-number-left-right-margin;
   }
 }
 
@@ -36,7 +35,7 @@ $line-number-vertical-margin: calc($code-block-size / 2) - calc($line-number-siz
   border-radius: 100%;
   background-color: #888888;
   height: $line-number-size;
-  margin: $line-number-vertical-margin $line-number-horizontal-margin;
+  margin: $line-number-top-bottom-margin $line-number-left-right-margin;
   width: $line-number-size;
 
   &.clicked {
