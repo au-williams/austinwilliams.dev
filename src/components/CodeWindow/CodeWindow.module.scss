@@ -286,7 +286,7 @@ $visibility-transition-speed: 100ms;
     min-width: $code-window-sidebar-width;
     position: relative;
 
-    &:active img {
+    &:active svg {
       transform: translateY(0.09375em);
     }
   }

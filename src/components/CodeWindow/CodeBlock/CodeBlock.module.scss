@@ -11,9 +11,9 @@ $code-block-border-radius: 0.15em;
 .indent,
 .operator,
 .string,
-.start-angle,
-.close-angle,
-.tag-name,
+.startAngle,
+.closeAngle,
+.tagName,
 .value {
   pointer-events: none;
 }
@@ -21,7 +21,7 @@ $code-block-border-radius: 0.15em;
 .attribute,
 .operator,
 .string,
-.tag-name,
+.tagName,
 .value {
   &.press {
     background-color: #2e2e2e;
@@ -32,7 +32,7 @@ $code-block-border-radius: 0.15em;
 .indent,
 .operator,
 .string,
-.tag-name,
+.tagName,
 .value {
   background-color: #333333;
   border-radius: $code-block-border-radius;
@@ -45,7 +45,7 @@ $code-block-border-radius: 0.15em;
 .attribute,
 .indent,
 .string,
-.tag-name,
+.tagName,
 .value {
   height: $code-block-size;
   margin: 0 $code-line-space;
@@ -71,15 +71,15 @@ $code-block-border-radius: 0.15em;
   width: ($code-block-size * 0.5); // width and margin make 1 block size
 }
 
-.close-angle,
-.start-angle {
+.closeAngle,
+.startAngle {
   border-bottom: ($code-block-size * 0.5) solid transparent;
   border-radius: $code-block-border-radius;
   border-top: ($code-block-size * 0.5) solid transparent;
   margin: 0 $code-line-space;
 }
 
-.close-angle {
+.closeAngle {
   border-left: ($code-block-size * 0.8) solid #333333;
   margin-right: $code-line-space + ($code-block-size * 0.15);
 
@@ -92,7 +92,7 @@ $code-block-border-radius: 0.15em;
   }
 }
 
-.start-angle {
+.startAngle {
   border-right: ($code-block-size * 0.8) solid #333333;
   margin-left: $code-line-space + ($code-block-size * 0.15);
 
@@ -115,7 +115,7 @@ $code-block-border-radius: 0.15em;
 .string.color {
   background-color: #ce9178;
 }
-.tag-name.color {
+.tagName.color {
   background-color: #569cd6;
 }
 .value.color {

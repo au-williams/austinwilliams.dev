@@ -6,7 +6,7 @@ import styles from './CodeBlock.module.scss';
 const CodeBlock = ({ blockType, currentSize, isCurrentBlock, useColor }) => (
   <div
     className={classNames(
-      styles[blockType],
+      blockType,
       { [styles.press]: isCurrentBlock },
       { [styles.color]: useColor },
       { [styles[`size-${currentSize}`]]: currentSize > 1 }
