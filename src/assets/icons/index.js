@@ -1,12 +1,23 @@
-import Avatar from './avatar.svg';
-import Eraser from './eraser.svg';
-import FastForward from './fast_forward.svg';
-import GitHub from './github.svg';
-import Pause from './pause.svg';
-import PinOff from './pin_off.svg';
-import PinOn from './pin_on.svg';
-import Play from './play.svg';
-import Rewind from './rewind.svg';
-import Scroll from './scroll.svg';
+import AvatarIcon from './avatar_icon.svg';
+import EraserIcon from './eraser_icon.svg';
+import FastForwardIcon from './fast_forward_icon.svg';
+import GitHubIcon from './github_icon.svg';
+import PauseIcon from './pause_icon.svg';
+import PinOffIcon from './pin_off_icon.svg';
+import PinOnIcon from './pin_on_icon.svg';
+import PlayIcon from './play_icon.svg';
+import RewindIcon from './rewind_icon.svg';
+import ScrollIcon from './scroll_icon.svg';
 
-export { Avatar, Eraser, FastForward, GitHub, Pause, PinOff, PinOn, Play, Rewind, Scroll };
+export {
+  AvatarIcon,
+  EraserIcon,
+  FastForwardIcon,
+  GitHubIcon,
+  PauseIcon,
+  PinOffIcon,
+  PinOnIcon,
+  PlayIcon,
+  RewindIcon,
+  ScrollIcon
+};

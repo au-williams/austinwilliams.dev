@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
-import { Avatar, GitHub, Scroll } from '../../assets/icons';
-import { Banner, MailboxEmoji, WaveEmoji } from '../../assets/images';
+import { AvatarIcon, GitHubIcon, ScrollIcon } from '../../assets/icons';
+import { CodeImage, MailboxEmoji, WaveEmoji } from '../../assets/images';
 import CodeWindow from '../CodeWindow/CodeWindow';
 import styles from './App.module.scss';
 
@@ -26,19 +26,19 @@ const onGitHubClick = () => sendGoogleAnalyticsEvent('click', 'github_outbound_l
 // react render
 
 const App = () => {
-  const [avatar, setAvatar] = useState(Avatar);
+  const [avatar, setAvatar] = useState(AvatarIcon);
   const sectionRef = useRef(null);
-
-  const onAboutClick = () => {
-    sendGoogleAnalyticsEvent('click', 'about_button');
-    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
 
   const fetchGitHubAvatar = () => {
     fetch('https://api.github.com/users/au-williams')
       .then((res) => res.json())
       .then((result) => setAvatar(result.avatar_url))
       .catch((error) => console.error('Error:', error));
+  };
+
+  const onAboutClick = () => {
+    sendGoogleAnalyticsEvent('click', 'about_button');
+    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const App = () => {
 
   return (
     <>
-      <header className={styles.viewportWrapper}>
+      <header className={styles.wrapper}>
         <CodeWindow />
         <button type="button" onClick={onAboutClick}>
           About
@@ -56,8 +56,8 @@ const App = () => {
           &darr;
         </button>
       </header>
-      <section className={styles.appSection} ref={sectionRef}>
-        <article className={styles.flexWrapper}>
+      <section className={styles.section} ref={sectionRef}>
+        <article className={styles.article}>
           <img src={avatar} alt="avatar" draggable="false" />
           <p>
             Hey <img src={WaveEmoji} alt="waving emoji" /> — My name is{' '}
@@ -66,8 +66,8 @@ const App = () => {
             me their art of delivering great software from start to finish.
           </p>
         </article>
-        <article className={styles.flexWrapper}>
-          <img src={Banner} alt="banner" draggable="false" />
+        <article className={styles.article}>
+          <img src={CodeImage} alt="banner" draggable="false" />
           <p>
             I love working with computers and I&apos;m always open to new opportunities. Feel free
             to send an email for side-work or employment inquiries — you can reach me at{' '}
@@ -75,9 +75,9 @@ const App = () => {
             <img src={MailboxEmoji} alt="mailbox emoji" />
           </p>
         </article>
-        <footer className={styles.appFooter}>
+        <footer className={styles.footer}>
           <button type="button" onClick={onBackClick}>
-            <img src={Scroll} alt="return icon" />
+            <img src={ScrollIcon} alt="return icon" />
             Back to top
           </button>
           <a
@@ -86,7 +86,7 @@ const App = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <img src={GitHub} alt="github" />
+            <img src={GitHubIcon} alt="github" />
             GitHub
           </a>
         </footer>

@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { ReactComponent as IconEraser } from '../../assets/icons/eraser.svg';
-import { ReactComponent as IconFastForward } from '../../assets/icons/fast_forward.svg';
-import { ReactComponent as IconPause } from '../../assets/icons/pause.svg';
-import { ReactComponent as IconPinOff } from '../../assets/icons/pin_off.svg';
-import { ReactComponent as IconPinOn } from '../../assets/icons/pin_on.svg';
-import { ReactComponent as IconPlay } from '../../assets/icons/play.svg';
-import { ReactComponent as IconRewind } from '../../assets/icons/rewind.svg';
+import { ReactComponent as EraserIcon } from '../../assets/icons/eraser_icon.svg';
+import { ReactComponent as FastForwardIcon } from '../../assets/icons/fast_forward_icon.svg';
+import { ReactComponent as PauseIcon } from '../../assets/icons/pause_icon.svg';
+import { ReactComponent as PinOffIcon } from '../../assets/icons/pin_off_icon.svg';
+import { ReactComponent as PinOnIcon } from '../../assets/icons/pin_on_icon.svg';
+import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
+import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
 import { PersonEmoji } from '../../assets/images';
 import CodeLine from './CodeLine/CodeLine';
 import styles from './CodeWindow.module.scss';
@@ -400,24 +400,24 @@ const CodeWindow = () => {
       <div className={footerClassNames}>
         <button onClick={onPinClick} type="button">
           <div className={styles.tooltip}>Pin</div>
-          {isFooterPinned ? <IconPinOff /> : <IconPinOn />}
+          {isFooterPinned ? <PinOffIcon /> : <PinOnIcon />}
         </button>
         <button onClick={() => decreaseCodeSpeed(25)} type="button">
           <div className={styles.tooltip}>Slow down</div>
-          <IconRewind />
+          <RewindIcon />
         </button>
         <button onClick={onPauseClick} type="button">
           <div className={styles.tooltip}>{isCodePaused ? 'Play' : 'Pause'}</div>
-          {isCodePaused ? <IconPlay /> : <IconPause />}
+          {isCodePaused ? <PlayIcon /> : <PauseIcon />}
         </button>
         <button onClick={() => increaseCodeSpeed(25)} type="button">
           <div className={styles.tooltip}>Speed up</div>
-          <IconFastForward />
+          <FastForwardIcon />
         </button>
         <span>{isCodePaused ? 'Paused' : `${codeSpeed}ms`}</span>
         <button onClick={onResetClick} type="button">
           <div className={styles.tooltip}>Reset</div>
-          <IconEraser />
+          <EraserIcon />
         </button>
         <span>
           <span>Lines: {formattedLineCount}</span>
