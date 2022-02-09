@@ -4,7 +4,7 @@ import { ReactComponent as AvatarIcon } from '../../assets/icons/avatar_icon.svg
 import { ReactComponent as GitHubIcon } from '../../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../../assets/icons/scroll_icon.svg';
 import { CodeImage, MailboxEmoji, WaveEmoji } from '../../assets/images';
-import CodeWindow from '../CodeWindow/CodeWindow';
+import CodeWindow from '../CodeWindow/CodeWindow.tsx';
 import styles from './App.module.scss';
 
 // google analytics

@@ -3,22 +3,40 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    },
+    "requireConfigFile": false,
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier", "import"],
+  "plugins": ["react", "prettier", "import", "@typescript-eslint"],
   "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off",
     "jsx-a11y/click-events-have-key-events": "off",
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
     "no-console": ["error", { "allow": ["error"] }],
+    "default-case": "off",
     "no-param-reassign": [2, { "props": false }],
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "no-shadow": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "prettier/prettier": "warn",
+    "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
     "react/function-component-definition": [
       "warn",
       {
