@@ -37,7 +37,8 @@
     }
   }
 
-  img {
+  img,
+  svg {
     pointer-events: none;
     width: auto;
   }
@@ -57,13 +58,17 @@
     padding-bottom: 2.25em;
   }
 
-  > img {
+  > img,
+  > svg {
     background-color: #18191a;
     border-radius: 100%;
     border: 0.33em solid #18191a;
     box-sizing: border-box;
     height: 8em;
     margin-right: 1.125em;
+    min-height: 8em;
+    min-width: 8em;
+    width: 8em;
   }
 
   > p {
@@ -71,7 +76,8 @@
     margin: 0 0 0 1.125em;
     width: 100%;
 
-    img {
+    img,
+    svg {
       height: 1.125em;
       margin: 0 0.05em;
       vertical-align: top;
@@ -115,10 +121,10 @@
       background-color: darken(#161616, 2.5%);
     }
 
-    img {
+    svg {
       height: 1em;
       margin-right: 0.5em;
-      width: auto;
+      width: 1em;
     }
   }
 }
@@ -150,7 +156,8 @@
     padding-right: 3em;
     text-align: center;
 
-    > img {
+    > img,
+    > svg {
       margin: 0 0 1.125em;
     }
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
-import { AvatarIcon, GitHubIcon, ScrollIcon } from '../../assets/icons';
+import { ReactComponent as AvatarIcon } from '../../assets/icons/avatar_icon.svg';
+import { ReactComponent as GitHubIcon } from '../../assets/icons/github_icon.svg';
+import { ReactComponent as ScrollIcon } from '../../assets/icons/scroll_icon.svg';
 import { CodeImage, MailboxEmoji, WaveEmoji } from '../../assets/images';
 import CodeWindow from '../CodeWindow/CodeWindow';
 import styles from './App.module.scss';
@@ -26,7 +28,7 @@ const onGitHubClick = () => sendGoogleAnalyticsEvent('click', 'github_outbound_l
 // react render
 
 const App = () => {
-  const [avatar, setAvatar] = useState(AvatarIcon);
+  const [avatar, setAvatar] = useState(null);
   const sectionRef = useRef(null);
 
   const fetchGitHubAvatar = () => {
@@ -58,7 +60,7 @@ const App = () => {
       </header>
       <section className={styles.section} ref={sectionRef}>
         <article className={styles.article}>
-          <img src={avatar} alt="avatar" draggable="false" />
+          {avatar ? <img src={avatar} alt="avatar" draggable="false" /> : <AvatarIcon />}
           <p>
             Hey <img src={WaveEmoji} alt="waving emoji" /> — My name is{' '}
             <a href="https://www.linkedin.com/in/auwilliams">Austin</a>. I started my career by
@@ -77,7 +79,7 @@ const App = () => {
         </article>
         <footer className={styles.footer}>
           <button type="button" onClick={onBackClick}>
-            <img src={ScrollIcon} alt="return icon" />
+            <ScrollIcon />
             Back to top
           </button>
           <a
@@ -86,7 +88,7 @@ const App = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <img src={GitHubIcon} alt="github" />
+            <GitHubIcon />
             GitHub
           </a>
         </footer>
