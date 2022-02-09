@@ -71,8 +71,9 @@ const App = () => {
         <article className={styles.article}>
           <img src={CodeImage} alt="banner" draggable="false" />
           <p>
-            I love working with computers and I&apos;m always open to new opportunities. Feel free
-            to send an email for side-work or employment inquiries — you can reach me at{' '}
+            I love working with computers and I&apos;m always open to new opportunities. My{' '}
+            <a href="https://resume.austinwilliams.dev/">resume</a> is available online and you can
+            email me for any employment inquiries at{' '}
             <a href="mailto:me@austinwilliams.dev">me@austinwilliams.dev</a>.{' '}
             <img src={MailboxEmoji} alt="mailbox emoji" />
           </p>
