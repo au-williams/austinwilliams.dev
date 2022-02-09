@@ -178,6 +178,8 @@ const CodeWindow = () => {
     { [styles.debug]: isFooterVisible && !isCodePaused && codeLines.some((x) => x.isClicked) }
   );
 
+  const nameClassNames: string = classNames(styles.name, { [styles.visible]: !isFooterVisible });
+
   // ---------------- //
   // component render //
   // ---------------- //
@@ -374,7 +376,7 @@ const CodeWindow = () => {
             />
           ))}
         </div>
-        <div className={styles.name}>
+        <div className={nameClassNames}>
           <img src={PersonEmoji} alt="person emoji" />
           <span>Austin Williams</span>
         </div>

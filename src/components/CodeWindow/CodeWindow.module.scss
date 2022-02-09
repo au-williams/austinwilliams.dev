@@ -34,10 +34,6 @@ $visibility-transition-speed: 100ms;
     position: absolute;
     width: $code-window-sidebar-width;
   }
-
-  &:hover .name {
-    opacity: 0;
-  }
 }
 
 .title {
@@ -171,12 +167,17 @@ $visibility-transition-speed: 100ms;
   justify-content: center;
   left: 0;
   margin: auto;
+  opacity: 0;
   pointer-events: none;
   position: absolute;
   right: 0;
   top: 0;
   transition: opacity $visibility-transition-speed;
   width: 8.95em;
+
+  &.visible {
+    opacity: 1;
+  }
 
   img {
     height: 1.125em;
