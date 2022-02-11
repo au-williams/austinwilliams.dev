@@ -118,6 +118,7 @@ $visibility-transition-speed: 100ms;
 
 .code {
   bottom: 0; // IE11
+  box-shadow: rgba(0, 0, 0, 0.06) 0 0.125em 0.25em 0 inset;
   display: flex;
   flex-direction: column-reverse;
   height: 100%;

@@ -36,12 +36,6 @@
       text-decoration: underline;
     }
   }
-
-  img,
-  svg {
-    pointer-events: none;
-    width: auto;
-  }
 }
 
 .article {
@@ -68,6 +62,7 @@
     margin-right: 1.125em;
     min-height: 8em;
     min-width: 8em;
+    pointer-events: none;
     width: 8em;
   }
 
@@ -80,7 +75,9 @@
     svg {
       height: 1.125em;
       margin: 0 0.05em;
+      pointer-events: none;
       vertical-align: top;
+      width: 1.125em;
     }
   }
 }
