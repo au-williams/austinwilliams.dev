@@ -21,21 +21,17 @@ $line-number-top-bottom-margin: calc($code-block-size / 2) - calc($line-number-s
   &:active {
     transform: translateY(0.09375em);
   }
-
-  > div {
-    transition: background-color 25ms, border-color 25ms, box-shadow 25ms;
-  }
-
-  > div:nth-child(2) {
-    margin-left: $line-number-left-right-margin;
-  }
 }
 
 .lineNumber {
   border-radius: 100%;
   background-color: #888888;
   height: $line-number-size;
-  margin: $line-number-top-bottom-margin $line-number-left-right-margin;
+  margin-bottom: $line-number-top-bottom-margin;
+  margin-left: $line-number-left-right-margin;
+  margin-right: $line-number-left-right-margin * 2 - $code-line-space;
+  margin-top: $line-number-top-bottom-margin;
+  transition: background-color 25ms, box-shadow 25ms;
   width: $line-number-size;
 
   &.clicked {

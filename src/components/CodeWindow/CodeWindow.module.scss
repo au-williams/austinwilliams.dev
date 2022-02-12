@@ -1,10 +1,16 @@
 // global config
 $code-block-size: 1.25em;
 $code-line-space: 0.275em;
+$code-window-border-radius: 0.15em;
 $code-window-sidebar-width: 2.25em;
 
+:export {
+  // imported in CodeBlock.jsx to calculate widths
+  codeBlockSize: $code-block-size;
+  codeLineSpace: $code-line-space;
+}
+
 // component config
-$code-window-border-radius: 0.15em;
 $code-window-border-width: 0.25em;
 $code-window-title-bar-button-hover-brightness: 20%;
 $code-window-title-bar-button-size: 0.95em;
@@ -51,7 +57,7 @@ $visibility-transition-speed: 100ms;
     border-radius: $code-window-border-radius;
     display: inline-block;
     height: $code-window-title-bar-button-size;
-    margin: 0 (($code-window-sidebar-width * 0.5) - ($code-window-title-bar-button-size * 0.5));
+    margin: 0 ($code-window-sidebar-width * 0.5 - $code-window-title-bar-button-size * 0.5);
     width: $code-window-title-bar-button-size;
 
     &:hover {
@@ -137,22 +143,14 @@ $visibility-transition-speed: 100ms;
     font-size: 1em;
     height: 100%;
     margin-bottom: $code-line-space;
-    min-height: 5 * ($code-block-size + ($code-line-space * 2)) - 0.1em; // [- val] hack to perfectly align scroll position
+    min-height: 5 * ($code-block-size + $code-line-space * 2) - 0.1em; // [- val] hack to perfectly align scroll position
     pointer-events: none;
   }
 
-  &::-webkit-scrollbar {
-    width: 1em;
-  }
-  &::-webkit-scrollbar-track {
-    background: #18191a;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #333333;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #4f4f4f;
-  }
+  &::-webkit-scrollbar { width: 1em; }
+  &::-webkit-scrollbar-track { background: #18191a; }
+  &::-webkit-scrollbar-thumb { background-color: #333333; }
+  &::-webkit-scrollbar-thumb:hover { background-color: #4f4f4f; }
 }
 
 .name {
@@ -197,8 +195,10 @@ $visibility-transition-speed: 100ms;
   border-style: solid;
   border-width: 0 $code-window-border-width;
   height: $code-window-border-width;
-  transition: background-color $visibility-transition-speed,
-    border-color $visibility-transition-speed, height $visibility-transition-speed;
+  transition:
+    background-color $visibility-transition-speed,
+    border-color $visibility-transition-speed,
+    height $visibility-transition-speed;
   z-index: 1;
 
   &.visible {
@@ -218,9 +218,7 @@ $visibility-transition-speed: 100ms;
 
     .tooltip {
       background-color: $background-color;
-      &::after {
-        border-top-color: $background-color;
-      }
+      &::after { border-top-color: $background-color; }
     }
   }
 
@@ -235,9 +233,7 @@ $visibility-transition-speed: 100ms;
 
     .tooltip {
       background-color: $background-color;
-      &::after {
-        border-top-color: $background-color;
-      }
+      &::after { border-top-color: $background-color; }
     }
   }
 
@@ -252,9 +248,7 @@ $visibility-transition-speed: 100ms;
 
     .tooltip {
       background-color: $background-color;
-      &::after {
-        border-top-color: $background-color;
-      }
+      &::after { border-top-color: $background-color; }
     }
   }
 
@@ -324,17 +318,12 @@ $visibility-transition-speed: 100ms;
     top: 100%;
   }
 
-  button:hover & {
-    visibility: visible;
-  }
-
-  button:active & {
-    transform: translateY(0.09375em);
-  }
+  button:hover & { visibility: visible; }
+  button:active & { transform: translateY(0.09375em); }
 }
 
-@media only screen and (max-height: 675px), screen and (max-width: 885px) {
-  .wrapper {
-    font-size: 1.8vmin;
-  }
+@media only
+screen and (max-height: 675px),
+screen and (max-width: 885px) {
+  .wrapper { font-size: 1.8vmin; }
 }

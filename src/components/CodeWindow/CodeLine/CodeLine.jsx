@@ -4,35 +4,38 @@ import React, { useState } from 'react';
 import CodeBlock from '../CodeBlock/CodeBlock';
 import styles from './CodeLine.module.scss';
 
-const CodeLine = ({ codeBlocks, isClicked, isCurrentLine, onClick }) => {
+const CodeLine = ({ codeBlocks, isActiveLine, isClicked, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const lastVisibleIndex = isCurrentLine && codeBlocks.map((x) => x.isVisible).lastIndexOf(true);
+
+  const lineNumberClasses = classNames(
+    styles.lineNumber,
+    { [styles.clicked]: isClicked },
+    { [styles.hovered]: isHovered && !isClicked }
+  );
 
   return (
     <div
       className={styles.codeLine}
       onClick={() => onClick(!isClicked)}
+      onFocus={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseOver={() => setIsHovered(true)}
-      onFocus={() => setIsHovered(true)}
       role="presentation"
     >
-      <div
-        className={classNames(
-          styles.lineNumber,
-          { [styles.clicked]: isClicked },
-          { [styles.hovered]: isHovered && !isClicked }
-        )}
-      />
-      {codeBlocks.map(({ blockType, currentSize, key }, index) => (
-        <CodeBlock
-          key={key}
-          blockType={blockType}
-          currentSize={currentSize}
-          isCurrentBlock={index === lastVisibleIndex}
-          useColor={isClicked || isHovered}
-        />
-      ))}
+      <div className={lineNumberClasses} />
+      {codeBlocks.map(({ blockType, currentSize, key }, index) => {
+        const isActiveBlock = isActiveLine && index === codeBlocks.length - 1;
+        const isColoredBlock = isClicked || isHovered;
+        return (
+          <CodeBlock
+            key={key}
+            blockType={blockType}
+            currentSize={currentSize}
+            isActiveBlock={isActiveBlock}
+            isColoredBlock={isColoredBlock}
+          />
+        );
+      })}
     </div>
   );
 };
@@ -45,8 +48,8 @@ CodeLine.propTypes = {
       key: PropTypes.string.isRequired
     })
   ).isRequired,
+  isActiveLine: PropTypes.bool.isRequired,
   isClicked: PropTypes.bool.isRequired,
-  isCurrentLine: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
 };
 
