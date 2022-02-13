@@ -14,11 +14,11 @@ import CodeLine from './CodeLine/CodeLine';
 import styles from './CodeWindow.module.scss';
 
 const CONFIG = {
-  CODE_ANIMATE_SPEED: 125,
+  CODE_ANIMATION_SPEED: 125,
   CODE_BLOCK_MAX_SIZE: 7,
   CODE_LINE_MAX_COUNT: 14,
   CODE_LINE_MAX_SIZE: 16,
-  INDENT_MAX_CONSECUTIVE_COUNT: 5,
+  CODE_SCOPE_MAX_COUNT: 5,
   INDENT_MAX_SIZE: 3
 };
 
@@ -43,10 +43,10 @@ class CodeBlockModel {
   public isVisible: boolean;
   public key: string;
 
-  constructor(blockType: string, maximumSize = 1) {
+  constructor({ blockType, blockSize = 1 }: { blockType: string; blockSize?: number }) {
     this.blockType = blockType;
     this.currentSize = 1;
-    this.maximumSize = maximumSize;
+    this.maximumSize = blockSize;
     this.isVisible = false;
     this.key = uuid();
   }
@@ -71,50 +71,47 @@ class CodeLineModel {
     return this.codeBlocks.some((x) => x.isActive);
   }
 
-  findCodeBlock = (blockType: string): CodeBlockModel | undefined =>
-    this.codeBlocks.find((x) => x.blockType === blockType);
+  findCodeBlockSize = (blockType: string): number =>
+    this.codeBlocks.find((x) => x.blockType === blockType)?.maximumSize ?? 0;
 }
 
 // ----------------- //
 // utility functions //
 // ----------------- //
 
-const getRandomBit = (probability = 0.5): number => Number(getRandomBool(probability));
+const getRandomBit = ({ probability = 0.5 }): number => +getRandomBool({ probability });
 
-const getRandomBool = (probability = 0.5): boolean => Math.random() < probability;
+const getRandomBool = ({ probability = 0.5 }): boolean => Math.random() < probability;
 
-const getFormattedNumber = (number: number): string =>
-  number < 1000 ? `${number}` : `${(number / 1000).toFixed(1)}k`;
+const getFormattedNumber = (number: number): string => number < 1000 ? `${number}` : `${(number / 1000).toFixed(1)}k`;
 
-const getRandomNumber = (min: number, max: number): number =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandomNumber = ({ min = 1, max = 1 }): number => Math.floor(Math.random() * (max - min + 1)) + min;
 
 // ---------------- //
 // render functions //
 // ---------------- //
 
-const getConsecutiveIndentCount = (codeLines: CodeLineModel[]) => {
-  const lastIndentSize: number = codeLines[0].findCodeBlock(blockTypes.indent)?.maximumSize ?? 0;
+const getCodeScopeCount = (codeLines: CodeLineModel[]): number => {
+  const indentSize: number = codeLines[0].findCodeBlockSize(blockTypes.indent);
   let result = 0;
 
   for (const codeLine of codeLines) {
-    const thisIndentSize: number = codeLine.codeBlocks[0].maximumSize;
-    if (thisIndentSize === lastIndentSize) result += 1;
+    if (codeLine.findCodeBlockSize(blockTypes.indent) === indentSize) result += 1;
     else break;
   }
 
   return result;
 };
 
-const getNextIndentSize = (lastCodeLine: CodeLineModel, consecutiveIndentCount: number) => {
-  const lastBlockTypes: Set<string> = new Set(lastCodeLine.codeBlocks.map((x) => x.blockType));
-  const lastIndentSize: number = lastCodeLine.findCodeBlock(blockTypes.indent)?.maximumSize ?? 0;
+const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): number => {
+  const lastBlockTypes: Set<string> = new Set(codeLines[0].codeBlocks.map((x) => x.blockType));
+  const lastIndentSize: number = codeLines[0].findCodeBlockSize(blockTypes.indent);
 
-  const isIndentSizeChange: boolean =
-    consecutiveIndentCount >= CONFIG.INDENT_MAX_CONSECUTIVE_COUNT ||
-    consecutiveIndentCount > getRandomNumber(1, CONFIG.INDENT_MAX_CONSECUTIVE_COUNT);
+  const shouldUpdateIndent: boolean =
+    codeScopeCount >= CONFIG.CODE_SCOPE_MAX_COUNT ||
+    codeScopeCount > getRandomNumber({ max: CONFIG.CODE_SCOPE_MAX_COUNT });
 
-  if (!isIndentSizeChange) return lastIndentSize;
+  if (!shouldUpdateIndent) return lastIndentSize;
 
   const lastLineHasValue = lastBlockTypes.has(blockTypes.value);
   const isSizeIncrease: boolean = lastIndentSize < CONFIG.INDENT_MAX_SIZE && !lastLineHasValue;
@@ -131,7 +128,7 @@ const getNextIndentSize = (lastCodeLine: CodeLineModel, consecutiveIndentCount: 
 
 const CodeWindow = () => {
   const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
-  const [codeSpeed, setCodeSpeed] = useState<number>(CONFIG.CODE_ANIMATE_SPEED);
+  const [codeSpeed, setCodeSpeed] = useState<number>(CONFIG.CODE_ANIMATION_SPEED);
   const updatedCodeLines = codeLines.slice();
 
   const onCodeLineClick = (key: string, isClicked: boolean) => {
@@ -144,41 +141,40 @@ const CodeWindow = () => {
   const formattedCharCount = getFormattedNumber(charCount);
   const formattedLineCount = getFormattedNumber(lineCount);
 
+  const [isMouseHovering, setIsMouseHovering] = useState<boolean>(false);
+  const onMouseLeave = () => setIsMouseHovering(false);
+  const onMouseOver = () => setIsMouseHovering(true);
+
+  const [isFooterPinned, setIsFooterPinned] = useState<boolean>(false);
+  const onPinClick = () => setIsFooterPinned((x) => !x);
+
   const [isCodePaused, setIsCodePaused] = useState<boolean>(false);
   const onPauseClick = () => setIsCodePaused((x) => !x);
 
   const decreaseCodeSpeed = () => !isCodePaused && setCodeSpeed((x) => Math.min(x + 25, 1000));
   const increaseCodeSpeed = () => !isCodePaused && setCodeSpeed((x) => Math.max(x - 25, 0));
 
-  const [isFooterPinned, setIsFooterPinned] = useState<boolean>(false);
-  const onPinClick = () => setIsFooterPinned((x) => !x);
-
-  const [isMouseHovering, setIsMouseHovering] = useState<boolean>(false);
-  const onMouseLeave = () => setIsMouseHovering(false);
-  const onMouseOver = () => setIsMouseHovering(true);
-
   const onResetClick = () => {
     updatedCodeLines
       .filter((x) => x.isClicked)
-      .forEach((x) => {
-        x.isClicked = false;
-      });
+      .forEach((x) => { x.isClicked = false; });
 
     setIsCodePaused(false);
     setIsFooterPinned(false);
     setCodeLines(updatedCodeLines);
-    setCodeSpeed(CONFIG.CODE_ANIMATE_SPEED);
+    setCodeSpeed(CONFIG.CODE_ANIMATION_SPEED);
   };
 
   const isFooterVisible: boolean = isFooterPinned || isMouseHovering || isCodePaused;
-  const footerClassNames: string = classNames(
+
+  const footerClasses: string = classNames(
     styles.footer,
     { [styles.visible]: isFooterVisible },
     { [styles.pause]: isFooterVisible && isCodePaused },
     { [styles.debug]: isFooterVisible && !isCodePaused && codeLines.some((x) => x.isClicked) }
   );
 
-  const nameClassNames: string = classNames(styles.name, { [styles.visible]: !isFooterVisible });
+  const nameClasses: string = classNames(styles.name, !isFooterVisible && styles.visible);
 
   // ---------------- //
   // component render //
@@ -189,7 +185,7 @@ const CodeWindow = () => {
     const activeCodeLine: CodeLineModel = updatedCodeLines[index];
 
     const animateCodeBlock = () => {
-      const codeBlock = activeCodeLine.codeBlocks.find((x) => x.isActive)!;
+      const codeBlock: CodeBlockModel = activeCodeLine.codeBlocks.find((x) => x.isActive)!;
       if (codeBlock.blockType !== blockTypes.indent) setCharCount((x) => x + 1);
       if (codeBlock.isVisible) codeBlock.currentSize += 1;
       else codeBlock.isVisible = true;
@@ -201,55 +197,50 @@ const CodeWindow = () => {
       switch (codeLines.length) {
         case 0:
           nextCodeLine.codeBlocks.push(
-            new CodeBlockModel(blockTypes.openAngle),
-            new CodeBlockModel(blockTypes.tagName, 3),
-            new CodeBlockModel(blockTypes.attribute),
-            new CodeBlockModel(blockTypes.closeAngle)
+            new CodeBlockModel({ blockType: blockTypes.openAngle }),
+            new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: 3 }),
+            new CodeBlockModel({ blockType: blockTypes.attribute }),
+            new CodeBlockModel({ blockType: blockTypes.closeAngle })
           );
           break;
 
         case 1:
           nextCodeLine.codeBlocks.push(
-            new CodeBlockModel(blockTypes.openAngle),
-            new CodeBlockModel(blockTypes.tagName, 2),
-            new CodeBlockModel(blockTypes.closeAngle)
+            new CodeBlockModel({ blockType: blockTypes.openAngle }),
+            new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: 2 }),
+            new CodeBlockModel({ blockType: blockTypes.closeAngle })
           );
           break;
 
         case 2:
           nextCodeLine.codeBlocks.push(
-            new CodeBlockModel(blockTypes.indent),
-            new CodeBlockModel(blockTypes.openAngle),
-            new CodeBlockModel(blockTypes.tagName, 2),
-            new CodeBlockModel(blockTypes.closeAngle)
+            new CodeBlockModel({ blockType: blockTypes.indent }),
+            new CodeBlockModel({ blockType: blockTypes.openAngle }),
+            new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: 2 }),
+            new CodeBlockModel({ blockType: blockTypes.closeAngle })
           );
           break;
 
-        // prettier-ignore
         default: {
           const lastCodeLine: CodeLineModel = updatedCodeLines[0];
-          const lastIndentSize: number = lastCodeLine.findCodeBlock(blockTypes.indent)?.maximumSize || 0;
-          const consecutiveIndentCount: number = getConsecutiveIndentCount(updatedCodeLines);
-
-          const nextIndentSize: number = getNextIndentSize(lastCodeLine, consecutiveIndentCount);
-          const indentCodeBlock = new CodeBlockModel(blockTypes.indent, nextIndentSize);
-          indentCodeBlock.currentSize = nextIndentSize; // set current to skip increment
+          const codeScopeCount: number = getCodeScopeCount(updatedCodeLines);
+          const lastIndentSize: number = lastCodeLine.findCodeBlockSize(blockTypes.indent);
+          const nextIndentSize: number = getNextIndentSize(updatedCodeLines, codeScopeCount);
+          const indentCodeBlock = new CodeBlockModel({ blockType: blockTypes.indent, blockSize: nextIndentSize });
+          indentCodeBlock.currentSize = nextIndentSize; // set the current size to bypass the increment animation
           nextCodeLine.codeBlocks.push(indentCodeBlock);
 
           if (nextIndentSize < lastIndentSize) {
             // -------------------------------------------------------- //
             // indent was decreased, generate a closing tag from parent //
             // -------------------------------------------------------- //
-
-            const openingTagNameSize: number = codeLines
-              // find the previous opening tag to generate its closing tag, or random if dropped
-              .find((x) => x.findCodeBlock(blockTypes.indent)?.maximumSize === nextIndentSize)
-              ?.findCodeBlock(blockTypes.tagName)?.maximumSize || getRandomNumber(2, 3);
+            const parentCodeLine = codeLines.find((x: CodeLineModel) => x.findCodeBlockSize(blockTypes.indent) === nextIndentSize);
+            const parentBlockSize = parentCodeLine?.findCodeBlockSize(blockTypes.tagName) || getRandomNumber({ min: 2, max: 3 });
 
             nextCodeLine.codeBlocks.push(
-              new CodeBlockModel(blockTypes.openAngle),
-              new CodeBlockModel(blockTypes.tagName, openingTagNameSize),
-              new CodeBlockModel(blockTypes.closeAngle)
+              new CodeBlockModel({ blockType: blockTypes.openAngle }),
+              new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: parentBlockSize }),
+              new CodeBlockModel({ blockType: blockTypes.closeAngle })
             );
           }
 
@@ -257,13 +248,11 @@ const CodeWindow = () => {
             // -------------------------------------------------------- //
             // indent stayed the same or was increased, generate random //
             // -------------------------------------------------------- //
+            const isLastConsecutiveIndent: boolean = codeScopeCount === CONFIG.CODE_SCOPE_MAX_COUNT - 1;
 
-            const isLastConsecutiveIndent: boolean =
-              consecutiveIndentCount === CONFIG.INDENT_MAX_CONSECUTIVE_COUNT - 1;
-
-            const useAttributeBlock: boolean = getRandomBool(0.8);
-            const useStringBlock: boolean = useAttributeBlock && getRandomBool(0.675);
-            const useValueBlock: boolean = !isLastConsecutiveIndent && getRandomBool(useStringBlock ? 0.25 : 0.5);
+            const useAttributeBlock: boolean = getRandomBool({ probability: 0.8 });
+            const useStringBlock: boolean = useAttributeBlock && getRandomBool({ probability: 0.675 });
+            const useValueBlock: boolean = !isLastConsecutiveIndent && getRandomBool({ probability: useStringBlock ? 0.25 : 0.5 });
 
             // get the remaining code line space available to generate blocks on
             // [2] = reserved space for the pair of start and close angle blocks
@@ -273,13 +262,13 @@ const CodeWindow = () => {
 
             // get the remaining number of block size calculations to execute
             // [1] = reserved space for tag name (used twice on value blocks)
-            let remainingCalculations: number = 1 + Number(useAttributeBlock) + Number(useStringBlock) + Number(useValueBlock) * 2;
+            let remainingCalculations: number = 1 + +useAttributeBlock + +useStringBlock + +useValueBlock * 2;
 
             // get the next size a generated code block can consume on the code line
             const getBlockSize = (codeBlockMaxSize = CONFIG.CODE_BLOCK_MAX_SIZE) => {
               const averageSize: number = Math.floor(remainingCodeLineSize / remainingCalculations);
               const maximumSize: number = Math.min(averageSize, codeBlockMaxSize);
-              let minimumSize = Math.min(1 + getRandomBit(.25), averageSize);
+              let minimumSize = Math.min(1 + getRandomBit({ probability: .25 }), averageSize);
 
               // lower the number of single-sizes because it gets excessive
               // single, single, single ... all this line space was wasted!
@@ -290,7 +279,7 @@ const CodeWindow = () => {
 
                 // reduce the chances of generating code lines that are a single block of single size
                 const nextLineIsOnlyTagName = nextBlockTypes.size <= 3 && remainingCalculations <= 1;
-                if (nextLineIsOnlyTagName) minimumSize += getRandomBit(0.8);
+                if (nextLineIsOnlyTagName) minimumSize += getRandomBit({ probability: 0.8 });
 
                 // restrict code lines to one single-size code block because having too many looks bad
                 const getSingleSize = (x: CodeBlockModel) => x.maximumSize < 2 && sizableBlockTypes.includes(x.blockType);
@@ -298,7 +287,7 @@ const CodeWindow = () => {
                 if (nextLineHasSingleSize) minimumSize = Math.min(2, averageSize);
               }
 
-              const result = getRandomNumber(minimumSize, maximumSize);
+              const result: number = getRandomNumber({ min: minimumSize, max: maximumSize });
               remainingCodeLineSize -= result;
               remainingCalculations -= 1;
               return result;
@@ -314,16 +303,16 @@ const CodeWindow = () => {
             }
 
             // push items individually so getBlockSize() can observe array contents
-            nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.openAngle));
-            nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.tagName, nextTagNameSize));
-            useAttributeBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.attribute, getBlockSize()));
-            useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.operator));
-            useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.string, getBlockSize()));
-            nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.closeAngle));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.value, getBlockSize()));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.openAngle));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.tagName, nextTagNameSize));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel(blockTypes.closeAngle));
+            nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.openAngle }));
+            nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: nextTagNameSize }));
+            useAttributeBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.attribute, blockSize: getBlockSize() }));
+            useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.operator }));
+            useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.string, blockSize: getBlockSize() }));
+            nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.closeAngle }));
+            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.value, blockSize: getBlockSize() }));
+            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.openAngle }));
+            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: nextTagNameSize }));
+            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.closeAngle }));
           }
 
           break;
@@ -370,12 +359,12 @@ const CodeWindow = () => {
             />
           ))}
         </div>
-        <div className={nameClassNames}>
+        <div className={nameClasses}>
           <img src={PersonEmoji} alt="person emoji" />
           <span>Austin Williams</span>
         </div>
       </div>
-      <div className={footerClassNames}>
+      <div className={footerClasses}>
         <button onClick={onPinClick} type="button">
           <div className={styles.tooltip}>Pin</div>
           {isFooterPinned ? <PinOffIcon /> : <PinOnIcon />}
