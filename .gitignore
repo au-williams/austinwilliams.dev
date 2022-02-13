@@ -1,6 +1,7 @@
 # dependencies
 /node_modules
 /src/react-app-env.d.ts
+/.vscode
 
 # production
 /build
