@@ -1,0 +1,3 @@
+*.css
+*.scss
+src/components/CodeWindow/CodeWindow.tsx
