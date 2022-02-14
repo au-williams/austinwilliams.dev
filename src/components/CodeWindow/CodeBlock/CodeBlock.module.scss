@@ -19,7 +19,7 @@
   height: $code-block-size;
   transition: background-color 25ms;
   width: $code-block-size;
-  &.active { background-color: darken($background-color, 2.5); }
+  &.active { background-color: #2e2e2e; }
 }
 
 // blocks
