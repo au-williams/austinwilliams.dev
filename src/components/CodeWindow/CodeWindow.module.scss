@@ -321,9 +321,3 @@ $visibility-transition-speed: 100ms;
   button:hover & { visibility: visible; }
   button:active & { transform: translateY(0.09375em); }
 }
-
-@media only
-screen and (max-height: 675px),
-screen and (max-width: 885px) {
-  .wrapper { font-size: 1.8vmin; }
-}

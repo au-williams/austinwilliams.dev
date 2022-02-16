@@ -22,6 +22,7 @@
 
 .section {
   background-color: #202020;
+  border-radius: 0.15em 0.15em 0 0;
   box-shadow: rgba(0, 0, 0, 0.24) 0 0.1875em 0.5em;
   font-family: 'Roboto', sans-serif;
   margin: 0 auto;
@@ -129,13 +130,10 @@
 // shrink content to fit screen
 
 @media only screen and (max-height: 675px), screen and (max-width: 885px) {
+  .wrapper,
   .footer,
   .section {
     font-size: 1.8vmin;
-  }
-
-  .wrapper > button {
-    font-size: 4vmin;
   }
 }
 
@@ -144,13 +142,17 @@
 @media only screen and (max-width: 610px) {
   .article,
   .footer {
-    font-size: 1.375em;
+    font-size: 1.675em;
+  }
+
+  .wrapper > button {
+    font-size: 2.75em;
   }
 
   .article {
     flex-direction: column;
-    padding-left: 3em;
-    padding-right: 3em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
     text-align: center;
 
     > img,
