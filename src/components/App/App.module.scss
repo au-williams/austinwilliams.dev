@@ -57,7 +57,7 @@
   > svg {
     background-color: #18191a;
     border-radius: 100%;
-    border: 0.33em solid #18191a;
+    border: 0.35em solid #18191a;
     box-sizing: border-box;
     height: 8em;
     margin-right: 1.125em;
@@ -95,7 +95,7 @@
   a,
   button {
     align-items: center;
-    background-color: #161616;
+    background-color: #151515;
     border: none;
     color: #d4d4d4;
     cursor: pointer;
@@ -116,7 +116,7 @@
     }
 
     &:hover {
-      background-color: darken(#161616, 2.5%);
+      background-color: darken(#151515, 2.5%);
     }
 
     svg {
