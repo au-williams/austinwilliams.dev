@@ -15,7 +15,7 @@
     margin: 5vh 0;
 
     &:active {
-      transform: translateY(0.1875em);
+      transform: translateY(0.125em);
     }
   }
 }
@@ -112,7 +112,7 @@
     white-space: nowrap;
 
     &:active {
-      transform: translateY(0.1875em);
+      transform: translateY(0.125em);
     }
 
     &:hover {
@@ -130,9 +130,7 @@
 // shrink content to fit screen
 
 @media only screen and (max-height: 675px), screen and (max-width: 885px) {
-  .wrapper,
-  .footer,
-  .section {
+  .wrapper, .footer, .section {
     font-size: 1.8vmin;
   }
 }
@@ -140,8 +138,7 @@
 // portrait orientation
 
 @media only screen and (max-width: 610px) {
-  .article,
-  .footer {
+  .article, .footer {
     font-size: 1.675em;
   }
 

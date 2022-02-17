@@ -23,7 +23,13 @@ const onBackClick = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
+const onEmailClick = () => sendGoogleAnalyticsEvent('click', 'email_mailto_link');
+
 const onGitHubClick = () => sendGoogleAnalyticsEvent('click', 'github_outbound_link');
+
+const onLinkedInClick = () => sendGoogleAnalyticsEvent('click', 'linkedin_outbound_link');
+
+const onResumeClick = () => sendGoogleAnalyticsEvent('click', 'resume_outbound_link');
 
 // react render
 
@@ -63,19 +69,26 @@ const App = () => {
           {avatar ? <img src={avatar} alt="avatar" draggable="false" /> : <AvatarIcon />}
           <p>
             Hey <img src={WaveEmoji} alt="waving emoji" /> — My name is{' '}
-            <a href="https://www.linkedin.com/in/auwilliams">Austin</a>. I started my career by
-            developing government programs and collaborating with major tech companies, who taught
-            me their art of delivering great software from start to finish.
+            <a href="https://www.linkedin.com/in/auwilliams" onClick={onLinkedInClick}>
+              Austin
+            </a>
+            . I started my career by developing government programs and collaborating with major
+            tech companies, who taught me their art of delivering great software from start to
+            finish.
           </p>
         </article>
         <article className={styles.article}>
           <img src={CodeImage} alt="banner" draggable="false" />
           <p>
             I love working with computers and I&apos;m always open to new opportunities. My{' '}
-            <a href="https://resume.austinwilliams.dev/">resume</a> is available online and you can
-            email me for any employment inquiries at{' '}
-            <a href="mailto:me@austinwilliams.dev">me@austinwilliams.dev</a>.{' '}
-            <img src={MailboxEmoji} alt="mailbox emoji" />
+            <a href="https://resume.austinwilliams.dev/" onClick={onResumeClick}>
+              resume
+            </a>{' '}
+            is available online and you can email me for any employment inquiries at{' '}
+            <a href="mailto:me@austinwilliams.dev" onClick={onEmailClick}>
+              me@austinwilliams.dev
+            </a>
+            . <img src={MailboxEmoji} alt="mailbox emoji" />
           </p>
         </article>
         <footer className={styles.footer}>
