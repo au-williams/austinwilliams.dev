@@ -69,7 +69,12 @@ const App = () => {
           {avatar ? <img src={avatar} alt="avatar" draggable="false" /> : <AvatarIcon />}
           <p>
             Hey <img src={WaveEmoji} alt="waving emoji" /> — My name is{' '}
-            <a href="https://www.linkedin.com/in/auwilliams" onClick={onLinkedInClick}>
+            <a
+              href="https://www.linkedin.com/in/auwilliams"
+              onClick={onLinkedInClick}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               Austin
             </a>
             . I started my career by developing government programs and collaborating with major
@@ -81,7 +86,12 @@ const App = () => {
           <img src={CodeImage} alt="banner" draggable="false" />
           <p>
             I love working with computers and I&apos;m always open to new opportunities. My{' '}
-            <a href="https://resume.austinwilliams.dev/" onClick={onResumeClick}>
+            <a
+              href="https://resume.austinwilliams.dev/"
+              onClick={onResumeClick}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               resume
             </a>{' '}
             is available online and you can email me for any employment inquiries at{' '}
@@ -93,8 +103,7 @@ const App = () => {
         </article>
         <footer className={styles.footer}>
           <button type="button" onClick={onBackClick}>
-            <ScrollIcon />
-            Back to top
+            <ScrollIcon /> Back to top
           </button>
           <a
             href="https://github.com/au-williams/au-williams.github.io"
@@ -102,8 +111,7 @@ const App = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <GitHubIcon />
-            GitHub
+            <GitHubIcon /> GitHub
           </a>
         </footer>
       </section>
