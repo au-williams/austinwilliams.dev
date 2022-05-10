@@ -78,7 +78,7 @@ const App = () => {
               Austin
             </a>
             . I started my career by developing government programs and collaborating with major
-            tech companies, who taught me their art of delivering great software from start to
+            tech companies who taught me their art of delivering great software from start to
             finish.
           </p>
         </article>
