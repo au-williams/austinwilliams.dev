@@ -187,16 +187,24 @@ const CodeWindow = () => {
     { [styles.debug]: isFooterVisible && !isCodePaused && codeLines.some((x) => x.isClicked) }
   );
 
+  const [isAnimationFinished, setIsAnimationFinished] = useState<boolean>(false);
+
   const nameClasses: string = classNames(
     styles.name,
-    { [styles.visible]: !isFooterVisible }
+    { [styles.visible]: isAnimationFinished && !isFooterVisible }
   );
 
   // ---------------- //
   // component render //
   // ---------------- //
 
+
   useEffect(() => {
+    setInterval(() => setIsAnimationFinished(true), 500);
+  }, []);
+
+  useEffect(() => {
+    if (!isAnimationFinished) return;
     const activeCodeLineIndex: number = codeLines.map((x) => x.isActive).lastIndexOf(true);
     const activeCodeLine: CodeLineModel = updatedCodeLines[activeCodeLineIndex];
 
@@ -350,8 +358,9 @@ const CodeWindow = () => {
       setCodeLines(updatedCodeLines);
     }, codeSpeed);
 
+    // eslint-disable-next-line consistent-return
     return () => clearInterval(interval);
-  }, [codeLines, isCodePaused]);
+  }, [codeLines, isCodePaused, isAnimationFinished]);
 
   return (
     <div

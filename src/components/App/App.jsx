@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
+// import { ReactComponent as AngleDownIcon } from '../../assets/icons/angle_down.svg';
 import { ReactComponent as AvatarIcon } from '../../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../../assets/icons/scroll_icon.svg';
@@ -61,6 +62,7 @@ const App = () => {
         <button type="button" onClick={onAboutClick}>
           About
           <br />
+          {/* <AngleDownIcon /> */}
           &darr;
         </button>
       </header>

@@ -4,7 +4,6 @@
   border-radius: $code-window-border-radius;
   margin: 0 $code-line-space;
   pointer-events: none;
-  &.active { transform: translateY(0.09375em); }
 }
 
 %angle {
@@ -20,6 +19,17 @@
   transition: background-color 25ms;
   width: $code-block-size;
   &.active { background-color: #2e2e2e; }
+}
+
+// animation
+
+@keyframes press {
+  from { transform: translateY(0.0625em); }
+  to { transform: translateY(0); }
+}
+
+.pressed {
+  animation: press .05s steps(1);
 }
 
 // blocks

@@ -1,10 +1,13 @@
 // global config
 $code-block-size: 1.25em;
 $code-line-space: 0.275em;
+$code-window-animation-open-speed: .75s;
 $code-window-border-radius: 0.15em;
 $code-window-sidebar-width: 2.25em;
 
 :export {
+  // imported in CodeWindow.jsx to delay code generation
+  codeWindowAnimationOpenSpeed: $code-window-animation-open-speed;
   // imported in CodeBlock.jsx to calculate widths
   codeBlockSize: $code-block-size;
   codeLineSpace: $code-line-space;
@@ -18,7 +21,9 @@ $code-window-title-bar-height: 2.25em;
 $visibility-transition-speed: 100ms;
 
 .wrapper {
+  animation: slide 0.375s ease forwards;
   background-color: #202020;
+  border-radius: $code-window-border-radius;
   box-shadow: rgba(0, 0, 0, 0.35) 0 0.3125em 0.9375em;
   display: flex;
   flex-direction: column;
@@ -29,7 +34,6 @@ $visibility-transition-speed: 100ms;
   position: relative;
   white-space: nowrap;
   width: 50em;
-  border-radius: $code-window-border-radius;
 
   &::before {
     background: #333333;
@@ -40,6 +44,44 @@ $visibility-transition-speed: 100ms;
     position: absolute;
     width: $code-window-sidebar-width;
   }
+}
+
+@keyframes slide {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+    opacity: 1;
+  }
+}
+@keyframes scale-in-bl {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  0% { opacity: 0 }
+  100% { opacity: 1 }
 }
 
 .title {
@@ -155,6 +197,7 @@ $visibility-transition-speed: 100ms;
 
 .name {
   align-items: center;
+  animation: fade .5s ease .25s;
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: calc($code-window-border-radius / 2);
   bottom: 0;
