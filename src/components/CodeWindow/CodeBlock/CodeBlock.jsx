@@ -5,12 +5,12 @@ import variables from '../CodeWindow.module.scss';
 import styles from './CodeBlock.module.scss';
 
 const CodeBlock = ({ blockType, currentSize, isActiveBlock, isColoredBlock }) => {
-  const [isPressed, setIsPressed] = useState(false);
+  const [isAnimated, setIsAnimated] = useState(false);
 
   const classes = classNames(
     blockType,
-    { [styles.pressed]: isPressed },
     { [styles.active]: isActiveBlock },
+    { [styles.animated]: isAnimated },
     { [styles.color]: isColoredBlock }
   );
 
@@ -19,15 +19,11 @@ const CodeBlock = ({ blockType, currentSize, isActiveBlock, isColoredBlock }) =>
   const calculatedSpace = `${variables.codeLineSpace} * ${currentSize * 2 - 2}`;
   const style = currentSize > 1 ? { width: `calc(${calculatedWidth} + ${calculatedSpace})` } : null;
 
-  const onAnimationEnd = () => {
-    setIsPressed(false);
-  };
-
   useEffect(() => {
-    setIsPressed(true);
+    setIsAnimated(true);
   }, [currentSize]);
 
-  return <div className={classes} style={style} onAnimationEnd={onAnimationEnd} />;
+  return <div className={classes} style={style} onAnimationEnd={() => setIsAnimated(false)} />;
 };
 
 CodeBlock.propTypes = {

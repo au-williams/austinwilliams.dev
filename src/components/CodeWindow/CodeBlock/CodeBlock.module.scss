@@ -23,13 +23,13 @@
 
 // animation
 
-@keyframes press {
+@keyframes animated {
   from { transform: translateY(0.0625em); }
   to { transform: translateY(0); }
 }
 
-.pressed {
-  animation: press .05s steps(1);
+.animated {
+  animation: animated .05s steps(1);
 }
 
 // blocks
