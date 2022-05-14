@@ -5,13 +5,19 @@ import variables from '../CodeWindow.module.scss';
 import styles from './CodeBlock.module.scss';
 
 const CodeBlock = ({ blockType, currentSize, isActiveBlock, isColoredBlock }) => {
-  const [isAnimated, setIsAnimated] = useState(false);
+  const [isPushed, setIsPushed] = useState(false);
+
+  // animate code block every time it increments its size
+  useEffect(() => { setIsPushed(true); }, [currentSize]);
+
+  // unbind on animation end so it can be replayed
+  const onAnimationEnd = () => setIsPushed(false);
 
   const classes = classNames(
     blockType,
     { [styles.active]: isActiveBlock },
-    { [styles.animated]: isAnimated },
-    { [styles.color]: isColoredBlock }
+    { [styles.color]: isColoredBlock },
+    { [styles.pushed]: isPushed }
   );
 
   // calculate the width to perfectly align blocks across separate lines
@@ -19,11 +25,7 @@ const CodeBlock = ({ blockType, currentSize, isActiveBlock, isColoredBlock }) =>
   const calculatedSpace = `${variables.codeLineSpace} * ${currentSize * 2 - 2}`;
   const style = currentSize > 1 ? { width: `calc(${calculatedWidth} + ${calculatedSpace})` } : null;
 
-  useEffect(() => {
-    setIsAnimated(true);
-  }, [currentSize]);
-
-  return <div className={classes} style={style} onAnimationEnd={() => setIsAnimated(false)} />;
+  return <div className={classes} style={style} onAnimationEnd={onAnimationEnd} />;
 };
 
 CodeBlock.propTypes = {

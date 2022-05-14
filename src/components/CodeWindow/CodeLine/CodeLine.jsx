@@ -24,8 +24,10 @@ const CodeLine = ({ codeBlocks, isActiveLine, isClicked, onClick }) => {
     >
       <div className={lineNumberClasses} />
       {codeBlocks.map(({ blockType, currentSize, key }, index) => {
-        const isActiveBlock = isActiveLine && index === codeBlocks.length - 1;
+        const isLastBlock = index === codeBlocks.length - 1;
+        const isActiveBlock = isActiveLine && isLastBlock;
         const isColoredBlock = isClicked || isHovered;
+
         return (
           <CodeBlock
             key={key}

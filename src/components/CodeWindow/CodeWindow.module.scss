@@ -1,14 +1,11 @@
-// global config
+// global component config
 $code-block-size: 1.25em;
 $code-line-space: 0.275em;
-$code-window-animation-open-speed: .75s;
 $code-window-border-radius: 0.15em;
 $code-window-sidebar-width: 2.25em;
 
 :export {
-  // imported in CodeWindow.jsx to delay code generation
-  codeWindowAnimationOpenSpeed: $code-window-animation-open-speed;
-  // imported in CodeBlock.jsx to calculate widths
+  // calcs widths in CodeBlock.jsx
   codeBlockSize: $code-block-size;
   codeLineSpace: $code-line-space;
 }
@@ -146,7 +143,7 @@ $visibility-transition-speed: 100ms;
     font-size: 1em;
     height: 100%;
     margin-bottom: $code-line-space;
-    min-height: 5 * ($code-block-size + $code-line-space * 2) - 0.1em; // [- val] hack to perfectly align scroll position
+    min-height: 5 * ($code-block-size + $code-line-space * 2) - 0.1em; // [- val] hack to realign scroll position
     pointer-events: none;
   }
 

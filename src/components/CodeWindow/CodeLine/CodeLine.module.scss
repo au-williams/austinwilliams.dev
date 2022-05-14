@@ -1,12 +1,5 @@
 @use '../CodeWindow.module' as *;
 
-// component config
-$line-number-size: 0.45 * $code-block-size;
-
-// computed values
-$line-number-left-right-margin: calc($code-window-sidebar-width / 2) - calc($line-number-size / 2);
-$line-number-top-bottom-margin: calc($code-block-size / 2) - calc($line-number-size / 2);
-
 .codeLine {
   align-items: center;
   border: none;
@@ -14,16 +7,15 @@ $line-number-top-bottom-margin: calc($code-block-size / 2) - calc($line-number-s
   display: flex;
   padding: $code-line-space 0;
 
-  &:last-of-type {
-    margin-top: ($code-line-space);
-  }
-
-  &:active {
-    transform: translateY(0.09375em);
-  }
+  &:active { transform: translateY(0.09375em); }
+  &:last-of-type { margin-top: ($code-line-space); }
 }
 
 .lineNumber {
+  $line-number-size: 0.45 * $code-block-size;
+  $line-number-top-bottom-margin: calc($code-block-size / 2) - calc($line-number-size / 2);
+  $line-number-left-right-margin: calc($code-window-sidebar-width / 2) - calc($line-number-size / 2);
+
   border-radius: 100%;
   background-color: #888888;
   height: $line-number-size;
@@ -37,7 +29,6 @@ $line-number-top-bottom-margin: calc($code-block-size / 2) - calc($line-number-s
   &.clicked {
     background-color: #ee4b2b;
     box-shadow: 0 0 0.5em #ee4b2b15;
-    transition: background-color 50ms, box-shadow 50ms;
   }
 
   &.hovered {
