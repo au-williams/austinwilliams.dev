@@ -46,6 +46,7 @@
       }
     ],
     "react/no-this-in-sfc": "off",
-    "react/prop-types": "warn"
+    "react/prop-types": "warn",
+    "spaced-comment": ["error", "always", { "exceptions": ["/"] }]
   }
 }

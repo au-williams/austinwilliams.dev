@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import CodeBlock from '../CodeBlock/CodeBlock';
-import styles from './CodeLine.module.scss';
+import CodeBlock from '../code-block/code-block';
+import styles from './code-line.module.scss';
 
 const CodeLine = ({ codeBlocks, isActiveLine, isClicked, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);

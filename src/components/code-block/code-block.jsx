@@ -1,14 +1,16 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import variables from '../CodeWindow.module.scss';
-import styles from './CodeBlock.module.scss';
+import styles from './code-block.module.scss';
+import variables from '../code-window/code-window.module.scss';
 
 const CodeBlock = ({ blockType, currentSize, isActiveBlock, isColoredBlock }) => {
   const [isPushed, setIsPushed] = useState(false);
 
   // animate code block every time it increments its size
-  useEffect(() => { setIsPushed(true); }, [currentSize]);
+  useEffect(() => {
+    setIsPushed(true);
+  }, [currentSize]);
 
   // unbind on animation end so it can be replayed
   const onAnimationEnd = () => setIsPushed(false);
@@ -32,7 +34,7 @@ CodeBlock.propTypes = {
   blockType: PropTypes.string.isRequired,
   currentSize: PropTypes.number.isRequired,
   isActiveBlock: PropTypes.bool.isRequired,
-  isColoredBlock: PropTypes.bool.isRequired
+  isColoredBlock: PropTypes.bool.isRequired,
 };
 
 export default CodeBlock;

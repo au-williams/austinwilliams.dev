@@ -9,9 +9,9 @@ import { ReactComponent as PinOnIcon } from '../../assets/icons/pin_on_icon.svg'
 import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
 import { PersonEmoji } from '../../assets/images';
-import blockTypes from './CodeBlock/CodeBlock.module.scss';
-import CodeLine from './CodeLine/CodeLine';
-import styles from './CodeWindow.module.scss';
+import blockTypes from '../code-block/code-block.module.scss';
+import CodeLine from '../code-line/code-line';
+import styles from './code-window.module.scss';
 
 const CONFIG = {
   CODE_ANIMATION_SPEED: 125,

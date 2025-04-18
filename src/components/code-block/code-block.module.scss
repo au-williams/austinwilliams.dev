@@ -1,4 +1,4 @@
-@use '../CodeWindow.module' as *;
+@use '../code-window/code-window.module' as *;
 
 %angle, %block {
   border-radius: $code-window-border-radius;
