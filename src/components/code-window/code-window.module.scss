@@ -1,25 +1,14 @@
-// global component config
-$code-block-size: 1.25em;
-$code-line-space: 0.275em;
-$code-window-border-radius: 0.15em;
-$code-window-sidebar-width: 2.25em;
+@use "../../styles/variables";
 
 :export {
   // calcs widths in CodeBlock.jsx
-  codeBlockSize: $code-block-size;
-  codeLineSpace: $code-line-space;
+  codeBlockSize: variables.$code-block-size;
+  codeLineSpace: variables.$code-line-space;
 }
-
-// component config
-$code-window-border-width: 0.25em;
-$code-window-title-bar-button-hover-brightness: 20%;
-$code-window-title-bar-button-size: 0.95em;
-$code-window-title-bar-height: 2.25em;
-$visibility-transition-speed: 100ms;
 
 .wrapper {
   background-color: #202020;
-  border-radius: $code-window-border-radius;
+  border-radius: variables.$code-window-border-radius;
   box-shadow: rgba(0, 0, 0, 0.35) 0 0.3125em 0.9375em;
   display: flex;
   flex-direction: column;
@@ -33,12 +22,12 @@ $visibility-transition-speed: 100ms;
 
   &::before {
     background: #333333;
-    border-left: $code-window-border-width solid #3c3c3c;
-    border-radius: $code-window-border-radius 0 0 $code-window-border-radius;
+    border-left: variables.$code-window-border-width solid #3c3c3c;
+    border-radius: variables.$code-window-border-radius 0 0 variables.$code-window-border-radius;
     content: '';
     height: 100%;
     position: absolute;
-    width: $code-window-sidebar-width;
+    width: variables.$code-window-sidebar-width;
   }
 }
 
@@ -47,21 +36,21 @@ $visibility-transition-speed: 100ms;
   background-color: #3c3c3c;
   display: flex;
   flex-shrink: 0;
-  height: $code-window-title-bar-height;
-  padding: 0 $code-window-border-width;
+  height: variables.$code-window-title-bar-height;
+  padding: 0 variables.$code-window-border-width;
   z-index: 1;
 
   div:nth-child(1) {
     $background-color: #0078d7;
     background-color: $background-color;
-    border-radius: $code-window-border-radius;
+    border-radius: variables.$code-window-border-radius;
     display: inline-block;
-    height: $code-window-title-bar-button-size;
-    margin: 0 ($code-window-sidebar-width * 0.5 - $code-window-title-bar-button-size * 0.5);
-    width: $code-window-title-bar-button-size;
+    height: variables.$code-window-title-bar-button-size;
+    margin: 0 (variables.$code-window-sidebar-width * 0.5 - variables.$code-window-title-bar-button-size * 0.5);
+    width: variables.$code-window-title-bar-button-size;
 
     &:hover {
-      $hover-color: lighten($background-color, $code-window-title-bar-button-hover-brightness);
+      $hover-color: lighten($background-color, variables.$code-window-title-bar-button-hover-brightness);
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -71,9 +60,9 @@ $visibility-transition-speed: 100ms;
   div:nth-child(3),
   div:nth-child(4) {
     border-radius: 100%;
-    height: $code-window-title-bar-button-size;
-    margin: 0 $code-window-border-width;
-    width: $code-window-title-bar-button-size;
+    height: variables.$code-window-title-bar-button-size;
+    margin: 0 variables.$code-window-border-width;
+    width: variables.$code-window-title-bar-button-size;
   }
 
   div:nth-child(2) {
@@ -84,7 +73,7 @@ $visibility-transition-speed: 100ms;
     &:hover {
       $hover-color: lighten(
         $background-color,
-        calc($code-window-title-bar-button-hover-brightness / 1.5)
+        calc(variables.$code-window-title-bar-button-hover-brightness / 1.5)
       );
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
@@ -96,7 +85,7 @@ $visibility-transition-speed: 100ms;
     background-color: $background-color;
 
     &:hover {
-      $hover-color: lighten($background-color, $code-window-title-bar-button-hover-brightness);
+      $hover-color: lighten($background-color, variables.$code-window-title-bar-button-hover-brightness);
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -107,7 +96,7 @@ $visibility-transition-speed: 100ms;
     background-color: $background-color;
 
     &:hover {
-      $hover-color: lighten($background-color, $code-window-title-bar-button-hover-brightness);
+      $hover-color: lighten($background-color, variables.$code-window-title-bar-button-hover-brightness);
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -117,7 +106,7 @@ $visibility-transition-speed: 100ms;
 .body {
   border-color: #3c3c3c;
   border-style: solid;
-  border-width: 0 $code-window-border-width;
+  border-width: 0 variables.$code-window-border-width;
   height: inherit;
   position: relative;
 }
@@ -142,8 +131,8 @@ $visibility-transition-speed: 100ms;
     content: '';
     font-size: 1em;
     height: 100%;
-    margin-bottom: $code-line-space;
-    min-height: 5 * ($code-block-size + $code-line-space * 2) - 0.1em; // [- val] hack to realign scroll position
+    margin-bottom: variables.$code-line-space;
+    min-height: 5 * (variables.$code-block-size + variables.$code-line-space * 2) - 0.1em; // [- val] hack to realign scroll position
     pointer-events: none;
   }
 
@@ -156,7 +145,7 @@ $visibility-transition-speed: 100ms;
 .name {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.75);
-  border-radius: calc($code-window-border-radius / 2);
+  border-radius: calc(variables.$code-window-border-radius / 2);
   bottom: 0;
   box-shadow: rgba(0, 0, 0, 0.35) 0 0.078em 0.235em;
   display: flex;
@@ -171,7 +160,7 @@ $visibility-transition-speed: 100ms;
   position: absolute;
   right: 0;
   top: 0;
-  transition: opacity $visibility-transition-speed;
+  transition: opacity variables.$visibility-transition-speed;
   width: 8.95em;
 
   &.visible {
@@ -193,12 +182,12 @@ $visibility-transition-speed: 100ms;
   background-color: #3c3c3c;
   border-color: #3c3c3c;
   border-style: solid;
-  border-width: 0 $code-window-border-width;
-  height: $code-window-border-width;
+  border-width: 0 variables.$code-window-border-width;
+  height: variables.$code-window-border-width;
   transition:
-    background-color $visibility-transition-speed,
-    border-color $visibility-transition-speed,
-    height $visibility-transition-speed;
+    background-color variables.$visibility-transition-speed,
+    border-color variables.$visibility-transition-speed,
+    height variables.$visibility-transition-speed;
   z-index: 1;
 
   &.visible {
@@ -279,7 +268,7 @@ $visibility-transition-speed: 100ms;
     border: none;
     cursor: pointer;
     font-size: 1em;
-    min-width: $code-window-sidebar-width;
+    min-width: variables.$code-window-sidebar-width;
     position: relative;
 
     &:active svg {
@@ -294,7 +283,7 @@ $visibility-transition-speed: 100ms;
 }
 
 .tooltip {
-  border-radius: $code-window-border-radius;
+  border-radius: variables.$code-window-border-radius;
   bottom: 150%;
   color: #d4d4d4;
   font-family: 'Roboto', sans-serif;
@@ -303,7 +292,7 @@ $visibility-transition-speed: 100ms;
   pointer-events: none;
   position: absolute;
   text-align: center;
-  transition: background-color $visibility-transition-speed;
+  transition: background-color variables.$visibility-transition-speed;
   visibility: hidden;
   z-index: 1;
 

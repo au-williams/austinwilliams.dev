@@ -1,22 +1,22 @@
-@use '../code-window/code-window.module' as *;
+@use "../../styles/variables";
 
 %angle, %block {
-  border-radius: $code-window-border-radius;
-  margin: 0 $code-line-space;
+  border-radius: variables.$code-window-border-radius;
+  margin: 0 variables.$code-line-space;
   pointer-events: none;
 }
 
 %angle {
-  border-bottom: $code-block-size * 0.5 solid transparent;
-  border-top: $code-block-size * 0.5 solid transparent;
+  border-bottom: variables.$code-block-size * 0.5 solid transparent;
+  border-top: variables.$code-block-size * 0.5 solid transparent;
   transition: border-color 25ms;
 }
 
 %block {
   background-color: #333333;
-  height: $code-block-size;
+  height: variables.$code-block-size;
   transition: background-color 25ms;
-  width: $code-block-size;
+  width: variables.$code-block-size;
   &.active { background-color: #2e2e2e; }
 }
 
@@ -50,9 +50,9 @@
 
 .operator {
   @extend %block;
-  height: $code-block-size * 0.5;
-  margin: 0 ($code-block-size * 0.25) + $code-line-space;
-  width: $code-block-size * 0.5;
+  height: variables.$code-block-size * 0.5;
+  margin: 0 (variables.$code-block-size * 0.25) + variables.$code-line-space;
+  width: variables.$code-block-size * 0.5;
   &.color { background-color: #d4d4d4; }
 }
 
@@ -60,16 +60,16 @@
 
 .closeAngle {
   @extend %angle;
-  border-left: 0.8 * $code-block-size solid #333333;
-  margin-right: 0.2 * $code-block-size + $code-line-space;
+  border-left: 0.8 * variables.$code-block-size solid #333333;
+  margin-right: 0.2 * variables.$code-block-size + variables.$code-line-space;
   &.active { border-left-color: #2e2e2e; }
   &.color { border-left-color: #d4d4d4; }
 }
 
 .openAngle {
   @extend %angle;
-  border-right: 0.8 * $code-block-size solid #333333;
-  margin-left: 0.2 * $code-block-size + $code-line-space;
+  border-right: 0.8 * variables.$code-block-size solid #333333;
+  margin-left: 0.2 * variables.$code-block-size + variables.$code-line-space;
   &.active { border-right-color: #2e2e2e; }
   &.color { border-right-color: #d4d4d4; }
 }

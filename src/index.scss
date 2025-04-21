@@ -1,5 +1,4 @@
-$body-background-color: #18191a;
-$body-text-color: #d4d4d4;
+@use "styles/variables" as *;
 
 body {
   background-color: $body-background-color;

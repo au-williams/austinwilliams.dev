@@ -1,0 +1,26 @@
+/*
+ * Partials
+ * https://sass-lang.com/guide/#partials
+ *
+ * You can create partial Sass files that contain little snippets of CSS that
+ * you can include in other Sass files. This is a great way to modularize your
+ * CSS and help keep things easier to maintain. A partial is a Sass file named
+ * with a leading underscore. You might name it something like _partial.scss.
+ * The underscore lets Sass know that the file is only a partial file and that
+ * it should not be generated into a CSS file. Sass partials are used with the
+ * @use rule.
+ */
+
+$body-background-color: #18191a;
+$body-text-color: #d4d4d4;
+
+$code-block-size: 1.25em;
+$code-line-space: 0.275em;
+
+$code-window-border-radius: 0.15em;
+$code-window-border-width: 0.25em;
+$code-window-sidebar-width: 2.25em;
+$code-window-title-bar-button-hover-brightness: 20%;
+$code-window-title-bar-button-size: 0.95em;
+$code-window-title-bar-height: 2.25em;
+$visibility-transition-speed: 100ms;
