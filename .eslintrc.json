@@ -6,6 +6,9 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "airbnb",
@@ -25,17 +28,17 @@
   },
   "plugins": ["react", "prettier", "import", "@typescript-eslint"],
   "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "@typescript-eslint/no-non-null-assertion": "off",
+    "default-case": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
     "no-console": ["error", { "allow": ["error"] }],
-    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
-    "default-case": "off",
     "no-param-reassign": [2, { "props": false }],
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "no-shadow": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
     "no-use-before-define": "off",
-    "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "prettier/prettier": "warn",
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
     "react/function-component-definition": [
@@ -47,6 +50,16 @@
     ],
     "react/no-this-in-sfc": "off",
     "react/prop-types": "warn",
-    "spaced-comment": ["error", "always", { "exceptions": ["/"] }]
+    "spaced-comment": ["error", "always", { "exceptions": ["/"] }],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   }
 }
