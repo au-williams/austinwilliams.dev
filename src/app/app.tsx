@@ -4,7 +4,7 @@ import { ReactComponent as AvatarIcon } from '../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../assets/icons/scroll_icon.svg';
 import { CodeImage, MailboxEmoji, WaveEmoji } from '../assets/images';
-import CodeWindow from '../components/code-window/code-window.tsx';
+import CodeWindow from '../components/code-window/code-window';
 import styles from './app.module.scss';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ const onResumeClick = () => sendGoogleAnalyticsEvent('click', 'resume_outbound_l
 
 const App = () => {
   const [avatar, setAvatar] = useState(null);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<null | HTMLDivElement>(null);;
 
   /**
    * Fetch the avatar from my GitHub profile and set it as this avatar image.
@@ -93,7 +93,7 @@ const App = () => {
    */
   const onAboutClick = () => {
     sendGoogleAnalyticsEvent('click', 'about_button');
-    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    sectionRef.current!.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
