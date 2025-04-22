@@ -11,7 +11,6 @@
     "plugin:import/typescript",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
@@ -50,16 +49,6 @@
     ],
     "react/no-this-in-sfc": "off",
     "react/prop-types": "warn",
-    "spaced-comment": ["error", "always", { "exceptions": ["/"] }],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ]
+    "spaced-comment": ["error", "always", { "exceptions": ["/"] }]
   }
 }
