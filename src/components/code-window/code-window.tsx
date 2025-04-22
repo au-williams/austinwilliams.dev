@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import { CodeGenerationConfig } from "../../config/app-config";
 import { ReactComponent as EraserIcon } from '../../assets/icons/eraser_icon.svg';
 import { ReactComponent as FastForwardIcon } from '../../assets/icons/fast_forward_icon.svg';
 import { ReactComponent as PauseIcon } from '../../assets/icons/pause_icon.svg';
@@ -11,16 +12,8 @@ import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg
 import { PersonEmoji } from '../../assets/images';
 import blockTypes from '../code-block/code-block.module.scss';
 import CodeLine from '../code-line/code-line';
+import ResizableBlockTypes from "../../types/resizeable-block-types";
 import styles from './code-window.module.scss';
-
-const CONFIG = {
-  CODE_ANIMATION_SPEED: 125,
-  CODE_BLOCK_MAX_SIZE: 7,
-  CODE_LINE_MAX_COUNT: 14,
-  CODE_LINE_MAX_SIZE: 16,
-  CODE_SCOPE_MAX_COUNT: 4,
-  INDENT_MAX_SIZE: 3
-};
 
 // ----------- //
 // data models //
@@ -36,13 +29,6 @@ const CONFIG = {
  * in the CodeWindow state.
  */
 
-const SIZABLE_BLOCK_TYPES = [
-  blockTypes.tagName,
-  blockTypes.attribute,
-  blockTypes.string,
-  blockTypes.value
-]
-
 class CodeBlockModel {
   public blockType: string;
   public currentSize: number;
@@ -55,7 +41,7 @@ class CodeBlockModel {
     this.blockType = blockType;
     this.currentSize = 1;
     this.maximumSize = blockSize;
-    this.isSizeable = SIZABLE_BLOCK_TYPES.includes(blockType);
+    this.isSizeable = ResizableBlockTypes.includes(blockType);
     this.isVisible = false;
     this.key = uuid();
   }
@@ -119,8 +105,8 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
   const lastIndentSize: number = codeLines[0] && codeLines[0].findCodeBlockSize(blockTypes.indent);
 
   const shouldChangeIndent: boolean =
-    codeScopeCount >= CONFIG.CODE_SCOPE_MAX_COUNT ||
-    codeScopeCount >= getRandomNumber({ max: CONFIG.CODE_SCOPE_MAX_COUNT });
+    codeScopeCount >= CodeGenerationConfig.CODE_SCOPE_MAX_COUNT ||
+    codeScopeCount >= getRandomNumber({ max: CodeGenerationConfig.CODE_SCOPE_MAX_COUNT });
   if (!shouldChangeIndent) return lastIndentSize;
 
   // determine if scope closing tags were created on the last code line
@@ -128,7 +114,7 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
   const wasValueBlockUsed: boolean = codeLines[0] && Boolean(codeLines[0].findCodeBlockSize(blockTypes.value));
   const wasScopeDecreased: boolean = codeLines[1] && codeLines[1].findCodeBlockSize(blockTypes.indent) > lastIndentSize;
 
-  const canIncreaseIndent: boolean = lastIndentSize < CONFIG.INDENT_MAX_SIZE && !wasValueBlockUsed && !wasScopeDecreased;
+  const canIncreaseIndent: boolean = lastIndentSize < CodeGenerationConfig.INDENT_MAX_SIZE && !wasValueBlockUsed && !wasScopeDecreased;
   const canDecreaseIndent: boolean = lastIndentSize > 1;
   if (canIncreaseIndent) return lastIndentSize + 1;
   if (canDecreaseIndent) return lastIndentSize - 1;
@@ -141,7 +127,7 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
 
 const CodeWindow = () => {
   const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
-  const [codeSpeed, setCodeSpeed] = useState<number>(CONFIG.CODE_ANIMATION_SPEED);
+  const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_SPEED);
   const updatedCodeLines = codeLines.slice();
 
   const onCodeLineClick = (key: string, isClicked: boolean) => {
@@ -175,7 +161,7 @@ const CodeWindow = () => {
     setIsCodePaused(false);
     setIsFooterPinned(false);
     setCodeLines(updatedCodeLines);
-    setCodeSpeed(CONFIG.CODE_ANIMATION_SPEED);
+    setCodeSpeed(CodeGenerationConfig.CODE_GENERATION_SPEED);
   };
 
   const isFooterVisible: boolean = isFooterPinned || isMouseHovering || isCodePaused;
@@ -268,7 +254,7 @@ const CodeWindow = () => {
             // -------------------------------------------------------- //
             // indent stayed the same or was increased, generate random //
             // -------------------------------------------------------- //
-            const isScopeChangeImminent: boolean = codeScopeCount === CONFIG.CODE_SCOPE_MAX_COUNT - 1;
+            const isScopeChangeImminent: boolean = codeScopeCount === CodeGenerationConfig.CODE_SCOPE_MAX_COUNT - 1;
 
             const useAttributeBlock: boolean = getRandomBool({ probability: 0.8 });
             const useStringBlock: boolean = useAttributeBlock && getRandomBool({ probability: 0.675 });
@@ -276,7 +262,7 @@ const CodeWindow = () => {
 
             // get the remaining code line space available to generate blocks on
             // [2] = reserved space for the pair of start and close angle blocks
-            let remainingCodeLineSize: number = CONFIG.CODE_LINE_MAX_SIZE - indentCodeBlock.maximumSize - 2;
+            let remainingCodeLineSize: number = CodeGenerationConfig.CODE_LINE_MAX_SIZE - indentCodeBlock.maximumSize - 2;
             if (useStringBlock) remainingCodeLineSize -= 1; // [1] used by operator block before string
             if (useValueBlock) remainingCodeLineSize -= 2; // [2] used by second start and close angles
 
@@ -285,7 +271,7 @@ const CodeWindow = () => {
             let remainingCalculations: number = 1 + +useAttributeBlock + +useStringBlock + +useValueBlock * 2;
 
             // get the next size a generated code block can consume on the code line
-            const getBlockSize = (codeBlockMaxSize = CONFIG.CODE_BLOCK_MAX_SIZE) => {
+            const getBlockSize = (codeBlockMaxSize = CodeGenerationConfig.CODE_BLOCK_MAX_SIZE) => {
               const averageSize: number = Math.floor(remainingCodeLineSize / remainingCalculations);
               const maximumSize: number = Math.min(averageSize, codeBlockMaxSize);
               let minimumSize = Math.min(1 + getRandomBit({ probability: .25 }), averageSize);
@@ -338,7 +324,7 @@ const CodeWindow = () => {
         }
       }
 
-      updatedCodeLines.length = Math.min(codeLines.length, CONFIG.CODE_LINE_MAX_COUNT - 1);
+      updatedCodeLines.length = Math.min(codeLines.length, CodeGenerationConfig.CODE_LINE_MAX_COUNT - 1);
       updatedCodeLines.unshift(nextCodeLine);
       setLineCount((number) => number + 1);
     };

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
+import { GoogleAnalyticsConfig } from '../config/app-config';
 import { ReactComponent as AvatarIcon } from '../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../assets/icons/scroll_icon.svg';
@@ -16,7 +17,7 @@ import styles from './app.module.scss';
  * (This key isn't sensitive and isn't required to be secreted)
  */
 const startGoogleAnalytics = () => {
-  ReactGA.initialize('G-JFBLY5T1C0');
+  ReactGA.initialize(GoogleAnalyticsConfig.GA_MEASUREMENT_ID);
   ReactGA.send('pageview');
 };
 
@@ -24,9 +25,9 @@ const startGoogleAnalytics = () => {
  * The base function to send events to Google Analytics.
  * @param {string} category The Google Analytics event category
  * @param {string} action The Google Analytics event action
- * @returns {*}
  */
-const sendGoogleAnalyticsEvent = (category, action) => ReactGA.event({ category, action });
+const sendGoogleAnalyticsEvent = (category: string, action: string) =>
+  ReactGA.event({ category, action });
 
 ///////////////////////////////////////////////////////////////////////////////
 // #endregion Google Analytics                                               //
@@ -36,6 +37,10 @@ const sendGoogleAnalyticsEvent = (category, action) => ReactGA.event({ category,
 // #region React Events                                                      //
 ///////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Sends a Google Analytics event when the back to top button is clicked and
+ * scrolls the web client back to the top of the page.
+ */
 const onBackClick = () => {
   sendGoogleAnalyticsEvent('click', 'back_to_top_button');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -43,25 +48,21 @@ const onBackClick = () => {
 
 /**
  * Sends a Google Analytics event when the email link is clicked.
- * @returns {void}
  */
 const onEmailClick = () => sendGoogleAnalyticsEvent('click', 'email_mailto_link');
 
 /**
  * Sends a Google Analytics event when the GitHub link is clicked.
- * @returns {void}
  */
 const onGitHubClick = () => sendGoogleAnalyticsEvent('click', 'github_outbound_link');
 
 /**
  * Sends a Google Analytics event when the LinkedIn link is clicked.
- * @returns {void}
  */
 const onLinkedInClick = () => sendGoogleAnalyticsEvent('click', 'linkedin_outbound_link');
 
 /**
  * Sends a Google Analytics event when the resume link is clicked.
- * @returns {void}
  */
 const onResumeClick = () => sendGoogleAnalyticsEvent('click', 'resume_outbound_link');
 
@@ -75,7 +76,7 @@ const onResumeClick = () => sendGoogleAnalyticsEvent('click', 'resume_outbound_l
 
 const App = () => {
   const [avatar, setAvatar] = useState(null);
-  const sectionRef = useRef<null | HTMLDivElement>(null);;
+  const sectionRef = useRef<null | HTMLDivElement>(null);
 
   /**
    * Fetch the avatar from my GitHub profile and set it as this avatar image.
@@ -88,8 +89,8 @@ const App = () => {
   };
 
   /**
-   * Sends a Google Analytic event when the about button is clicked and scrolls
-   * the page downwards beyond the landing and to the start of the sectionRef.
+   * Sends a Google Analytics event when the about button's clicked and scrolls
+   * the web client down beyond the landing and to the start of the sectionRef.
    */
   const onAboutClick = () => {
     sendGoogleAnalyticsEvent('click', 'about_button');
@@ -124,16 +125,15 @@ const App = () => {
             >
               Austin
             </a>
-            . I started my career by developing government programs and
-            collaborating with major tech companies who taught me their art of
-            delivering great software from start to finish.
+            . I started my career by developing government programs and collaborating with major
+            tech companies who taught me their art of delivering great software from start to
+            finish.
           </p>
         </article>
         <article className={styles.article}>
           <img src={CodeImage} alt="banner" draggable="false" />
           <p>
-            I love working with computers and I&apos;m always open to new
-            opportunities. My{' '}
+            I love working with computers and I&apos;m always open to new opportunities. My{' '}
             <a
               href="https://resume.austinwilliams.dev/"
               onClick={onResumeClick}
