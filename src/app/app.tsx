@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
+import { ChevronIcon } from '../assets/icons';
+import { CodeImage, MailboxEmoji, WaveEmoji } from '../assets/images';
 import { GoogleAnalyticsConfig } from '../config/app-config';
 import { ReactComponent as AvatarIcon } from '../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../assets/icons/scroll_icon.svg';
-import { CodeImage, MailboxEmoji, WaveEmoji } from '../assets/images';
+import { ReactSVG } from 'react-svg'
 import CodeWindow from '../components/code-window/code-window';
 import styles from './app.module.scss';
 
@@ -74,7 +76,7 @@ const onResumeClick = () => sendGoogleAnalyticsEvent('click', 'resume_outbound_l
 // #region React Render                                                      //
 ///////////////////////////////////////////////////////////////////////////////
 
-const App = () => {
+export default () => {
   const [avatar, setAvatar] = useState(null);
   const sectionRef = useRef<null | HTMLDivElement>(null);
 
@@ -109,7 +111,7 @@ const App = () => {
         <button type="button" onClick={onAboutClick}>
           About
           <br />
-          &darr;
+          <ReactSVG src={ChevronIcon} />
         </button>
       </header>
       <section className={styles.section} ref={sectionRef}>
@@ -170,5 +172,3 @@ const App = () => {
 ///////////////////////////////////////////////////////////////////////////////
 // #endregion React Render                                                   //
 ///////////////////////////////////////////////////////////////////////////////
-
-export default App;

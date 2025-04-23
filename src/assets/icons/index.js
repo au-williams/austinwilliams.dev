@@ -1,4 +1,5 @@
 import AvatarIcon from './avatar_icon.svg';
+import ChevronIcon from './chevron-down-solid.svg';
 import EraserIcon from './eraser_icon.svg';
 import FastForwardIcon from './fast_forward_icon.svg';
 import GitHubIcon from './github_icon.svg';
@@ -11,6 +12,7 @@ import ScrollIcon from './scroll_icon.svg';
 
 export {
   AvatarIcon,
+  ChevronIcon,
   EraserIcon,
   FastForwardIcon,
   GitHubIcon,

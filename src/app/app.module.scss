@@ -14,6 +14,11 @@
     font-size: 1.875em;
     margin: 5vh 0;
 
+    svg {
+      height: 1em;
+      fill: #d4d4d4;
+    }
+
     &:active {
       transform: translateY(0.125em);
     }
