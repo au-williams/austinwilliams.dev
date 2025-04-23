@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import styles from './code-block.module.scss';
-import variables from '../code-window/code-window.module.scss';
+import variables from '../../styles/_variables.module.scss';
 
 /**
  * The CodeBlock component. A single CodeLine component can have none to many nested CodeBlock components.

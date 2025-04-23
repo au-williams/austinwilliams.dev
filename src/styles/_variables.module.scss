@@ -24,3 +24,9 @@ $code-window-title-bar-button-hover-brightness: 20%;
 $code-window-title-bar-button-size: 0.95em;
 $code-window-title-bar-height: 2.25em;
 $visibility-transition-speed: 100ms;
+
+:export {
+  // Used for calculations in code-block.tsx
+  codeBlockSize: $code-block-size;
+  codeLineSpace: $code-line-space;
+}

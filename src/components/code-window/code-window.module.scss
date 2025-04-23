@@ -1,10 +1,4 @@
-@use "../../styles/variables";
-
-:export {
-  // calcs widths in CodeBlock.jsx
-  codeBlockSize: variables.$code-block-size;
-  codeLineSpace: variables.$code-line-space;
-}
+@use "../../styles/variables.module";
 
 .wrapper {
   background-color: #202020;
