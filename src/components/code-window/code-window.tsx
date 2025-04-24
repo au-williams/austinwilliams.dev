@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { CodeGenerationConfig } from "../../config/app-config";
@@ -11,6 +10,7 @@ import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
 import { PersonEmoji } from '../../assets/images';
 import blockTypes from '../code-block/code-block.module.scss';
+import classNames from 'classnames';
 import CodeLine from '../code-line/code-line';
 import ResizableBlockTypes from "../../types/resizeable-block-types";
 import styles from './code-window.module.scss';
@@ -140,6 +140,21 @@ const CodeWindow = () => {
   const formattedCharCount = getFormattedNumber(charCount);
   const formattedLineCount = getFormattedNumber(lineCount);
 
+  const [isWindowAnimatedX, setIsWindowAnimatedX] = useState(false);
+  const [isWindowAnimatedY, setIsWindowAnimatedY] = useState(false);
+  const [isWindowAnimatedFade, setIsWindowAnimatedFade] = useState(true);
+  const [windowAnimationStack, setWindowAnimationStack] = useState("x,0");
+
+  const onWindowAnimationEnd = () => {
+    if (isWindowAnimatedFade) {
+      setIsWindowAnimatedFade(false);
+    }
+    else {
+      setIsWindowAnimatedX(false);
+      setIsWindowAnimatedY(false);
+    }
+  }
+
   const [isMouseHovering, setIsMouseHovering] = useState<boolean>(false);
   const onMouseLeave = () => setIsMouseHovering(false);
   const onMouseOver = () => setIsMouseHovering(true);
@@ -178,6 +193,13 @@ const CodeWindow = () => {
     { [styles.visible]: !isFooterVisible }
   );
 
+  const windowClasses: string = classNames(
+    styles.wrapper,
+    { [styles.fade]: isWindowAnimatedFade },
+    { [styles.shakenX]: isWindowAnimatedX },
+    { [styles.shakenY]: isWindowAnimatedY },
+  )
+
   // ---------------- //
   // component render //
   // ---------------- //
@@ -197,6 +219,7 @@ const CodeWindow = () => {
       const nextCodeLine = new CodeLineModel();
 
       switch (codeLines.length) {
+        // Force the first line to imitate the HTML doctype declaration.
         case 0:
           nextCodeLine.codeBlocks.push(
             new CodeBlockModel({ blockType: blockTypes.openAngle }),
@@ -206,6 +229,7 @@ const CodeWindow = () => {
           );
           break;
 
+        // Force the second line to imitate the HTML html tag.
         case 1:
           nextCodeLine.codeBlocks.push(
             new CodeBlockModel({ blockType: blockTypes.openAngle }),
@@ -214,6 +238,7 @@ const CodeWindow = () => {
           );
           break;
 
+        // Force the third line to imitate the HTML body tag.
         case 2:
           nextCodeLine.codeBlocks.push(
             new CodeBlockModel({ blockType: blockTypes.indent }),
@@ -223,6 +248,7 @@ const CodeWindow = () => {
           );
           break;
 
+        // Generate a random line after the forced lines are created.
         default: {
           const lastCodeLine: CodeLineModel = updatedCodeLines[0];
           const codeScopeCount: number = getCodeScopeCount(updatedCodeLines);
@@ -330,9 +356,43 @@ const CodeWindow = () => {
     };
 
     const interval = setInterval(() => {
-      if (isCodePaused) return;
-      if (activeCodeLine) animateCodeBlock();
-      else generateCodeLine();
+      if (isCodePaused || isWindowAnimatedX || isWindowAnimatedY) {
+        // Pause button was clicked. Generation is paused until resume button is clicked.
+      }
+      else if (activeCodeLine) {
+        // Code line has code blocks that can be animated. Animate by updating their state data.
+        animateCodeBlock();
+      }
+      else {
+        // Code line has no code blocks that can be animated. Create the next code line / code blocks.
+        if (!isMouseHovering && !isFooterPinned && codeLines.length) {
+          let isNextDirectionX;
+          let nextStackCounter;
+
+          const stackDirection = windowAnimationStack.split(",")[0];
+          const stackCounter = Number(windowAnimationStack.split(",")[1]);
+
+          // Code window has shaken too many times in the same direction.
+          if (stackCounter === CodeGenerationConfig.CODE_WINDOW_SHAKE_MAX) {
+            isNextDirectionX = stackDirection !== "x";
+            nextStackCounter = 1;
+          }
+          else {
+            isNextDirectionX = getRandomBool({ probability: 0.5 });
+
+            if ((isNextDirectionX && stackDirection === "x") || (!isNextDirectionX && stackDirection !== "x")) {
+              nextStackCounter = stackCounter + 1;
+            }
+            else {
+              nextStackCounter = 1;
+            }
+          }
+
+          setWindowAnimationStack(`${isNextDirectionX ? "x" : "y"},${nextStackCounter}`);
+          isNextDirectionX ? setIsWindowAnimatedX(true) : setIsWindowAnimatedY(true);
+        }
+        generateCodeLine();
+      }
       setCodeLines(updatedCodeLines);
     }, codeSpeed);
 
@@ -342,7 +402,8 @@ const CodeWindow = () => {
 
   return (
     <div
-      className={styles.wrapper}
+      className={windowClasses}
+      onAnimationEnd={onWindowAnimationEnd}
       onMouseOver={onMouseOver}
       onFocus={onMouseOver}
       onMouseLeave={onMouseLeave}

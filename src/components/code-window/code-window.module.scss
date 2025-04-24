@@ -11,8 +11,13 @@
   max-width: 100%;
   overflow: hidden;
   position: relative;
+  transition: font-size variables.$visibility-transition-speed;
   white-space: nowrap;
   width: 50em;
+
+  &:hover {
+    font-size:1.12em;
+  }
 
   &::before {
     background: #333333;
@@ -304,3 +309,51 @@
   button:hover & { visibility: visible; }
   button:active & { transform: translateY(0.09375em); }
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// #region Animations                                                        //
+///////////////////////////////////////////////////////////////////////////////
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-1em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade {
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes shakeX {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-1 * variables.$code-window-shake-amount); }
+  50%  { transform: translateX(variables.$code-window-shake-amount); }
+  75%  { transform: translateX(-1 * (variables.$code-window-shake-amount / 2)); }
+  100% { transform: translateX(variables.$code-window-shake-amount / 2); }
+}
+
+@keyframes shakeY {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-1 * variables.$code-window-shake-amount); }
+  50%  { transform: translateY(variables.$code-window-shake-amount); }
+  75%  { transform: translateY(-1 * (variables.$code-window-shake-amount / 2)); }
+  100% { transform: translateY(variables.$code-window-shake-amount / 2); }
+}
+
+.shakenX {
+  animation: shakeX variables.$code-window-shake-speed ease-in-out;
+}
+
+.shakenY {
+  animation: shakeY variables.$code-window-shake-speed ease-in-out;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// #endregion Animations                                                     //
+///////////////////////////////////////////////////////////////////////////////
