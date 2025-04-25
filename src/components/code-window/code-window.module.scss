@@ -321,6 +321,7 @@
 
 .fade {
   animation: fadeIn variables.$code-window-initialize-speed ease-out forwards;
+  pointer-events: none;
   opacity: 0;
 }
 

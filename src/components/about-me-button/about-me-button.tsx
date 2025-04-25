@@ -19,12 +19,12 @@ const AboutMeButton = ({
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const visibleDelay = variables.codeWindowInitializeSpeed.endsWith('ms')
-    ? parseFloat(variables.codeWindowInitializeSpeed)
-    : parseFloat(variables.codeWindowInitializeSpeed) * 1000;
+  const visibleDelay = variables.aboutButtonInitializeSpeed.endsWith('ms')
+    ? parseFloat(variables.aboutButtonInitializeSpeed)
+    : parseFloat(variables.aboutButtonInitializeSpeed) * 1000;
 
   React.useEffect(() => {
-    const timeout = setTimeout(() => setIsVisible(true), visibleDelay * 2);
+    const timeout = setTimeout(() => setIsVisible(true), visibleDelay);
     return () => clearTimeout(timeout)
   }, [isVisible])
 
