@@ -114,7 +114,7 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
   const wasValueBlockUsed: boolean = codeLines[0] && Boolean(codeLines[0].findCodeBlockSize(blockTypes.content));
   const wasScopeDecreased: boolean = codeLines[1] && codeLines[1].findCodeBlockSize(blockTypes.indent) > lastIndentSize;
 
-  const canIncreaseIndent: boolean = lastIndentSize < CodeGenerationConfig.INDENT_MAX_SIZE && !wasValueBlockUsed && !wasScopeDecreased;
+  const canIncreaseIndent: boolean = lastIndentSize < CodeGenerationConfig.CODE_LINE_MAX_INDENT_SIZE && !wasValueBlockUsed && !wasScopeDecreased;
   const canDecreaseIndent: boolean = lastIndentSize > 1;
   if (canIncreaseIndent) return lastIndentSize + 1;
   if (canDecreaseIndent) return lastIndentSize - 1;
@@ -127,7 +127,7 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
 
 const CodeWindow = () => {
   const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
-  const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_SPEED);
+  const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
   const updatedCodeLines = codeLines.slice();
 
   const onCodeLineClick = (key: string, isClicked: boolean) => {
@@ -165,8 +165,8 @@ const CodeWindow = () => {
   const [isCodePaused, setIsCodePaused] = useState<boolean>(false);
   const onPauseClick = () => setIsCodePaused((x) => !x);
 
-  const decreaseCodeSpeed = () => !isCodePaused && setCodeSpeed((x) => Math.min(x + 25, 1000));
-  const increaseCodeSpeed = () => !isCodePaused && setCodeSpeed((x) => Math.max(x - 25, 0));
+  const decreaseCodeSpeed = () => !isCodePaused && setCodeSpeed((x) => Math.min(x + 25, CodeGenerationConfig.CODE_GENERATION_MIN_SPEED));
+  const increaseCodeSpeed = () => !isCodePaused && setCodeSpeed((x) => Math.max(x - 25, CodeGenerationConfig.CODE_GENERATION_MAX_SPEED));
 
   const onResetClick = () => {
     updatedCodeLines
@@ -176,7 +176,7 @@ const CodeWindow = () => {
     setIsCodePaused(false);
     setIsFooterPinned(false);
     setCodeLines(updatedCodeLines);
-    setCodeSpeed(CodeGenerationConfig.CODE_GENERATION_SPEED);
+    setCodeSpeed(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
   };
 
   const isFooterVisible: boolean = isFooterPinned || isMouseHovering || isCodePaused;
@@ -288,7 +288,7 @@ const CodeWindow = () => {
 
             // get the remaining code line space available to generate blocks on
             // [2] = reserved space for the pair of start and close angle blocks
-            let remainingCodeLineSize: number = CodeGenerationConfig.CODE_LINE_MAX_SIZE - indentCodeBlock.maximumSize - 2;
+            let remainingCodeLineSize: number = CodeGenerationConfig.CODE_LINE_MAX_BLOCK_COUNT - indentCodeBlock.maximumSize - 2;
             if (useStringBlock) remainingCodeLineSize -= 1; // [1] used by operator block before string
             if (useValueBlock) remainingCodeLineSize -= 2; // [2] used by second start and close angles
 
@@ -350,7 +350,7 @@ const CodeWindow = () => {
         }
       }
 
-      updatedCodeLines.length = Math.min(codeLines.length, CodeGenerationConfig.CODE_LINE_MAX_COUNT - 1);
+      updatedCodeLines.length = Math.min(codeLines.length, CodeGenerationConfig.CODE_LINE_MAX_SIBLING_COUNT - 1);
       updatedCodeLines.unshift(nextCodeLine);
       setLineCount((number) => number + 1);
     };

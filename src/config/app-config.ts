@@ -4,20 +4,24 @@
  */
 export const CodeGenerationConfig: {
   CODE_BLOCK_MAX_SIZE: number;
-  CODE_GENERATION_SPEED: number;
-  CODE_LINE_MAX_COUNT: number;
-  CODE_LINE_MAX_SIZE: number;
+  CODE_GENERATION_DEFAULT_SPEED: number;
+  CODE_GENERATION_MAX_SPEED: number;
+  CODE_GENERATION_MIN_SPEED: number;
+  CODE_LINE_MAX_BLOCK_COUNT: number;
+  CODE_LINE_MAX_INDENT_SIZE: number;
+  CODE_LINE_MAX_SIBLING_COUNT: number;
   CODE_SCOPE_MAX_COUNT: number;
   CODE_WINDOW_SHAKE_MAX: number;
-  INDENT_MAX_SIZE: number;
 } = {
   CODE_BLOCK_MAX_SIZE: 7, // How big the code block can be in length / width.
-  CODE_GENERATION_SPEED: 125, // How fast the code art is generating new code blocks.
-  CODE_LINE_MAX_COUNT: 14, // How many code lines are saved before disappearing to avoid memory leaks.
-  CODE_LINE_MAX_SIZE: 16, // How many code blocks can fit in a code line in code block length / width units.
+  CODE_GENERATION_DEFAULT_SPEED: 125, // How fast the code art is generating new code blocks.
+  CODE_GENERATION_MAX_SPEED: 25, // How fast the code generator can be toggled.
+  CODE_GENERATION_MIN_SPEED: 250, // How slow the code generator can be toggled.
+  CODE_LINE_MAX_BLOCK_COUNT: 16, // How many code blocks can fit in a code line in code block length / width units.
+  CODE_LINE_MAX_INDENT_SIZE: 3, // How far the code blocks can be scoped / indented from the left to imitate scoping.
+  CODE_LINE_MAX_SIBLING_COUNT: 14, // How many code lines are saved before disappearing to avoid memory leaks.
   CODE_SCOPE_MAX_COUNT: 4, // How many children can be underneath a parent before forcing the scope to step out.
   CODE_WINDOW_SHAKE_MAX: 2,
-  INDENT_MAX_SIZE: 3, // How far the code blocks can be scoped / indented from the left to imitate scoping.
 };
 
 /**
