@@ -1,8 +1,11 @@
-import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
-import styles from './about-me-button.module.scss';
 import { ReactComponent as ChevronIcon } from '../../assets/icons/chevron-down-solid.svg';
+import { useSelector } from 'react-redux';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import styles from './about-me-button.module.scss';
 import variables from '../../styles/_variables.module.scss';
+import type { RootState } from '../../stores';
 
 /**
  * @returns {React.JSX.Element}
@@ -14,8 +17,15 @@ const AboutMeButton = ({
 }): React.JSX.Element => {
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
   const [isHovering, setIsHovering] = useState(false);
-  const [opacity, setOpacity] = useState(styles.aboutButtonArrowOpacityMinimum);
-  const [transform, setTransform] = useState('translateY(0)');
+  const [arrowOpacity, setArrowOpacity] = useState(styles.aboutButtonArrowOpacityMinimum);
+  const [arrowTransform, setArrowTransform] = useState('translateY(0)');
+
+  const isCodeWindowLoaded = useSelector((state: RootState) => state.codeWindow.isCodeWindowLoaded);
+
+  const classes: string = classNames(
+    styles.about,
+    { [styles.visible]: isCodeWindowLoaded },
+  );
 
   useEffect(() => {
     let toggle = false;
@@ -31,11 +41,11 @@ const AboutMeButton = ({
     const computeStyle = () => {
       let computedOpacity = styles.aboutButtonArrowOpacityMinimum;
       if (toggle || isHovering) computedOpacity = "1";
-      setOpacity(computedOpacity);
+      setArrowOpacity(computedOpacity);
 
       let computedTransform = "0";
       if (toggle || isHovering) computedTransform = styles.aboutButtonArrowTransitionDistance;
-      setTransform(`translateY(${computedTransform})`);
+      setArrowTransform(`translateY(${computedTransform})`);
 
       toggle = !toggle;
     };
@@ -47,7 +57,7 @@ const AboutMeButton = ({
 
   return (
     <button
-      className={styles.about}
+      className={classes}
       type="button"
       onClick={onClick}
       onMouseOver={() => setIsHovering(true)}
@@ -55,7 +65,10 @@ const AboutMeButton = ({
     >
       About me
       <br />
-      <ChevronIcon style={{ opacity, transform }} />
+      <ChevronIcon style={{
+        opacity: arrowOpacity,
+        transform: arrowTransform
+      }} />
     </button>
   );
 };

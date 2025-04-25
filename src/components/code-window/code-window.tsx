@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import { CodeGenerationConfig } from "../../config/app-config";
+import { PersonEmoji } from '../../assets/images';
 import { ReactComponent as EraserIcon } from '../../assets/icons/eraser_icon.svg';
 import { ReactComponent as FastForwardIcon } from '../../assets/icons/fast_forward_icon.svg';
 import { ReactComponent as PauseIcon } from '../../assets/icons/pause_icon.svg';
@@ -8,12 +7,16 @@ import { ReactComponent as PinOffIcon } from '../../assets/icons/pin_off_icon.sv
 import { ReactComponent as PinOnIcon } from '../../assets/icons/pin_on_icon.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
-import { PersonEmoji } from '../../assets/images';
+import { setIsCodeWindowLoaded } from '../../stores/code-window-slice';
+import { useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 import blockTypes from '../code-block/code-block.module.scss';
 import classNames from 'classnames';
 import CodeLine from '../code-line/code-line';
+import React, { useEffect, useState } from 'react';
 import ResizableBlockTypes from "../../types/resizeable-block-types";
 import styles from './code-window.module.scss';
+import type { AppDispatch } from '../../stores';
 
 // ----------- //
 // data models //
@@ -126,6 +129,8 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
 // ------------ //
 
 const CodeWindow = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
   const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
   const updatedCodeLines = codeLines.slice();
@@ -148,6 +153,7 @@ const CodeWindow = () => {
   const onWindowAnimationEnd = () => {
     if (isWindowAnimatedFade) {
       setIsWindowAnimatedFade(false);
+      dispatch(setIsCodeWindowLoaded(true));
     }
     else {
       setIsWindowAnimatedX(false);
