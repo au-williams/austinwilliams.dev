@@ -1,5 +1,7 @@
 @use "../../styles/variables.module";
 
+// TODO: RAISE code line when hovering? reset when exiting?
+
 .codeLine {
   align-items: center;
   border: none;
@@ -7,8 +9,14 @@
   display: flex;
   padding: variables.$code-line-space 0;
 
-  &:active { transform: translateY(0.09375em); }
-  &:last-of-type { margin-top: (variables.$code-line-space); }
+  &:active {
+    // Move the code line down as click feedback for the user.
+    transform: translateY(variables.$code-line-press-amount);
+  }
+
+  &:last-of-type {
+    margin-top: (variables.$code-line-space);
+  }
 }
 
 .lineNumber {

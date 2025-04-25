@@ -1,9 +1,9 @@
 @use "styles/variables.module" as *;
 
 body {
-  background-color: $body-background-color;
+  background-color: $body-color-background;
   box-sizing: border-box;
-  color: $body-text-color;
+  color: $body-color-text;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   padding: 0 1.5em;

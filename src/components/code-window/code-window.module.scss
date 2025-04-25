@@ -3,7 +3,7 @@
 .wrapper {
   background-color: #202020;
   border-radius: variables.$code-window-border-radius;
-  box-shadow: rgba(0, 0, 0, 0.35) 0 0.3125em 0.9375em;
+  box-shadow: variables.$code-window-box-shadow;
   display: flex;
   flex-direction: column;
   height: 28.125em;
@@ -11,13 +11,9 @@
   max-width: 100%;
   overflow: hidden;
   position: relative;
-  transition: font-size variables.$visibility-transition-speed;
+  transition: font-size variables.$code-window-visibility-transition-speed;
   white-space: nowrap;
   width: 50em;
-
-  &:hover {
-    font-size:1.12em;
-  }
 
   &::before {
     background: #333333;
@@ -148,7 +144,7 @@
   bottom: 0;
   box-shadow: rgba(0, 0, 0, 0.35) 0 0.078em 0.235em;
   display: flex;
-  font-family: 'Roboto', sans-serif;
+  font-family: variables.$body-font-family;
   font-size: 2.875em;
   height: 1.65em;
   justify-content: center;
@@ -159,7 +155,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  transition: opacity variables.$visibility-transition-speed;
+  transition: opacity variables.$code-window-visibility-transition-speed;
   width: 8.95em;
 
   &.visible {
@@ -184,9 +180,9 @@
   border-width: 0 variables.$code-window-border-width;
   height: variables.$code-window-border-width;
   transition:
-    background-color variables.$visibility-transition-speed,
-    border-color variables.$visibility-transition-speed,
-    height variables.$visibility-transition-speed;
+    background-color variables.$code-window-visibility-transition-speed,
+    border-color variables.$code-window-visibility-transition-speed,
+    height variables.$code-window-visibility-transition-speed;
   z-index: 1;
 
   &.visible {
@@ -254,7 +250,7 @@
   > span {
     color: #d4d4d4;
     cursor: default;
-    font-family: 'Roboto', sans-serif;
+    font-family: variables.$body-font-family;
     font-size: 0.8em;
 
     &:nth-last-child(1) {
@@ -285,13 +281,13 @@
   border-radius: variables.$code-window-border-radius;
   bottom: 150%;
   color: #d4d4d4;
-  font-family: 'Roboto', sans-serif;
+  font-family: variables.$body-font-family;
   font-size: 0.8em;
   padding: 0.675em;
   pointer-events: none;
   position: absolute;
   text-align: center;
-  transition: background-color variables.$visibility-transition-speed;
+  transition: background-color variables.$code-window-visibility-transition-speed;
   visibility: hidden;
   z-index: 1;
 

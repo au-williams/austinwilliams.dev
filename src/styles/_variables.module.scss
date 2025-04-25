@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 /*
  * Partials
  * https://sass-lang.com/guide/#partials
@@ -11,24 +13,87 @@
  * @use rule.
  */
 
-$body-background-color: #18191a;
-$body-text-color: #d4d4d4;
+///////////////////////////////////////////////////////////////////////////////
+// #region Variable Styles                                                   //
+///////////////////////////////////////////////////////////////////////////////
 
+// About button
+$about-button-press-amount: 0.125em; // was [0.0625em]
+$about-button-color-text: #d4d4d4;
+$about-button-arrow-transition-speed: .75s;
+$about-button-arrow-transition-distance: 0.125em;
+$about-button-arrow-opacity-minimum: 0.5;
+
+// Body
+$body-color-background: #18191a;
+$body-color-text: #d4d4d4;
+$body-color-link: #ce9178;
+$body-color-section: #202020;
+$body-font-family: 'Roboto', sans-serif;
+
+// Code block components
+$code-block-color-angle: #d4d4d4;
+$code-block-color-attribute: #9cdcfe;
+$code-block-color-content: #d4d4d4; // TODO: rename downstream value -> content
+$code-block-color-operator: #d4d4d4;
+$code-block-color-string: #ce9178;
+$code-block-color-transition-speed: 50ms;
+$code-block-color-tag-name: #569cd6;
+$code-block-color-unfocused: #333333;
 $code-block-size: 1.25em;
+
+// Code line components
+$code-line-press-amount: 0.0625em;
 $code-line-space: 0.275em;
 
+// Code window component
 $code-window-border-radius: 0.15em;
 $code-window-border-width: 0.25em;
+$code-window-box-shadow: rgba(0, 0, 0, 0.24) 0 0.1875em 0.5em; // was [rgba(0, 0, 0, 0.35) 0 0.3125em 0.9375em]
 $code-window-sidebar-width: 2.25em;
-$code-window-shake-amount: 0.1em; // 0.045em;
-$code-window-shake-speed: 250ms; // 0.33s;
+$code-window-shake-amount: 0.1em; // was [0.045em];
+$code-window-shake-speed: 250ms; // was [0.33s];
 $code-window-title-bar-button-hover-brightness: 20%;
 $code-window-title-bar-button-size: 0.95em;
 $code-window-title-bar-height: 2.25em;
-$visibility-transition-speed: 100ms;
+$code-window-visibility-transition-speed: 100ms;
+
+// Footer
+$footer-button-color: #151515;
+$footer-button-press-amount: 0.125em; // was [0.0625em]
+
+// Section
+$section-box-shadow: rgba(0, 0, 0, 0.24) 0 0.1875em 0.5em;
+
+///////////////////////////////////////////////////////////////////////////////
+// #endregion Variable Styles                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// #region Computed Styles                                                   //
+///////////////////////////////////////////////////////////////////////////////
+
+$code-block-color-unfocused-dimmed: mix(black, $code-block-color-unfocused, 12.5%);
+
+$footer-button-color-hover: color.adjust($footer-button-color, $lightness: -2.5%);
+
+///////////////////////////////////////////////////////////////////////////////
+// #endregion Computed Styles                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// #region Exported Styles                                                   //
+///////////////////////////////////////////////////////////////////////////////
 
 :export {
-  // Used for calculations in code-block.tsx
-  codeBlockSize: $code-block-size;
-  codeLineSpace: $code-line-space;
+  codeBlockSize: $code-block-size; // Used for calculations in code-block.tsx
+  codeLineSpace: $code-line-space; // Used for calculations in code-block.tsx
+  aboutButtonArrowOpacityMinimum: $about-button-arrow-opacity-minimum; // Used for calculations in about-me-button.tsx
+  aboutButtonArrowTransitionDistance: $about-button-arrow-transition-distance; // Used for calculations in about-me-button.tsx
+  aboutButtonArrowTransitionSpeed: $about-button-arrow-transition-speed; // Used for calculations in about-me-button.tsx
+
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// #endregion Exported Styles                                                //
+///////////////////////////////////////////////////////////////////////////////

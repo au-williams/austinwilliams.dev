@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
-import { ChevronIcon } from '../assets/icons';
 import { CodeImage, MailboxEmoji, WaveEmoji } from '../assets/images';
 import { GoogleAnalyticsConfig } from '../config/app-config';
+import { ReactComponent as ChevronIcon } from '../assets/icons/chevron-down-solid.svg';
 import { ReactComponent as AvatarIcon } from '../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../assets/icons/scroll_icon.svg';
-import { ReactSVG } from 'react-svg'
+import AboutMeButton from '../components/about-me-button/about-me-button';
 import CodeWindow from '../components/code-window/code-window';
 import styles from './app.module.scss';
 
@@ -77,7 +77,7 @@ const onResumeClick = () => sendGoogleAnalyticsEvent('click', 'resume_outbound_l
 ///////////////////////////////////////////////////////////////////////////////
 
 export default () => {
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState<null | string>(null);
   const sectionRef = useRef<null | HTMLDivElement>(null);
 
   /**
@@ -108,11 +108,7 @@ export default () => {
     <>
       <header className={styles.wrapper}>
         <CodeWindow />
-        <button type="button" onClick={onAboutClick}>
-          About
-          <br />
-          <ReactSVG src={ChevronIcon} />
-        </button>
+        <AboutMeButton onClick={onAboutClick} />
       </header>
       <section className={styles.section} ref={sectionRef}>
         <article className={styles.article}>
