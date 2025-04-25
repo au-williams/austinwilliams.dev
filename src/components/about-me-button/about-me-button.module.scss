@@ -6,21 +6,26 @@
   color: variables.$about-button-arrow-text-color;
   cursor: pointer;
   font-family: variables.$body-font-family;
-  font-size: 1.875em;
+  font-size: 1em;
   margin: 5vh 0;
-  opacity: 0;
-  transform: translateY(-0.5em);
+  opacity: 1;
+  transform: translateY(0);
   transition: transform 0.4s, opacity 0.4s;
+
+  div {
+    font-size: 2em;
+  }
 
   svg {
     fill: variables.$about-button-arrow-text-color;
+    font-size: 2em;
     height: 1em;
     transition: transform variables.$about-button-arrow-transition-speed, opacity variables.$about-button-arrow-transition-speed;
   }
 
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
+  &.hidden {
+    opacity: 0;
+    transform: translateY(-1em);
   }
 
   &:active {

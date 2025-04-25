@@ -15,16 +15,16 @@ const AboutMeButton = ({
 }: {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }): React.JSX.Element => {
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
-  const [isHovering, setIsHovering] = useState(false);
   const [arrowOpacity, setArrowOpacity] = useState(styles.aboutButtonArrowOpacityMinimum);
   const [arrowTransform, setArrowTransform] = useState('translateY(0)');
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+  const [isHovering, setIsHovering] = useState(false);
 
   const isCodeWindowLoaded = useSelector((state: RootState) => state.codeWindow.isCodeWindowLoaded);
 
   const classes: string = classNames(
     styles.about,
-    { [styles.visible]: isCodeWindowLoaded },
+    { [styles.hidden]: !isCodeWindowLoaded },
   );
 
   useEffect(() => {
@@ -63,8 +63,9 @@ const AboutMeButton = ({
       onMouseOver={() => setIsHovering(true)}
       onMouseOut={() => setIsHovering(false)}
     >
-      About me
-      <br />
+      <div>
+        About me
+      </div>
       <ChevronIcon style={{
         opacity: arrowOpacity,
         transform: arrowTransform
