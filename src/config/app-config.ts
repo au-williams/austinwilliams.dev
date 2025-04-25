@@ -21,7 +21,7 @@ export const CodeGenerationConfig: {
   CODE_LINE_MAX_INDENT_SIZE: 3, // How far the code blocks can be scoped / indented from the left to imitate scoping.
   CODE_LINE_MAX_SIBLING_COUNT: 14, // How many code lines are saved before disappearing to avoid memory leaks.
   CODE_SCOPE_MAX_COUNT: 4, // How many children can be underneath a parent before forcing the scope to step out.
-  CODE_WINDOW_SHAKE_MAX: 2,
+  CODE_WINDOW_SHAKE_MAX: 2, // How many times the code window can shake concurrently in the same direction.
 };
 
 /**

@@ -1,11 +1,9 @@
 import { ReactComponent as ChevronIcon } from '../../assets/icons/chevron-down-solid.svg';
-import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import styles from './about-me-button.module.scss';
 import variables from '../../styles/_variables.module.scss';
-import type { RootState } from '../../stores';
 
 /**
  * @returns {React.JSX.Element}
@@ -19,12 +17,20 @@ const AboutMeButton = ({
   const [arrowTransform, setArrowTransform] = useState('translateY(0)');
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
   const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const isCodeWindowLoaded = useSelector((state: RootState) => state.codeWindow.isCodeWindowLoaded);
+  const visibleDelay = variables.codeWindowInitializeSpeed.endsWith('ms')
+    ? parseFloat(variables.codeWindowInitializeSpeed)
+    : parseFloat(variables.codeWindowInitializeSpeed) * 1000;
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setIsVisible(true), visibleDelay * 2);
+    return () => clearTimeout(timeout)
+  }, [isVisible])
 
   const classes: string = classNames(
     styles.about,
-    { [styles.hidden]: !isCodeWindowLoaded },
+    { [styles.hidden]: !isVisible },
   );
 
   useEffect(() => {
@@ -34,7 +40,7 @@ const AboutMeButton = ({
       clearInterval(intervalId);
     }
 
-    const delay = variables.aboutButtonArrowTransitionSpeed.endsWith('ms')
+    const arrowDelay = variables.aboutButtonArrowTransitionSpeed.endsWith('ms')
       ? parseFloat(variables.aboutButtonArrowTransitionSpeed)
       : parseFloat(variables.aboutButtonArrowTransitionSpeed) * 1000;
 
@@ -51,7 +57,7 @@ const AboutMeButton = ({
     };
 
     computeStyle();
-    setIntervalId(setInterval(computeStyle, delay));
+    setIntervalId(setInterval(computeStyle, arrowDelay));
     return () => clearInterval(intervalId);
   }, [isHovering]);
 
@@ -63,9 +69,8 @@ const AboutMeButton = ({
       onMouseOver={() => setIsHovering(true)}
       onMouseOut={() => setIsHovering(false)}
     >
-      <div>
-        About me
-      </div>
+      About me
+      <br/>
       <ChevronIcon style={{
         opacity: arrowOpacity,
         transform: arrowTransform

@@ -3,29 +3,22 @@
 .about {
   background: none;
   border: none;
-  color: variables.$about-button-arrow-text-color;
+  color: variables.$about-button-arrow-svg-text-color;
   cursor: pointer;
   font-family: variables.$body-font-family;
-  font-size: 1em;
+  font-size: 2em;
   margin: 5vh 0;
   opacity: 1;
-  transform: translateY(0);
-  transition: transform 0.4s, opacity 0.4s;
-
-  div {
-    font-size: 2em;
-  }
+  transition: opacity variables.$about-button-initialize-speed;
 
   svg {
-    fill: variables.$about-button-arrow-text-color;
-    font-size: 2em;
+    fill: variables.$about-button-arrow-svg-text-color;
     height: 1em;
     transition: transform variables.$about-button-arrow-transition-speed, opacity variables.$about-button-arrow-transition-speed;
   }
 
   &.hidden {
     opacity: 0;
-    transform: translateY(-1em);
   }
 
   &:active {

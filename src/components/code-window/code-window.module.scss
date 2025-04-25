@@ -320,8 +320,8 @@
 }
 
 .fade {
+  animation: fadeIn variables.$code-window-initialize-speed ease-out forwards;
   opacity: 0;
-  animation: fadeIn 0.4s ease-out forwards;
 }
 
 @keyframes shakeX {
