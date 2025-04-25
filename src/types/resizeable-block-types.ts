@@ -7,4 +7,4 @@ import blockTypes from '../components/code-block/code-block.module.scss';
  * such as arrows or whitespace should not be resized.
  * @type {string[]}
  */
-export default [blockTypes.tagName, blockTypes.attribute, blockTypes.string, blockTypes.value];
+export default [blockTypes.tagName, blockTypes.attribute, blockTypes.string, blockTypes.content];

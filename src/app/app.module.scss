@@ -101,7 +101,7 @@
     white-space: nowrap;
 
     &:active {
-      transform: translateY(variables.$footer-button-press-amount);
+      transform: translateY(variables.$footer-button-press-distance);
     }
 
     &:hover {

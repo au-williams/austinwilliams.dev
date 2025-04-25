@@ -111,7 +111,7 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
 
   // determine if scope closing tags were created on the last code line
   // (closing tags cannot be used to increase indent or spawn children)
-  const wasValueBlockUsed: boolean = codeLines[0] && Boolean(codeLines[0].findCodeBlockSize(blockTypes.value));
+  const wasValueBlockUsed: boolean = codeLines[0] && Boolean(codeLines[0].findCodeBlockSize(blockTypes.content));
   const wasScopeDecreased: boolean = codeLines[1] && codeLines[1].findCodeBlockSize(blockTypes.indent) > lastIndentSize;
 
   const canIncreaseIndent: boolean = lastIndentSize < CodeGenerationConfig.INDENT_MAX_SIZE && !wasValueBlockUsed && !wasScopeDecreased;
@@ -340,7 +340,7 @@ const CodeWindow = () => {
             useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.operator }));
             useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.string, blockSize: getBlockSize() }));
             nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.closeAngle }));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.value, blockSize: getBlockSize() }));
+            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.content, blockSize: getBlockSize() }));
             useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.openAngle }));
             useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: nextTagNameSize }));
             useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.closeAngle }));

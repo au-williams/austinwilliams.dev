@@ -1,4 +1,5 @@
 @use "../../styles/variables.module";
+@use 'sass:color';
 
 .wrapper {
   background-color: #202020;
@@ -45,7 +46,7 @@
     width: variables.$code-window-title-bar-button-size;
 
     &:hover {
-      $hover-color: lighten($background-color, variables.$code-window-title-bar-button-hover-brightness);
+      $hover-color: color.adjust($background-color, $lightness: calc(variables.$code-window-title-bar-button-hover-brightness / 1.5));
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -66,10 +67,7 @@
     margin-left: auto;
 
     &:hover {
-      $hover-color: lighten(
-        $background-color,
-        calc(variables.$code-window-title-bar-button-hover-brightness / 1.5)
-      );
+      $hover-color: color.adjust($background-color, $lightness: calc(variables.$code-window-title-bar-button-hover-brightness / 1.5));
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -80,7 +78,7 @@
     background-color: $background-color;
 
     &:hover {
-      $hover-color: lighten($background-color, variables.$code-window-title-bar-button-hover-brightness);
+      $hover-color: color.adjust($background-color, $lightness: variables.$code-window-title-bar-button-hover-brightness);
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -91,7 +89,7 @@
     background-color: $background-color;
 
     &:hover {
-      $hover-color: lighten($background-color, variables.$code-window-title-bar-button-hover-brightness);
+      $hover-color: color.adjust($background-color, $lightness: variables.$code-window-title-bar-button-hover-brightness);
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
     }
@@ -126,8 +124,8 @@
     content: '';
     font-size: 1em;
     height: 100%;
-    margin-bottom: variables.$code-line-space;
-    min-height: 5 * (variables.$code-block-size + variables.$code-line-space * 2) - 0.1em; // [- val] hack to realign scroll position
+    margin-bottom: variables.$code-line-shoulder-space;
+    min-height: 5 * (variables.$code-block-size + variables.$code-line-shoulder-space * 2) - 0.1em; // [- val] hack to realign scroll position
     pointer-events: none;
   }
 
@@ -197,7 +195,7 @@
     }
 
     button:hover {
-      background-color: darken($background-color, 10%);
+      background-color: color.adjust($background-color, $lightness: -10%)
     }
 
     .tooltip {
@@ -212,7 +210,7 @@
     border-color: $background-color;
 
     button:hover {
-      background-color: darken($background-color, 10%);
+      background-color: color.adjust($background-color, $lightness: -10%)
     }
 
     .tooltip {
@@ -227,7 +225,7 @@
     border-color: $background-color;
 
     button:hover {
-      background-color: darken($background-color, 10%);
+      background-color: color.adjust($background-color, $lightness: -10%)
     }
 
     .tooltip {
@@ -330,16 +328,16 @@
   0%   { transform: translateX(0); }
   25%  { transform: translateX(-1 * variables.$code-window-shake-amount); }
   50%  { transform: translateX(variables.$code-window-shake-amount); }
-  75%  { transform: translateX(-1 * (variables.$code-window-shake-amount / 2)); }
-  100% { transform: translateX(variables.$code-window-shake-amount / 2); }
+  75%  { transform: translateX(-1 * calc(variables.$code-window-shake-amount / 2)); }
+  100% { transform: translateX(calc(variables.$code-window-shake-amount / 2)); }
 }
 
 @keyframes shakeY {
   0%   { transform: translateY(0); }
   25%  { transform: translateY(-1 * variables.$code-window-shake-amount); }
   50%  { transform: translateY(variables.$code-window-shake-amount); }
-  75%  { transform: translateY(-1 * (variables.$code-window-shake-amount / 2)); }
-  100% { transform: translateY(variables.$code-window-shake-amount / 2); }
+  75%  { transform: translateY(-1 * calc(variables.$code-window-shake-amount / 2)); }
+  100% { transform: translateY(calc(variables.$code-window-shake-amount / 2)); }
 }
 
 .shakenX {

@@ -3,19 +3,19 @@
 .about {
   background: none;
   border: none;
-  color: variables.$about-button-color-text;
+  color: variables.$about-button-arrow-text-color;
   cursor: pointer;
   font-family: variables.$body-font-family;
   font-size: 1.875em;
   margin: 5vh 0;
 
   svg {
-    fill: variables.$about-button-color-text;
+    fill: variables.$about-button-arrow-text-color;
     height: 1em;
     transition: transform variables.$about-button-arrow-transition-speed, opacity variables.$about-button-arrow-transition-speed;
   }
 
   &:active {
-    transform: translateY(variables.$about-button-press-amount);
+    transform: translateY(variables.$about-button-press-distance);
   }
 }

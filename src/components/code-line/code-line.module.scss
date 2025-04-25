@@ -7,15 +7,15 @@
   border: none;
   cursor: pointer;
   display: flex;
-  padding: variables.$code-line-space 0;
+  padding: variables.$code-line-shoulder-space 0;
 
   &:active {
     // Move the code line down as click feedback for the user.
-    transform: translateY(variables.$code-line-press-amount);
+    transform: translateY(variables.$code-line-press-distance);
   }
 
   &:last-of-type {
-    margin-top: (variables.$code-line-space);
+    margin-top: (variables.$code-line-shoulder-space);
   }
 }
 
@@ -29,7 +29,7 @@
   height: $line-number-size;
   margin-bottom: $line-number-top-bottom-margin;
   margin-left: $line-number-left-right-margin;
-  margin-right: $line-number-left-right-margin * 2 - variables.$code-line-space;
+  margin-right: $line-number-left-right-margin * 2 - variables.$code-line-shoulder-space;
   margin-top: $line-number-top-bottom-margin;
   transition: background-color 25ms, box-shadow 25ms;
   width: $line-number-size;
