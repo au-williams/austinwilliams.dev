@@ -156,8 +156,15 @@ const CodeWindow = () => {
   }
 
   const [isMouseHovering, setIsMouseHovering] = useState<boolean>(false);
+  const [nameTransitionDuration, setNameTransitionDuration] = useState<string>(styles.codeWindowNameInitializeDuration);
   const onMouseLeave = () => setIsMouseHovering(false);
-  const onMouseOver = () => setIsMouseHovering(true);
+
+  const onMouseOver = () => {
+    setIsMouseHovering(true);
+    if (!isWindowAnimatedFade && nameTransitionDuration != styles.codeWindowNameTransitionDuration) {
+      setNameTransitionDuration(styles.codeWindowNameTransitionDuration);
+    }
+  }
 
   const [isFooterPinned, setIsFooterPinned] = useState<boolean>(false);
   const onPinClick = () => setIsFooterPinned((x) => !x);
@@ -190,7 +197,7 @@ const CodeWindow = () => {
 
   const nameClasses: string = classNames(
     styles.name,
-    { [styles.visible]: !isFooterVisible }
+    { [styles.visible]: !isFooterVisible && !isWindowAnimatedFade }
   );
 
   const windowClasses: string = classNames(
@@ -426,7 +433,10 @@ const CodeWindow = () => {
             />
           ))}
         </div>
-        <div className={nameClasses}>
+        <div
+          className={nameClasses}
+          style={{ transitionDuration: nameTransitionDuration }}
+        >
           <img src={PersonEmoji} alt="person emoji" />
           <span>Austin Williams</span>
         </div>

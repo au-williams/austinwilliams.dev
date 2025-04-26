@@ -52,14 +52,16 @@ $code-line-shoulder-space: 0.275em;
 $code-window-border-radius: 0.15em;
 $code-window-border-width: 0.25em;
 $code-window-box-shadow: rgba(0, 0, 0, 0.24) 0 0.1875em 0.5em; // was [rgba(0, 0, 0, 0.35) 0 0.3125em 0.9375em]
-$code-window-initialize-duration: 0.5s;
+$code-window-name-initialize-duration: 0.5s;
+$code-window-name-transition-duration: 100ms; // How fast the name shows / hides when hovering with mouse.
+$code-window-initialize-duration: 0.6s; // How fast the code window fades in before most components.
 $code-window-shake-amount: 0.1em; // was [0.045em];
 $code-window-shake-duration: 250ms; // was [0.33s];
 $code-window-sidebar-width: 2.25em;
 $code-window-title-bar-button-hover-brightness: 20%;
 $code-window-title-bar-button-size: 0.95em;
 $code-window-title-bar-height: 2.25em;
-$code-window-visibility-transition-duration: 100ms;
+$code-window-visibility-transition-duration: 100ms; // How fast misc window items move when hovering with mouse.
 
 // Footer
 $footer-button-color: #151515;
@@ -96,6 +98,8 @@ $footer-button-color-hover: color.adjust($footer-button-color, $lightness: -2.5%
   aboutButtonInitializeDuration: $about-button-initialize-duration;
   codeBlockSize: $code-block-size; // Used for calculations in code-block.tsx
   codeLineSpace: $code-line-shoulder-space; // Used for calculations in code-block.tsx
+  codeWindowNameInitializeDuration: $code-window-name-initialize-duration;
+  codeWindowNameTransitionDuration: $code-window-name-transition-duration;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

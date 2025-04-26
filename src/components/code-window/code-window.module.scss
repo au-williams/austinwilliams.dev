@@ -137,10 +137,10 @@
 
 .name {
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.625);
   border-radius: calc(variables.$code-window-border-radius / 2);
   bottom: 0;
-  box-shadow: rgba(0, 0, 0, 0.35) 0 0.078em 0.235em;
+  // box-shadow: rgba(0, 0, 0, 0.35) 0 0.078em 0.235em;
   display: flex;
   font-family: variables.$body-font-family;
   font-size: 2.875em;
