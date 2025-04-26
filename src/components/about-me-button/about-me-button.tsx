@@ -13,6 +13,7 @@ const AboutMeButton = ({
 }: {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }): React.JSX.Element => {
+  const [arrowDuration, setArrowDuration] = useState("");
   const [arrowOpacity, setArrowOpacity] = useState(styles.aboutButtonArrowOpacityMinimum);
   const [arrowTransform, setArrowTransform] = useState('translateY(0)');
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
@@ -40,11 +41,11 @@ const AboutMeButton = ({
       clearInterval(intervalId);
     }
 
-    const arrowDelay = variables.aboutButtonArrowTransitionSpeed.endsWith('ms')
-      ? parseFloat(variables.aboutButtonArrowTransitionSpeed)
-      : parseFloat(variables.aboutButtonArrowTransitionSpeed) * 1000;
-
     const computeStyle = () => {
+      let computedDuration = variables.aboutButtonArrowTransitionDuration;
+      if (isHovering) computedDuration = variables.aboutButtonArrowTransitionDurationHover;
+      setArrowDuration(computedDuration);
+
       let computedOpacity = styles.aboutButtonArrowOpacityMinimum;
       if (toggle || isHovering) computedOpacity = "1";
       setArrowOpacity(computedOpacity);
@@ -57,7 +58,12 @@ const AboutMeButton = ({
     };
 
     computeStyle();
-    setIntervalId(setInterval(computeStyle, arrowDelay));
+
+    setIntervalId(setInterval(computeStyle, variables.aboutButtonArrowTransitionDuration.endsWith('ms')
+      ? parseFloat(variables.aboutButtonArrowTransitionDuration)
+      : parseFloat(variables.aboutButtonArrowTransitionDuration) * 1000
+    ));
+
     return () => clearInterval(intervalId);
   }, [isHovering]);
 
@@ -73,6 +79,7 @@ const AboutMeButton = ({
       <br/>
       <ChevronIcon style={{
         opacity: arrowOpacity,
+        transitionDuration: arrowDuration,
         transform: arrowTransform
       }} />
     </button>

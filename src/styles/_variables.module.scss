@@ -22,13 +22,14 @@ $about-button-arrow-opacity-minimum: 0.5;
 $about-button-arrow-svg-text-color: #d4d4d4;
 $about-button-arrow-transition-distance: 0.1em;
 $about-button-arrow-transition-speed: .675s;
+$about-button-arrow-transition-speed-hover: .25s;
 $about-button-initialize-speed: 0.6s;
 $about-button-press-distance: 0.125em;
 
 // Body
 $body-color-background: #18191a;
 $body-color-text: #d4d4d4;
-$body-color-link: #ce9178;
+$body-color-link: #4DAAFC; //#ce9178;
 $body-color-section: #202020;
 $body-font-family: 'Roboto', sans-serif;
 
@@ -90,7 +91,8 @@ $footer-button-color-hover: color.adjust($footer-button-color, $lightness: -2.5%
 :export {
   aboutButtonArrowOpacityMinimum: $about-button-arrow-opacity-minimum; // Used for calculations in about-me-button.tsx
   aboutButtonArrowTransitionDistance: $about-button-arrow-transition-distance; // Used for calculations in about-me-button.tsx
-  aboutButtonArrowTransitionSpeed: $about-button-arrow-transition-speed; // Used for calculations in about-me-button.tsx
+  aboutButtonArrowTransitionDuration: $about-button-arrow-transition-speed; // Used for calculations in about-me-button.tsx
+  aboutButtonArrowTransitionDurationHover: $about-button-arrow-transition-speed-hover; // Used for calculations in about-me-button.tsx
   aboutButtonInitializeSpeed: $about-button-initialize-speed;
   codeBlockSize: $code-block-size; // Used for calculations in code-block.tsx
   codeLineSpace: $code-line-shoulder-space; // Used for calculations in code-block.tsx
