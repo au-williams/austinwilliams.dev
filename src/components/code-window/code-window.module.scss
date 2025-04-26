@@ -36,6 +36,10 @@
   padding: 0 variables.$code-window-border-width;
   z-index: 1;
 
+  div {
+    cursor: pointer;
+  }
+
   div:nth-child(1) {
     $background-color: #0078d7;
     background-color: $background-color;

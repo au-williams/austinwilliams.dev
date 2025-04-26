@@ -167,7 +167,6 @@ const CodeWindow = () => {
   }
 
   const onMouseClick = () => {
-    if (isWindowAnimatedX || isWindowAnimatedY) return;
     getRandomBool({ probability: 0.5 })
       ? setIsWindowAnimatedX(true)
       : setIsWindowAnimatedY(true);
@@ -422,14 +421,11 @@ const CodeWindow = () => {
       onFocus={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
-      <div
-        className={styles.title}
-        onClick={onMouseClick}
-      >
-        <div />
-        <div />
-        <div />
-        <div />
+      <div className={styles.title}>
+        <div onClick={onMouseClick} />
+        <div onClick={onMouseClick} />
+        <div onClick={onMouseClick} />
+        <div onClick={onMouseClick} />
       </div>
       <div className={styles.body}>
         <div className={styles.code}>
