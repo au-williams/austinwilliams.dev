@@ -166,6 +166,13 @@ const CodeWindow = () => {
     }
   }
 
+  const onMouseClick = () => {
+    if (isWindowAnimatedX || isWindowAnimatedY) return;
+    getRandomBool({ probability: 0.5 })
+      ? setIsWindowAnimatedX(true)
+      : setIsWindowAnimatedY(true);
+  }
+
   const [isFooterPinned, setIsFooterPinned] = useState<boolean>(false);
   const onPinClick = () => setIsFooterPinned((x) => !x);
 
@@ -415,7 +422,10 @@ const CodeWindow = () => {
       onFocus={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
-      <div className={styles.title}>
+      <div
+        className={styles.title}
+        onClick={onMouseClick}
+      >
         <div />
         <div />
         <div />
