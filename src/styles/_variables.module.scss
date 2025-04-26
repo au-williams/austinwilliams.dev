@@ -20,11 +20,11 @@
 // About button
 $about-button-arrow-opacity-minimum: 0.5;
 $about-button-arrow-svg-text-color: #d4d4d4;
-$about-button-arrow-transition-distance: 0.1em;
-$about-button-arrow-transition-duration: .675s;
-$about-button-arrow-transition-duration-hover: .25s;
-$about-button-initialize-duration: 0.6s;
-$about-button-press-distance: 0.125em;
+$about-button-arrow-transition-distance: 0.2em; // How far the arrow moves downward when its not hovered.
+$about-button-arrow-transition-duration: .75s; // How fast the arrow moves along its configured path distance.
+$about-button-arrow-transition-duration-hover: .2s; // How fast the arrow moves downward to its hovered position.
+$about-button-initialize-duration: 0.4s; // How fast the about button displays its startup animation.
+$about-button-press-distance: 0.125em; // How far the about button moves downward when its pressed.
 
 // Body
 $body-color-background: #18191a;
@@ -52,16 +52,16 @@ $code-line-shoulder-space: 0.275em;
 $code-window-border-radius: 0.15em;
 $code-window-border-width: 0.25em;
 $code-window-box-shadow: rgba(0, 0, 0, 0.24) 0 0.1875em 0.5em; // was [rgba(0, 0, 0, 0.35) 0 0.3125em 0.9375em]
-$code-window-name-initialize-duration: 0.5s;
-$code-window-name-transition-duration: 100ms; // How fast the name shows / hides when hovering with mouse.
-$code-window-initialize-duration: 0.6s; // How fast the code window fades in before most components.
+$code-window-name-initialize-duration: 0.4s;
+$code-window-name-transition-duration: 125ms; // How fast the name shows / hides when hovering with mouse.
+$code-window-initialize-duration: 0.4s; // How fast the code window fades in before most components.
 $code-window-shake-amount: 0.1em; // was [0.045em];
 $code-window-shake-duration: 250ms; // was [0.33s];
 $code-window-sidebar-width: 2.25em;
 $code-window-title-bar-button-hover-brightness: 20%;
 $code-window-title-bar-button-size: 0.95em;
 $code-window-title-bar-height: 2.25em;
-$code-window-visibility-transition-duration: 100ms; // How fast misc window items move when hovering with mouse.
+$code-window-visibility-transition-duration: 125ms; // How fast misc window items move when hovering with mouse.
 
 // Footer
 $footer-button-color: #151515;
