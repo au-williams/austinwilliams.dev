@@ -9,12 +9,12 @@
   font-size: 2em;
   margin: 5vh 0;
   opacity: 1;
-  transition: opacity variables.$about-button-initialize-speed;
+  transition: opacity variables.$about-button-initialize-duration;
 
   svg {
     fill: variables.$about-button-arrow-svg-text-color;
     height: 1em;
-    transition: transform variables.$about-button-arrow-transition-speed, opacity variables.$about-button-arrow-transition-speed;
+    transition: transform variables.$about-button-arrow-transition-duration, opacity variables.$about-button-arrow-transition-duration;
   }
 
   &.hidden {

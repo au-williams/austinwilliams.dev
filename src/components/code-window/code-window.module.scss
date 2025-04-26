@@ -12,7 +12,7 @@
   max-width: 100%;
   overflow: hidden;
   position: relative;
-  transition: font-size variables.$code-window-visibility-transition-speed;
+  transition: font-size variables.$code-window-visibility-transition-duration;
   white-space: nowrap;
   width: 50em;
 
@@ -153,7 +153,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  transition: opacity variables.$code-window-visibility-transition-speed;
+  transition: opacity variables.$code-window-visibility-transition-duration;
   width: 8.95em;
 
   &.visible {
@@ -178,9 +178,9 @@
   border-width: 0 variables.$code-window-border-width;
   height: variables.$code-window-border-width;
   transition:
-    background-color variables.$code-window-visibility-transition-speed,
-    border-color variables.$code-window-visibility-transition-speed,
-    height variables.$code-window-visibility-transition-speed;
+    background-color variables.$code-window-visibility-transition-duration,
+    border-color variables.$code-window-visibility-transition-duration,
+    height variables.$code-window-visibility-transition-duration;
   z-index: 1;
 
   &.visible {
@@ -285,7 +285,7 @@
   pointer-events: none;
   position: absolute;
   text-align: center;
-  transition: background-color variables.$code-window-visibility-transition-speed;
+  transition: background-color variables.$code-window-visibility-transition-duration;
   visibility: hidden;
   z-index: 1;
 
@@ -320,7 +320,7 @@
 }
 
 .fade {
-  animation: fadeIn variables.$code-window-initialize-speed ease-out forwards;
+  animation: fadeIn variables.$code-window-initialize-duration ease-out forwards;
   pointer-events: none;
   opacity: 0;
 }
@@ -342,11 +342,11 @@
 }
 
 .shakenX {
-  animation: shakeX variables.$code-window-shake-speed ease-in-out;
+  animation: shakeX variables.$code-window-shake-duration ease-in-out;
 }
 
 .shakenY {
-  animation: shakeY variables.$code-window-shake-speed ease-in-out;
+  animation: shakeY variables.$code-window-shake-duration ease-in-out;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

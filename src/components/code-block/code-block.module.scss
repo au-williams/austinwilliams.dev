@@ -15,13 +15,13 @@
 %angle {
   border-bottom: variables.$code-block-size * 0.5 solid transparent;
   border-top: variables.$code-block-size * 0.5 solid transparent;
-  transition: border-color variables.$code-block-color-transition-speed;
+  transition: border-color variables.$code-block-color-transition-duration;
 }
 
 %block {
   background-color: variables.$code-block-color-unfocused;
   height: variables.$code-block-size;
-  transition: background-color variables.$code-block-color-transition-speed;
+  transition: background-color variables.$code-block-color-transition-duration;
   width: variables.$code-block-size;
 
   &.active {
