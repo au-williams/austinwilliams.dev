@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import ReactGA from 'react-ga4';
 import { CodeImage, MailboxEmoji, WaveEmoji } from '../assets/images';
 import { GoogleAnalyticsConfig } from '../config/app-config';
-import { ReactComponent as ChevronIcon } from '../assets/icons/chevron-down-solid.svg';
 import { ReactComponent as AvatarIcon } from '../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../assets/icons/scroll_icon.svg';
+import { setAvatarUrl } from '../stores/app-slice';
+import { useSelector, useDispatch } from 'react-redux';
 import AboutMeButton from '../components/about-me-button/about-me-button';
 import CodeWindow from '../components/code-window/code-window';
+import React, { useEffect, useRef, useState } from 'react';
+import ReactGA from 'react-ga4';
 import styles from './app.module.scss';
+import type { RootState, AppDispatch } from '../stores';
 
 ///////////////////////////////////////////////////////////////////////////////
 // #region Google Analytics                                                  //
@@ -77,7 +79,8 @@ const onResumeClick = () => sendGoogleAnalyticsEvent('click', 'resume_outbound_l
 ///////////////////////////////////////////////////////////////////////////////
 
 export default () => {
-  const [avatar, setAvatar] = useState<null | string>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const avatarUrl = useSelector((state: RootState) => state.app.avatarUrl);
   const sectionRef = useRef<null | HTMLDivElement>(null);
 
   /**
@@ -86,7 +89,7 @@ export default () => {
   const fetchSetGitHubAvatar = () => {
     fetch('https://api.github.com/users/au-williams')
       .then((res) => res.json())
-      .then((result) => setAvatar(result.avatar_url))
+      .then((result) => dispatch(setAvatarUrl(result.avatar_url)))
       .catch((error) => console.error('Error:', error));
   };
 
@@ -112,7 +115,7 @@ export default () => {
       </header>
       <section className={styles.section} ref={sectionRef}>
         <article className={styles.article}>
-          {avatar ? <img src={avatar} alt="avatar" draggable="false" /> : <AvatarIcon />}
+          {avatarUrl ? <img src={avatarUrl} alt="avatar" draggable="false" /> : <AvatarIcon />}
           <p>
             Hey <img src={WaveEmoji} alt="waving emoji" /> — My name is{' '}
             <a
