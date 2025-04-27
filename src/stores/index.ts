@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import appReducer from './app-slice';
 import codeWindowReducer from './code-window-slice';
 
 export const store = configureStore({
   reducer: {
-    codeWindow: codeWindowReducer,
+    app: appReducer,
+    codeWindow: codeWindowReducer
   },
 });
 
