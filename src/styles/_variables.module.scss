@@ -17,29 +17,30 @@
 // #region Variable Styles                                                   //
 ///////////////////////////////////////////////////////////////////////////////
 
-// Base values - DONE
+// Base values
 $base-transition-delay-initialize: 800ms; // How long elements typically wait before initializing.
 $base-transition-duration-initialize: 400ms; // How long elements typically transition during initialization.
-$base-translate-click-depress-amount: 0.125em; // How far elements typically move downwards when they are clicked.
+$base-translate-amount-click-depress: 0.125em; // How far elements typically move downwards when they are clicked.
+$base-translate-amount-fade-initialize: 1em; // How far elements typically move when fading in during initialization.
 
-// AboutButton component - DONE
+// AboutButton component
 $about-button-arrow-opacity-minimum: 0.5; // How dim the arrow SVG can be during its transition.
 $about-button-arrow-svg-text-color: #d4d4d4; // What color the text and SVG are displayed as.
 $about-button-arrow-transition-distance: 0.2em; // How far the arrow moves downward when its not hovered.
-$about-button-arrow-transition-duration: .75s; // How fast the arrow moves along its configured path distance.
 $about-button-arrow-transition-duration-hover: .2s; // How fast the arrow moves downward to its hovered position.
-$about-button-click-depress-amount: 0.125em; // How far the about button moves downward when its pressed.
+$about-button-arrow-transition-duration: .75s; // How fast the arrow moves along its configured path distance.
 $about-button-transition-delay-initialize: $base-transition-delay-initialize; // How fast the about button displays its startup animation.
 $about-button-transition-duration-initialize: $base-transition-duration-initialize; // How fast the about button displays its startup animation.
+$about-button-translate-amount-click-depress: 0.125em; // How far the about button moves downward when its pressed.
 
-// <body> - DONE
+// <body/>
 $body-color-background: #18191a;
 $body-color-text: #d4d4d4;
 $body-color-link: #4DAAFC; // #ce9178;
 $body-color-section: #202020;
 $body-font-family: 'Roboto', sans-serif;
 
-// CodeBlock component - DONE
+// CodeBlock component
 $code-block-color-angle: #d4d4d4;
 $code-block-color-attribute: #9cdcfe;
 $code-block-color-content: #d4d4d4;
@@ -51,11 +52,11 @@ $code-block-color-unfocused: #333;
 $code-block-color-unfocused-dimmed: color.mix(black, $code-block-color-unfocused, 12.5%);
 $code-block-size: 1.25em; // How large the height and base width values are for code blocks.
 
-// CodeLine component - DONE
-$code-line-click-depress-amount: $base-translate-click-depress-amount;
+// CodeLine component
+$code-line-translate-amount-click-depress: $base-translate-amount-click-depress;
 $code-line-shoulder-space: 0.275em;
 
-// CodeWindow component - DONE
+// CodeWindow component
 $-code-window-internal-speed: 125ms;
 $code-window-border-radius: 0.15em;
 $code-window-border-width: 0.25em;
@@ -64,7 +65,7 @@ $code-window-footer-button-color: #151515;
 $code-window-footer-button-color-hover: color.adjust($code-window-footer-button-color, $lightness: -2.5%);
 $code-window-footer-tooltip-transition-duration: $-code-window-internal-speed; // How fast the name shows / hides when hovering with mouse.
 $code-window-footer-transition-duration-hover: $-code-window-internal-speed; // How fast the name shows / hides when hovering with mouse.
-$code-window-footer-translate-click-depress-amount: $base-translate-click-depress-amount;
+$code-window-footer-translate-amount-click-depress: $base-translate-amount-click-depress;
 $code-window-name-transition-duration-hover: $-code-window-internal-speed; // How fast the code window name fades in and out during hover.
 $code-window-name-transition-duration-initialize: $base-transition-duration-initialize; // How fast the code window name fades in during initialization.
 $code-window-shake-animation-duration: 250ms;
@@ -73,11 +74,15 @@ $code-window-sidebar-width: 2.25em;
 $code-window-title-bar-button-hover-brightness: 20%;
 $code-window-title-bar-button-size: 0.95em;
 $code-window-title-bar-height: 2.25em;
+$code-window-transition-duration-initialize: $base-transition-duration-initialize; // How fast the code window name fades in during initialization.
+$code-window-translate-amount-fade-initialize: $base-translate-amount-fade-initialize;
 
-// Section - DONE
+// <section/>
 $section-article-transition-duration-initialize: $base-transition-duration-initialize;
+$section-article-translate-amount-fade-initialize: $base-translate-amount-fade-initialize;
 $section-box-shadow: rgba(0 0 0 / 0.24%) 0 0.1875em 0.5em;
 $section-transition-duration-initialize: $base-transition-duration-initialize;
+$section-translate-amount-fade-initialize: $base-translate-amount-fade-initialize;
 
 ///////////////////////////////////////////////////////////////////////////////
 // #endregion Variable Styles                                                //

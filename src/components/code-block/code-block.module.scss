@@ -135,7 +135,7 @@
 
 @keyframes push {
   from {
-    transform: translateY(variables.$code-line-click-depress-amount);
+    transform: translateY(variables.$code-line-translate-amount-click-depress);
   }
 
   to {

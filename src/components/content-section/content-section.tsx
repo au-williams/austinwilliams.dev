@@ -100,11 +100,18 @@ const ContentSection = ({
   // Display article 2 after section is initialized.
   React.useEffect(() => {
     if (!isArticle1Visible) return;
-    // TODO: wave emoji animation
+    // TODO: wave emoji animation after all is loaded!
     const delay: number = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
     const timeout = setTimeout(() => dispatch(setIsArticle2Visible(true)), delay); // TODO: hidden?
     return () => clearTimeout(timeout);
   }, [isArticle1Visible]);
+
+  // Display article 2 after section is initialized.
+  // React.useEffect(() => {
+  //   // TODO: wave emoji animation after all is loaded!
+  //   const timeout = setTimeout(() => dispatch(setIsArticle2Visible(true)), delay); // TODO: hidden?
+  //   return () => clearTimeout(timeout);
+  // }, [isArticle2Visible]);
 
   const article1Classes = classNames(
     styles.article,

@@ -3,14 +3,7 @@
   "plugins": ["stylelint-scss"],
   "rules": {
     "at-rule-no-unknown": null,
-    "no-descending-specificity": [
-      true,
-      {
-        "ignore": [
-          "selectors-within-list"
-        ]
-      }
-    ],
+    "no-descending-specificity": null,
     "scss/at-rule-no-unknown": true,
     "selector-class-pattern": null
   }

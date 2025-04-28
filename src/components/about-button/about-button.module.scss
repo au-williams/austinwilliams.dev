@@ -18,7 +18,7 @@
   }
 
   &:active {
-    transform: translateY(variables.$about-button-click-depress-amount);
+    transform: translateY(variables.$about-button-translate-amount-click-depress);
   }
 
   &.hidden {
