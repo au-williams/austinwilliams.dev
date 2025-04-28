@@ -15,13 +15,27 @@
     opacity: 0;
   }
 
-  a {
-    color: variables.$body-color-link;
-    text-decoration: none;
+  span {
+    background: #131313;
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.15em;
+    border-radius: .15em;
+    border: .1em solid #131313;
+    font-size: 0.975em;
+    transition: border-color 50ms;
 
     &:hover {
-      text-decoration: underline;
+      border-color: variables.$body-color-link;
     }
+  }
+
+  a {
+    color: variables.$body-color-link;
+    font-size: 0.95em;
+    text-decoration: none;
   }
 }
 
