@@ -1,6 +1,6 @@
 @use "../../styles/variables.module";
 
-.about {
+.aboutButton {
   background: none;
   border: none;
   color: variables.$about-button-arrow-svg-text-color;
@@ -17,11 +17,11 @@
     transition: transform variables.$about-button-arrow-transition-duration, opacity variables.$about-button-arrow-transition-duration;
   }
 
-  &.hidden {
-    opacity: 0;
-  }
-
   &:active {
     transform: translateY(variables.$about-button-press-distance);
+  }
+
+  &.hidden {
+    opacity: 0;
   }
 }

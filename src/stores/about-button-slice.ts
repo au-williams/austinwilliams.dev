@@ -6,8 +6,8 @@ interface AboutButtonState {
   arrowOpacity: string,
   arrowTransform: string,
   intervalId: NodeJS.Timeout|undefined,
+  isHidden: boolean,
   isHovered: boolean,
-  isVisible: boolean
 }
 
 const initialState: AboutButtonState = {
@@ -15,8 +15,8 @@ const initialState: AboutButtonState = {
   arrowOpacity: variables.aboutButtonArrowOpacityMinimum,
   arrowTransform: 'translateY(0)',
   intervalId: undefined,
+  isHidden: true,
   isHovered: false,
-  isVisible: false
 };
 
 const codeWindowSlice = createSlice({
@@ -35,11 +35,11 @@ const codeWindowSlice = createSlice({
     setAboutButtonIntervalId: (state, action: PayloadAction<NodeJS.Timeout>) => {
       state.intervalId = action.payload;
     },
+    setAboutButtonIsHidden: (state, action: PayloadAction<boolean>) => {
+      state.isHidden = action.payload;
+    },
     setAboutButtonIsHovering: (state, action: PayloadAction<boolean>) => {
       state.isHovered = action.payload;
-    },
-    setAboutButtonIsVisible: (state, action: PayloadAction<boolean>) => {
-      state.isVisible = action.payload;
     }
   },
 });
@@ -49,8 +49,8 @@ export const {
   setAboutButtonArrowOpacity,
   setAboutButtonArrowTransform,
   setAboutButtonIntervalId,
+  setAboutButtonIsHidden,
   setAboutButtonIsHovering,
-  setAboutButtonIsVisible
 } = codeWindowSlice.actions;
 
 export default codeWindowSlice.reducer;

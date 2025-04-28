@@ -148,7 +148,8 @@ const ContentSection = ({
 };
 
 ContentSection.propTypes = {
-  ref: PropTypes.any,
+  reactGA: PropTypes.object.isRequired,
+  sectionRef: PropTypes.object.isRequired
 };
 
 export default ContentSection;

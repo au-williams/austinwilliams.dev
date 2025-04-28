@@ -1,7 +1,7 @@
 import { cssTimeToMilliseconds } from '../../utilities';
 import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as ChevronIcon } from '../../assets/icons/chevron-down-solid.svg';
-import { setAboutButtonArrowDuration, setAboutButtonArrowOpacity, setAboutButtonArrowTransform, setAboutButtonIntervalId, setAboutButtonIsHovering, setAboutButtonIsVisible } from '../../stores/about-button-slice';
+import { setAboutButtonArrowDuration, setAboutButtonArrowOpacity, setAboutButtonArrowTransform, setAboutButtonIntervalId, setAboutButtonIsHidden, setAboutButtonIsHovering } from '../../stores/about-button-slice';
 import { type RootState, type AppDispatch, store } from '../../stores';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
@@ -29,35 +29,27 @@ const AboutButton = ({
   const arrowOpacity = useSelector((state: RootState) => state.aboutButton.arrowOpacity);
   const arrowTransform = useSelector((state: RootState) => state.aboutButton.arrowTransform);
   const intervalId = useSelector((state: RootState) => state.aboutButton.intervalId);
+  const isHidden = useSelector((state: RootState) => state.aboutButton.isHidden);
   const isHovering = useSelector((state: RootState) => state.aboutButton.isHovered);
-  const isVisible = useSelector((state: RootState) => state.aboutButton.isVisible);
-
-  // Calculate the initialization duration from the scss value.
-  const duration = variables.aboutButtonInitializeDuration.endsWith('ms')
-    ? parseFloat(variables.aboutButtonInitializeDuration)
-    : parseFloat(variables.aboutButtonInitializeDuration) * 1000;
-
-  // On component load set a timeout before making visible.
-  React.useEffect(() => {
-    const timeout = setTimeout(() => dispatch(setAboutButtonIsVisible(true)), duration);
-    return () => clearTimeout(timeout)
-  }, [isVisible]);
-
-  const classes: string = classNames(
-    styles.about,
-    { [styles.hidden]: !isVisible },
-  );
 
   /**
    * Sends a Google Analytics event when the about button's clicked and scrolls
    * the web client down beyond the landing and to the start of the sectionRef.
    */
-  const onClick = () => {
-    reactGA.event({ category: 'click', action: 'about_button' });
+  const onAboutButtonClick = () => {
     sectionRef.current!.scrollIntoView({ behavior: 'smooth' });
+    reactGA.event({ category: 'click', action: 'about_button' });
   }
 
-  useEffect(() => {
+  // On component load set a timeout before making it visible.
+  React.useEffect(() => {
+    const delay: number = cssTimeToMilliseconds(variables.aboutButtonInitializeDuration);
+    const timeout = setTimeout(() => dispatch(setAboutButtonIsHidden(false)), delay);
+    return () => clearTimeout(timeout);
+  }, [isHidden]);
+
+  // On hover update the CSS properties of the arrow SVG.
+  React.useEffect(() => {
     let toggle = false;
 
     if (intervalId) {
@@ -87,10 +79,15 @@ const AboutButton = ({
     return () => clearInterval(intervalId);
   }, [isHovering]);
 
+  const classes: string = classNames(
+    styles.aboutButton,
+    { [styles.hidden]: isHidden },
+  );
+
   return (
     <button
       className={classes}
-      onClick={onClick}
+      onClick={onAboutButtonClick}
       onMouseOut={() => dispatch(setAboutButtonIsHovering(false))}
       onMouseOver={() => dispatch(setAboutButtonIsHovering(true))}
       type="button"
