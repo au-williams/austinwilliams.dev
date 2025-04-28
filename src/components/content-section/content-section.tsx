@@ -92,8 +92,8 @@ const ContentSection = ({
   React.useEffect(() => {
     if (!isSectionVisible) return;
     // Delay the timeout by the transition duration to ensure the transition has ended.
-    // const delay: number = cssTimeToMilliseconds(variables.sectionTransitionDurationInitialize);
-    const timeout = setTimeout(() => dispatch(setIsArticle1Visible(true)), 400); // TODO: hidden?
+    const delay: number = cssTimeToMilliseconds(variables.sectionTransitionDurationInitialize);
+    const timeout = setTimeout(() => dispatch(setIsArticle1Visible(true)), delay); // TODO: hidden?
     return () => clearTimeout(timeout);
   }, [isSectionVisible]);
 
@@ -101,8 +101,8 @@ const ContentSection = ({
   React.useEffect(() => {
     if (!isArticle1Visible) return;
     // TODO: wave emoji animation
-    // const delay: number = cssTimeToMilliseconds(variables.articleTransitionDurationInitialization);
-    const timeout = setTimeout(() => dispatch(setIsArticle2Visible(true)), 400); // TODO: hidden?
+    const delay: number = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
+    const timeout = setTimeout(() => dispatch(setIsArticle2Visible(true)), delay); // TODO: hidden?
     return () => clearTimeout(timeout);
   }, [isArticle1Visible]);
 

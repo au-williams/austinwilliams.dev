@@ -42,7 +42,7 @@ const AboutButton = ({
 
   // On component load set a timeout before making it visible.
   React.useEffect(() => {
-    const delay: number = cssTimeToMilliseconds(variables.aboutButtonInitializeDuration);
+    const delay: number = cssTimeToMilliseconds(variables.aboutButtonTransitionDelayInitialize);
     const timeout = setTimeout(() => dispatch(setAboutButtonIsHidden(false)), delay);
     return () => clearTimeout(timeout);
   }, [isHidden]);

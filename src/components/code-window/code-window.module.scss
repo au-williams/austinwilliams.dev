@@ -12,12 +12,11 @@
   max-width: 100%;
   overflow: hidden;
   position: relative;
-  transition: font-size variables.$code-window-visibility-transition-duration;
   white-space: nowrap;
   width: 50em;
 
   &::before {
-    background: #333333;
+    background: #333;
     border-left: variables.$code-window-border-width solid #3c3c3c;
     border-radius: variables.$code-window-border-radius 0 0 variables.$code-window-border-radius;
     content: '';
@@ -157,7 +156,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  transition: opacity variables.$code-window-visibility-transition-duration;
+  transition: opacity variables.$code-window-name-transition-duration-hover;
   width: 8.95em;
 
   &.visible {
@@ -182,9 +181,9 @@
   border-width: 0 variables.$code-window-border-width;
   height: variables.$code-window-border-width;
   transition:
-    background-color variables.$code-window-visibility-transition-duration,
-    border-color variables.$code-window-visibility-transition-duration,
-    height variables.$code-window-visibility-transition-duration;
+    background-color variables.$code-window-footer-transition-duration-hover,
+    border-color variables.$code-window-footer-transition-duration-hover,
+    height variables.$code-window-footer-transition-duration-hover;
   z-index: 1;
 
   &.visible {
@@ -289,7 +288,7 @@
   pointer-events: none;
   position: absolute;
   text-align: center;
-  transition: background-color variables.$code-window-visibility-transition-duration;
+  transition: background-color variables.$code-window-footer-tooltip-transition-duration;
   visibility: hidden;
   z-index: 1;
 
@@ -326,33 +325,33 @@
 }
 
 .fade {
-  animation: fadeIn variables.$code-window-initialize-duration ease-out forwards;
+  animation: fadeIn variables.$code-window-name-transition-duration-initialize ease-out forwards;
   pointer-events: none;
   opacity: 0;
 }
 
 @keyframes shakeX {
   0%   { transform: translateX(0); }
-  25%  { transform: translateX(-1 * variables.$code-window-shake-amount); }
-  50%  { transform: translateX(variables.$code-window-shake-amount); }
-  75%  { transform: translateX(-1 * calc(variables.$code-window-shake-amount / 2)); }
-  100% { transform: translateX(calc(variables.$code-window-shake-amount / 2)); }
+  25%  { transform: translateX(-1 * variables.$code-window-shake-animation-translate-amount); }
+  50%  { transform: translateX(variables.$code-window-shake-animation-translate-amount); }
+  75%  { transform: translateX(-1 * calc(variables.$code-window-shake-animation-translate-amount / 2)); }
+  100% { transform: translateX(calc(variables.$code-window-shake-animation-translate-amount / 2)); }
 }
 
 @keyframes shakeY {
   0%   { transform: translateY(0); }
-  25%  { transform: translateY(-1 * variables.$code-window-shake-amount); }
-  50%  { transform: translateY(variables.$code-window-shake-amount); }
-  75%  { transform: translateY(-1 * calc(variables.$code-window-shake-amount / 2)); }
-  100% { transform: translateY(calc(variables.$code-window-shake-amount / 2)); }
+  25%  { transform: translateY(-1 * variables.$code-window-shake-animation-translate-amount); }
+  50%  { transform: translateY(variables.$code-window-shake-animation-translate-amount); }
+  75%  { transform: translateY(-1 * calc(variables.$code-window-shake-animation-translate-amount / 2)); }
+  100% { transform: translateY(calc(variables.$code-window-shake-animation-translate-amount / 2)); }
 }
 
 .shakenX {
-  animation: shakeX variables.$code-window-shake-duration ease-in-out;
+  animation: shakeX variables.$code-window-shake-animation-duration ease-in-out;
 }
 
 .shakenY {
-  animation: shakeY variables.$code-window-shake-duration ease-in-out;
+  animation: shakeY variables.$code-window-shake-animation-duration ease-in-out;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

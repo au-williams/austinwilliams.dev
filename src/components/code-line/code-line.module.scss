@@ -11,7 +11,7 @@
 
   &:active {
     // Move the code line down as click feedback for the user.
-    transform: translateY(variables.$code-line-press-distance);
+    transform: translateY(variables.$code-line-click-depress-amount);
   }
 
   &:last-of-type {

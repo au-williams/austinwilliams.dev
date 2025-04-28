@@ -15,13 +15,13 @@
 %angle {
   border-bottom: variables.$code-block-size * 0.5 solid transparent;
   border-top: variables.$code-block-size * 0.5 solid transparent;
-  transition: border-color variables.$code-block-color-transition-duration;
+  transition: border-color variables.$code-block-color-transition-duration-hover;
 }
 
 %block {
   background-color: variables.$code-block-color-unfocused;
   height: variables.$code-block-size;
-  transition: background-color variables.$code-block-color-transition-duration;
+  transition: background-color variables.$code-block-color-transition-duration-hover;
   width: variables.$code-block-size;
 
   &.active {
@@ -135,7 +135,7 @@
 
 @keyframes push {
   from {
-    transform: translateY(variables.$code-line-press-distance);
+    transform: translateY(variables.$code-line-click-depress-amount);
   }
 
   to {

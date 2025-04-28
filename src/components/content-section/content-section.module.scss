@@ -9,11 +9,12 @@
   max-width: 100%;
   opacity: 1;
   transform: translateY(0);
-  transition: transform variables.$section-transition-duration, opacity variables.$section-transition-duration;
+  transition: transform variables.$section-transition-duration-initialize, opacity variables.$section-transition-duration-initialize;
   width: 50em;
 
   &.hidden {
     opacity: 0;
+
     // transform: scale(0.95);
     // transform: translateY(2.5em);
   }
@@ -35,7 +36,7 @@
   padding: 1.125em 2.25em;
   opacity: 1;
   transform: translateX(0);
-  transition: opacity 400ms, transform 400ms;
+  transition: opacity variables.$section-article-transition-duration-initialize, transform variables.$section-article-transition-duration-initialize;
 
   &.hidden {
     opacity: 0;
@@ -92,7 +93,7 @@
   a,
   button {
     align-items: center;
-    background-color: variables.$footer-button-color;
+    background-color: variables.$code-window-footer-button-color;
     border: none;
     color: variables.$body-color-text;
     cursor: pointer;
@@ -109,11 +110,11 @@
     white-space: nowrap;
 
     &:active {
-      transform: translateY(variables.$footer-button-press-distance);
+      transform: translateY(variables.$code-window-footer-translate-click-depress-amount);
     }
 
     &:hover {
-      background-color: variables.$footer-button-color-hover;
+      background-color: variables.$code-window-footer-button-color-hover;
     }
 
     svg {

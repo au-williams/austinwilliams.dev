@@ -7,7 +7,7 @@ import { ReactComponent as PinOffIcon } from '../../assets/icons/pin_off_icon.sv
 import { ReactComponent as PinOnIcon } from '../../assets/icons/pin_on_icon.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
-import { setIsCodeWindowHovered, setIsCodeWindowInitialized } from '../../stores/code-window-slice';
+import { setIsCodeWindowHovered, setIsCodeWindowInitialized, setNameTransitionDuration } from '../../stores/code-window-slice';
 import { type RootState, type AppDispatch, store } from '../../stores';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
@@ -161,15 +161,16 @@ const CodeWindow = () => {
     }
   }
 
-  const [nameTransitionDuration, setNameTransitionDuration] = useState<string>(styles.codeWindowNameInitializeDuration);
+  const nameTransitionDuration = useSelector((state: RootState) => state.codeWindow.nameTransitionDuration);
+
   const isHovered = useSelector((state: RootState) => state.codeWindow.isHovered);
   const onMouseLeave = () => dispatch(setIsCodeWindowHovered(false));
 
   const onMouseOver = () => {
-    dispatch(setIsCodeWindowHovered(true));
-    if (isInitialized && nameTransitionDuration != styles.codeWindowNameTransitionDuration) {
-      setNameTransitionDuration(styles.codeWindowNameTransitionDuration);
+    if (isInitialized && nameTransitionDuration != styles.codeWindowNameTransitionDurationHover) {
+      dispatch(setNameTransitionDuration(styles.codeWindowNameTransitionDurationHover));
     }
+    dispatch(setIsCodeWindowHovered(true));
   }
 
   const onMouseClick = () => {
