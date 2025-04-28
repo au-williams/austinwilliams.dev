@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import appReducer from './app-slice';
+import aboutButtonReducer from './about-button-slice';
 import codeWindowReducer from './code-window-slice';
+import contentSectionReducer from './content-section-slice';
 
 export const store = configureStore({
   reducer: {
-    app: appReducer,
-    codeWindow: codeWindowReducer
+    aboutButton: aboutButtonReducer,
+    codeWindow: codeWindowReducer,
+    contentSection: contentSectionReducer,
   },
 });
 

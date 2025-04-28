@@ -23,7 +23,6 @@ $about-button-arrow-svg-text-color: #d4d4d4;
 $about-button-arrow-transition-distance: 0.2em; // How far the arrow moves downward when its not hovered.
 $about-button-arrow-transition-duration: .75s; // How fast the arrow moves along its configured path distance.
 $about-button-arrow-transition-duration-hover: .2s; // How fast the arrow moves downward to its hovered position.
-$about-button-initialize-duration: 0.4s; // How fast the about button displays its startup animation.
 $about-button-press-distance: 0.125em; // How far the about button moves downward when its pressed.
 
 // Body
@@ -77,6 +76,8 @@ $section-box-shadow: rgba(0, 0, 0, 0.24) 0 0.1875em 0.5em;
 ///////////////////////////////////////////////////////////////////////////////
 // #region Computed Styles                                                   //
 ///////////////////////////////////////////////////////////////////////////////
+
+$about-button-initialize-duration: calc($code-window-initialize-duration + $code-window-name-initialize-duration); // How fast the about button displays its startup animation.
 
 $code-block-color-unfocused-dimmed: color.mix(black, $code-block-color-unfocused, 12.5%);
 

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import { CodeGenerationConfig } from "../../config/app-config";
+import { PersonEmoji } from '../../assets/images';
 import { ReactComponent as EraserIcon } from '../../assets/icons/eraser_icon.svg';
 import { ReactComponent as FastForwardIcon } from '../../assets/icons/fast_forward_icon.svg';
 import { ReactComponent as PauseIcon } from '../../assets/icons/pause_icon.svg';
@@ -8,10 +7,14 @@ import { ReactComponent as PinOffIcon } from '../../assets/icons/pin_off_icon.sv
 import { ReactComponent as PinOnIcon } from '../../assets/icons/pin_on_icon.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
-import { PersonEmoji } from '../../assets/images';
+import { setIsCodeWindowHovered, setIsCodeWindowInitialized } from '../../stores/code-window-slice';
+import { type RootState, type AppDispatch, store } from '../../stores';
+import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 import blockTypes from '../code-block/code-block.module.scss';
 import classNames from 'classnames';
 import CodeLine from '../code-line/code-line';
+import React, { useEffect, useState } from 'react';
 import ResizableBlockTypes from "../../types/resizeable-block-types";
 import styles from './code-window.module.scss';
 
@@ -126,6 +129,8 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
 // ------------ //
 
 const CodeWindow = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
   const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
   const updatedCodeLines = codeLines.slice();
@@ -142,12 +147,13 @@ const CodeWindow = () => {
 
   const [isWindowAnimatedX, setIsWindowAnimatedX] = useState(false);
   const [isWindowAnimatedY, setIsWindowAnimatedY] = useState(false);
-  const [isWindowAnimatedFade, setIsWindowAnimatedFade] = useState(true);
   const [windowAnimationStack, setWindowAnimationStack] = useState("x,0");
 
+  const isInitialized = useSelector((state: RootState) => state.codeWindow.isInitialized);
+
   const onWindowAnimationEnd = () => {
-    if (isWindowAnimatedFade) {
-      setIsWindowAnimatedFade(false);
+    if (!isInitialized) {
+      dispatch(setIsCodeWindowInitialized(true));
     }
     else {
       setIsWindowAnimatedX(false);
@@ -155,13 +161,13 @@ const CodeWindow = () => {
     }
   }
 
-  const [isMouseHovering, setIsMouseHovering] = useState<boolean>(false);
   const [nameTransitionDuration, setNameTransitionDuration] = useState<string>(styles.codeWindowNameInitializeDuration);
-  const onMouseLeave = () => setIsMouseHovering(false);
+  const isHovered = useSelector((state: RootState) => state.codeWindow.isHovered);
+  const onMouseLeave = () => dispatch(setIsCodeWindowHovered(false));
 
   const onMouseOver = () => {
-    setIsMouseHovering(true);
-    if (!isWindowAnimatedFade && nameTransitionDuration != styles.codeWindowNameTransitionDuration) {
+    dispatch(setIsCodeWindowHovered(true));
+    if (isInitialized && nameTransitionDuration != styles.codeWindowNameTransitionDuration) {
       setNameTransitionDuration(styles.codeWindowNameTransitionDuration);
     }
   }
@@ -192,7 +198,7 @@ const CodeWindow = () => {
     setCodeSpeed(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
   };
 
-  const isFooterVisible: boolean = isFooterPinned || isMouseHovering || isCodePaused;
+  const isFooterVisible: boolean = isFooterPinned || isHovered || isCodePaused;
 
   const footerClasses: string = classNames(
     styles.footer,
@@ -203,12 +209,12 @@ const CodeWindow = () => {
 
   const nameClasses: string = classNames(
     styles.name,
-    { [styles.visible]: !isFooterVisible && !isWindowAnimatedFade }
+    { [styles.visible]: !isFooterVisible && isInitialized }
   );
 
   const windowClasses: string = classNames(
     styles.wrapper,
-    { [styles.fade]: isWindowAnimatedFade },
+    { [styles.fade]: !isInitialized },
     { [styles.shakenX]: isWindowAnimatedX },
     { [styles.shakenY]: isWindowAnimatedY },
   )
@@ -369,7 +375,7 @@ const CodeWindow = () => {
     };
 
     const interval = setInterval(() => {
-      if (isCodePaused || isWindowAnimatedX || isWindowAnimatedY || isWindowAnimatedFade) {
+      if (isCodePaused || isWindowAnimatedX || isWindowAnimatedY || !isInitialized) {
         // Pause button was clicked. Generation is paused until resume button is clicked.
       }
       else if (activeCodeLine) {
@@ -378,7 +384,7 @@ const CodeWindow = () => {
       }
       else {
         // Code line has no code blocks that can be animated. Create the next code line / code blocks.
-        if (!isMouseHovering && !isFooterPinned && codeLines.length) {
+        if (!isHovered && !isFooterPinned && codeLines.length) {
           let isNextDirectionX;
           let nextStackCounter;
 

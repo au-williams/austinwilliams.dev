@@ -1,27 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface CodeWindowState {
-  isCodeWindowLoaded: boolean;
-  isCodeWindowHovered: boolean;
+  isHovered: boolean;
+  isInitialized: boolean;
 }
 
 const initialState: CodeWindowState = {
-  isCodeWindowLoaded: false,
-  isCodeWindowHovered: false,
+  isHovered: false,
+  isInitialized: false,
 };
 
 const codeWindowSlice = createSlice({
   name: 'codeWindow',
   initialState,
   reducers: {
-    setIsCodeWindowLoaded: (state, action: PayloadAction<boolean>) => {
-      state.isCodeWindowLoaded = action.payload;
-    },
     setIsCodeWindowHovered: (state, action: PayloadAction<boolean>) => {
-      state.isCodeWindowHovered = action.payload;
+      state.isHovered = action.payload;
+    },
+    setIsCodeWindowInitialized: (state, action: PayloadAction<boolean>) => {
+      state.isInitialized = action.payload;
     },
   },
 });
 
-export const { setIsCodeWindowLoaded, setIsCodeWindowHovered } = codeWindowSlice.actions;
+export const { setIsCodeWindowHovered, setIsCodeWindowInitialized } = codeWindowSlice.actions;
 export default codeWindowSlice.reducer;
