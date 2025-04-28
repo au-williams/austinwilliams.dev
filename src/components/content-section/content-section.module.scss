@@ -12,10 +12,6 @@
   transition: transform variables.$about-button-arrow-transition-duration, opacity variables.$about-button-arrow-transition-duration; // TODO:
   width: 50em;
 
-  &.displayed {
-    display: none;
-  }
-
   &.hidden {
     opacity: 0;
     // transform: scale(0.95);

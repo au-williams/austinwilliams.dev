@@ -1,20 +1,10 @@
 import { GoogleAnalyticsConfig } from '../config/app-config';
-import AboutMeButton from '../components/about-me-button/about-me-button';
+import AboutButton from '../components/about-button/about-button';
 import CodeWindow from '../components/code-window/code-window';
 import ContentSection from '../components/content-section/content-section';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
 import styles from './app.module.scss';
-
-///////////////////////////////////////////////////////////////////////////////
-// #region React Events                                                      //
-///////////////////////////////////////////////////////////////////////////////
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-// #endregion React Events                                                   //
-///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
 // #region React Render                                                      //
@@ -23,19 +13,19 @@ import styles from './app.module.scss';
 export default () => {
   const sectionRef = useRef<null | HTMLDivElement>(null);
 
-  /**
-   * Initialize Google Analytics to monitor visitor interactions.
-   */
   useEffect(() => {
+    // Start Google Analytics and send startup analytics event.
     ReactGA.initialize(GoogleAnalyticsConfig.GA_MEASUREMENT_ID);
     ReactGA.send('pageview');
+    // Reset scroll position to top on page load.
+    window.history.scrollRestoration = 'manual';
   });
 
   return (
     <>
       <header className={styles.wrapper}>
         <CodeWindow />
-        <AboutMeButton reactGA={ReactGA} sectionRef={sectionRef} />
+        <AboutButton reactGA={ReactGA} sectionRef={sectionRef} />
       </header>
       <ContentSection reactGA={ReactGA} sectionRef={sectionRef} />
     </>

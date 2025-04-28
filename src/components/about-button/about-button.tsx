@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import styles from './about-me-button.module.scss';
+import styles from './about-button.module.scss';
 import variables from '../../styles/_variables.module.scss';
 
 /**
@@ -15,7 +15,7 @@ import variables from '../../styles/_variables.module.scss';
  * to the furthest animation position. Clicking sends
  * @returns {React.JSX.Element}
  */
-const AboutMeButton = ({
+const AboutButton = ({
   reactGA,
   sectionRef
 }: {
@@ -106,9 +106,9 @@ const AboutMeButton = ({
   );
 };
 
-AboutMeButton.propTypes = {
+AboutButton.propTypes = {
   reactGA: PropTypes.object.isRequired,
   sectionRef: PropTypes.object.isRequired
 };
 
-export default AboutMeButton;
+export default AboutButton;

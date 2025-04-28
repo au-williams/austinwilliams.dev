@@ -92,10 +92,10 @@ $footer-button-color-hover: color.adjust($footer-button-color, $lightness: -2.5%
 ///////////////////////////////////////////////////////////////////////////////
 
 :export {
-  aboutButtonArrowOpacityMinimum: $about-button-arrow-opacity-minimum; // Used for calculations in about-me-button.tsx
-  aboutButtonArrowTransitionDistance: $about-button-arrow-transition-distance; // Used for calculations in about-me-button.tsx
-  aboutButtonArrowTransitionDuration: $about-button-arrow-transition-duration; // Used for calculations in about-me-button.tsx
-  aboutButtonArrowTransitionDurationHover: $about-button-arrow-transition-duration-hover; // Used for calculations in about-me-button.tsx
+  aboutButtonArrowOpacityMinimum: $about-button-arrow-opacity-minimum; // Used for calculations in about-button.tsx
+  aboutButtonArrowTransitionDistance: $about-button-arrow-transition-distance; // Used for calculations in about-button.tsx
+  aboutButtonArrowTransitionDuration: $about-button-arrow-transition-duration; // Used for calculations in about-button.tsx
+  aboutButtonArrowTransitionDurationHover: $about-button-arrow-transition-duration-hover; // Used for calculations in about-button.tsx
   aboutButtonInitializeDuration: $about-button-initialize-duration;
   codeBlockSize: $code-block-size; // Used for calculations in code-block.tsx
   codeLineSpace: $code-line-shoulder-space; // Used for calculations in code-block.tsx
