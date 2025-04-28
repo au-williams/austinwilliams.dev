@@ -2,11 +2,11 @@ import { cssTimeToMilliseconds } from '../../utilities';
 import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as ChevronIcon } from '../../assets/icons/chevron-down-solid.svg';
 import { setAboutButtonArrowDuration, setAboutButtonArrowOpacity, setAboutButtonArrowTransform, setAboutButtonIntervalId, setAboutButtonIsHidden, setAboutButtonIsHovering } from '../../stores/about-button-slice';
-import { type RootState, type AppDispatch, store } from '../../stores';
+import { type RootState, type AppDispatch } from '../../stores';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './about-button.module.scss';
 import variables from '../../styles/_variables.module.scss';
 
@@ -22,9 +22,8 @@ const AboutButton = ({
   reactGA: GA4,
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
 }): React.JSX.Element => {
-  const dispatch = useDispatch<AppDispatch>();
-
   // Load the state from Redux.
+  const dispatch = useDispatch<AppDispatch>();
   const arrowDuration = useSelector((state: RootState) => state.aboutButton.arrowDuration);
   const arrowOpacity = useSelector((state: RootState) => state.aboutButton.arrowOpacity);
   const arrowTransform = useSelector((state: RootState) => state.aboutButton.arrowTransform);

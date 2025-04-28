@@ -9,7 +9,7 @@
   max-width: 100%;
   opacity: 1;
   transform: translateY(0);
-  transition: transform variables.$about-button-arrow-transition-duration, opacity variables.$about-button-arrow-transition-duration; // TODO:
+  transition: transform variables.$section-transition-duration, opacity variables.$section-transition-duration;
   width: 50em;
 
   &.hidden {
