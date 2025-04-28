@@ -90,6 +90,7 @@ const ContentSection = ({
 
   const classes = classNames(
     styles.section,
+    { [styles.displayed]: !isCodeWindowInitialized },
     { [styles.hidden]: !isSectionVisible },
   );
 
