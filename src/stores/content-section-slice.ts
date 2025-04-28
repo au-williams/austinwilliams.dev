@@ -2,12 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ContentSectionState {
   avatarUrl: string | undefined;
-  isVisible: boolean
+  isArticle1Visible: boolean;
+  isArticle2Visible: boolean;
+  isSectionVisible: boolean
 }
 
 const initialState: ContentSectionState = {
   avatarUrl: undefined,
-  isVisible: false
+  isArticle1Visible: false,
+  isArticle2Visible: false,
+  isSectionVisible: false
 };
 
 const contentSectionSlice = createSlice({
@@ -17,11 +21,23 @@ const contentSectionSlice = createSlice({
     setAvatarUrl: (state, action: PayloadAction<string|undefined>) => {
       state.avatarUrl = action.payload;
     },
+    setIsArticle1Visible: (state, action: PayloadAction<boolean>) => {
+      state.isArticle1Visible = action.payload;
+    },
+    setIsArticle2Visible: (state, action: PayloadAction<boolean>) => {
+      state.isArticle2Visible = action.payload;
+    },
     setIsSectionVisible: (state, action: PayloadAction<boolean>) => {
-      state.isVisible = action.payload;
+      state.isSectionVisible = action.payload;
     }
   },
 });
 
-export const { setAvatarUrl, setIsSectionVisible } = contentSectionSlice.actions;
+export const {
+  setAvatarUrl,
+  setIsArticle1Visible,
+  setIsArticle2Visible,
+  setIsSectionVisible
+} = contentSectionSlice.actions;
+
 export default contentSectionSlice.reducer;

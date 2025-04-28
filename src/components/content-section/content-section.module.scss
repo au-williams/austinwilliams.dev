@@ -33,6 +33,14 @@
   display: flex;
   justify-content: center;
   padding: 1.125em 2.25em;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 400ms, transform 400ms;
+
+  &.hidden {
+    opacity: 0;
+    transform: translateX(-2em);
+  }
 
   &:first-of-type {
     padding-top: 2.25em;
