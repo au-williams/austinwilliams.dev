@@ -1,14 +1,14 @@
-import { CodeImage, MailboxEmoji, WaveEmoji } from '../../assets/images';
+import { CodeImage, MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji } from '../../assets/images';
 import { cssTimeToMilliseconds } from '../../utilities';
 import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as AvatarIcon } from '../../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../../assets/icons/scroll_icon.svg';
-import { setAvatarUrl, setIsArticle1Visible, setIsArticle2Visible, setIsHandWaveAnimated, setIsSectionVisible } from '../../stores/content-section-slice';
+import { setAvatarUrl, setIsArticle1Visible, setIsArticle2Visible, setIsHandWaveAnimated, setIsMailboxAnimatedClosed, setIsMailboxAnimatedOpened, setIsSectionVisible } from '../../stores/content-section-slice';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './content-section.module.scss';
 import type { RootState, AppDispatch } from '../../stores';
 import variables from '../../styles/_variables.module.scss';
@@ -30,6 +30,8 @@ const ContentSection = ({
   const isArticle2Visible = useSelector((state: RootState) => state.contentSection.isArticle2Visible);
   const isCodeWindowInitialized = useSelector((state: RootState) => state.codeWindow.isInitialized);
   const isHandWaveAnimated = useSelector((state: RootState) => state.contentSection.isHandWaveAnimated);
+  const isMailboxAnimatedClosed = useSelector((state: RootState) => state.contentSection.isMailboxAnimatedClosed);
+  const isMailboxAnimatedOpened = useSelector((state: RootState) => state.contentSection.isMailboxAnimatedOpened);
   const isSectionVisible = useSelector((state: RootState) => state.contentSection.isSectionVisible);
 
   /**
@@ -114,6 +116,24 @@ const ContentSection = ({
     return () => clearTimeout(timeout);
   }, [isArticle2Visible]);
 
+  // Animate the mailbox emoji after the wave emoji initialized.
+  React.useEffect(() => {
+    if (!isHandWaveAnimated) return;
+
+    const timeoutClose = setTimeout(() => {
+      dispatch(setIsMailboxAnimatedClosed(true));
+    }, 2000);
+
+    const timeoutOpen = setTimeout(() => {
+      dispatch(setIsMailboxAnimatedOpened(true));
+    }, 2500);
+
+    return () => {
+      clearTimeout(timeoutClose);
+      clearTimeout(timeoutOpen);
+    };
+  }, [isHandWaveAnimated]);
+
   const article1Classes = classNames(
     styles.article,
     { [styles.hidden]: !isArticle1Visible },
@@ -127,6 +147,17 @@ const ContentSection = ({
   const handWaveClasses = classNames(
     { [styles.handWave]: isHandWaveAnimated }
   )
+
+  const mailboxClasses = classNames(
+    { [styles.mailboxTranslate]: isMailboxAnimatedClosed && !isMailboxAnimatedOpened },
+    { [styles.mailboxRotate]: isMailboxAnimatedOpened }
+  )
+
+  const mailboxEmoji = isMailboxAnimatedOpened
+    ? MailboxOpenedEmoji
+    : MailboxClosedEmoji;
+
+  // const onMailboxAnimationEnd =
 
   const classes = classNames(
     styles.section,
@@ -168,7 +199,7 @@ const ContentSection = ({
           <a href="mailto:me@austinwilliams.dev" onClick={onEmailClick}>
             me@austinwilliams.dev
           </a>
-          . <img src={MailboxEmoji} alt="mailbox emoji" />
+          . <img src={mailboxEmoji} className={mailboxClasses} alt="mailbox emoji" />
         </p>
       </article>
       <footer className={styles.footer}>

@@ -1,5 +1,33 @@
 @use "../../styles/variables.module";
 
+@keyframes mailbox-translate {
+  0% { transform: translateY(0) rotate(0deg); }
+  10% { transform: translateY(3px) rotate(0deg); }
+  20% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes mailbox-rotate {
+  0% { transform: translateY(0) rotate(0deg); }
+  10% { transform: translateY(3px) rotate(0deg); }
+  20% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(0) rotate(-2deg); }
+  40% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(0) rotate(-1deg); }
+  60% { transform: translateY(0) rotate(1deg); }
+  70% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.mailboxTranslate {
+  animation: mailbox-translate 1s forwards;
+  transform-origin: center bottom;
+}
+
+.mailboxRotate {
+  animation: mailbox-rotate 1s forwards;
+  transform-origin: center bottom;
+}
+
 @keyframes hand-wave {
   0% { transform: rotate(0deg); }
   10% { transform: rotate(14deg); }
