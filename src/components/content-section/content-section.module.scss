@@ -24,11 +24,14 @@
   margin: 0 auto;
   max-width: 100%;
   opacity: 1;
+  transform: scale(1);
   transition: transform variables.$section-transition-duration-initialize, opacity variables.$section-transition-duration-initialize;
   width: 50em;
 
   &.hidden {
     opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
   }
 }
 
@@ -61,6 +64,7 @@
 
   &.hidden {
     opacity: 0;
+    pointer-events: none;
     transform: scale(0.95);
   }
 
