@@ -4,7 +4,7 @@ import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as AvatarIcon } from '../../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../../assets/icons/scroll_icon.svg';
-import { setAvatarUrl, setIsArticle1Visible, setIsArticle2Visible, setIsSectionVisible } from '../../stores/content-section-slice';
+import { setAvatarUrl, setIsArticle1Visible, setIsArticle2Visible, setIsHandWaveAnimated, setIsSectionVisible } from '../../stores/content-section-slice';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -29,6 +29,7 @@ const ContentSection = ({
   const isArticle1Visible = useSelector((state: RootState) => state.contentSection.isArticle1Visible);
   const isArticle2Visible = useSelector((state: RootState) => state.contentSection.isArticle2Visible);
   const isCodeWindowInitialized = useSelector((state: RootState) => state.codeWindow.isInitialized);
+  const isHandWaveAnimated = useSelector((state: RootState) => state.contentSection.isHandWaveAnimated);
   const isSectionVisible = useSelector((state: RootState) => state.contentSection.isSectionVisible);
 
   /**
@@ -97,21 +98,21 @@ const ContentSection = ({
     return () => clearTimeout(timeout);
   }, [isSectionVisible]);
 
-  // Display article 2 after section is initialized.
+  // Display article 2 after article 1 is initialized.
   React.useEffect(() => {
     if (!isArticle1Visible) return;
-    // TODO: wave emoji animation after all is loaded!
     const delay: number = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
     const timeout = setTimeout(() => dispatch(setIsArticle2Visible(true)), delay); // TODO: hidden?
     return () => clearTimeout(timeout);
   }, [isArticle1Visible]);
 
-  // Display article 2 after section is initialized.
-  // React.useEffect(() => {
-  //   // TODO: wave emoji animation after all is loaded!
-  //   const timeout = setTimeout(() => dispatch(setIsArticle2Visible(true)), delay); // TODO: hidden?
-  //   return () => clearTimeout(timeout);
-  // }, [isArticle2Visible]);
+  // Animate the wave emoji after article 2 is initialized.
+  React.useEffect(() => {
+    if (!isArticle2Visible) return;
+    const delay: number = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
+    const timeout = setTimeout(() => dispatch(setIsHandWaveAnimated(true)), delay); // TODO: hidden?
+    return () => clearTimeout(timeout);
+  }, [isArticle2Visible]);
 
   const article1Classes = classNames(
     styles.article,
@@ -121,6 +122,10 @@ const ContentSection = ({
   const article2Classes = classNames(
     styles.article,
     { [styles.hidden]: !isArticle2Visible },
+  )
+
+  const handWaveClasses = classNames(
+    { [styles.handWave]: isHandWaveAnimated }
   )
 
   const classes = classNames(
@@ -133,7 +138,7 @@ const ContentSection = ({
       <article className={article1Classes}>
         {avatarUrl ? <img src={avatarUrl} alt="avatar" draggable="false" /> : <AvatarIcon />}
         <p>
-          Hello! <img src={WaveEmoji} alt="waving emoji" /> My name is{' '}
+          Hello! <img src={WaveEmoji} className={handWaveClasses} alt="waving emoji" /> My name is{' '}
           <a
             href="https://www.linkedin.com/in/auwilliams"
             onClick={onLinkedInClick}

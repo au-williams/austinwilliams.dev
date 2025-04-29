@@ -1,5 +1,21 @@
 @use "../../styles/variables.module";
 
+@keyframes hand-wave {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.handWave {
+  animation: hand-wave 2s forwards;
+  transform-origin: 70% 70%;
+}
+
 .section {
   background-color: variables.$body-color-section;
   border-radius: 0.15em 0.15em 0 0;
@@ -35,7 +51,7 @@
     text-decoration: none;
 
     &:hover {
-      animation: push 0.15s steps(1) !important;
+      animation: push 0.125s steps(1);
     }
 
     &:active {
@@ -79,6 +95,7 @@
     svg {
       height: 1.125em;
       margin: 0 0.05em;
+      pointer-events: none;
       vertical-align: top;
       width: 1.125em;
     }
@@ -119,6 +136,7 @@
     }
 
     &:hover {
+      animation: push 0.125s steps(1);
       background-color: variables.$code-window-footer-button-color-hover;
     }
 
