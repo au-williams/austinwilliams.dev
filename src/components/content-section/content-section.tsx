@@ -4,7 +4,7 @@ import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as AvatarIcon } from '../../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../../assets/icons/scroll_icon.svg';
-import { setAvatarUrl, setIsArticle1Visible, setIsArticle2Visible, setIsHandWaveAnimated, setIsMailboxAnimatedClosed, setIsMailboxAnimatedOpened, setIsSectionVisible } from '../../stores/content-section-slice';
+import { setAvatarUrl, setIsArticle1Visible, setIsArticle2Visible, setIsHandWaveAnimated, setIsMailboxAnimatedClosed, setIsMailboxAnimatedOpened, setIsMailboxImageOpened, setIsSectionVisible } from '../../stores/content-section-slice';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -14,6 +14,8 @@ import type { RootState, AppDispatch } from '../../stores';
 import variables from '../../styles/_variables.module.scss';
 
 /**
+ * The section containing articles and footer buttons. This is animated in when
+ * the visitor scrolls far enough down on the page.
  * @returns {React.JSX.Element}
  */
 const ContentSection = ({
@@ -23,8 +25,8 @@ const ContentSection = ({
   reactGA: GA4
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
 }): React.JSX.Element => {
+  // Load the state from Redux.
   const dispatch = useDispatch<AppDispatch>();
-
   const avatarUrl = useSelector((state: RootState) => state.contentSection.avatarUrl);
   const isArticle1Visible = useSelector((state: RootState) => state.contentSection.isArticle1Visible);
   const isArticle2Visible = useSelector((state: RootState) => state.contentSection.isArticle2Visible);
@@ -32,6 +34,7 @@ const ContentSection = ({
   const isHandWaveAnimated = useSelector((state: RootState) => state.contentSection.isHandWaveAnimated);
   const isMailboxAnimatedClosed = useSelector((state: RootState) => state.contentSection.isMailboxAnimatedClosed);
   const isMailboxAnimatedOpened = useSelector((state: RootState) => state.contentSection.isMailboxAnimatedOpened);
+  const isMailboxImageOpened = useSelector((state: RootState) => state.contentSection.isMailboxImageOpened);
   const isSectionVisible = useSelector((state: RootState) => state.contentSection.isSectionVisible);
 
   /**
@@ -91,85 +94,100 @@ const ContentSection = ({
     return () => observer.unobserve(sectionRef.current!);
   }, [isCodeWindowInitialized]);
 
-  // Display article 1 after section is initialized.
+  // Animate the section contents based on their delayed configurations.
   React.useEffect(() => {
     if (!isSectionVisible) return;
-    // Delay the timeout by the transition duration to ensure the transition has ended.
-    const delay: number = cssTimeToMilliseconds(variables.sectionTransitionDurationInitialize);
-    const timeout = setTimeout(() => dispatch(setIsArticle1Visible(true)), delay); // TODO: hidden?
-    return () => clearTimeout(timeout);
-  }, [isSectionVisible]);
 
-  // Display article 2 after article 1 is initialized.
-  React.useEffect(() => {
-    if (!isArticle1Visible) return;
-    const delay: number = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
-    const timeout = setTimeout(() => dispatch(setIsArticle2Visible(true)), delay); // TODO: hidden?
-    return () => clearTimeout(timeout);
-  }, [isArticle1Visible]);
+    const article1Delay =
+      cssTimeToMilliseconds(variables.sectionTransitionDurationInitialize);
 
-  // Animate the wave emoji after article 2 is initialized.
-  React.useEffect(() => {
-    if (!isArticle2Visible) return;
-    const delay: number = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
-    const timeout = setTimeout(() => dispatch(setIsHandWaveAnimated(true)), delay); // TODO: hidden?
-    return () => clearTimeout(timeout);
-  }, [isArticle2Visible]);
+    const article1Timeout = setTimeout(() =>
+      dispatch(setIsArticle1Visible(true)), // TODO: hidden?
+      article1Delay
+    );
 
-  // Animate the mailbox emoji after the wave emoji initialized.
-  React.useEffect(() => {
-    if (!isHandWaveAnimated) return;
+    const article2Delay =
+      article1Delay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
 
-    const timeoutClose = setTimeout(() => {
+    const article2Timeout = setTimeout(() =>
+      dispatch(setIsArticle2Visible(true)),
+      article2Delay
+    );
+
+    const handWaveDelay =
+      article2Delay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
+
+    const handWaveTimeout = setTimeout(() =>
+      dispatch(setIsHandWaveAnimated(true)),
+      handWaveDelay
+    );
+
+    const mailboxClosedDelay =
+      handWaveDelay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationHandWave);
+
+    const mailboxClosedTimeout = setTimeout(() => {
+      dispatch(setIsHandWaveAnimated(false));
       dispatch(setIsMailboxAnimatedClosed(true));
-    }, 2000);
+    }, mailboxClosedDelay);
 
-    const timeoutOpen = setTimeout(() => {
+    const mailboxOpenedDelay =
+      mailboxClosedDelay + (cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2);
+
+    const mailboxOpenedTimeout = setTimeout(() => {
+      dispatch(setIsMailboxAnimatedClosed(false));
       dispatch(setIsMailboxAnimatedOpened(true));
-    }, 2500);
+      dispatch(setIsMailboxImageOpened(true));
+    }, mailboxOpenedDelay);
+
+    const finalAnimationTimeout = setTimeout(() =>
+      dispatch(setIsMailboxAnimatedOpened(false)),
+      mailboxOpenedDelay + (cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2)
+    );
 
     return () => {
-      clearTimeout(timeoutClose);
-      clearTimeout(timeoutOpen);
+      clearTimeout(article1Timeout);
+      clearTimeout(article2Timeout);
+      clearTimeout(handWaveTimeout);
+      clearTimeout(mailboxClosedTimeout);
+      clearTimeout(mailboxOpenedTimeout);
+      clearTimeout(finalAnimationTimeout);
     };
-  }, [isHandWaveAnimated]);
+  }, [isSectionVisible]);
 
-  const article1Classes = classNames(
-    styles.article,
-    { [styles.hidden]: !isArticle1Visible },
-  )
+  const handWaveOnMouseOver = () => {
+    if (isHandWaveAnimated) return;
+    dispatch(setIsHandWaveAnimated(true));
+    const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationHandWave);
+    setTimeout(() => dispatch(setIsHandWaveAnimated(false)), duration);
+  }
 
-  const article2Classes = classNames(
-    styles.article,
-    { [styles.hidden]: !isArticle2Visible },
-  )
+  const mailboxOnMouseOver = () => {
+    if (isMailboxAnimatedClosed || isMailboxAnimatedOpened) return;
+    dispatch(setIsMailboxAnimatedOpened(true));
+    const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2;
+    setTimeout(() => dispatch(setIsMailboxAnimatedOpened(false)), duration);
+  }
 
-  const handWaveClasses = classNames(
-    { [styles.handWave]: isHandWaveAnimated }
-  )
+  const article1Classes = classNames(styles.article, { [styles.hidden]: !isArticle1Visible });
+  const article2Classes = classNames(styles.article, { [styles.hidden]: !isArticle2Visible });
+  const handWaveClasses = classNames({ [styles.handWave]: isHandWaveAnimated });
+  const sectionClasses = classNames(styles.section, { [styles.hidden]: !isSectionVisible });
 
-  const mailboxClasses = classNames(
-    { [styles.mailboxTranslate]: isMailboxAnimatedClosed && !isMailboxAnimatedOpened },
-    { [styles.mailboxRotate]: isMailboxAnimatedOpened }
-  )
+  const mailboxClasses = classNames({
+    [styles.mailboxTranslate]: isMailboxAnimatedClosed && !isMailboxAnimatedOpened,
+    [styles.mailboxRotate]: isMailboxAnimatedOpened
+  });
 
-  const mailboxEmoji = isMailboxAnimatedOpened
+  const mailboxEmoji = isMailboxImageOpened
     ? MailboxOpenedEmoji
     : MailboxClosedEmoji;
 
-  // const onMailboxAnimationEnd =
-
-  const classes = classNames(
-    styles.section,
-    { [styles.hidden]: !isSectionVisible },
-  );
-
   return (
-    <section className={classes} ref={sectionRef}>
+    <section className={sectionClasses} ref={sectionRef}>
       <article className={article1Classes}>
         {avatarUrl ? <img src={avatarUrl} alt="avatar" draggable="false" /> : <AvatarIcon />}
         <p>
-          Hello! <img src={WaveEmoji} className={handWaveClasses} alt="waving emoji" /> My name is{' '}
+          Hello! <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" /> My name is{' '}
           <a
             href="https://www.linkedin.com/in/auwilliams"
             onClick={onLinkedInClick}
@@ -193,13 +211,12 @@ const ContentSection = ({
             target="_blank"
           >
             resume
-          </a>
-          {' '}
+          </a>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
           <a href="mailto:me@austinwilliams.dev" onClick={onEmailClick}>
             me@austinwilliams.dev
           </a>
-          . <img src={mailboxEmoji} className={mailboxClasses} alt="mailbox emoji" />
+          . <img src={mailboxEmoji} className={mailboxClasses} onMouseOver={mailboxOnMouseOver} alt="mailbox emoji" />
         </p>
       </article>
       <footer className={styles.footer}>

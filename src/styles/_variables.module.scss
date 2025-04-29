@@ -78,8 +78,9 @@ $code-window-transition-duration-initialize: $base-transition-duration-initializ
 $code-window-translate-amount-fade-initialize: $base-translate-amount-fade-initialize;
 
 // <section/>
+$section-article-transition-duration-hand-wave: 2s;
 $section-article-transition-duration-initialize: $base-transition-duration-initialize;
-$section-article-translate-amount-fade-initialize: $base-translate-amount-fade-initialize;
+$section-article-transition-duration-mailbox: 2s;
 $section-box-shadow: rgba(0 0 0 / 0.24%) 0 0.1875em 0.5em;
 $section-transition-duration-initialize: $base-transition-duration-initialize;
 $section-translate-amount-fade-initialize: $base-translate-amount-fade-initialize;
@@ -104,7 +105,9 @@ $section-translate-amount-fade-initialize: $base-translate-amount-fade-initializ
   codeWindowNameTransitionDurationInitialize: $code-window-name-transition-duration-initialize;
   codeWindowNameTransitionDurationHover: $code-window-name-transition-duration-hover;
   sectionTransitionDurationInitialize: $section-transition-duration-initialize;
+  sectionArticleTransitionDurationHandWave: $section-article-transition-duration-hand-wave;
   sectionArticleTransitionDurationInitialize: $section-article-transition-duration-initialize;
+  sectionArticleTransitionDurationMailbox: $section-article-transition-duration-mailbox;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

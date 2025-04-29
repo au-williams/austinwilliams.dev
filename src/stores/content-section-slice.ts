@@ -7,6 +7,7 @@ interface ContentSectionState {
   isHandWaveAnimated: boolean;
   isMailboxAnimatedClosed: boolean;
   isMailboxAnimatedOpened: boolean;
+  isMailboxImageOpened: boolean;
   isSectionVisible: boolean;
 }
 
@@ -17,6 +18,7 @@ const initialState: ContentSectionState = {
   isHandWaveAnimated: false,
   isMailboxAnimatedClosed: false,
   isMailboxAnimatedOpened: false,
+  isMailboxImageOpened: false,
   isSectionVisible: false
 };
 
@@ -42,6 +44,9 @@ const contentSectionSlice = createSlice({
     setIsMailboxAnimatedOpened: (state, action: PayloadAction<boolean>) => {
       state.isMailboxAnimatedOpened = action.payload;
     },
+    setIsMailboxImageOpened: (state, action: PayloadAction<boolean>) => {
+      state.isMailboxImageOpened = action.payload;
+    },
     setIsSectionVisible: (state, action: PayloadAction<boolean>) => {
       state.isSectionVisible = action.payload;
     }
@@ -55,6 +60,7 @@ export const {
   setIsHandWaveAnimated,
   setIsMailboxAnimatedClosed,
   setIsMailboxAnimatedOpened,
+  setIsMailboxImageOpened,
   setIsSectionVisible
 } = contentSectionSlice.actions;
 
