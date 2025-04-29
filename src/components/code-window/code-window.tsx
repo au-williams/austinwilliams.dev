@@ -210,7 +210,7 @@ const CodeWindow = () => {
 
   const nameClasses: string = classNames(
     styles.name,
-    { [styles.visible]: !isFooterVisible && isInitialized }
+    { [styles.visible]: !isFooterVisible && isInitialized && !codeLines.some((x) => x.isClicked)}
   );
 
   const windowClasses: string = classNames(
