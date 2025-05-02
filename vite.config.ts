@@ -8,7 +8,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig(({ mode }) => {
   setEnv(mode);
   return {
-		base: "/au-williams.github.io/",
+		base: "/",
     plugins: [
       react(),
       tsconfigPaths(),
