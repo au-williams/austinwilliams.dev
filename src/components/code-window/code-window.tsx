@@ -1,4 +1,4 @@
-import { CodeGenerationConfig } from "../../config/app-config";
+import { CodeGenerationConfig } from '../../config/app-config';
 import { PersonEmoji } from '../../assets/images';
 import { ReactComponent as EraserIcon } from '../../assets/icons/eraser_icon.svg';
 import { ReactComponent as FastForwardIcon } from '../../assets/icons/fast_forward_icon.svg';
@@ -7,7 +7,6 @@ import { ReactComponent as PinOffIcon } from '../../assets/icons/pin_off_icon.sv
 import { ReactComponent as PinOnIcon } from '../../assets/icons/pin_on_icon.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
-import { setIsCodeWindowHovered, setIsCodeWindowInitialized, setNameTransitionDuration } from '../../stores/code-window-slice';
 import { type RootState, type AppDispatch } from '../../stores';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
@@ -15,8 +14,13 @@ import blockTypes from '../code-block/code-block.module.scss';
 import classNames from 'classnames';
 import CodeLine from '../code-line/code-line';
 import React, { useEffect, useState } from 'react';
-import ResizableBlockTypes from "../../types/resizeable-block-types";
+import ResizableBlockTypes from '../../types/resizeable-block-types';
 import styles from './code-window.module.scss';
+import {
+  setIsCodeWindowHovered,
+  setIsCodeWindowInitialized,
+  setNameTransitionDuration,
+} from '../../stores/code-window-slice';
 
 // ----------- //
 // data models //
@@ -84,9 +88,11 @@ const getRandomBit = ({ probability = 0.5 }): number => +getRandomBool({ probabi
 
 const getRandomBool = ({ probability = 0.5 }): boolean => Math.random() < probability;
 
-const getFormattedNumber = (number: number): string => number < 1000 ? `${number}` : `${(number / 1000).toFixed(1)}k`;
+const getFormattedNumber = (number: number): string =>
+  number < 1000 ? `${number}` : `${(number / 1000).toFixed(1)}k`;
 
-const getRandomNumber = ({ min = 1, max = 1 }): number => Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandomNumber = ({ min = 1, max = 1 }): number =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
 
 // ---------------- //
 // render functions //
@@ -114,10 +120,15 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
 
   // determine if scope closing tags were created on the last code line
   // (closing tags cannot be used to increase indent or spawn children)
-  const wasValueBlockUsed: boolean = codeLines[0] && Boolean(codeLines[0].findCodeBlockSize(blockTypes.content));
-  const wasScopeDecreased: boolean = codeLines[1] && codeLines[1].findCodeBlockSize(blockTypes.indent) > lastIndentSize;
+  const wasValueBlockUsed: boolean =
+    codeLines[0] && Boolean(codeLines[0].findCodeBlockSize(blockTypes.content));
+  const wasScopeDecreased: boolean =
+    codeLines[1] && codeLines[1].findCodeBlockSize(blockTypes.indent) > lastIndentSize;
 
-  const canIncreaseIndent: boolean = lastIndentSize < CodeGenerationConfig.CODE_LINE_MAX_INDENT_SIZE && !wasValueBlockUsed && !wasScopeDecreased;
+  const canIncreaseIndent: boolean =
+    lastIndentSize < CodeGenerationConfig.CODE_LINE_MAX_INDENT_SIZE &&
+    !wasValueBlockUsed &&
+    !wasScopeDecreased;
   const canDecreaseIndent: boolean = lastIndentSize > 1;
   if (canIncreaseIndent) return lastIndentSize + 1;
   if (canDecreaseIndent) return lastIndentSize - 1;
@@ -132,7 +143,9 @@ const CodeWindow = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
-  const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
+  const [codeSpeed, setCodeSpeed] = useState<number>(
+    CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED,
+  );
   const updatedCodeLines = codeLines.slice();
 
   const onCodeLineClick = (key: string, isClicked: boolean) => {
@@ -147,21 +160,22 @@ const CodeWindow = () => {
 
   const [isWindowAnimatedX, setIsWindowAnimatedX] = useState(false);
   const [isWindowAnimatedY, setIsWindowAnimatedY] = useState(false);
-  const [windowAnimationStack, setWindowAnimationStack] = useState("x,0");
+  const [windowAnimationStack, setWindowAnimationStack] = useState('x,0');
 
   const isInitialized = useSelector((state: RootState) => state.codeWindow.isInitialized);
 
   const onWindowAnimationEnd = () => {
     if (!isInitialized) {
       dispatch(setIsCodeWindowInitialized(true));
-    }
-    else {
+    } else {
       setIsWindowAnimatedX(false);
       setIsWindowAnimatedY(false);
     }
-  }
+  };
 
-  const nameTransitionDuration = useSelector((state: RootState) => state.codeWindow.nameTransitionDuration);
+  const nameTransitionDuration = useSelector(
+    (state: RootState) => state.codeWindow.nameTransitionDuration,
+  );
 
   const isHovered = useSelector((state: RootState) => state.codeWindow.isHovered);
   const onMouseLeave = () => dispatch(setIsCodeWindowHovered(false));
@@ -171,13 +185,11 @@ const CodeWindow = () => {
       dispatch(setNameTransitionDuration(styles.codeWindowNameTransitionDurationHover));
     }
     dispatch(setIsCodeWindowHovered(true));
-  }
+  };
 
   const onMouseClick = () => {
-    getRandomBool({ probability: 0.5 })
-      ? setIsWindowAnimatedX(true)
-      : setIsWindowAnimatedY(true);
-  }
+    getRandomBool({ probability: 0.5 }) ? setIsWindowAnimatedX(true) : setIsWindowAnimatedY(true);
+  };
 
   const [isFooterPinned, setIsFooterPinned] = useState<boolean>(false);
   const onPinClick = () => setIsFooterPinned((x) => !x);
@@ -185,13 +197,19 @@ const CodeWindow = () => {
   const [isCodePaused, setIsCodePaused] = useState<boolean>(false);
   const onPauseClick = () => setIsCodePaused((x) => !x);
 
-  const decreaseCodeSpeed = () => !isCodePaused && setCodeSpeed((x) => Math.min(x + 25, CodeGenerationConfig.CODE_GENERATION_MIN_SPEED));
-  const increaseCodeSpeed = () => !isCodePaused && setCodeSpeed((x) => Math.max(x - 25, CodeGenerationConfig.CODE_GENERATION_MAX_SPEED));
+  const decreaseCodeSpeed = () =>
+    !isCodePaused &&
+    setCodeSpeed((x) => Math.min(x + 25, CodeGenerationConfig.CODE_GENERATION_MIN_SPEED));
+  const increaseCodeSpeed = () =>
+    !isCodePaused &&
+    setCodeSpeed((x) => Math.max(x - 25, CodeGenerationConfig.CODE_GENERATION_MAX_SPEED));
 
   const onResetClick = () => {
     updatedCodeLines
       .filter((x) => x.isClicked)
-      .forEach((x) => { x.isClicked = false; });
+      .forEach((x) => {
+        x.isClicked = false;
+      });
 
     setIsCodePaused(false);
     setIsFooterPinned(false);
@@ -205,20 +223,19 @@ const CodeWindow = () => {
     styles.footer,
     { [styles.visible]: isFooterVisible },
     { [styles.pause]: isFooterVisible && isCodePaused },
-    { [styles.debug]: isFooterVisible && !isCodePaused && codeLines.some((x) => x.isClicked) }
+    { [styles.debug]: isFooterVisible && !isCodePaused && codeLines.some((x) => x.isClicked) },
   );
 
-  const nameClasses: string = classNames(
-    styles.name,
-    { [styles.visible]: !isFooterVisible && isInitialized && !codeLines.some((x) => x.isClicked)}
-  );
+  const nameClasses: string = classNames(styles.name, {
+    [styles.visible]: !isFooterVisible && isInitialized && !codeLines.some((x) => x.isClicked),
+  });
 
   const windowClasses: string = classNames(
     styles.wrapper,
     { [styles.fade]: !isInitialized },
     { [styles.shakenX]: isWindowAnimatedX },
     { [styles.shakenY]: isWindowAnimatedY },
-  )
+  );
 
   // ---------------- //
   // component render //
@@ -245,7 +262,7 @@ const CodeWindow = () => {
             new CodeBlockModel({ blockType: blockTypes.openAngle }),
             new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: 3 }),
             new CodeBlockModel({ blockType: blockTypes.attribute }),
-            new CodeBlockModel({ blockType: blockTypes.closeAngle })
+            new CodeBlockModel({ blockType: blockTypes.closeAngle }),
           );
           break;
 
@@ -254,7 +271,7 @@ const CodeWindow = () => {
           nextCodeLine.codeBlocks.push(
             new CodeBlockModel({ blockType: blockTypes.openAngle }),
             new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: 2 }),
-            new CodeBlockModel({ blockType: blockTypes.closeAngle })
+            new CodeBlockModel({ blockType: blockTypes.closeAngle }),
           );
           break;
 
@@ -264,7 +281,7 @@ const CodeWindow = () => {
             new CodeBlockModel({ blockType: blockTypes.indent }),
             new CodeBlockModel({ blockType: blockTypes.openAngle }),
             new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: 2 }),
-            new CodeBlockModel({ blockType: blockTypes.closeAngle })
+            new CodeBlockModel({ blockType: blockTypes.closeAngle }),
           );
           break;
 
@@ -275,7 +292,10 @@ const CodeWindow = () => {
           const lastIndentSize: number = lastCodeLine.findCodeBlockSize(blockTypes.indent);
           const nextIndentSize: number = getNextIndentSize(updatedCodeLines, codeScopeCount);
 
-          const indentCodeBlock = new CodeBlockModel({ blockType: blockTypes.indent, blockSize: nextIndentSize });
+          const indentCodeBlock = new CodeBlockModel({
+            blockType: blockTypes.indent,
+            blockSize: nextIndentSize,
+          });
           indentCodeBlock.currentSize = nextIndentSize; // set the current size to bypass the increment animation
           nextCodeLine.codeBlocks.push(indentCodeBlock);
 
@@ -283,54 +303,62 @@ const CodeWindow = () => {
             // -------------------------------------------------------- //
             // indent was decreased, generate a closing tag from parent //
             // -------------------------------------------------------- //
-            const parentCodeLine: CodeLineModel | undefined =
-              codeLines.find((x: CodeLineModel) => x.findCodeBlockSize(blockTypes.indent) === nextIndentSize);
+            const parentCodeLine: CodeLineModel | undefined = codeLines.find(
+              (x: CodeLineModel) => x.findCodeBlockSize(blockTypes.indent) === nextIndentSize,
+            );
 
             const parentBlockSize: number =
-              parentCodeLine?.findCodeBlockSize(blockTypes.tagName) || getRandomNumber({ min: 2, max: 3 });
+              parentCodeLine?.findCodeBlockSize(blockTypes.tagName) ||
+              getRandomNumber({ min: 2, max: 3 });
 
             nextCodeLine.codeBlocks.push(
               new CodeBlockModel({ blockType: blockTypes.openAngle }),
               new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: parentBlockSize }),
-              new CodeBlockModel({ blockType: blockTypes.closeAngle })
+              new CodeBlockModel({ blockType: blockTypes.closeAngle }),
             );
-          }
-
-          else {
+          } else {
             // -------------------------------------------------------- //
             // indent stayed the same or was increased, generate random //
             // -------------------------------------------------------- //
-            const isScopeChangeImminent: boolean = codeScopeCount === CodeGenerationConfig.CODE_SCOPE_MAX_COUNT - 1;
+            const isScopeChangeImminent: boolean =
+              codeScopeCount === CodeGenerationConfig.CODE_SCOPE_MAX_COUNT - 1;
 
             const useAttributeBlock: boolean = getRandomBool({ probability: 0.8 });
-            const useStringBlock: boolean = useAttributeBlock && getRandomBool({ probability: 0.675 });
-            const useValueBlock: boolean = !isScopeChangeImminent && getRandomBool({ probability: useStringBlock ? 0.25 : 0.5 });
+            const useStringBlock: boolean =
+              useAttributeBlock && getRandomBool({ probability: 0.675 });
+            const useValueBlock: boolean =
+              !isScopeChangeImminent && getRandomBool({ probability: useStringBlock ? 0.25 : 0.5 });
 
             // get the remaining code line space available to generate blocks on
             // [2] = reserved space for the pair of start and close angle blocks
-            let remainingCodeLineSize: number = CodeGenerationConfig.CODE_LINE_MAX_BLOCK_COUNT - indentCodeBlock.maximumSize - 2;
+            let remainingCodeLineSize: number =
+              CodeGenerationConfig.CODE_LINE_MAX_BLOCK_COUNT - indentCodeBlock.maximumSize - 2;
             if (useStringBlock) remainingCodeLineSize -= 1; // [1] used by operator block before string
             if (useValueBlock) remainingCodeLineSize -= 2; // [2] used by second start and close angles
 
             // get the remaining number of block size calculations to execute
             // [1] = reserved space for tag name (used twice on value blocks)
-            let remainingCalculations: number = 1 + +useAttributeBlock + +useStringBlock + +useValueBlock * 2;
+            let remainingCalculations: number =
+              1 + +useAttributeBlock + +useStringBlock + +useValueBlock * 2;
 
             // get the next size a generated code block can consume on the code line
             const getBlockSize = (codeBlockMaxSize = CodeGenerationConfig.CODE_BLOCK_MAX_SIZE) => {
               const averageSize: number = Math.floor(remainingCodeLineSize / remainingCalculations);
               const maximumSize: number = Math.min(averageSize, codeBlockMaxSize);
-              let minimumSize = Math.min(1 + getRandomBit({ probability: .25 }), averageSize);
+              let minimumSize = Math.min(1 + getRandomBit({ probability: 0.25 }), averageSize);
 
               // lower the number of single-sizes because it gets excessive
               // single, single, single ... all this line space was wasted!
 
               if (minimumSize === 1) {
-                const nextBlockTypes = new Set(nextCodeLine.codeBlocks.map((x: CodeBlockModel) => x.blockType));
+                const nextBlockTypes = new Set(
+                  nextCodeLine.codeBlocks.map((x: CodeBlockModel) => x.blockType),
+                );
 
                 // reduce the likelihood of generating code lines that are a single block of single size
                 // [<= 3] includes open and close angle block types that are implicitly added to the tag
-                const nextLineIsOneTag: boolean = nextBlockTypes.size <= 3 && remainingCalculations <= 1;
+                const nextLineIsOneTag: boolean =
+                  nextBlockTypes.size <= 3 && remainingCalculations <= 1;
                 if (nextLineIsOneTag) minimumSize += getRandomBit({ probability: 0.8 });
 
                 // restrict code lines to one single-size block because too many looks bad
@@ -355,22 +383,44 @@ const CodeWindow = () => {
 
             // push items individually so getBlockSize() can observe array contents during insert
             nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.openAngle }));
-            nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: nextTagNameSize }));
-            useAttributeBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.attribute, blockSize: getBlockSize() }));
-            useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.operator }));
-            useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.string, blockSize: getBlockSize() }));
+            nextCodeLine.codeBlocks.push(
+              new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: nextTagNameSize }),
+            );
+            useAttributeBlock &&
+              nextCodeLine.codeBlocks.push(
+                new CodeBlockModel({ blockType: blockTypes.attribute, blockSize: getBlockSize() }),
+              );
+            useStringBlock &&
+              nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.operator }));
+            useStringBlock &&
+              nextCodeLine.codeBlocks.push(
+                new CodeBlockModel({ blockType: blockTypes.string, blockSize: getBlockSize() }),
+              );
             nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.closeAngle }));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.content, blockSize: getBlockSize() }));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.openAngle }));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: nextTagNameSize }));
-            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.closeAngle }));
+            useValueBlock &&
+              nextCodeLine.codeBlocks.push(
+                new CodeBlockModel({ blockType: blockTypes.content, blockSize: getBlockSize() }),
+              );
+            useValueBlock &&
+              nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.openAngle }));
+            useValueBlock &&
+              nextCodeLine.codeBlocks.push(
+                new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: nextTagNameSize }),
+              );
+            useValueBlock &&
+              nextCodeLine.codeBlocks.push(
+                new CodeBlockModel({ blockType: blockTypes.closeAngle }),
+              );
           }
 
           break;
         }
       }
 
-      updatedCodeLines.length = Math.min(codeLines.length, CodeGenerationConfig.CODE_LINE_MAX_SIBLING_COUNT - 1);
+      updatedCodeLines.length = Math.min(
+        codeLines.length,
+        CodeGenerationConfig.CODE_LINE_MAX_SIBLING_COUNT - 1,
+      );
       updatedCodeLines.unshift(nextCodeLine);
       setLineCount((number) => number + 1);
     };
@@ -378,37 +428,36 @@ const CodeWindow = () => {
     const interval = setInterval(() => {
       if (isCodePaused || isWindowAnimatedX || isWindowAnimatedY || !isInitialized) {
         // Pause button was clicked. Generation is paused until resume button is clicked.
-      }
-      else if (activeCodeLine) {
+      } else if (activeCodeLine) {
         // Code line has code blocks that can be animated. Animate by updating their state data.
         animateCodeBlock();
-      }
-      else {
+      } else {
         // Code line has no code blocks that can be animated. Create the next code line / code blocks.
         if (!isHovered && !isFooterPinned && codeLines.length) {
           let isNextDirectionX;
           let nextStackCounter;
 
-          const stackDirection = windowAnimationStack.split(",")[0];
-          const stackCounter = Number(windowAnimationStack.split(",")[1]);
+          const stackDirection = windowAnimationStack.split(',')[0];
+          const stackCounter = Number(windowAnimationStack.split(',')[1]);
 
           // Code window has shaken too many times in the same direction.
           if (stackCounter === CodeGenerationConfig.CODE_WINDOW_SHAKE_MAX) {
-            isNextDirectionX = stackDirection !== "x";
+            isNextDirectionX = stackDirection !== 'x';
             nextStackCounter = 1;
-          }
-          else {
+          } else {
             isNextDirectionX = getRandomBool({ probability: 0.5 });
 
-            if ((isNextDirectionX && stackDirection === "x") || (!isNextDirectionX && stackDirection !== "x")) {
+            if (
+              (isNextDirectionX && stackDirection === 'x') ||
+              (!isNextDirectionX && stackDirection !== 'x')
+            ) {
               nextStackCounter = stackCounter + 1;
-            }
-            else {
+            } else {
               nextStackCounter = 1;
             }
           }
 
-          setWindowAnimationStack(`${isNextDirectionX ? "x" : "y"},${nextStackCounter}`);
+          setWindowAnimationStack(`${isNextDirectionX ? 'x' : 'y'},${nextStackCounter}`);
           isNextDirectionX ? setIsWindowAnimatedX(true) : setIsWindowAnimatedY(true);
         }
         generateCodeLine();
@@ -446,10 +495,7 @@ const CodeWindow = () => {
             />
           ))}
         </div>
-        <div
-          className={nameClasses}
-          style={{ transitionDuration: nameTransitionDuration }}
-        >
+        <div className={nameClasses} style={{ transitionDuration: nameTransitionDuration }}>
           <img src={PersonEmoji} alt="person emoji" />
           <span>Austin Williams</span>
         </div>

@@ -2,16 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import variables from '../styles/_variables.module.scss';
 
 interface AboutButtonState {
-  arrowDuration: string,
-  arrowOpacity: string,
-  arrowTransform: string,
-  intervalId: NodeJS.Timeout|undefined,
-  isHidden: boolean,
-  isHovered: boolean,
+  arrowDuration: string;
+  arrowOpacity: string;
+  arrowTransform: string;
+  intervalId: NodeJS.Timeout | undefined;
+  isHidden: boolean;
+  isHovered: boolean;
 }
 
 const initialState: AboutButtonState = {
-  arrowDuration: "",
+  arrowDuration: '',
   arrowOpacity: variables.aboutButtonArrowOpacityMinimum,
   arrowTransform: 'translateY(0)',
   intervalId: undefined,
@@ -40,7 +40,7 @@ const codeWindowSlice = createSlice({
     },
     setAboutButtonIsHovering: (state, action: PayloadAction<boolean>) => {
       state.isHovered = action.payload;
-    }
+    },
   },
 });
 

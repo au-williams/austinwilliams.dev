@@ -19,14 +19,14 @@ const initialState: ContentSectionState = {
   isMailboxAnimatedClosed: false,
   isMailboxAnimatedOpened: false,
   isMailboxImageOpened: false,
-  isSectionVisible: false
+  isSectionVisible: false,
 };
 
 const contentSectionSlice = createSlice({
   name: 'contentSection',
   initialState,
   reducers: {
-    setAvatarUrl: (state, action: PayloadAction<string|undefined>) => {
+    setAvatarUrl: (state, action: PayloadAction<string | undefined>) => {
       state.avatarUrl = action.payload;
     },
     setIsArticle1Visible: (state, action: PayloadAction<boolean>) => {
@@ -49,7 +49,7 @@ const contentSectionSlice = createSlice({
     },
     setIsSectionVisible: (state, action: PayloadAction<boolean>) => {
       state.isSectionVisible = action.payload;
-    }
+    },
   },
 });
 
@@ -61,7 +61,7 @@ export const {
   setIsMailboxAnimatedClosed,
   setIsMailboxAnimatedOpened,
   setIsMailboxImageOpened,
-  setIsSectionVisible
+  setIsSectionVisible,
 } = contentSectionSlice.actions;
 
 export default contentSectionSlice.reducer;

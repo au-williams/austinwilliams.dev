@@ -10,7 +10,7 @@ interface CodeWindowState {
 const initialState: CodeWindowState = {
   isHovered: false,
   isInitialized: false,
-  nameTransitionDuration: styles.codeWindowNameTransitionDurationInitialize
+  nameTransitionDuration: styles.codeWindowNameTransitionDurationInitialize,
 };
 
 const codeWindowSlice = createSlice({
@@ -29,5 +29,7 @@ const codeWindowSlice = createSlice({
   },
 });
 
-export const { setIsCodeWindowHovered, setIsCodeWindowInitialized, setNameTransitionDuration } = codeWindowSlice.actions;
+export const { setIsCodeWindowHovered, setIsCodeWindowInitialized, setNameTransitionDuration } =
+  codeWindowSlice.actions;
+
 export default codeWindowSlice.reducer;

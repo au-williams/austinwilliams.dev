@@ -8,4 +8,8 @@ import 'react-app-polyfill/stable';
 import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
-root.render(<Provider store={store}><App /></Provider>);
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+);
