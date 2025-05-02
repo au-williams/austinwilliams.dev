@@ -10,7 +10,7 @@ const CodeLine = ({ codeBlocks, isActiveLine, isClicked, onClick }) => {
   const lineNumberClasses = classNames(
     styles.lineNumber,
     { [styles.clicked]: isClicked },
-    { [styles.hovered]: isHovered && !isClicked }
+    { [styles.hovered]: isHovered && !isClicked },
   );
 
   return (
@@ -47,12 +47,12 @@ CodeLine.propTypes = {
     PropTypes.shape({
       blockType: PropTypes.string.isRequired,
       currentSize: PropTypes.number.isRequired,
-      key: PropTypes.string.isRequired
-    })
+      key: PropTypes.string.isRequired,
+    }),
   ).isRequired,
   isActiveLine: PropTypes.bool.isRequired,
   isClicked: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 export default CodeLine;

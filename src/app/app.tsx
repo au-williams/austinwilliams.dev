@@ -2,7 +2,7 @@ import { GoogleAnalyticsConfig } from '../config/app-config';
 import AboutButton from '../components/about-button/about-button';
 import CodeWindow from '../components/code-window/code-window';
 import ContentSection from '../components/content-section/content-section';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactGA from 'react-ga4';
 import styles from './app.module.scss';
 
@@ -10,7 +10,7 @@ import styles from './app.module.scss';
 // #region React Render                                                      //
 ///////////////////////////////////////////////////////////////////////////////
 
-export default () => {
+const App = () => {
   const sectionRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,6 +31,8 @@ export default () => {
     </>
   );
 };
+
+export default App;
 
 ///////////////////////////////////////////////////////////////////////////////
 // #endregion React Render                                                   //

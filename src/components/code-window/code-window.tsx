@@ -8,7 +8,7 @@ import { ReactComponent as PinOnIcon } from '../../assets/icons/pin_on_icon.svg'
 import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
 import { setIsCodeWindowHovered, setIsCodeWindowInitialized, setNameTransitionDuration } from '../../stores/code-window-slice';
-import { type RootState, type AppDispatch, store } from '../../stores';
+import { type RootState, type AppDispatch } from '../../stores';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import blockTypes from '../code-block/code-block.module.scss';
