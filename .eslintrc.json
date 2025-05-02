@@ -36,7 +36,6 @@
     "no-param-reassign": [2, { "props": false }],
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "no-shadow": "off",
-    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
     "no-use-before-define": "off",
     "prettier/prettier": "warn",
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
