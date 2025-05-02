@@ -154,20 +154,6 @@ const ContentSection = ({
     };
   }, [isSectionVisible]);
 
-  const handWaveOnMouseOver = () => {
-    if (isHandWaveAnimated) return;
-    dispatch(setIsHandWaveAnimated(true));
-    const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationHandWave);
-    setTimeout(() => dispatch(setIsHandWaveAnimated(false)), duration);
-  }
-
-  const mailboxOnMouseOver = () => {
-    if (isMailboxAnimatedClosed || isMailboxAnimatedOpened) return;
-    dispatch(setIsMailboxAnimatedOpened(true));
-    const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2;
-    setTimeout(() => dispatch(setIsMailboxAnimatedOpened(false)), duration);
-  }
-
   const article1Classes = classNames(styles.article, { [styles.hidden]: !isArticle1Visible });
   const article2Classes = classNames(styles.article, { [styles.hidden]: !isArticle2Visible });
   const handWaveClasses = classNames({ [styles.handWave]: isHandWaveAnimated });
@@ -187,7 +173,7 @@ const ContentSection = ({
       <article className={article1Classes}>
         {avatarUrl ? <img src={avatarUrl} alt="avatar" draggable="false" /> : <AvatarIcon />}
         <p>
-          Hello! <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" /> My name is{' '}
+          Hello! <img src={WaveEmoji} className={handWaveClasses} alt="waving emoji" /> My name is{' '}
           <a
             href="https://www.linkedin.com/in/auwilliams"
             onClick={onLinkedInClick}
@@ -216,7 +202,7 @@ const ContentSection = ({
           <a href="mailto:me@austinwilliams.dev" onClick={onEmailClick}>
             me@austinwilliams.dev
           </a>
-          . <img src={mailboxEmoji} className={mailboxClasses} onMouseOver={mailboxOnMouseOver} alt="mailbox emoji" />
+          . <img src={mailboxEmoji} className={mailboxClasses} alt="mailbox emoji" />
         </p>
       </article>
       <footer className={styles.footer}>

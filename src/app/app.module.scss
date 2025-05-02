@@ -10,36 +10,16 @@
 
 // shrink content to fit screen
 
-@media only screen and (max-height: 675px), screen and (max-width: 885px) {
-  .wrapper, .footer, .section {
+@media only screen and (height <= 675px), screen and (width <= 885px) {
+  .wrapper {
     font-size: 1.8vmin;
   }
 }
 
 // portrait orientation
 
-@media only screen and (max-width: 610px) {
-  .article, .footer {
-    font-size: 1.675em;
-  }
-
+@media only screen and (width <= 610px) {
   .wrapper > button {
     font-size: 2.75em;
-  }
-
-  .article {
-    flex-direction: column;
-    padding-left: 1.2em;
-    padding-right: 1.2em;
-    text-align: center;
-
-    > img,
-    > svg {
-      margin: 0 0 1.125em;
-    }
-
-    > p {
-      margin: 0 auto;
-    }
   }
 }
