@@ -4,8 +4,8 @@ import React, { useEffect } from 'react';
 import styles from './code-block.module.scss';
 import variables from '../../styles/_variables.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { type RootState, type AppDispatch } from '../../stores';
-import { setIsPushed } from '../../stores/code-block-slice';
+import { type RootState, type AppDispatch } from '../../redux';
+import { setIsPushed } from '../../redux/code-block-slice';
 
 /**
  * The CodeBlock component. One CodeLine component can have none to many nested CodeBlock components.

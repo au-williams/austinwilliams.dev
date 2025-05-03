@@ -1,7 +1,7 @@
 import { cssTimeToMilliseconds } from '../../utilities';
 import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as ChevronIcon } from '../../assets/icons/chevron-down-solid.svg';
-import { type RootState, type AppDispatch } from '../../stores';
+import { type RootState, type AppDispatch } from '../../redux';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -15,7 +15,7 @@ import {
   setAboutButtonIntervalId,
   setAboutButtonIsHidden,
   setAboutButtonIsHovering,
-} from '../../stores/about-button-slice';
+} from '../../redux/about-button-slice';
 
 /**
  * The floating about button. Idle animation bobs up and down. Hovering readies

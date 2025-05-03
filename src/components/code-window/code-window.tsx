@@ -7,7 +7,7 @@ import { ReactComponent as PinOffIcon } from '../../assets/icons/pin_off_icon.sv
 import { ReactComponent as PinOnIcon } from '../../assets/icons/pin_on_icon.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
-import { type RootState, type AppDispatch } from '../../stores';
+import { type RootState, type AppDispatch } from '../../redux';
 import { useSelector, useDispatch } from 'react-redux';
 import blockTypes from '../code-block/code-block.module.scss';
 import classNames from 'classnames';
@@ -20,7 +20,7 @@ import {
   setIsCodeWindowHovered,
   setIsCodeWindowInitialized,
   setNameTransitionDuration,
-} from '../../stores/code-window-slice';
+} from '../../redux/code-window-slice';
 
 /**
  * The CodeWindow component renders CodeLineModel objects, which

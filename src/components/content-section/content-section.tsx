@@ -4,13 +4,13 @@ import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as AvatarIcon } from '../../assets/icons/avatar_icon.svg';
 import { ReactComponent as GitHubIcon } from '../../assets/icons/github_icon.svg';
 import { ReactComponent as ScrollIcon } from '../../assets/icons/scroll_icon.svg';
-import { setAvatarUrl, setIsArticle1Visible, setIsArticle2Visible, setIsHandWaveAnimated, setIsMailboxAnimatedClosed, setIsMailboxAnimatedOpened, setIsMailboxImageOpened, setIsSectionVisible } from '../../stores/content-section-slice';
+import { setAvatarUrl, setIsArticle1Visible, setIsArticle2Visible, setIsHandWaveAnimated, setIsMailboxAnimatedClosed, setIsMailboxAnimatedOpened, setIsMailboxImageOpened, setIsSectionVisible } from '../../redux/content-section-slice';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './content-section.module.scss';
-import type { RootState, AppDispatch } from '../../stores';
+import type { RootState, AppDispatch } from '../../redux';
 import variables from '../../styles/_variables.module.scss';
 
 /**
