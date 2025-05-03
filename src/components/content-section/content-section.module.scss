@@ -34,15 +34,12 @@
     border-radius: .15em;
     color: variables.$body-color-link;
     font-size: 0.85em;
-    padding: 0.1em 0.25em;
+    padding: 0.1em .3em;
     text-decoration: none;
+    vertical-align: text-bottom;
 
     &:hover {
-      animation: push 0.125s steps(1);
-    }
-
-    &:active {
-      transform: translateY(0.1em)
+      // animation: push 0.4s;
     }
   }
 
@@ -74,7 +71,7 @@
     width: 8em;
   }
 
-  > p {
+  > div {
     font-size: 1.5em;
     margin: 0 0 0 1.125em;
     width: 100%;
@@ -83,7 +80,6 @@
     svg {
       height: 1.125em;
       margin: 0 0.05em;
-      pointer-events: none;
       vertical-align: top;
       width: 1.125em;
     }
@@ -190,7 +186,8 @@
 }
 
 @keyframes mailbox-rotate {
-  0% { transform: translateY(0) rotate(-4deg); }
+  0% { transform: translateY(0) rotate(-2deg); }
+  10% { transform: translateY(0) rotate(-4deg); }
   20% { transform: translateY(0) rotate(4deg); }
   40% { transform: translateY(0) rotate(-2deg); }
   60% { transform: translateY(0) rotate(2deg); }

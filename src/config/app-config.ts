@@ -33,3 +33,13 @@ export const GoogleAnalyticsConfig: {
 } = {
   GA_MEASUREMENT_ID: 'G-JFBLY5T1C0', // This key isn't sensitive and isn't required to be secreted per the GA docs.
 };
+
+export const FavIcons: {
+  GMAIL: string;
+  GOOGLE_DRIVE: string;
+  LINKEDIN: string;
+} = {
+  GMAIL: 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico',
+  GOOGLE_DRIVE: 'https://drive.google.com/favicon.ico',
+  LINKEDIN: 'https://www.linkedin.com/favicon.ico',
+};

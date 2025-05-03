@@ -1,0 +1,52 @@
+@use "../../styles/variables.module";
+
+.wrapper {
+  display: inline-block;
+  position: relative;
+
+  &:active {
+    transform: translateY(0.1em)
+  }
+}
+
+.tooltip {
+  align-items: center;
+  background: #131313;
+  border-radius: variables.$code-window-border-radius;
+  bottom: 100%;
+  color: variables.$body-color-text;
+  display: flex;
+  font-size: 0.85em;
+  gap: 0.2em;
+  margin-bottom: 0.25em;
+  opacity: 1;
+  padding: 0.1em .3em;
+  pointer-events: none;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1;
+  transform: scale(1);
+  transition: transform 100ms, opacity 100ms;
+  transform-origin: bottom center;
+
+  img {
+    max-height: 1em;
+    max-width: 1em;
+  }
+
+  &::after {
+    border-color: #131313 transparent transparent;
+    border-style: solid;
+    border-width: 0.25em;
+    content: "";
+    left: 0.85em;
+    position: absolute;
+    top: 100%;
+    transform: translateX(-50%);
+  }
+}
+
+.hidden {
+  opacity: 0;
+  transform: scale(0.9);
+}

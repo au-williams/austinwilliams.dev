@@ -22,8 +22,9 @@ const CodeLine = ({
   codeLineId: string;
   isActiveLine: boolean;
   isClicked: boolean;
-  onClick: (x: boolean) => void;
+  onClick: (param: boolean) => void;
 }) => {
+  // Load the state from Redux.
   const dispatch = useDispatch<AppDispatch>();
   const isHovered = useSelector(
     (state: RootState) => state.codeLine[codeLineId]?.isHovered ?? false,
