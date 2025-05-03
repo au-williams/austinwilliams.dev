@@ -1,11 +1,15 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './code-block.module.scss';
 import variables from '../../styles/_variables.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { type RootState, type AppDispatch } from '../../stores';
+import { setIsPushed } from '../../stores/code-block-slice';
 
 /**
- * The CodeBlock component. A single CodeLine component can have none to many nested CodeBlock components.
+ * The CodeBlock component. One CodeLine component can have none to many nested CodeBlock components.
+ * @param {string} param.blockId The unique identifier of the code block model used as the React key.
  * @param {string} param.blockType The code block type (name value defined in code-block.module.scss)
  * @param {number} param.currentSize The current code block size
  * @param {boolean} param.isActiveBlock If this is the current code block being displayed
@@ -13,25 +17,26 @@ import variables from '../../styles/_variables.module.scss';
  * @returns {React.JSX.Element}
  */
 const CodeBlock = ({
+  blockId,
   blockType,
   currentSize,
   isActiveBlock,
   isColoredBlock,
 }: {
+  blockId: string;
   blockType: string;
   currentSize: number;
   isActiveBlock: boolean;
   isColoredBlock: boolean;
 }): React.JSX.Element => {
-  const [isPushed, setIsPushed] = useState(false);
+  // Load the state from Redux.
+  const dispatch = useDispatch<AppDispatch>();
+  const isPushed = useSelector((state: RootState) => state.codeBlock[blockId]?.isPushed ?? false);
 
   // Animate the code block component each time its current size value changes.
   useEffect(() => {
-    setIsPushed(true);
+    dispatch(setIsPushed(blockId, true));
   }, [currentSize]);
-
-  // Unbind when the animation ends so the animation can be replayed as needed.
-  const onAnimationEnd = () => setIsPushed(false);
 
   // Create the CSS classes based on the component state.
   const classes = classNames(
@@ -41,14 +46,22 @@ const CodeBlock = ({
     { [styles.pushed]: isPushed },
   );
 
-  // calculate the width to perfectly align blocks across separate lines
-  const calculatedWidth = `${variables.codeBlockSize} * ${currentSize}`;
-  const calculatedSpace = `${variables.codeLineSpace} * ${currentSize * 2 - 2}`;
-
   let style: React.CSSProperties | undefined;
-  if (currentSize > 1) style = { width: `calc(${calculatedWidth} + ${calculatedSpace})` };
 
-  return <div className={classes} style={style} onAnimationEnd={onAnimationEnd} />;
+  if (currentSize > 1) {
+    // calculate the width to perfectly align blocks across separate lines
+    const calculatedWidth = `${variables.codeBlockSize} * ${currentSize}`;
+    const calculatedSpace = `${variables.codeLineSpace} * ${currentSize * 2 - 2}`;
+    style = { width: `calc(${calculatedWidth} + ${calculatedSpace})` };
+  }
+
+  return (
+    <div
+      className={classes}
+      onAnimationEnd={() => dispatch(setIsPushed(blockId, false))}
+      style={style}
+    />
+  );
 };
 
 CodeBlock.propTypes = {

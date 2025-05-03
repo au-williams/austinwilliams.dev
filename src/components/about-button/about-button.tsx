@@ -1,7 +1,6 @@
 import { cssTimeToMilliseconds } from '../../utilities';
 import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as ChevronIcon } from '../../assets/icons/chevron-down-solid.svg';
-import { setAboutButtonArrowDuration, setAboutButtonArrowOpacity, setAboutButtonArrowTransform, setAboutButtonIntervalId, setAboutButtonIsHidden, setAboutButtonIsHovering } from '../../stores/about-button-slice';
 import { type RootState, type AppDispatch } from '../../stores';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
@@ -9,6 +8,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './about-button.module.scss';
 import variables from '../../styles/_variables.module.scss';
+import {
+  setAboutButtonArrowDuration,
+  setAboutButtonArrowOpacity,
+  setAboutButtonArrowTransform,
+  setAboutButtonIntervalId,
+  setAboutButtonIsHidden,
+  setAboutButtonIsHovering,
+} from '../../stores/about-button-slice';
 
 /**
  * The floating about button. Idle animation bobs up and down. Hovering readies
@@ -17,10 +24,10 @@ import variables from '../../styles/_variables.module.scss';
  */
 const AboutButton = ({
   reactGA,
-  sectionRef
+  sectionRef,
 }: {
-  reactGA: GA4,
-  sectionRef: React.MutableRefObject<HTMLDivElement | null>
+  reactGA: GA4;
+  sectionRef: React.MutableRefObject<HTMLDivElement | null>;
 }): React.JSX.Element => {
   // Load the state from Redux.
   const dispatch = useDispatch<AppDispatch>();
@@ -38,7 +45,7 @@ const AboutButton = ({
   const onAboutButtonClick = () => {
     sectionRef.current!.scrollIntoView({ behavior: 'smooth' });
     reactGA.event({ category: 'click', action: 'about_button' });
-  }
+  };
 
   // On component load set a timeout before making it visible.
   React.useEffect(() => {
@@ -61,10 +68,10 @@ const AboutButton = ({
       dispatch(setAboutButtonArrowDuration(computedDuration));
 
       let computedOpacity = styles.aboutButtonArrowOpacityMinimum;
-      if (toggle || isHovering) computedOpacity = "1";
+      if (toggle || isHovering) computedOpacity = '1';
       dispatch(setAboutButtonArrowOpacity(computedOpacity));
 
-      let computedTransform = "0";
+      let computedTransform = '0';
       if (toggle || isHovering) computedTransform = styles.aboutButtonArrowTransitionDistance;
       dispatch(setAboutButtonArrowTransform(`translateY(${computedTransform})`));
 
@@ -78,10 +85,7 @@ const AboutButton = ({
     return () => clearInterval(intervalId);
   }, [isHovering]);
 
-  const classes: string = classNames(
-    styles.aboutButton,
-    { [styles.hidden]: isHidden },
-  );
+  const classes: string = classNames(styles.aboutButton, { [styles.hidden]: isHidden });
 
   return (
     <button
@@ -92,19 +96,21 @@ const AboutButton = ({
       type="button"
     >
       About me
-      <br/>
-      <ChevronIcon style={{
-        opacity: arrowOpacity,
-        transform: arrowTransform,
-        transitionDuration: arrowDuration
-      }} />
+      <br />
+      <ChevronIcon
+        style={{
+          opacity: arrowOpacity,
+          transform: arrowTransform,
+          transitionDuration: arrowDuration,
+        }}
+      />
     </button>
   );
 };
 
 AboutButton.propTypes = {
   reactGA: PropTypes.object.isRequired,
-  sectionRef: PropTypes.object.isRequired
+  sectionRef: PropTypes.object.isRequired,
 };
 
 export default AboutButton;

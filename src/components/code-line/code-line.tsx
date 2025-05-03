@@ -31,6 +31,7 @@ const CodeLine = ({ codeBlocks, isActiveLine, isClicked, onClick }) => {
         return (
           <CodeBlock
             key={key}
+            blockId={key}
             blockType={blockType}
             currentSize={currentSize}
             isActiveBlock={isActiveBlock}
