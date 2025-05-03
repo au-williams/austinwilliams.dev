@@ -9,24 +9,18 @@ import { ReactComponent as PlayIcon } from '../../assets/icons/play_icon.svg';
 import { ReactComponent as RewindIcon } from '../../assets/icons/rewind_icon.svg';
 import { type RootState, type AppDispatch } from '../../stores';
 import { useSelector, useDispatch } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 import blockTypes from '../code-block/code-block.module.scss';
 import classNames from 'classnames';
 import CodeLine from '../code-line/code-line';
+import CodeLineModel from '../../types/code-line-model';
+import CodeBlockModel from '../../types/code-block-model';
 import React, { useEffect, useState } from 'react';
-import ResizableBlockTypes from '../../types/resizeable-block-types';
 import styles from './code-window.module.scss';
 import {
   setIsCodeWindowHovered,
   setIsCodeWindowInitialized,
   setNameTransitionDuration,
 } from '../../stores/code-window-slice';
-
-// ----------- //
-// data models //
-// ----------- //
-
-/* eslint max-classes-per-file: [error, 2] */
 
 /**
  * The CodeWindow component renders CodeLineModel objects, which
@@ -35,50 +29,6 @@ import {
  * imitate typing. These models are used for accuracy and stored
  * in the CodeWindow state.
  */
-
-class CodeBlockModel {
-  public blockType: string;
-  public currentSize: number;
-  public maximumSize: number;
-  public isSizeable: boolean;
-  public isVisible: boolean;
-  public key: string;
-
-  constructor({ blockType, blockSize = 1 }: { blockType: string; blockSize?: number }) {
-    this.blockType = blockType;
-    this.currentSize = 1;
-    this.maximumSize = blockSize;
-    this.isSizeable = ResizableBlockTypes.includes(blockType);
-    this.isVisible = false;
-    this.key = uuid();
-  }
-
-  get isActive(): boolean {
-    return !this.isVisible || this.currentSize < this.maximumSize;
-  }
-}
-
-class CodeLineModel {
-  public codeBlocks: CodeBlockModel[];
-  public isClicked: boolean;
-  public key: string;
-
-  constructor() {
-    this.codeBlocks = [];
-    this.isClicked = false;
-    this.key = uuid();
-  }
-
-  get isActive(): boolean {
-    return this.codeBlocks.some((x) => x.isActive);
-  }
-
-  findCodeBlockSize = (blockType: string): number =>
-    this.codeBlocks.find((x: CodeBlockModel) => x.blockType === blockType)?.maximumSize ?? 0;
-
-  hasCodeBlockSize = (blockSize: number): boolean =>
-    this.codeBlocks.some((x: CodeBlockModel) => x.maximumSize === blockSize && x.isSizeable);
-}
 
 // ----------------- //
 // utility functions //
