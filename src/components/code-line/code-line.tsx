@@ -1,11 +1,33 @@
+import { setIsHovered } from '../../redux/code-line-slice';
+import { type RootState, type AppDispatch } from '../../redux';
+import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
 import CodeBlock from '../code-block/code-block';
+import CodeBlockModel from '../../types/code-block-model';
+import PropTypes from 'prop-types';
+import React from 'react';
 import styles from './code-line.module.scss';
 
-const CodeLine = ({ codeBlocks, isActiveLine, isClicked, onClick }) => {
-  const [isHovered, setIsHovered] = useState(false);
+/**
+ * @returns {React.JSX.Element}
+ */
+const CodeLine = ({
+  codeBlocks,
+  codeLineId,
+  isActiveLine,
+  isClicked,
+  onClick,
+}: {
+  codeBlocks: CodeBlockModel[];
+  codeLineId: string;
+  isActiveLine: boolean;
+  isClicked: boolean;
+  onClick: (x: boolean) => void;
+}) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const isHovered = useSelector(
+    (state: RootState) => state.codeLine[codeLineId]?.isHovered ?? false,
+  );
 
   const lineNumberClasses = classNames(
     styles.lineNumber,
@@ -17,9 +39,9 @@ const CodeLine = ({ codeBlocks, isActiveLine, isClicked, onClick }) => {
     <div
       className={styles.codeLine}
       onClick={() => onClick(!isClicked)}
-      onFocus={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onMouseOver={() => setIsHovered(true)}
+      onFocus={() => dispatch(setIsHovered(codeLineId, true))}
+      onMouseLeave={() => dispatch(setIsHovered(codeLineId, false))}
+      onMouseOver={() => dispatch(setIsHovered(codeLineId, true))}
       role="presentation"
     >
       <div className={lineNumberClasses} />

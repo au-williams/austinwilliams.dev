@@ -439,6 +439,7 @@ const CodeWindow = () => {
             <CodeLine
               key={key}
               codeBlocks={codeBlocks.filter((x) => x.isVisible)}
+              codeLineId={key}
               isActiveLine={!index}
               isClicked={isClicked}
               onClick={(isClicked) => onCodeLineClick(key, isClicked)}
