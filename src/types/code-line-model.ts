@@ -1,6 +1,14 @@
 import { v4 as uuid } from 'uuid';
 import CodeBlockModel from './code-block-model';
 
+/**
+ * This model is used to calculate the code lines displayed in the code-window
+ * component. CodeLineModel is NOT the 'code-line' component and is meant to be
+ * used in conjunction for processing its generated properties.
+ * @export
+ * @class CodeLineModel
+ * @typedef {CodeLineModel}
+ */
 export default class CodeLineModel {
   public codeBlocks: CodeBlockModel[];
   public isClicked: boolean;
