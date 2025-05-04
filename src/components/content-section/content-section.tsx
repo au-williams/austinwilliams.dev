@@ -218,7 +218,7 @@ const ContentSection = ({
             </a>
           </HoverTooltip>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
-          <HoverTooltip img={FavIcons.GMAIL} text={'Send email'}>
+          <HoverTooltip img={FavIcons.GMAIL} text={'Send an email'}>
             <a href="mailto:me@austinwilliams.dev" onClick={onEmailClick}>
               me@austinwilliams.dev
             </a>
