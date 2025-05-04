@@ -18,6 +18,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // Base values
+$base-border-radius: 0.15em; // How round elements typically look on screen.
 $base-transition-delay-initialize: 800ms; // How long elements typically wait before initializing.
 $base-transition-duration-initialize: 400ms; // How long elements typically transition during initialization.
 $base-translate-amount-click-depress: 0.125em; // How far elements typically move downwards when they are clicked.
@@ -58,7 +59,7 @@ $code-line-shoulder-space: 0.275em;
 
 // CodeWindow component
 $-code-window-internal-speed: 125ms;
-$code-window-border-radius: 0.15em;
+$code-window-border-radius: $base-border-radius;
 $code-window-border-width: 0.25em;
 $code-window-box-shadow: rgba(0 0 0 / 0.24%) 0 0.1875em 0.5em; // was [rgba(0, 0, 0, 0.35) 0 0.3125em 0.9375em]
 $code-window-footer-button-color: #151515;
@@ -80,6 +81,9 @@ $code-window-translate-amount-fade-initialize: $base-translate-amount-fade-initi
 // HoverTooltip component
 $hover-tooltip-animation-duration-hover: 100ms;
 $hover-tooltip-animation-translate-hover: -0.05em;
+$hover-tooltip-background-color: #131313;
+$hover-tooltip-border-radius: $base-border-radius;
+$hover-tooltip-translate-amount-click-depress: 0.1em;
 
 // <section/>
 $section-article-transition-duration-hand-wave: 2s;

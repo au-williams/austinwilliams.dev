@@ -37,10 +37,6 @@
     padding: 0.1em .3em;
     text-decoration: none;
     vertical-align: text-bottom;
-
-    &:hover {
-      // animation: push 0.4s;
-    }
   }
 
   &.hidden {
@@ -120,7 +116,6 @@
     }
 
     &:hover {
-      animation: push 0.125s steps(1);
       background-color: variables.$code-window-footer-button-color-hover;
     }
 
@@ -168,16 +163,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 // #region Animations                                                        //
 ///////////////////////////////////////////////////////////////////////////////
-
-@keyframes push {
-  from {
-    transform: translateY(-0.5 * variables.$code-line-translate-amount-click-depress);
-  }
-
-  to {
-    transform: translateY(0);
-  }
-}
 
 @keyframes mailbox-translate {
   0% { transform: translateY(0) rotate(0deg); }
