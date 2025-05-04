@@ -1,3 +1,4 @@
+@use "../../styles/animations.module";
 @use "../../styles/variables.module";
 
 .wrapper {
@@ -7,6 +8,11 @@
   &:active {
     transform: translateY(0.1em)
   }
+
+  &:hover {
+    animation: hover-bump variables.$hover-tooltip-animation-duration-hover steps(1);
+    z-index: 1;
+  }
 }
 
 .tooltip {
@@ -14,25 +20,18 @@
   background: #131313;
   border-radius: variables.$code-window-border-radius;
   bottom: 100%;
+  box-shadow: 0 2px 8px #1313131a;
   color: variables.$body-color-text;
   display: flex;
   font-size: 0.85em;
   gap: 0.2em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.2675em;
   opacity: 1;
   padding: 0.1em .3em;
   pointer-events: none;
   position: absolute;
-  white-space: nowrap;
-  z-index: 1;
-  transform: scale(1);
-  transition: transform 100ms, opacity 100ms;
   transform-origin: bottom center;
-
-  img {
-    max-height: 1em;
-    max-width: 1em;
-  }
+  white-space: nowrap;
 
   &::after {
     border-color: #131313 transparent transparent;
@@ -44,9 +43,14 @@
     top: 100%;
     transform: translateX(-50%);
   }
-}
 
-.hidden {
-  opacity: 0;
-  transform: scale(0.9);
+  img {
+    max-height: 1em;
+    max-width: 1em;
+  }
+
+  &.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 }

@@ -1,0 +1,11 @@
+@use "./variables.module";
+
+@keyframes hover-bump {
+  from {
+    transform: translateY(variables.$hover-tooltip-animation-translate-hover);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}

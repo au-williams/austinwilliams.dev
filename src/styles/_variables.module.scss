@@ -77,6 +77,10 @@ $code-window-title-bar-height: 2.25em;
 $code-window-transition-duration-initialize: $base-transition-duration-initialize; // How fast the code window name fades in during initialization.
 $code-window-translate-amount-fade-initialize: $base-translate-amount-fade-initialize;
 
+// HoverTooltip component
+$hover-tooltip-animation-duration-hover: 100ms;
+$hover-tooltip-animation-translate-hover: -0.05em;
+
 // <section/>
 $section-article-transition-duration-hand-wave: 2s;
 $section-article-transition-duration-initialize: $base-transition-duration-initialize;
