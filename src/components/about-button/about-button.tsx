@@ -3,23 +3,16 @@ import { GA4 } from 'react-ga4/types/ga4';
 import { ReactComponent as ChevronIcon } from '../../assets/icons/chevron-down-solid.svg';
 import { type RootState, type AppDispatch } from '../../redux';
 import { useSelector, useDispatch } from 'react-redux';
+import { setAboutButtonArrowDuration, setAboutButtonArrowOpacity, setAboutButtonArrowTransform, setAboutButtonIntervalId, setAboutButtonIsHidden, setAboutButtonIsHovering } from '../../redux/about-button-slice';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './about-button.module.scss';
 import variables from '../../styles/_variables.module.scss';
-import {
-  setAboutButtonArrowDuration,
-  setAboutButtonArrowOpacity,
-  setAboutButtonArrowTransform,
-  setAboutButtonIntervalId,
-  setAboutButtonIsHidden,
-  setAboutButtonIsHovering,
-} from '../../redux/about-button-slice';
 
 /**
  * The floating about button. Idle animation bobs up and down. Hovering readies
- * to the furthest animation position. Clicking sends
+ * to the furthest animation position. Clicking scrolls the page downwards.
  * @returns {React.JSX.Element}
  */
 const AboutButton = ({
@@ -38,21 +31,12 @@ const AboutButton = ({
   const isHidden = useSelector((state: RootState) => state.aboutButton.isHidden);
   const isHovering = useSelector((state: RootState) => state.aboutButton.isHovered);
 
-  /**
-   * Sends a Google Analytics event when the about button's clicked and scrolls
-   * the web client down beyond the landing and to the start of the sectionRef.
-   */
-  const onAboutButtonClick = () => {
-    sectionRef.current!.scrollIntoView({ behavior: 'smooth' });
-    reactGA.event({ category: 'click', action: 'about_button' });
-  };
-
   // On component load set a timeout before making it visible.
   React.useEffect(() => {
     const delay: number = cssTimeToMilliseconds(variables.aboutButtonTransitionDelayInitialize);
     const timeout = setTimeout(() => dispatch(setAboutButtonIsHidden(false)), delay);
     return () => clearTimeout(timeout);
-  }, [isHidden]);
+  }, []);
 
   // On hover update the CSS properties of the arrow SVG.
   React.useEffect(() => {
@@ -85,11 +69,18 @@ const AboutButton = ({
     return () => clearInterval(intervalId);
   }, [isHovering]);
 
-  const classes: string = classNames(styles.aboutButton, { [styles.hidden]: isHidden });
+  /**
+   * Sends a Google Analytics event when the about button's clicked and scrolls
+   * the web client down beyond the landing and to the start of the sectionRef.
+   */
+  const onAboutButtonClick = () => {
+    sectionRef.current!.scrollIntoView({ behavior: 'smooth' });
+    reactGA.event({ category: 'click', action: 'about_button' });
+  };
 
   return (
     <button
-      className={classes}
+      className={classNames(styles.aboutButton, { [styles.hidden]: isHidden })}
       onClick={onAboutButtonClick}
       onMouseOut={() => dispatch(setAboutButtonIsHovering(false))}
       onMouseOver={() => dispatch(setAboutButtonIsHovering(true))}
