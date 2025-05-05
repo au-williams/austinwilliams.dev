@@ -23,6 +23,7 @@ const App = () => {
 
   return (
     <>
+      <div className={styles.dimmer}></div>
       <header className={styles.wrapper}>
         <CodeWindow />
         <AboutButton reactGA={ReactGA} sectionRef={sectionRef} />

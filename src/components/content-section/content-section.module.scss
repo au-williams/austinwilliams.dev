@@ -8,14 +8,14 @@
   margin: 0 auto;
   max-width: 100%;
   opacity: 1;
-  transform: scale(1);
+  // transform: scale(1);
   transition: transform variables.$section-transition-duration-initialize, opacity variables.$section-transition-duration-initialize;
   width: 50em;
 
   &.hidden {
     opacity: 0;
     pointer-events: none;
-    transform: scale(0.95);
+    // transform: scale(0.95);
   }
 }
 
@@ -25,7 +25,7 @@
   justify-content: center;
   padding: 1.125em 2.25em;
   opacity: 1;
-  transform: scale(1);
+  // transform: scale(1);
   transition: opacity variables.$section-article-transition-duration-initialize, transform variables.$section-article-transition-duration-initialize;
 
   a {

@@ -8,6 +8,16 @@
   justify-content: center;
 }
 
+.dimmer {
+  background-color: rgba(8, 8, 8, 0.25);
+  // background-color: rgba(0, 0, 0, 0.274);
+  height: 100vh;
+  pointer-events: none;
+  position: fixed;
+  width: 100vw;
+  z-index: 1;
+}
+
 // shrink content to fit screen
 
 @media only screen and (height <= 675px), screen and (width <= 885px) {

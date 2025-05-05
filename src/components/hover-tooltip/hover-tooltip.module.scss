@@ -7,6 +7,10 @@
   &:active {
     transform: translateY(variables.$hover-tooltip-translate-amount-click-depress)
   }
+
+  &:hover {
+    z-index: 100;
+  }
 }
 
 .tooltip {
@@ -28,10 +32,9 @@
   transform: translateY(0);
   transition: opacity variables.$hover-tooltip-animation-duration-hover, transform variables.$hover-tooltip-animation-duration-hover;
   white-space: nowrap;
-  z-index: 1;
 
   &::after {
-    border-color: #131313 transparent transparent;
+    border-color: variables.$hover-tooltip-background-color transparent transparent;
     border-style: solid;
     border-width: 0.25em;
     content: "";
