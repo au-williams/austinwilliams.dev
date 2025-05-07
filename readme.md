@@ -1,4 +1,4 @@
-# [au-williams.github.io](https://au-williams.github.io)
+# [austinwilliams.dev](https://au-williams.github.io)
 
 My personal web app made with the [React](https://react.dev/) front-end and [Redux](https://redux.js.org/) state manager. It's built using [Vite](https://vite.dev/) and deployed to [GitHub Pages](https://pages.github.com/) — accessible online at [https://austinwilliams.dev/](https://austinwilliams.dev/). 🚀
 
@@ -31,9 +31,65 @@ $ npm run deploy
 
 <details>
 
-<summary>🧩 components/about-button</summary>
+<summary>🧩 /src/components/about-button/</summary>
 
-### [🧩 components/about-button](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/about-button)
+### [🧩 /src/components/about-button/](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/about-button)
+
+This component manages the about button. It initializes on a timer, animates its translation on a loop, and reacts to the clients mouseover events. When mousing over, the arrow quickly expands to its furthest animation point.
+
+🗃️ `Redux state` [/src/redux/about-button-slice.ts](https://github.com/au-williams/au-williams.github.io/blob/master/src/redux/about-button-slice.ts)
+
+</details>
+
+<details>
+
+<summary>🧩 /src/components/code-block/</summary>
+
+### [🧩 /src/components/code-block/](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/code-block)
+
+This component is the final component in the [code-window](#-srccomponentscode-window) component tree. It's responsible for rendering the size, shape, and color of an element that resembles a block of code. It's encapsulated by the [code-line](#-srccomponentscode-line) component.
+
+🗃️ `Redux state` [/src/redux/code-block-slice.ts](https://github.com/au-williams/au-williams.github.io/blob/master/src/redux/code-block-slice.ts)
+
+</details>
+
+<details>
+
+<summary>🧩 /src/components/code-line/</summary>
+
+### [🧩 /src/components/code-line/](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/code-line)
+
+This component is the middle component of the [code-window](#-srccomponentscode-window) component tree. It's responsible for encapsulating one-to-many [code-block](#-srccomponentscode-block) components and reacting to the clients mouseover events.
+
+🗃️ `Redux state` [/src/redux/code-line-slice.ts](https://github.com/au-williams/au-williams.github.io/blob/master/src/redux/code-line-slice.ts)
+
+</details>
+
+<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+
+<details>
+
+<summary>🧩 /src/components/code-window/</summary>
+
+### [🧩 /src/components/code-window/](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/code-window)
+
+This component is the start of the [code-window](#-srccomponentscode-window) component tree. It's responsible for updating updatable [code-block](#-srccomponentscode-block) components encapsulated by [code-line](#-srccomponentscode-line) components, or generating a new code-line component that is based on the previous code-line contents to adhere to the constraints defined in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts).
+
+🗃️ `Redux state` [/src/redux/code-window-slice.ts](https://github.com/au-williams/au-williams.github.io/blob/master/src/redux/code-window-slice.ts)
+
+</details>
+
+<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+
+<details>
+
+<summary>🧩 /src/components/content-section/</summary>
+
+### [🧩 /src/components/content-section/](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/content-section)
 
 [TODO]
 
@@ -45,23 +101,9 @@ $ npm run deploy
 
 <details>
 
-<summary>🧩 components/code-block</summary>
+<summary>🧩 /src/components/hover-tooltip/</summary>
 
-### [🧩 components/code-block](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/code-block)
-
-[TODO]
-
-</details>
-
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-
-<details>
-
-<summary>🧩 components/code-line</summary>
-
-### [🧩 components/code-line](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/code-line)
+### [🧩 /src/components/hover-tooltip/](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/hover-tooltip)
 
 [TODO]
 
@@ -71,55 +113,16 @@ $ npm run deploy
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
 
-<details>
-
-<summary>🧩 components/code-window</summary>
-
-### [🧩 components/code-window](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/code-window)
-
-[TODO]
-
-</details>
-
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-
-<details>
-
-<summary>🧩 components/content-section</summary>
-
-### [🧩 components/content-section](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/content-section)
-
-[TODO]
-
-</details>
-
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-
-<details>
-
-<summary>🧩 components/hover-tooltip</summary>
-
-### [🧩 components/hover-tooltip](https://github.com/au-williams/au-williams.github.io/blob/master/src/components/hover-tooltip)
-
-[TODO]
-
-</details>
-
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+> [!TIP]
+> The Redux-managed state for these components is found in [`/src/redux/`](https://github.com/au-williams/au-williams.github.io/blob/master/src/redux). Check the component details above for their associated slice file names if they exist. 🗃️
 
 ## Settings
 
 <details>
 
-<summary>🛠️ config/app-config.ts</summary>
+<summary>🛠️ /src/config/app-config.ts</summary>
 
-### [🛠️ config/app-config.ts](https://github.com/au-williams/au-williams.github.io/blob/master/src/config/app-config.ts)
+### [🛠️ /src/config/app-config.ts](https://github.com/au-williams/au-williams.github.io/blob/master/src/config/app-config.ts)
 
 This file contains the settings variables for logic across the web app.
 
@@ -131,9 +134,9 @@ This file contains the settings variables for logic across the web app.
 
 <details>
 
-<summary>🛠️ styles/_variables.module.scss</summary>
+<summary>🛠️ /src/styles/_variables.module.scss</summary>
 
-### [🛠️ styles/_variables.module.scss](https://github.com/au-williams/au-williams.github.io/blob/master/src/styles/_variables.module.scss)
+### [🛠️ /src/styles/_variables.module.scss](https://github.com/au-williams/au-williams.github.io/blob/master/src/styles/_variables.module.scss)
 
 This file contains the settings variables for styles across the web app. I prefer building my views so everything is in place before fine-tuning styles by eye so most notable properties will be found here such as base colors, durations, sizes, and more.
 
