@@ -84,7 +84,7 @@ const ContentSection = ({
       .then((res) => res.json())
       .then((result) => dispatch(setAvatarUrl(result.avatar_url)))
       .catch((error) => console.error('Error:', error));
-  });
+  }, []);
 
   // Display the content section on scroll after code window is initialized.
   React.useEffect(() => {
