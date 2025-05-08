@@ -4,6 +4,7 @@ import codeBlockReducer from './code-block-slice';
 import codeLineReducer from './code-line-slice';
 import codeWindowReducer from './code-window-slice';
 import contentSectionReducer from './content-section-slice';
+import hoverTooltipReducer from './hover-tooltip-slice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     codeLine: codeLineReducer,
     codeWindow: codeWindowReducer,
     contentSection: contentSectionReducer,
+    hoverTooltip: hoverTooltipReducer,
   },
 });
 

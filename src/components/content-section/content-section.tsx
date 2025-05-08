@@ -23,6 +23,7 @@ import type { RootState, AppDispatch } from '../../redux';
 import variables from '../../styles/_variables.module.scss';
 import HoverTooltip from '../hover-tooltip/hover-tooltip';
 import { FavIcons } from '../../config/app-config';
+import { v4 as uuid } from 'uuid';
 
 /**
  * The section containing articles and footer buttons. This is animated in when
@@ -189,7 +190,7 @@ const ContentSection = ({
           Hello!{' '}
           <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" />{' '}
           My name is{' '}
-          <HoverTooltip img={FavIcons.LINKEDIN} text={'LinkedIn'}>
+          <HoverTooltip hoverTooltipId={uuid()} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
             <a
               href="https://www.linkedin.com/in/auwilliams"
               onClick={onLinkedInClick}
@@ -207,7 +208,7 @@ const ContentSection = ({
         <img src={CodeImage} alt="banner" draggable="false" />
         <div>
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
-          <HoverTooltip img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
+          <HoverTooltip hoverTooltipId={uuid()} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
             <a
               href="https://resume.austinwilliams.dev/"
               onClick={onResumeClick}
@@ -218,7 +219,7 @@ const ContentSection = ({
             </a>
           </HoverTooltip>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
-          <HoverTooltip img={FavIcons.GMAIL} text={'Send an email'}>
+          <HoverTooltip hoverTooltipId={uuid()} img={FavIcons.GMAIL} text={'Send an email'}>
             <a href="mailto:me@austinwilliams.dev" onClick={onEmailClick}>
               me@austinwilliams.dev
             </a>
