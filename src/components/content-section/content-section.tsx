@@ -22,7 +22,7 @@ import styles from './content-section.module.scss';
 import type { RootState, AppDispatch } from '../../redux';
 import variables from '../../styles/_variables.module.scss';
 import HoverTooltip from '../hover-tooltip/hover-tooltip';
-import { FavIcons } from '../../config/app-config';
+import { FavIcons, GithubConfig } from '../../config/app-config';
 import { v4 as uuid } from 'uuid';
 
 /**
@@ -80,7 +80,7 @@ const ContentSection = ({
 
   // Fetch the avatar from my GitHub profile and set it as this avatar image.
   React.useEffect(() => {
-    fetch('https://api.github.com/users/au-williams')
+    fetch(GithubConfig.GITHUB_USER_URL)
       .then((res) => res.json())
       .then((result) => dispatch(setAvatarUrl(result.avatar_url)))
       .catch((error) => console.error('Error:', error));

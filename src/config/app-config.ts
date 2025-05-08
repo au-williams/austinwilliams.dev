@@ -25,15 +25,9 @@ export const CodeGenerationConfig: {
 };
 
 /**
- * Config values used with Google Analytics.
+ * Config for the favicon URLs displayed as tooltips.
  * @type {object}
  */
-export const GoogleAnalyticsConfig: {
-  GA_MEASUREMENT_ID: string;
-} = {
-  GA_MEASUREMENT_ID: 'G-JFBLY5T1C0', // This key isn't sensitive and isn't required to be secreted per the GA docs.
-};
-
 export const FavIcons: {
   GMAIL: string;
   GOOGLE_DRIVE: string;
@@ -42,4 +36,24 @@ export const FavIcons: {
   GMAIL: 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico',
   GOOGLE_DRIVE: 'https://drive.google.com/favicon.ico',
   LINKEDIN: 'https://www.linkedin.com/favicon.ico',
+};
+
+/**
+ * Config values used with Github.
+ * @type {object}
+ */
+export const GithubConfig: {
+  GITHUB_USER_URL: string;
+} = {
+  GITHUB_USER_URL: 'https://api.github.com/users/au-williams',
+};
+
+/**
+ * Config values used with Google Analytics.
+ * @type {object}
+ */
+export const GoogleAnalyticsConfig: {
+  GA_MEASUREMENT_ID: string;
+} = {
+  GA_MEASUREMENT_ID: 'G-JFBLY5T1C0', // This key isn't sensitive and isn't required to be secreted per the GA docs.
 };
