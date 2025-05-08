@@ -29,7 +29,7 @@ $ npm run deploy
 
 ## Components
 
-<!-- about-button componenent -->
+<!-- about-button component -->
 
 <details>
 
@@ -43,7 +43,7 @@ This component manages the about button. It initializes on a timer, animates its
 
 </details>
 
-<!-- code-block componenent -->
+<!-- code-block component -->
 
 <details>
 
@@ -57,7 +57,7 @@ This component is the final component in the [code-window](#-srccomponentscode-w
 
 </details>
 
-<!-- code-line componenent -->
+<!-- code-line component -->
 
 <details>
 
@@ -71,7 +71,7 @@ This component is the middle component of the [code-window](#-srccomponentscode-
 
 </details>
 
-<!-- code-window componenent -->
+<!-- code-window component -->
 
 <details>
 
@@ -85,7 +85,7 @@ This component is the start of the [code-window](#-srccomponentscode-window) com
 
 </details>
 
-<!-- content-section componenent -->
+<!-- content-section component -->
 
 <details>
 
@@ -93,13 +93,13 @@ This component is the start of the [code-window](#-srccomponentscode-window) com
 
 ### [🧩 /src/components/content-section/](src/components/content-section)
 
-This component manages the content encapsulated by the `<section>` tags. It animates its initializion on page scroll, animates each of its child articles during their separate initializations, and reacts to the clients mouseover events. When mousing over certain elements, such as the emoji images, they will respond with a short animation.  
+This component manages the content encapsulated by the `<section>` tags. It animates its initializion on page scroll, animates each of its child articles during their separate initializations, and reacts to the clients mouseover events. When mousing over certain elements, such as the emoji images, they will respond with a short animation.
 
 🗃️ `Redux state` [/src/redux/content-section-slice.ts](src/redux/content-section-slice.ts)
 
 </details>
 
-<!-- hover-tooltip componenent -->
+<!-- hover-tooltip component -->
 
 <details>
 
