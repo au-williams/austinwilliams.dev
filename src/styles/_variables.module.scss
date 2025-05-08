@@ -28,7 +28,7 @@ $base-translate-amount-fade-initialize: 1em; // How far elements typically move 
 $about-button-arrow-opacity-minimum: 0.5; // How dim the arrow SVG can be during its transition.
 $about-button-arrow-svg-text-color: #d4d4d4; // What color the text and SVG are displayed as.
 $about-button-arrow-transition-distance: 0.2em; // How far the arrow moves downward when its not hovered.
-$about-button-arrow-transition-duration-hover: .2s; // How fast the arrow moves downward to its hovered position.
+$about-button-arrow-transition-duration-hover: 125ms; // How fast the arrow moves downward to its hovered position.
 $about-button-arrow-transition-duration: .75s; // How fast the arrow moves along its configured path distance.
 $about-button-transition-delay-initialize: $base-transition-delay-initialize; // How fast the about button displays its startup animation.
 $about-button-transition-duration-initialize: $base-transition-duration-initialize; // How fast the about button displays its startup animation.
