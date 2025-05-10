@@ -1,9 +1,9 @@
 import { CodeImage, MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji } from '../../assets/images';
 import { cssTimeToMilliseconds } from '../../utilities';
 import { GA4 } from 'react-ga4/types/ga4';
-import { ReactComponent as AvatarIcon } from '../../assets/icons/avatar_icon.svg';
-import { ReactComponent as GitHubIcon } from '../../assets/icons/github_icon.svg';
-import { ReactComponent as ScrollIcon } from '../../assets/icons/scroll_icon.svg';
+import AvatarIcon from '../../assets/icons/avatar_icon.svg?react';
+import GitHubIcon from '../../assets/icons/github_icon.svg?react';
+import ScrollIcon from '../../assets/icons/scroll_icon.svg?react';
 import {
   setAvatarUrl,
   setIsArticle1Visible,
