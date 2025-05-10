@@ -17,5 +17,5 @@
     "strict": true,
     "target": "es5",
   },
-  "include": ["src", "node_modules/@types/vite-env.d.ts"]
+  "include": ["src"]
 }
