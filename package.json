@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "lint": "eslint .",
     "predeploy": "npm run build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.1",

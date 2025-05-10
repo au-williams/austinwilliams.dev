@@ -13,11 +13,11 @@ This project can be started with [npm](https://www.npmjs.com/):
 $ npm run dev
 ```
 
-And be deployed to [GitHub Pages](https://pages.github.com/):
+<!-- And be deployed to [GitHub Pages](https://pages.github.com/):
 
 ```bash
 $ npm run deploy
-```
+``` -->
 
 <!--
   TODO: scss modules   https://github.com/css-modules/css-modules
