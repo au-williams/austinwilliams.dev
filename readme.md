@@ -1,4 +1,4 @@
-# [austinwilliams.dev](https://au-williams.github.io)
+# [austinwilliams.dev](https://austinwilliams.dev/)
 
 My personal web app made with the [React](https://react.dev/) front-end and [Redux](https://redux.js.org/) state manager. It's built using [Vite](https://vite.dev/) and deployed to [GitHub Pages](https://pages.github.com/) — accessible online at [https://austinwilliams.dev/](https://austinwilliams.dev/). 🚀
 

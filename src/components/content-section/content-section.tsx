@@ -238,7 +238,7 @@ const ContentSection = ({
           <ScrollIcon /> Back to top
         </button>
         <a
-          href="https://github.com/au-williams/au-williams.github.io"
+          href="https://github.com/au-williams/austinwilliams.dev"
           onClick={onGitHubClick}
           rel="noopener noreferrer"
           target="_blank"
