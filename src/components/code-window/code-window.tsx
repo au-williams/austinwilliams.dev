@@ -41,8 +41,7 @@ const getRandomBool = ({ probability = 0.5 }): boolean => Math.random() < probab
 const getFormattedNumber = (number: number): string =>
   number < 1000 ? `${number}` : `${(number / 1000).toFixed(1)}k`;
 
-const getRandomNumber = ({ min = 1, max = 1 }): number =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandomNumber = ({ min = 1, max = 1 }): number => Math.floor(Math.random() * (max - min + 1)) + min;
 
 // ---------------- //
 // render functions //
@@ -70,15 +69,12 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
 
   // determine if scope closing tags were created on the last code line
   // (closing tags cannot be used to increase indent or spawn children)
-  const wasValueBlockUsed: boolean =
-    codeLines[0] && Boolean(codeLines[0].findCodeBlockSize(blockTypes.content));
+  const wasValueBlockUsed: boolean = codeLines[0] && Boolean(codeLines[0].findCodeBlockSize(blockTypes.content));
   const wasScopeDecreased: boolean =
     codeLines[1] && codeLines[1].findCodeBlockSize(blockTypes.indent) > lastIndentSize;
 
   const canIncreaseIndent: boolean =
-    lastIndentSize < CodeGenerationConfig.CODE_LINE_MAX_INDENT_SIZE &&
-    !wasValueBlockUsed &&
-    !wasScopeDecreased;
+    lastIndentSize < CodeGenerationConfig.CODE_LINE_MAX_INDENT_SIZE && !wasValueBlockUsed && !wasScopeDecreased;
   const canDecreaseIndent: boolean = lastIndentSize > 1;
   if (canIncreaseIndent) return lastIndentSize + 1;
   if (canDecreaseIndent) return lastIndentSize - 1;
@@ -93,9 +89,7 @@ const CodeWindow = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
-  const [codeSpeed, setCodeSpeed] = useState<number>(
-    CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED,
-  );
+  const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
   const updatedCodeLines = codeLines.slice();
 
   const onCodeLineClick = (key: string, isClicked: boolean) => {
@@ -123,14 +117,12 @@ const CodeWindow = () => {
     }
   };
 
-  const nameTransitionDuration = useSelector(
-    (state: RootState) => state.codeWindow.nameTransitionDuration,
-  );
+  const nameTransitionDuration = useSelector((state: RootState) => state.codeWindow.nameTransitionDuration);
 
   const isHovered = useSelector((state: RootState) => state.codeWindow.isHovered);
-  const onMouseLeave = () => dispatch(setIsCodeWindowHovered(false));
+  const onBlurOrMouseOut = () => dispatch(setIsCodeWindowHovered(false));
 
-  const onMouseOver = () => {
+  const onFocusOrMouseOver = () => {
     if (isInitialized && nameTransitionDuration != styles.codeWindowNameTransitionDurationHover) {
       dispatch(setNameTransitionDuration(styles.codeWindowNameTransitionDurationHover));
     }
@@ -148,11 +140,9 @@ const CodeWindow = () => {
   const onPauseClick = () => setIsCodePaused((x) => !x);
 
   const decreaseCodeSpeed = () =>
-    !isCodePaused &&
-    setCodeSpeed((x) => Math.min(x + 25, CodeGenerationConfig.CODE_GENERATION_MIN_SPEED));
+    !isCodePaused && setCodeSpeed((x) => Math.min(x + 25, CodeGenerationConfig.CODE_GENERATION_MIN_SPEED));
   const increaseCodeSpeed = () =>
-    !isCodePaused &&
-    setCodeSpeed((x) => Math.max(x - 25, CodeGenerationConfig.CODE_GENERATION_MAX_SPEED));
+    !isCodePaused && setCodeSpeed((x) => Math.max(x - 25, CodeGenerationConfig.CODE_GENERATION_MAX_SPEED));
 
   const onResetClick = () => {
     updatedCodeLines
@@ -258,8 +248,7 @@ const CodeWindow = () => {
             );
 
             const parentBlockSize: number =
-              parentCodeLine?.findCodeBlockSize(blockTypes.tagName) ||
-              getRandomNumber({ min: 2, max: 3 });
+              parentCodeLine?.findCodeBlockSize(blockTypes.tagName) || getRandomNumber({ min: 2, max: 3 });
 
             nextCodeLine.codeBlocks.push(
               new CodeBlockModel({ blockType: blockTypes.openAngle }),
@@ -274,8 +263,7 @@ const CodeWindow = () => {
               codeScopeCount === CodeGenerationConfig.CODE_SCOPE_MAX_COUNT - 1;
 
             const useAttributeBlock: boolean = getRandomBool({ probability: 0.8 });
-            const useStringBlock: boolean =
-              useAttributeBlock && getRandomBool({ probability: 0.675 });
+            const useStringBlock: boolean = useAttributeBlock && getRandomBool({ probability: 0.675 });
             const useValueBlock: boolean =
               !isScopeChangeImminent && getRandomBool({ probability: useStringBlock ? 0.25 : 0.5 });
 
@@ -288,8 +276,7 @@ const CodeWindow = () => {
 
             // get the remaining number of block size calculations to execute
             // [1] = reserved space for tag name (used twice on value blocks)
-            let remainingCalculations: number =
-              1 + +useAttributeBlock + +useStringBlock + +useValueBlock * 2;
+            let remainingCalculations: number = 1 + +useAttributeBlock + +useStringBlock + +useValueBlock * 2;
 
             // get the next size a generated code block can consume on the code line
             const getBlockSize = (codeBlockMaxSize = CodeGenerationConfig.CODE_BLOCK_MAX_SIZE) => {
@@ -301,14 +288,11 @@ const CodeWindow = () => {
               // single, single, single ... all this line space was wasted!
 
               if (minimumSize === 1) {
-                const nextBlockTypes = new Set(
-                  nextCodeLine.codeBlocks.map((x: CodeBlockModel) => x.blockType),
-                );
+                const nextBlockTypes = new Set(nextCodeLine.codeBlocks.map((x: CodeBlockModel) => x.blockType));
 
                 // reduce the likelihood of generating code lines that are a single block of single size
                 // [<= 3] includes open and close angle block types that are implicitly added to the tag
-                const nextLineIsOneTag: boolean =
-                  nextBlockTypes.size <= 3 && remainingCalculations <= 1;
+                const nextLineIsOneTag: boolean = nextBlockTypes.size <= 3 && remainingCalculations <= 1;
                 if (nextLineIsOneTag) minimumSize += getRandomBit({ probability: 0.8 });
 
                 // restrict code lines to one single-size block because too many looks bad
@@ -340,8 +324,7 @@ const CodeWindow = () => {
               nextCodeLine.codeBlocks.push(
                 new CodeBlockModel({ blockType: blockTypes.attribute, blockSize: getBlockSize() }),
               );
-            useStringBlock &&
-              nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.operator }));
+            useStringBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.operator }));
             useStringBlock &&
               nextCodeLine.codeBlocks.push(
                 new CodeBlockModel({ blockType: blockTypes.string, blockSize: getBlockSize() }),
@@ -351,26 +334,20 @@ const CodeWindow = () => {
               nextCodeLine.codeBlocks.push(
                 new CodeBlockModel({ blockType: blockTypes.content, blockSize: getBlockSize() }),
               );
-            useValueBlock &&
-              nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.openAngle }));
+            useValueBlock && nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.openAngle }));
             useValueBlock &&
               nextCodeLine.codeBlocks.push(
                 new CodeBlockModel({ blockType: blockTypes.tagName, blockSize: nextTagNameSize }),
               );
             useValueBlock &&
-              nextCodeLine.codeBlocks.push(
-                new CodeBlockModel({ blockType: blockTypes.closeAngle }),
-              );
+              nextCodeLine.codeBlocks.push(new CodeBlockModel({ blockType: blockTypes.closeAngle }));
           }
 
           break;
         }
       }
 
-      updatedCodeLines.length = Math.min(
-        codeLines.length,
-        CodeGenerationConfig.CODE_LINE_MAX_SIBLING_COUNT - 1,
-      );
+      updatedCodeLines.length = Math.min(codeLines.length, CodeGenerationConfig.CODE_LINE_MAX_SIBLING_COUNT - 1);
       updatedCodeLines.unshift(nextCodeLine);
       setLineCount((number) => number + 1);
     };
@@ -397,10 +374,7 @@ const CodeWindow = () => {
           } else {
             isNextDirectionX = getRandomBool({ probability: 0.5 });
 
-            if (
-              (isNextDirectionX && stackDirection === 'x') ||
-              (!isNextDirectionX && stackDirection !== 'x')
-            ) {
+            if ((isNextDirectionX && stackDirection === 'x') || (!isNextDirectionX && stackDirection !== 'x')) {
               nextStackCounter = stackCounter + 1;
             } else {
               nextStackCounter = 1;
@@ -423,9 +397,11 @@ const CodeWindow = () => {
     <div
       className={windowClasses}
       onAnimationEnd={onWindowAnimationEnd}
-      onMouseOver={onMouseOver}
-      onFocus={onMouseOver}
-      onMouseLeave={onMouseLeave}
+      onBlur={onBlurOrMouseOut}
+      onFocus={onFocusOrMouseOver}
+      onMouseOut={onBlurOrMouseOut}
+      onMouseOver={onFocusOrMouseOver}
+      tabIndex={0}
     >
       <div className={styles.title}>
         <div onClick={onMouseClick} />
@@ -433,8 +409,8 @@ const CodeWindow = () => {
         <div onClick={onMouseClick} />
         <div onClick={onMouseClick} />
       </div>
-      <div className={styles.body}>
-        <div className={styles.code}>
+      <div className={styles.body} tabIndex={-1}>
+        <div className={styles.code} tabIndex={-1}>
           {codeLines.map(({ codeBlocks, key, isClicked }, index) => (
             <CodeLine
               key={key}
@@ -452,24 +428,24 @@ const CodeWindow = () => {
         </div>
       </div>
       <div className={footerClasses}>
-        <button onClick={onPinClick} type="button">
+        <button onClick={onPinClick} tabIndex={-1} type="button">
           <div className={styles.tooltip}>Pin</div>
           {isFooterPinned ? <PinOffIcon /> : <PinOnIcon />}
         </button>
-        <button onClick={decreaseCodeSpeed} type="button">
+        <button onClick={decreaseCodeSpeed} tabIndex={-1} type="button">
           <div className={styles.tooltip}>Slow down</div>
           <RewindIcon />
         </button>
-        <button onClick={onPauseClick} type="button">
+        <button onClick={onPauseClick} tabIndex={-1} type="button">
           <div className={styles.tooltip}>{isCodePaused ? 'Play' : 'Pause'}</div>
           {isCodePaused ? <PlayIcon /> : <PauseIcon />}
         </button>
-        <button onClick={increaseCodeSpeed} type="button">
+        <button onClick={increaseCodeSpeed} tabIndex={-1} type="button">
           <div className={styles.tooltip}>Speed up</div>
           <FastForwardIcon />
         </button>
         <span>{isCodePaused ? 'Paused' : `${codeSpeed}ms`}</span>
-        <button onClick={onResetClick} type="button">
+        <button onClick={onResetClick} tabIndex={-1} type="button">
           <div className={styles.tooltip}>Reset</div>
           <EraserIcon />
         </button>

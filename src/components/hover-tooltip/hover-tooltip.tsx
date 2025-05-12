@@ -25,8 +25,10 @@ const HoverTooltip = ({
   return (
     <div
       className={styles.wrapper}
-      onMouseOver={() => dispatch(setIsHovering(hoverTooltipId, true))}
+      onBlur={() => dispatch(setIsHovering(hoverTooltipId, false))}
+      onFocus={() => dispatch(setIsHovering(hoverTooltipId, true))}
       onMouseOut={() => dispatch(setIsHovering(hoverTooltipId, false))}
+      onMouseOver={() => dispatch(setIsHovering(hoverTooltipId, true))}
     >
       <div className={tooltipClasses}>
         <img src={img} alt={`${text} favicon`} />
