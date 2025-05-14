@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 import resizeableBlockTypes from './resizeable-block-types';
 
 /**
@@ -23,7 +23,7 @@ export default class CodeBlockModel {
     this.maximumSize = blockSize;
     this.isSizeable = resizeableBlockTypes.includes(blockType);
     this.isVisible = false;
-    this.key = uuid();
+    this.key = nanoid();
   }
 
   /**

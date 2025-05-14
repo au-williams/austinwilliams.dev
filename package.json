@@ -13,12 +13,12 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.1",
     "classnames": "^2.5.1",
+    "nanoid": "^5.1.5",
     "react": "^19.1.0",
     "react-app-polyfill": "^3.0.0",
     "react-dom": "^19.1.0",
     "react-ga4": "^2.1.0",
-    "react-redux": "^9.2.0",
-    "uuid": "^11.1.0"
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

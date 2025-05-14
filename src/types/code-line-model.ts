@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 import CodeBlockModel from './code-block-model';
 
 /**
@@ -17,7 +17,7 @@ export default class CodeLineModel {
   constructor() {
     this.codeBlocks = [];
     this.isClicked = false;
-    this.key = uuid();
+    this.key = nanoid();
   }
 
   /**
