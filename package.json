@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite",
     "lint": "eslint ./src && stylelint './src/**/*.{css,scss}'",
     "preview": "vite preview",
     "start": "vite"
