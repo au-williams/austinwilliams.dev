@@ -1,9 +1,9 @@
-import { setIsHovered } from '../../redux/code-line-slice';
-import { type RootState, type AppDispatch } from '../../redux';
+import { setIsHovered } from '@/redux/code-line-slice';
+import { type RootState, type AppDispatch } from '@/redux';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
-import CodeBlock from '../code-block/code-block';
-import CodeBlockModel from '../../types/code-block-model';
+import CodeBlock from '@/components/code-block/code-block';
+import CodeBlockModel from '@/types/code-block-model';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './code-line.module.scss';

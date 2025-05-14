@@ -12,10 +12,13 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "es5",
   },
-  "include": ["src"]
+  "include": ["src"],
 }

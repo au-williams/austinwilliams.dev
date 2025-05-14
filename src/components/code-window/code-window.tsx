@@ -1,26 +1,26 @@
-import { CodeGenerationConfig } from '../../config/app-config';
-import { PersonEmoji } from '../../assets/images';
-import EraserIcon from '../../assets/icons/eraser_icon.svg?react';
-import FastForwardIcon from '../../assets/icons/fast_forward_icon.svg?react';
-import PauseIcon from '../../assets/icons/pause_icon.svg?react';
-import PinOffIcon from '../../assets/icons/pin_off_icon.svg?react';
-import PinOnIcon from '../../assets/icons/pin_on_icon.svg?react';
-import PlayIcon from '../../assets/icons/play_icon.svg?react';
-import RewindIcon from '../../assets/icons/rewind_icon.svg?react';
-import { type RootState, type AppDispatch } from '../../redux';
+import { CodeGenerationConfig } from '@/config/app-config';
+import { PersonEmoji } from '@/assets/images';
+import EraserIcon from '@/assets/icons/eraser_icon.svg?react';
+import FastForwardIcon from '@/assets/icons/fast_forward_icon.svg?react';
+import PauseIcon from '@/assets/icons/pause_icon.svg?react';
+import PinOffIcon from '@/assets/icons/pin_off_icon.svg?react';
+import PinOnIcon from '@/assets/icons/pin_on_icon.svg?react';
+import PlayIcon from '@/assets/icons/play_icon.svg?react';
+import RewindIcon from '@/assets/icons/rewind_icon.svg?react';
+import { type RootState, type AppDispatch } from '@/redux';
 import { useSelector, useDispatch } from 'react-redux';
 import blockTypes from '../code-block/code-block.module.scss';
 import classNames from 'classnames';
 import CodeLine from '../code-line/code-line';
-import CodeLineModel from '../../types/code-line-model';
-import CodeBlockModel from '../../types/code-block-model';
+import CodeLineModel from '@/types/code-line-model';
+import CodeBlockModel from '@/types/code-block-model';
 import React, { useEffect, useState } from 'react';
 import styles from './code-window.module.scss';
 import {
   setIsCodeWindowHovered,
   setIsCodeWindowInitialized,
   setNameTransitionDuration,
-} from '../../redux/code-window-slice';
+} from '@/redux/code-window-slice';
 
 /**
  * The CodeWindow component renders CodeLineModel objects, which

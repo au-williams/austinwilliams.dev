@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import variables from '../styles/_variables.module.scss';
+import variables from '@/styles/_variables.module.scss';
 
 interface AboutButtonState {
   arrowDuration: string;

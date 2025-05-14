@@ -1,10 +1,10 @@
-import { setIsHovering } from '../../redux/hover-tooltip-slice';
+import { setIsHovering } from '@/redux/hover-tooltip-slice';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './hover-tooltip.module.scss';
-import type { RootState, AppDispatch } from '../../redux';
+import type { RootState, AppDispatch } from '@/redux';
 
 const HoverTooltip = ({
   hoverTooltipId,

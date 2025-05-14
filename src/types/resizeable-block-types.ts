@@ -1,4 +1,4 @@
-import blockTypes from '../components/code-block/code-block.module.scss';
+import blockTypes from '@/components/code-block/code-block.module.scss';
 
 /**
  * The types of blocks that can be resized in the code art window. Adding values here will

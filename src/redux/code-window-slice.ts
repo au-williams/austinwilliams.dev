@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import styles from '../components/code-window/code-window.module.scss';
+import styles from '@/components/code-window/code-window.module.scss';
 
 interface CodeWindowState {
   isHovered: boolean;

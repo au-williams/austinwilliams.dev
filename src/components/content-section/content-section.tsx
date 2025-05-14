@@ -1,9 +1,9 @@
-import { CodeImage, MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji } from '../../assets/images';
-import { cssTimeToMilliseconds } from '../../utilities';
+import { CodeImage, MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji } from '@/assets/images';
+import { cssTimeToMilliseconds } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
-import AvatarIcon from '../../assets/icons/avatar_icon.svg?react';
-import GitHubIcon from '../../assets/icons/github_icon.svg?react';
-import ScrollIcon from '../../assets/icons/scroll_icon.svg?react';
+import AvatarIcon from '@/assets/icons/avatar_icon.svg?react';
+import GitHubIcon from '@/assets/icons/github_icon.svg?react';
+import ScrollIcon from '@/assets/icons/scroll_icon.svg?react';
 import {
   setAvatarUrl,
   setIsArticle1Visible,
@@ -13,16 +13,16 @@ import {
   setIsMailboxAnimatedOpened,
   setIsMailboxImageOpened,
   setIsSectionVisible,
-} from '../../redux/content-section-slice';
+} from '@/redux/content-section-slice';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './content-section.module.scss';
-import type { RootState, AppDispatch } from '../../redux';
-import variables from '../../styles/_variables.module.scss';
+import type { RootState, AppDispatch } from '@/redux';
+import variables from '@/styles/_variables.module.scss';
 import HoverTooltip from '../hover-tooltip/hover-tooltip';
-import { FavIcons, GithubConfig } from '../../config/app-config';
+import { FavIcons, GithubConfig } from '@/config/app-config';
 import { v4 as uuid } from 'uuid';
 
 /**
