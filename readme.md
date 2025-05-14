@@ -1,6 +1,6 @@
 # [austinwilliams.dev](https://austinwilliams.dev/)
 
-My personal web app made with the [React](https://react.dev/) front-end and [Redux](https://redux.js.org/) state manager. It's built using [Vite](https://vite.dev/) and deployed to [GitHub Pages](https://pages.github.com/) — accessible online at [https://austinwilliams.dev/](https://austinwilliams.dev/). ⚡🚀
+My personal web app made with the [React](https://react.dev/) front-end and [Redux](https://redux.js.org/) state manager. It's built using [Vite](https://vite.dev/) and deployed to [GitHub Pages](https://pages.github.com/) via [GitHub Actions](https://github.com/au-williams/austinwilliams.dev/actions) CI/CD and [Cloudflare](https://www.cloudflare.com/) — accessible online at [https://austinwilliams.dev/](https://austinwilliams.dev/). ⚡🚀
 
 <img style="height: 75px" src="src/assets/images/readme_logos.png"/>
 
@@ -10,7 +10,7 @@ My personal web app made with the [React](https://react.dev/) front-end and [Red
 This project can be started with [npm](https://www.npmjs.com/):
 
 ```bash
-$ npm run dev
+$ npm start
 ```
 
 <!-- And be deployed to [GitHub Pages](https://pages.github.com/):
