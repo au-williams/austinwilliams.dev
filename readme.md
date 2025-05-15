@@ -5,7 +5,7 @@ My personal web app made with the [React](https://react.dev/) front-end and [Red
 <img style="height: 75px" src="src/assets/images/readme_logos.png"/>
 
 > [!NOTE]
-> This web app is accessible at the [`.net`](https://austinwilliams.net) and [`.org`](https://austinwilliams.org) top-level domains too! They forward to the [`.dev`](https://austinwilliams.dev) domain. But the `.com` domain is owned by an advertising agency which keeps it out of my reach for this project. 🌠
+> This web app is accessible at the [`.net`](https://austinwilliams.net) and [`.org`](https://austinwilliams.org) top-level domains too! They redirect to the [`.dev`](https://austinwilliams.dev) domain. But the `.com` domain is owned by an advertising agency which keeps it out of my reach for this project. 🌠
 
 This project can be started with [npm](https://www.npmjs.com/):
 
@@ -79,7 +79,7 @@ This component is the middle component of the [code-window](#-srccomponentscode-
 
 ### [🧩 /src/components/code-window/](src/components/code-window)
 
-This component is the start of the [code-window](#-srccomponentscode-window) component tree. It's responsible for updating updatable [code-block](#-srccomponentscode-block) components encapsulated by [code-line](#-srccomponentscode-line) components, or generating a new code-line component that is based on the previous code-line contents to adhere to the constraints defined in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts).
+This component is the start of the [code-window](#-srccomponentscode-window) component tree. It's responsible for updating updatable [code-block](#-srccomponentscode-block) components encapsulated by [code-line](#-srccomponentscode-line) components, or generating a new code-line component that is based on the previous code-line contents to adhere to the constraints defined in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts). 🛠️
 
 🗃️ `Redux state` [/src/redux/code-window-slice.ts](src/redux/code-window-slice.ts)
 
@@ -110,6 +110,18 @@ This component manages the content encapsulated by the `<section>` tags. It anim
 This component manages the tooltip that displays as a pop-up when hovering above text content. It appears on the mouseover event and disappears on the mouseout event. Tooltip content includes an image and some text which is typically used to display the destination of an outgoing anchor tag.
 
 🗃️ `Redux state` [/src/redux/hover-tooltip-slice.ts](src/redux/hover-tooltip-slice.ts)
+
+</details>
+
+<!-- page-redirect component -->
+
+<details>
+
+<summary>🧩 /src/components/page-redirect/</summary>
+
+### [🧩 /src/components/page-redirect/](src/components/page-redirect)
+
+This component manages redirecting the page using the React Router library. It's meant to allow analytics before redirect, and stub out future enhancements by displaying the URL you are being redirected to with a cancellation timer. Redirected routes are configurable in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts). 🛠️
 
 </details>
 

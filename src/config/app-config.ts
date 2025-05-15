@@ -24,6 +24,12 @@ export const CodeGenerationConfig: {
   CODE_WINDOW_SHAKE_MAX: 2, // How many times the code window can shake concurrently in the same direction.
 };
 
+export const ExternalLinks = {
+  EMAIL: 'me@austinwilliams.dev',
+  LINKEDIN: 'https://www.linkedin.com/in/auwilliams/',
+  RESUME: 'https://resume.austinwilliams.dev/',
+};
+
 /**
  * Config for the favicon URLs displayed as tooltips.
  * @type {object}
@@ -57,3 +63,15 @@ export const GoogleAnalyticsConfig: {
 } = {
   GA_MEASUREMENT_ID: 'G-JFBLY5T1C0', // This key isn't sensitive and isn't required to be secreted per the GA docs.
 };
+
+/**
+ * Config values for the React Router. Key is the route name. Value is the route destination.
+ * @type {object}
+ */
+export const RedirectRoutes: {
+  "/linkedin": string;
+  "/resume": string;
+} = {
+  "/linkedin": ExternalLinks.LINKEDIN,
+  "/resume": ExternalLinks.RESUME,
+}
