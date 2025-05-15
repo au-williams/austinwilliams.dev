@@ -24,6 +24,12 @@ export const CodeGenerationConfig: {
   CODE_WINDOW_SHAKE_MAX: 2, // How many times the code window can shake concurrently in the same direction.
 };
 
+export const ExternalLinks = {
+  EMAIL: 'me@austinwilliams.dev',
+  LINKEDIN: 'https://www.linkedin.com/in/auwilliams/',
+  RESUME: 'https://resume.austinwilliams.dev/',
+};
+
 /**
  * Config for the favicon URLs displayed as tooltips.
  * @type {object}
