@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router';
 
 /**
  * The redirect component handles redirecting window locations.
+ * TODO: Google analytics!
  * @returns
  */
 const RouteRedirect = ({ href }: { href: string }) => {
   const navigate = useNavigate();
-  // eslint-disable-next-line no-console
-  console.log(href);
 
   React.useEffect(() => {
     window.location.href = href;
