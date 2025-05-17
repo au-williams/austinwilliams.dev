@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { HashRouter, Routes, Route } from 'react-router';
 import { Provider } from 'react-redux';
 import { RedirectRoutes } from '@/config/app-config';
 import { store } from './redux';
@@ -21,11 +21,11 @@ const mapRedirectRoute = (key: string): React.ReactElement =>
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<App />} />
         {Object.keys(RedirectRoutes).map(mapRedirectRoute)}
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   </Provider>
 );
