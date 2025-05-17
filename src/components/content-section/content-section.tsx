@@ -192,7 +192,7 @@ const ContentSection = ({
           My name is{' '}
           <HoverTooltip hoverTooltipId={nanoid()} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
             <a
-              href="https://austinwilliams.dev/linkedin/"
+              href="https://austinwilliams.dev/#/linkedin/"
               onClick={onLinkedInClick}
               rel="noopener noreferrer"
               target="_blank"
@@ -210,7 +210,7 @@ const ContentSection = ({
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
           <HoverTooltip hoverTooltipId={nanoid()} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
             <a
-              href="https://austinwilliams.dev/resume/"
+              href="https://austinwilliams.dev/#/resume/"
               onClick={onResumeClick}
               rel="noopener noreferrer"
               target="_blank"
