@@ -123,6 +123,8 @@ This component manages the tooltip that displays as a pop-up when hovering above
 
 This component manages redirecting the page using the [React Router](https://reactrouter.com/) library. It's meant to allow analytics before redirect, and stub out future enhancements by displaying the URL you are being redirected to with a cancellation timer. This was not MVP so it can be done later! 🚧
 
+Managed in ReactRoutes
+
 </details>
 
 > [!IMPORTANT]
