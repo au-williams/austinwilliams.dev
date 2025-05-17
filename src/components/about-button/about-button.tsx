@@ -20,7 +20,7 @@ const AboutButton = ({
   sectionRef,
 }: {
   reactGA: GA4;
-  sectionRef: React.MutableRefObject<HTMLDivElement | null>;
+  sectionRef: React.RefObject<HTMLDivElement | null>;
 }): React.JSX.Element => {
   // Load the state from Redux.
   const dispatch = useDispatch<AppDispatch>();

@@ -5,7 +5,7 @@ My personal web app made with the [React](https://react.dev/) front-end and [Red
 <img style="height: 75px" src="src/assets/images/readme_logos.png"/>
 
 > [!NOTE]
-> This web app is accessible at the [`.net`](https://austinwilliams.net) and [`.org`](https://austinwilliams.org) top-level domains too! They forward to the [`.dev`](https://austinwilliams.dev) domain. But the `.com` domain is owned by an advertising agency which keeps it out of my reach for this project. 🌠
+> This web app is accessible at the [`.net`](https://austinwilliams.net) and [`.org`](https://austinwilliams.org) top-level domains too! They redirect to the [`.dev`](https://austinwilliams.dev) domain. But the `.com` domain is owned by an advertising agency which keeps it out of my reach for this project. 🌠
 
 This project can be started with [npm](https://www.npmjs.com/):
 

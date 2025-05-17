@@ -5,7 +5,7 @@ import { store } from './redux';
 import App from './app/app';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import RouteRedirect from './components/route-redirect/route-redirect';
+import PageRedirect from './components/page-redirect/page-redirect';
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import './index.scss';
@@ -16,8 +16,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/linkedin" element={<RouteRedirect href={ExternalLinks.LINKEDIN} />} />
-        <Route path="/resume" element={<RouteRedirect href={ExternalLinks.RESUME} />} />
+        <Route path="/linkedin" element={<PageRedirect href={ExternalLinks.LINKEDIN} />} />
+        <Route path="/resume" element={<PageRedirect href={ExternalLinks.RESUME} />} />
       </Routes>
     </BrowserRouter>
   </Provider>,

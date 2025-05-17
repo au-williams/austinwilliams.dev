@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
  * TODO: Google analytics!
  * @returns
  */
-const RouteRedirect = ({ href }: { href: string }) => {
+const PageRedirect = ({ href }: { href: string }) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -17,8 +17,8 @@ const RouteRedirect = ({ href }: { href: string }) => {
   return null;
 };
 
-RouteRedirect.propTypes = {
+PageRedirect.propTypes = {
   href: PropTypes.string.isRequired,
 };
 
-export default RouteRedirect;
+export default PageRedirect;
