@@ -121,7 +121,7 @@ This component manages the tooltip that displays as a pop-up when hovering above
 
 ### [🧩 /src/components/page-redirect/](src/components/page-redirect)
 
-This component manages redirecting the page using the React Router library. It's meant to allow analytics before redirect, and stub out future enhancements by displaying the URL you are being redirected to with a cancellation timer. Redirected routes are configurable in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts). 🛠️
+This component manages redirecting the page using the React Router library. It's meant to allow analytics before redirect, and stub out future enhancements, such as displaying the URL you are redirecting to with a cancellation timer. Redirected routes are configurable in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts). 🛠️
 
 </details>
 
