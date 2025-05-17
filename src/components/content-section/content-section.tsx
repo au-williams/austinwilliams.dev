@@ -22,7 +22,7 @@ import styles from './content-section.module.scss';
 import type { RootState, AppDispatch } from '@/redux';
 import variables from '@/styles/_variables.module.scss';
 import HoverTooltip from '../hover-tooltip/hover-tooltip';
-import { FavIcons, GithubConfig } from '@/config/app-config';
+import { ContactEmailAddress, FavIcons, GithubConfig } from '@/config/app-config';
 import { nanoid } from 'nanoid';
 
 /**
@@ -192,7 +192,7 @@ const ContentSection = ({
           My name is{' '}
           <HoverTooltip hoverTooltipId={nanoid()} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
             <a
-              href="https://www.linkedin.com/in/auwilliams"
+              href="https://austinwilliams.dev/linkedin/"
               onClick={onLinkedInClick}
               rel="noopener noreferrer"
               target="_blank"
@@ -210,7 +210,7 @@ const ContentSection = ({
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
           <HoverTooltip hoverTooltipId={nanoid()} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
             <a
-              href="https://resume.austinwilliams.dev/"
+              href="https://austinwilliams.dev/resume/"
               onClick={onResumeClick}
               rel="noopener noreferrer"
               target="_blank"
@@ -220,8 +220,8 @@ const ContentSection = ({
           </HoverTooltip>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
           <HoverTooltip hoverTooltipId={nanoid()} img={FavIcons.GMAIL} text={'Send an email'}>
-            <a href="mailto:me@austinwilliams.dev" onClick={onEmailClick}>
-              me@austinwilliams.dev
+            <a href={`mailto:${ContactEmailAddress}`} onClick={onEmailClick}>
+              {ContactEmailAddress}
             </a>
           </HoverTooltip>
           .{' '}

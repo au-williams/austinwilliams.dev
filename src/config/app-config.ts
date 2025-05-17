@@ -24,11 +24,11 @@ export const CodeGenerationConfig: {
   CODE_WINDOW_SHAKE_MAX: 2, // How many times the code window can shake concurrently in the same direction.
 };
 
-export const ExternalLinks = {
-  EMAIL: 'me@austinwilliams.dev',
-  LINKEDIN: 'https://www.linkedin.com/in/auwilliams/',
-  RESUME: 'https://resume.austinwilliams.dev/',
-};
+/**
+ * The email address used for contacting me.
+ * @type {string}
+ */
+export const ContactEmailAddress: string = "me@austinwilliams.dev";
 
 /**
  * Config for the favicon URLs displayed as tooltips.
@@ -72,6 +72,6 @@ export const RedirectRoutes: {
   "/linkedin": string;
   "/resume": string;
 } = {
-  "/linkedin": ExternalLinks.LINKEDIN,
-  "/resume": ExternalLinks.RESUME,
+  "/linkedin": "https://www.linkedin.com/in/auwilliams",
+  "/resume": "https://drive.google.com/file/d/1mKUPaKy712dURDLOFG7bvaAWEomKIHwC/view"
 }
