@@ -63,3 +63,15 @@ export const GoogleAnalyticsConfig: {
 } = {
   GA_MEASUREMENT_ID: 'G-JFBLY5T1C0', // This key isn't sensitive and isn't required to be secreted per the GA docs.
 };
+
+/**
+ * Config values for the React Router. Key is the route name. Value is the route destination.
+ * @type {object}
+ */
+export const RedirectRoutes: {
+  "/linkedin": string;
+  "/resume": string;
+} = {
+  "/linkedin": ExternalLinks.LINKEDIN,
+  "/resume": ExternalLinks.RESUME,
+}
