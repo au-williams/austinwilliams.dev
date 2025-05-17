@@ -79,7 +79,7 @@ This component is the middle component of the [code-window](#-srccomponentscode-
 
 ### [🧩 /src/components/code-window/](src/components/code-window)
 
-This component is the start of the [code-window](#-srccomponentscode-window) component tree. It's responsible for updating updatable [code-block](#-srccomponentscode-block) components encapsulated by [code-line](#-srccomponentscode-line) components, or generating a new code-line component that is based on the previous code-line contents to adhere to the constraints defined in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts).
+This component is the start of the [code-window](#-srccomponentscode-window) component tree. It's responsible for updating updatable [code-block](#-srccomponentscode-block) components encapsulated by [code-line](#-srccomponentscode-line) components, or generating a new code-line component that is based on the previous code-line contents to adhere to the constraints defined in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts). 🛠️
 
 🗃️ `Redux state` [/src/redux/code-window-slice.ts](src/redux/code-window-slice.ts)
 
@@ -121,7 +121,7 @@ This component manages the tooltip that displays as a pop-up when hovering above
 
 ### [🧩 /src/components/page-redirect/](src/components/page-redirect)
 
-This component manages redirecting the page using the React Router library. It's meant to allow analytics before redirect, and stub out future enhancements by displaying the URL you are being redirected to with a cancellation timer. Redirected routes are configurable in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts).
+This component manages redirecting the page using the React Router library. It's meant to allow analytics before redirect, and stub out future enhancements by displaying the URL you are being redirected to with a cancellation timer. Redirected routes are configurable in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts). 🛠️
 
 </details>
 
