@@ -23,7 +23,6 @@ import type { RootState, AppDispatch } from '@/redux';
 import variables from '@/styles/_variables.module.scss';
 import HoverTooltip from '../hover-tooltip/hover-tooltip';
 import { ContactEmailAddress, FavIcons, GithubConfig } from '@/config/app-config';
-import { nanoid } from 'nanoid';
 
 /**
  * The section containing articles and footer buttons. This is animated in when
@@ -190,7 +189,7 @@ const ContentSection = ({
           Hello!{' '}
           <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" />{' '}
           My name is{' '}
-          <HoverTooltip hoverTooltipId={nanoid()} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
+          <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
             <a
               href="https://austinwilliams.dev/#/linkedin/"
               onClick={onLinkedInClick}
@@ -208,7 +207,7 @@ const ContentSection = ({
         <img src={CodeImage} alt="banner" draggable="false" />
         <div>
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
-          <HoverTooltip hoverTooltipId={nanoid()} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
+          <HoverTooltip hoverTooltipId={'Google Drive'} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
             <a
               href="https://austinwilliams.dev/#/resume/"
               onClick={onResumeClick}
@@ -219,7 +218,7 @@ const ContentSection = ({
             </a>
           </HoverTooltip>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
-          <HoverTooltip hoverTooltipId={nanoid()} img={FavIcons.GMAIL} text={'Send an email'}>
+          <HoverTooltip hoverTooltipId={'Send an email'} img={FavIcons.GMAIL} text={'Send an email'}>
             <a href={`mailto:${ContactEmailAddress}`} onClick={onEmailClick}>
               {ContactEmailAddress}
             </a>
