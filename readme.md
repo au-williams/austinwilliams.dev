@@ -113,6 +113,20 @@ This component manages the tooltip that displays as a pop-up when hovering above
 
 </details>
 
+<!-- page-redirect component -->
+
+<details>
+
+<summary>🧩 /src/components/page-redirect/</summary>
+
+### [🧩 /src/components/page-redirect/](src/components/page-redirect)
+
+This component manages redirecting the page using the React Router library. It's meant to allow analytics before redirecting and support later enhancements by displaying the URL you are being redirected to with a cancellation timer.
+
+🗃️ `Redux state` None
+
+</details>
+
 > [!IMPORTANT]
 > The [Redux](https://redux.js.org/) state for these components is found in [/src/redux/](src/redux). Expand the component details above to display their associated file names, if any exist, which are created using [Redux Toolkit](https://redux-toolkit.js.org/). 🗃️
 
