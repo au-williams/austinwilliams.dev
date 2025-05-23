@@ -3,15 +3,14 @@
 
 .fixed-wrapper {
   align-items: center;
-  background: rgb(0 0 0 / 75%); // variables.$body-color-background;
+  background: rgb(0 0 0 / 75%);
   box-sizing: border-box;
   display: flex;
-  font-family: variables.$body-font-family;
   height: 100%;
   justify-content: center;
   padding: 0 2em; // TODO: body variable
   position: fixed;
-  transition: opacity 200ms;
+  transition: opacity variables.$redirect-popup-transition-duration-fade-in;
   width: 100%;
   z-index: 100000;
 
@@ -31,11 +30,33 @@
     border-radius: variables.$base-border-radius;
     border-style: solid;
     border-width: 0 variables.$code-window-border-width variables.$code-window-border-width variables.$code-window-border-width;
-    box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
+    box-shadow: variables.$base-box-shadow;
     box-sizing: border-box;
-    position: relative;
-    transition: opacity 200ms, transform 200ms;
+    transition: opacity variables.$redirect-popup-transition-duration-fade-in, transform variables.$redirect-popup-transition-duration-fade-in;
     width: 42.5em;
+
+    button {
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      border-radius: variables.$base-border-radius;
+      border: none;
+      font-family: variables.$body-font-family;
+      font-size: 1em;
+      padding: 0.25em 0.5em;
+      user-select: none;
+      box-shadow: variables.$base-box-shadow;
+      color: variables.$body-color-text;
+      cursor: pointer;
+    }
+
+    img, svg {
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      height: 1.2em;
+      pointer-events: none;
+      user-select: none;
+      vertical-align: text-bottom;
+    }
 
     &.visible {
       opacity: 1;
@@ -53,35 +74,22 @@
       align-items: center;
       background-color: #3c3c3c;
       display: flex;
-      flex-shrink: 0;
       height: variables.$code-window-title-bar-height;
       padding: 0 variables.$code-window-border-width;
       z-index: 1;
 
-      // Title bar window icon
-      > div:nth-child(1) {
-        height: 0.5em;
-        width: 12.5em;
-        border-radius: 0.125em;
-        background: linear-gradient(90deg, #282828 25%, #444 50%, #282828 75%);
-        background-size: 200% 100%;
-        animation: scrollGradient 2s linear infinite;
-        margin: 0 variables.$code-window-border-width;
-        box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
+      div {
+        box-shadow: variables.$base-box-shadow;
       }
 
-      @keyframes scrollGradient {
-        0% {
-          background-position: 0% 0%;
-        }
-
-        50% {
-          background-position: -100% 0%;
-        }
-
-        100% {
-          background-position: -200% 0%;
-        }
+      // Title bar window icon
+      > div:nth-child(1) {
+        animation: scroll-gradient 2s linear infinite;
+        background: linear-gradient(90deg, #282828 25%, #444 50%, #282828 75%);
+        background-size: 200% 100%;
+        border-radius: 0.125em;
+        height: 0.5em;
+        width: 12.5em;
       }
 
       // Title bar close button
@@ -90,10 +98,8 @@
         border-radius: 100%;
         cursor: pointer;
         height: variables.$code-window-title-bar-button-size;
-        margin: 0 variables.$code-window-border-width;
         margin-left: auto;
         width: variables.$code-window-title-bar-button-size;
-        box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
 
         &:hover {
           $hover-color: color.adjust(#de3249, $lightness: variables.$code-window-title-bar-button-hover-brightness);
@@ -105,34 +111,43 @@
     }
 
     .window-body {
-      box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      height: inherit;
-      margin: 1.675em;
       gap: 0.75em;
-      position: relative;
+      margin: 1.675em;
+
+      span {
+        background: #131313;
+        border-radius: .15em;
+        display: inline-block;
+        padding: 0.1em .3em;
+        text-decoration: none;
+      }
 
       .window-body-header {
         align-items: center;
         display: flex;
         flex-direction: row;
+        font-size: 1.25em;
+        font-weight: bold;
+        gap: 0.5em;
       }
 
       .window-body-row {
-        align-items: center;
-        display: flex;
-        flex-wrap: wrap;
+        // "Thanks for visiting! ..."
+        &:nth-child(4) {
+          gap: 0.25em;
+          margin-top: 1em;
+        }
 
         a {
           background: #131313;
-          border-radius: .15em;
-          box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
-          color: variables.$body-color-link;
+          border-radius: variables.$base-border-radius;
+          box-shadow: variables.$base-box-shadow;
+          color: variables.$body-color-link; // TODO: visited color!
           display: inline-block;
-          padding: 0.1em .3em;
+          padding: 0.1em .3em; // TODO: same as section links?
           text-decoration: none;
-          vertical-align: text-bottom;
           word-break: break-all;
 
           &:active {
@@ -141,25 +156,18 @@
         }
 
         button {
-          // background: #888;
           align-items: center;
-          border-radius: variables.$base-border-radius;
-          border: none;
-          box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
           color: variables.$body-color-text;
           display: flex;
-          font-family: variables.$body-font-family;
-          height: 1.5em;
-          font-size: 1em;
           gap: 0.25em;
-          padding: 0.25em 0.5em;
-          -webkit-user-select: none; /* Safari */
-          -ms-user-select: none; /* IE 10 and IE 11 */
-          user-select: none; /* Standard syntax */
+
+          img {
+            height: 1em;
+          }
 
           &.enabled {
-            cursor: pointer;
             background: #3c3c3c;
+            cursor: pointer;
 
             &:active {
               transform: translateY(variables.$code-window-footer-translate-amount-click-depress);
@@ -171,59 +179,19 @@
           }
 
           &.disabled {
-            cursor: default;
             background: #303030;
+            cursor: default;
           }
-
-          img {
-            height: 1em;
-          }
-
         }
-
-        img {
-          vertical-align: text-bottom;
-        }
-      }
-
-      // "You're being redirected to ..."
-      > div:nth-child(1) {
-        font-size: 1.25em;
-        font-weight: bold;
-        gap: 0.5em;
-      }
-
-      // "Thanks for visiting! ..."
-      > div:nth-child(4) {
-        gap: 0.25em;
-        margin-top: 1em;
-      }
-
-      .go-back-span {
-        background: #131313;
-        border-radius: .15em;
-        display: inline-block;
-        padding: 0.1em .3em;
-        text-decoration: none;
       }
 
       .button-row {
         display: flex;
         gap: 1em;
 
-        button {
-          border-radius: variables.$base-border-radius;
-          border: none;
-          box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
-          color: variables.$body-color-text;
-          cursor: pointer;
+        > button {
           flex: 1;
-          font-size: 1em;
-          padding: 0.25em;
           text-align: center;
-          -webkit-user-select: none; /* Safari */
-          -ms-user-select: none; /* IE 10 and IE 11 */
-          user-select: none; /* Standard syntax */
 
           &:active {
             transform: translateY(variables.$code-window-footer-translate-amount-click-depress);
@@ -248,23 +216,6 @@
         }
       }
     }
-
-    img, svg {
-      height: 1.2em;
-      pointer-events: none;
-      -webkit-user-select: none; /* Safari */
-      -ms-user-select: none; /* IE 10 and IE 11 */
-      user-select: none; /* Standard syntax */
-    }
-  }
-}
-
-// shrink content to fit screen
-
-@media only screen and (height <= 675px), screen and (width <= 885px) {
-  .fixed-wrapper {
-    // font-size: 1.8vmin;
-    // padding: 0 1.8vw;
   }
 }
 
@@ -280,61 +231,18 @@
 
       .window-body-header {
         gap: 0.75em !important;
+        margin-right: 0.5em;
+      }
 
-        img {
-          height: 2.25em;
-        }
+      .window-body-header img {
+        height: 2.375em;
+      }
+
+      .button-row {
+        flex-direction: column;
       }
     }
   }
-
-  .window-title > div:nth-child(1) {
-    // width: 10em !important;
-  }
-
-  // "You're being redirected to ..."
-  .window-body > div:nth-child(1) {
-
-  }
-
-  .window-body > div:nth-child(2) {
-
-  }
-
-  .window-body-row > a {
-
-  }
-
-  .window-body-header > img {
-  }
-
-  .window-body-row > button {
-  }
-
-
-  .button-row {
-    flex-direction: column;
-  }
-
-  // .article {
-  //   flex-direction: column;
-  //   padding-left: 1.2em;
-  //   padding-right: 1.2em;
-  //   text-align: center;
-
-  //   > img,
-  //   > svg {
-  //     margin: 0 0 1.125em;
-  //   }
-
-  //   > div {
-  //     margin: 0 auto;
-  //   }
-  // }
-
-  // .article:nth-child(2) > img {
-  //   display: none;
-  // }
 }
 
 
@@ -342,98 +250,18 @@
 // #region Animations                                                        //
 ///////////////////////////////////////////////////////////////////////////////
 
-@keyframes fade-in {
+@keyframes scroll-gradient {
   0% {
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(1);
-  }
-
-  100% {
-    opacity: 1;
-    pointer-events: all;
-    transform: scale(1);
-  }
-}
-
-.fade-in {
-  animation: fade-in variables.$redirect-popup-transition-duration-fade-in ease-out forwards;
-}
-
-@keyframes fade-in-scale {
-  0% {
-    opacity: 0;
-    pointer-events: none;
-
-    // Fade in
-    transform: scale(0.95);
-
-    // Slide in
-    // transform: translateY(1em);
+    background-position: 0% 0%;
   }
 
   50% {
-    // transform: scale(1.0275);
+    background-position: -100% 0%;
   }
 
   100% {
-    opacity: 1;
-    pointer-events: all;
-
-    // Fade in
-    transform: scale(1);
-
-    // Slide in
-    // transform: translateY(0);
+    background-position: -200% 0%;
   }
-}
-
-.fade-in-scale {
-  animation: fade-in-scale variables.$redirect-popup-transition-duration-fade-in ease-out forwards;
-}
-
-@keyframes fade-out {
-  0% {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  100% {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-
-.fade-out {
-  animation: fade-out variables.$redirect-popup-transition-duration-fade-out ease-out forwards;
-}
-
-@keyframes fade-out-scale {
-  0% {
-    opacity: 1;
-    pointer-events: all;
-
-    // Fade out
-    transform: scale(1);
-
-    // Slide out
-    // transform: translateY(0);
-  }
-
-  100% {
-    opacity: 0;
-    pointer-events: none;
-
-    // Fade out
-    transform: scale(0.95);
-
-    // Slide out
-    // transform: translateY(1em);
-  }
-}
-
-.fade-out-scale {
-  animation: fade-out-scale variables.$redirect-popup-transition-duration-fade-out ease-out forwards;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

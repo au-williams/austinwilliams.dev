@@ -19,6 +19,7 @@
 
 // Base values
 $base-border-radius: 0.15em; // How round elements typically look on screen.
+$base-box-shadow: rgb(0 0 0 / 12%) 0 0.0625em 0.1875em, rgb(0 0 0 / 24%) 0 0.0625em 0.125em;
 $base-transition-delay-initialize: 800ms; // How long elements typically wait before initializing.
 $base-transition-duration-initialize: 400ms; // How long elements typically transition during initialization.
 $base-translate-amount-click-depress: 0.125em; // How far elements typically move downwards when they are clicked.

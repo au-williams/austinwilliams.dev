@@ -4,9 +4,7 @@ body {
   background-color: $body-color-background;
   box-sizing: border-box;
   color: $body-color-text;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  padding: 0 1.5em;
+  font-family: $body-font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -18,10 +16,4 @@ body,
   max-width: 100%;
   margin: 0;
   padding: 0;
-}
-
-@media only screen and (max-height: 675px), screen and (max-width: 885px) {
-  body {
-    padding: 0 1.8vw;
-  }
 }

@@ -205,7 +205,7 @@ const RedirectPopup = ({
             <div className={styles['window-body-row']}>
               <div>
                 {'Thanks for visiting! Press '}
-                <span className={styles['go-back-span']}>Cancel</span>
+                <span>Cancel</span>
                 {' to return to my home page. '}
                 <img src={HomeEmoji} alt="waving emoji" />
               </div>

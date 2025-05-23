@@ -115,7 +115,7 @@ const AboutButton = ({
 
   return (
     <button
-      className={classNames(styles.aboutButton, { [styles['visible']]: isVisible })}
+      className={classNames(styles.aboutButton, styles[isVisible ? 'visible' : 'hidden'])}
       onClick={onAboutButtonClick}
       onMouseOut={() => dispatch(slice.setIsHovering(false))}
       onMouseOver={() => dispatch(slice.setIsHovering(true))}

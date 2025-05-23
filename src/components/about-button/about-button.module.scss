@@ -8,7 +8,6 @@
   font-family: variables.$body-font-family;
   font-size: 2em;
   margin: 5vh 0;
-  opacity: 0;
   transition: opacity variables.$about-button-transition-duration-initialize;
 
   svg {
@@ -19,6 +18,10 @@
 
   &:active {
     transform: translateY(variables.$about-button-translate-amount-click-depress);
+  }
+
+  &.hidden {
+    opacity: 0;
   }
 
   &.visible {

@@ -8,18 +8,12 @@
   justify-content: center;
 }
 
-// shrink content to fit screen
-
 @media only screen and (height <= 675px), screen and (width <= 885px) {
-  .wrapper {
-    font-size: 1.8vmin;
-  }
+  // Shrink code window to fit screen
+  .wrapper { font-size: 1.8vmin; }
 }
 
-// portrait orientation
-
 @media only screen and (width <= 610px) {
-  .wrapper > button {
-    font-size: 2.75em;
-  }
+  // Shrink about button to fit screen
+  .wrapper > button { font-size: 2.75em; }
 }
