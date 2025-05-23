@@ -7,18 +7,18 @@
     "build": "vite build",
     "lint": "eslint ./src && stylelint './src/**/*.{css,scss}'",
     "preview": "vite preview",
-    "start": "vite"
+    "start": "vite --host"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.1",
     "classnames": "^2.5.1",
     "nanoid": "^5.1.5",
-    "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-app-polyfill": "^3.0.0",
     "react-dom": "^19.1.0",
     "react-ga4": "^2.1.0",
     "react-redux": "^9.2.0",
+    "react-remove-scroll": "^2.7.0",
     "react-router": "^7.6.0"
   },
   "devDependencies": {

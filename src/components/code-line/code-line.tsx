@@ -1,19 +1,16 @@
-import { setIsHovered } from '@/redux/code-line-slice';
-import { type RootState, type AppDispatch } from '@/redux';
-import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import CodeBlock from '@/components/code-block/code-block';
 import CodeBlockModel from '@/types/code-block-model';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './code-line.module.scss';
 
+// TODO: improve hover style of breakpoint
+
 /**
- * @returns {React.JSX.Element}
+ *
  */
 const CodeLine = ({
   codeBlocks,
-  codeLineId,
   isActiveLine,
   isClicked,
   onClick,
@@ -23,33 +20,30 @@ const CodeLine = ({
   isActiveLine: boolean;
   isClicked: boolean;
   onClick: (param: boolean) => void;
-}) => {
-  // Load the state from Redux.
-  const dispatch = useDispatch<AppDispatch>();
-  const isHovered = useSelector(
-    (state: RootState) => state.codeLine[codeLineId]?.isHovered ?? false,
-  );
+}): React.JSX.Element => {
+  const isHoveringRef = useRef<boolean>(false); // TODO: Might need to be state
 
   const lineNumberClasses = classNames(
     styles.lineNumber,
     { [styles.clicked]: isClicked },
-    { [styles.hovered]: isHovered && !isClicked },
+    { [styles.hovered]: isHoveringRef.current && !isClicked },
   );
 
   return (
     <div
       className={styles.codeLine}
+      onBlur={() => (isHoveringRef.current = false)}
       onClick={() => onClick(!isClicked)}
-      onFocus={() => dispatch(setIsHovered(codeLineId, true))}
-      onMouseLeave={() => dispatch(setIsHovered(codeLineId, false))}
-      onMouseOver={() => dispatch(setIsHovered(codeLineId, true))}
+      onFocus={() => (isHoveringRef.current = true)}
+      onMouseLeave={() => (isHoveringRef.current = false)}
+      onMouseOver={() => (isHoveringRef.current = true)}
       role="presentation"
     >
       <div className={lineNumberClasses} />
       {codeBlocks.map(({ blockType, currentSize, key }, index) => {
         const isLastBlock = index === codeBlocks.length - 1;
         const isActiveBlock = isActiveLine && isLastBlock;
-        const isColoredBlock = isClicked || isHovered;
+        const isColoredBlock = isClicked || isHoveringRef.current;
 
         return (
           <CodeBlock
@@ -64,19 +58,6 @@ const CodeLine = ({
       })}
     </div>
   );
-};
-
-CodeLine.propTypes = {
-  codeBlocks: PropTypes.arrayOf(
-    PropTypes.shape({
-      blockType: PropTypes.string.isRequired,
-      currentSize: PropTypes.number.isRequired,
-      key: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  isActiveLine: PropTypes.bool.isRequired,
-  isClicked: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default CodeLine;

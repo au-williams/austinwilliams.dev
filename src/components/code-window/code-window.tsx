@@ -1,26 +1,24 @@
 import { CodeGenerationConfig } from '@/config/app-config';
+import { getFormattedNumber, getRandomBit, getRandomBool, getRandomNumber } from '@/utilities';
 import { PersonEmoji } from '@/assets/images';
+import { type RootState, type AppDispatch } from '@/redux';
+import { useLocation } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import * as slice from '@/redux/code-window-slice';
+import blockTypes from '../code-block/code-block.module.scss';
+import classNames from 'classnames';
+import CodeBlockModel from '@/types/code-block-model';
+import CodeLine from '../code-line/code-line';
+import CodeLineModel from '@/types/code-line-model';
 import EraserIcon from '@/assets/icons/eraser_icon.svg?react';
 import FastForwardIcon from '@/assets/icons/fast_forward_icon.svg?react';
 import PauseIcon from '@/assets/icons/pause_icon.svg?react';
 import PinOffIcon from '@/assets/icons/pin_off_icon.svg?react';
 import PinOnIcon from '@/assets/icons/pin_on_icon.svg?react';
 import PlayIcon from '@/assets/icons/play_icon.svg?react';
+import React, { useEffect, useRef, useState } from 'react';
 import RewindIcon from '@/assets/icons/rewind_icon.svg?react';
-import { type RootState, type AppDispatch } from '@/redux';
-import { useSelector, useDispatch } from 'react-redux';
-import blockTypes from '../code-block/code-block.module.scss';
-import classNames from 'classnames';
-import CodeLine from '../code-line/code-line';
-import CodeLineModel from '@/types/code-line-model';
-import CodeBlockModel from '@/types/code-block-model';
-import React, { useEffect, useState } from 'react';
 import styles from './code-window.module.scss';
-import {
-  setIsCodeWindowHovered,
-  setIsCodeWindowInitialized,
-  setNameTransitionDuration,
-} from '@/redux/code-window-slice';
 
 /**
  * The CodeWindow component renders CodeLineModel objects, which
@@ -30,23 +28,11 @@ import {
  * in the CodeWindow state.
  */
 
-// ----------------- //
-// utility functions //
-// ----------------- //
-
-const getRandomBit = ({ probability = 0.5 }): number => +getRandomBool({ probability });
-
-const getRandomBool = ({ probability = 0.5 }): boolean => Math.random() < probability;
-
-const getFormattedNumber = (number: number): string =>
-  number < 1000 ? `${number}` : `${(number / 1000).toFixed(1)}k`;
-
-const getRandomNumber = ({ min = 1, max = 1 }): number => Math.floor(Math.random() * (max - min + 1)) + min;
-
-// ---------------- //
-// render functions //
-// ---------------- //
-
+/**
+ * TODO: Description placeholder
+ * @param {CodeLineModel[]} codeLines
+ * @returns {number}
+ */
 const getCodeScopeCount = (codeLines: CodeLineModel[]): number => {
   const indentSize: number = codeLines[0] && codeLines[0].findCodeBlockSize(blockTypes.indent);
   let result = 0;
@@ -59,6 +45,12 @@ const getCodeScopeCount = (codeLines: CodeLineModel[]): number => {
   return result;
 };
 
+/**
+ * TODO: Description placeholder
+ * @param {CodeLineModel[]} codeLines
+ * @param {number} codeScopeCount
+ * @returns {number}
+ */
 const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): number => {
   const lastIndentSize: number = codeLines[0] && codeLines[0].findCodeBlockSize(blockTypes.indent);
 
@@ -87,75 +79,40 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
 
 const CodeWindow = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #region Component properties                                            //
+  /////////////////////////////////////////////////////////////////////////////
+
+  // TODO: refs! Only state if ui update
 
   const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
   const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
-  const updatedCodeLines = codeLines.slice();
-
-  const onCodeLineClick = (key: string, isClicked: boolean) => {
-    updatedCodeLines.find((x) => x.key === key)!.isClicked = isClicked;
-    setCodeLines(updatedCodeLines);
-  };
 
   const [charCount, setCharCount] = useState<number>(0);
   const [lineCount, setLineCount] = useState<number>(0);
-  const formattedCharCount = getFormattedNumber(charCount);
-  const formattedLineCount = getFormattedNumber(lineCount);
+
+  const [isCodePaused, setIsCodePaused] = useState<boolean>(false);
+  const [isFooterPinned, setIsFooterPinned] = useState<boolean>(false);
+  const [isComponentReady, setIsComponentReady] = useState<boolean>(false);
 
   const [isWindowAnimatedX, setIsWindowAnimatedX] = useState(false);
   const [isWindowAnimatedY, setIsWindowAnimatedY] = useState(false);
-  const [windowAnimationStack, setWindowAnimationStack] = useState('x,0');
-
-  const isInitialized = useSelector((state: RootState) => state.codeWindow.isInitialized);
-
-  const onWindowAnimationEnd = () => {
-    if (!isInitialized) {
-      dispatch(setIsCodeWindowInitialized(true));
-    } else {
-      setIsWindowAnimatedX(false);
-      setIsWindowAnimatedY(false);
-    }
-  };
-
-  const nameTransitionDuration = useSelector((state: RootState) => state.codeWindow.nameTransitionDuration);
+  const [windowAnimationStack, setWindowAnimationStack] = useState('x,0'); // TODO: ref?
 
   const isHovered = useSelector((state: RootState) => state.codeWindow.isHovered);
-  const onBlurOrMouseOut = () => dispatch(setIsCodeWindowHovered(false));
+  const isInitialized = useSelector((state: RootState) => state.codeWindow.isInitialized);
+  const nameTransitionDuration = useSelector((state: RootState) => state.codeWindow.nameTransitionDuration);
 
-  const onFocusOrMouseOver = () => {
-    if (isInitialized && nameTransitionDuration != styles.codeWindowNameTransitionDurationHover) {
-      dispatch(setNameTransitionDuration(styles.codeWindowNameTransitionDurationHover));
-    }
-    dispatch(setIsCodeWindowHovered(true));
-  };
+  const isRedirectPopupRedirecting = useSelector((state: RootState) => state.redirectPopup.isRedirecting);
+  const isRedirectPopupVisible = useSelector((state: RootState) => state.redirectPopup.isVisible);
+  const isRouteChange = location.pathname !== '/';
 
-  const onMouseClick = () => {
-    getRandomBool({ probability: 0.5 }) ? setIsWindowAnimatedX(true) : setIsWindowAnimatedY(true);
-  };
+  const updatedCodeLines = codeLines.slice();
 
-  const [isFooterPinned, setIsFooterPinned] = useState<boolean>(false);
-  const onPinClick = () => setIsFooterPinned((x) => !x);
-
-  const [isCodePaused, setIsCodePaused] = useState<boolean>(false);
-  const onPauseClick = () => setIsCodePaused((x) => !x);
-
-  const decreaseCodeSpeed = () =>
-    !isCodePaused && setCodeSpeed((x) => Math.min(x + 25, CodeGenerationConfig.CODE_GENERATION_MIN_SPEED));
-  const increaseCodeSpeed = () =>
-    !isCodePaused && setCodeSpeed((x) => Math.max(x - 25, CodeGenerationConfig.CODE_GENERATION_MAX_SPEED));
-
-  const onResetClick = () => {
-    updatedCodeLines
-      .filter((x) => x.isClicked)
-      .forEach((x) => {
-        x.isClicked = false;
-      });
-
-    setIsCodePaused(false);
-    setIsFooterPinned(false);
-    setCodeLines(updatedCodeLines);
-    setCodeSpeed(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
-  };
+  const formattedCharCount = getFormattedNumber(charCount);
+  const formattedLineCount = getFormattedNumber(lineCount);
 
   const isFooterVisible: boolean = isFooterPinned || isHovered || isCodePaused;
 
@@ -172,16 +129,90 @@ const CodeWindow = () => {
 
   const windowClasses: string = classNames(
     styles.wrapper,
-    { [styles.fade]: !isInitialized },
+    { [styles.hide]: !isInitialized && !isComponentReady },
+    { [styles.fade]: !isInitialized && isComponentReady },
     { [styles.shakenX]: isWindowAnimatedX },
     { [styles.shakenY]: isWindowAnimatedY },
   );
 
-  // ---------------- //
-  // component render //
-  // ---------------- //
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion Component properties                                         //
+  /////////////////////////////////////////////////////////////////////////////
 
-  useEffect(() => {
+  /////////////////////////////////////////////////////////////////////////////
+  // #region Component methods                                               //
+  /////////////////////////////////////////////////////////////////////////////
+
+  const decreaseCodeSpeed = () => {
+    if (isCodePaused) return;
+    setCodeSpeed((x) => Math.min(x + 25, CodeGenerationConfig.CODE_GENERATION_MIN_SPEED));
+  };
+
+  const increaseCodeSpeed = () => {
+    if (isCodePaused) return;
+    setCodeSpeed((x) => Math.max(x - 25, CodeGenerationConfig.CODE_GENERATION_MAX_SPEED));
+  };
+
+  const onBlurOrMouseOut = () => {
+    dispatch(slice.setIsCodeWindowHovered(false));
+  };
+
+  const onCodeLineClick = (key: string, isClicked: boolean) => {
+    updatedCodeLines.find((x) => x.key === key)!.isClicked = isClicked;
+    setCodeLines(updatedCodeLines);
+  };
+
+  const onFocusOrMouseOver = () => {
+    if (isInitialized && nameTransitionDuration != styles.codeWindowNameTransitionDurationHover) {
+      dispatch(slice.setNameTransitionDuration(styles.codeWindowNameTransitionDurationHover));
+    }
+    dispatch(slice.setIsCodeWindowHovered(true));
+  };
+
+  const onMouseClick = () => {
+    getRandomBool({ probability: 0.5 }) ? setIsWindowAnimatedX(true) : setIsWindowAnimatedY(true);
+  };
+
+  const onPauseClick = () => setIsCodePaused((x) => !x);
+
+  const onPinClick = () => setIsFooterPinned((x) => !x);
+
+  const onResetClick = () => {
+    updatedCodeLines
+      .filter((x) => x.isClicked)
+      .forEach((x) => {
+        x.isClicked = false;
+      });
+
+    setIsCodePaused(false);
+    setIsFooterPinned(false);
+    setCodeLines(updatedCodeLines);
+    setCodeSpeed(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
+  };
+
+  const onWindowAnimationEnd = () => {
+    if (!isInitialized) {
+      dispatch(slice.setIsCodeWindowInitialized(true));
+    } else {
+      setIsWindowAnimatedX(false);
+      setIsWindowAnimatedY(false);
+    }
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion Component methods                                            //
+  /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #region Component render                                                //
+  /////////////////////////////////////////////////////////////////////////////
+
+  React.useEffect(() => {
+    if (isComponentReady || isRedirectPopupRedirecting || isRedirectPopupVisible || isRouteChange) return;
+    setIsComponentReady(true);
+  }, [isComponentReady, isRedirectPopupRedirecting, isRedirectPopupVisible, isRouteChange]);
+
+  React.useEffect(() => {
     const activeCodeLineIndex: number = codeLines.map((x) => x.isActive).lastIndexOf(true);
     const activeCodeLine: CodeLineModel = updatedCodeLines[activeCodeLineIndex];
 
@@ -391,7 +422,18 @@ const CodeWindow = () => {
 
     // eslint-disable-next-line consistent-return
     return () => clearInterval(interval);
-  }, [codeLines, isCodePaused]);
+  }, [
+    codeLines,
+    codeSpeed,
+    isCodePaused,
+    isFooterPinned,
+    isHovered,
+    isInitialized,
+    isWindowAnimatedX,
+    isWindowAnimatedY,
+    updatedCodeLines,
+    windowAnimationStack,
+  ]);
 
   return (
     <div
@@ -456,6 +498,10 @@ const CodeWindow = () => {
       </div>
     </div>
   );
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion Component render                                             //
+  /////////////////////////////////////////////////////////////////////////////
 };
 
 export default CodeWindow;

@@ -1,10 +1,9 @@
-import { setIsHovering } from '@/redux/hover-tooltip-slice';
 import { useSelector, useDispatch } from 'react-redux';
+import * as slice from '@/redux/hover-tooltip-slice';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './hover-tooltip.module.scss';
-import type { RootState, AppDispatch } from '@/redux';
+import type { AppDispatch, RootState } from '@/redux';
 
 const HoverTooltip = ({
   hoverTooltipId,
@@ -20,30 +19,22 @@ const HoverTooltip = ({
   // Load the state from Redux.
   const dispatch = useDispatch<AppDispatch>();
   const isHovering = useSelector((state: RootState) => state.hoverTooltip[hoverTooltipId]?.isHovering ?? false);
-  const tooltipClasses = classNames(styles.tooltip, { [styles.hidden]: !isHovering });
 
   return (
     <div
       className={styles.wrapper}
-      onBlur={() => dispatch(setIsHovering(hoverTooltipId, false))}
-      onFocus={() => dispatch(setIsHovering(hoverTooltipId, true))}
-      onMouseOut={() => dispatch(setIsHovering(hoverTooltipId, false))}
-      onMouseOver={() => dispatch(setIsHovering(hoverTooltipId, true))}
+      onBlur={() => dispatch(slice.setIsHovering(hoverTooltipId, false))}
+      onFocus={() => dispatch(slice.setIsHovering(hoverTooltipId, true))}
+      onMouseOut={() => dispatch(slice.setIsHovering(hoverTooltipId, false))}
+      onMouseOver={() => dispatch(slice.setIsHovering(hoverTooltipId, true))}
     >
-      <div className={tooltipClasses}>
+      <div className={classNames(styles.tooltip, { [styles.hidden]: !isHovering })}>
         <img src={img} alt={`${text} favicon`} />
         <span>{text}</span>
       </div>
       {children}
     </div>
   );
-};
-
-HoverTooltip.propTypes = {
-  hoverTooltipId: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  children: PropTypes.node,
 };
 
 export default HoverTooltip;

@@ -14,7 +14,7 @@
   background: variables.$hover-tooltip-background-color;
   border-radius: variables.$hover-tooltip-border-radius;
   bottom: 100%;
-  box-shadow: 0 0.2em 0.5em rgba(variables.$hover-tooltip-background-color, 0.1);
+  box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
   color: variables.$body-color-text;
   display: flex;
   font-size: 0.85em;

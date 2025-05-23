@@ -1,3 +1,5 @@
+import RouteConfig from '@/types/route-config';
+
 /**
  * Config values used when generating the code art.
  * @type {object}
@@ -28,13 +30,13 @@ export const CodeGenerationConfig: {
  * The email address used for contacting me.
  * @type {string}
  */
-export const ContactEmailAddress: string = "me@austinwilliams.dev";
+export const ContactEmailAddress: string = 'me@austinwilliams.dev';
 
 /**
  * Config for the favicon URLs displayed as tooltips.
  * @type {object}
  */
-export const FavIcons: {
+export const favicons: {
   GMAIL: string;
   GOOGLE_DRIVE: string;
   LINKEDIN: string;
@@ -64,14 +66,36 @@ export const GoogleAnalyticsConfig: {
   GA_MEASUREMENT_ID: 'G-JFBLY5T1C0', // This key isn't sensitive and isn't required to be secreted per the GA docs.
 };
 
-/**
- * Config values for the React Router. Key is the route name. Value is the route destination.
- * @type {object}
- */
-export const RedirectRoutes: {
-  "/linkedin": string;
-  "/resume": string;
+export const RedirectPopupConfig: {
+  COUNTDOWN_ENABLED: boolean;
+  COUNTDOWN_SECONDS: number;
 } = {
-  "/linkedin": "https://www.linkedin.com/in/auwilliams",
-  "/resume": "https://drive.google.com/file/d/1mKUPaKy712dURDLOFG7bvaAWEomKIHwC/view"
-}
+  COUNTDOWN_ENABLED: true, // Enables / disables the redirect countdown. Used for debugging.
+  COUNTDOWN_SECONDS: 5, // How many seconds the countdown will start with.
+};
+
+/**
+ */
+export const RedirectPopupRoutes = [
+  new RouteConfig({
+    destination: 'https://www.linkedin.com/in/auwilliams',
+    favicon: favicons.LINKEDIN,
+    name: 'LinkedIn',
+    path: '/linkedin',
+    shareLink: 'https://austinwilliams.dev/linkedin',
+  }),
+  new RouteConfig({
+    destination: 'https://github.com/au-williams/austinwilliams.dev',
+    favicon: 'https://github.githubassets.com/favicons/favicon-dark.png',
+    name: 'GitHub',
+    path: '/github',
+    shareLink: 'https://austinwilliams.dev/github',
+  }),
+  new RouteConfig({
+    destination: 'https://drive.google.com/file/d/1mKUPaKy712dURDLOFG7bvaAWEomKIHwC/view',
+    favicon: favicons.GOOGLE_DRIVE,
+    name: 'Google Drive',
+    path: '/resume',
+    shareLink: 'https://austinwilliams.dev/resume',
+  }),
+];

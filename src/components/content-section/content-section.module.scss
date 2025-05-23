@@ -3,7 +3,7 @@
 .section {
   background-color: variables.$body-color-section;
   border-radius: 0.15em 0.15em 0 0;
-  box-shadow: variables.$section-box-shadow;
+  box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
   font-family: variables.$body-font-family;
   margin: 0 auto;
   max-width: 100%;
@@ -31,6 +31,7 @@
   a {
     display: inline-block;
     background: #131313;
+    box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
     border-radius: .15em;
     color: variables.$body-color-link;
     font-size: 0.85em;
@@ -58,6 +59,7 @@
     background-color: #18191a;
     border-radius: 100%;
     border: 0.35em solid #18191a;
+    box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
     box-sizing: border-box;
     height: 8em;
     margin-right: 1.125em;

@@ -1,28 +1,19 @@
 import { CodeImage, MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji } from '@/assets/images';
+import { ContactEmailAddress, favicons, GithubConfig } from '@/config/app-config';
 import { cssTimeToMilliseconds } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
-import AvatarIcon from '@/assets/icons/avatar_icon.svg?react';
-import GitHubIcon from '@/assets/icons/github_icon.svg?react';
-import ScrollIcon from '@/assets/icons/scroll_icon.svg?react';
-import {
-  setAvatarUrl,
-  setIsArticle1Visible,
-  setIsArticle2Visible,
-  setIsHandWaveAnimated,
-  setIsMailboxAnimatedClosed,
-  setIsMailboxAnimatedOpened,
-  setIsMailboxImageOpened,
-  setIsSectionVisible,
-} from '@/redux/content-section-slice';
+import { Link } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import * as slice from '@/redux/content-section-slice';
+import AvatarIcon from '@/assets/icons/avatar_icon.svg?react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import GitHubIcon from '@/assets/icons/github_icon.svg?react';
+import HoverTooltip from '../hover-tooltip/hover-tooltip';
 import React from 'react';
+import ScrollIcon from '@/assets/icons/scroll_icon.svg?react';
 import styles from './content-section.module.scss';
 import type { RootState, AppDispatch } from '@/redux';
 import variables from '@/styles/_variables.module.scss';
-import HoverTooltip from '../hover-tooltip/hover-tooltip';
-import { ContactEmailAddress, FavIcons, GithubConfig } from '@/config/app-config';
 
 /**
  * The section containing articles and footer buttons. This is animated in when
@@ -34,8 +25,12 @@ const ContentSection = ({
   sectionRef,
 }: {
   reactGA: GA4;
-  sectionRef: React.MutableRefObject<HTMLDivElement | null>;
+  sectionRef: React.RefObject<HTMLDivElement | null>;
 }): React.JSX.Element => {
+  /////////////////////////////////////////////////////////////////////////////
+  // #region Component props                                                 //
+  /////////////////////////////////////////////////////////////////////////////
+
   // Load the state from Redux.
   const dispatch = useDispatch<AppDispatch>();
   const avatarUrl = useSelector((state: RootState) => state.contentSection.avatarUrl);
@@ -47,6 +42,113 @@ const ContentSection = ({
   const isMailboxAnimatedOpened = useSelector((state: RootState) => state.contentSection.isMailboxAnimatedOpened);
   const isMailboxImageOpened = useSelector((state: RootState) => state.contentSection.isMailboxImageOpened);
   const isSectionVisible = useSelector((state: RootState) => state.contentSection.isSectionVisible);
+
+  const article1Classes = classNames(styles.article, { [styles['hidden']]: !isArticle1Visible });
+  const article2Classes = classNames(styles.article, { [styles['hidden']]: !isArticle2Visible });
+  const handWaveClasses = classNames({ [styles['handWave']]: isHandWaveAnimated });
+  const sectionClasses = classNames(styles.section, { [styles['hidden']]: !isSectionVisible });
+
+  const mailboxClasses = classNames({
+    [styles.mailboxTranslate]: isMailboxAnimatedClosed && !isMailboxAnimatedOpened,
+    [styles.mailboxRotate]: isMailboxAnimatedOpened,
+  });
+
+  const mailboxEmoji = isMailboxImageOpened ? MailboxOpenedEmoji : MailboxClosedEmoji;
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion Component props                                              //
+  /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #region Component hooks                                                 //
+  /////////////////////////////////////////////////////////////////////////////
+
+  // Fetch the avatar from my GitHub profile and set it as this avatar image.
+  React.useEffect(() => {
+    fetch(GithubConfig.GITHUB_USER_URL)
+      .then((res) => res.json())
+      .then((result) => dispatch(slice.setAvatarUrl(result.avatar_url)))
+      .catch((error) => console.error('Error:', error));
+  }, [dispatch]);
+
+  // Display the content section on scroll after code window is initialized.
+  React.useEffect(() => {
+    if (!isCodeWindowInitialized) return;
+
+    /**
+     * "The ref value containerRef.current will likely have changed by the time
+     * this effect cleanup function runs. If this ref points to a node rendered
+     * by React, copy ref.current to a variable inside the effect, and use that
+     * variable in the cleanup function. (react-hooks/exhaustive-deps)"
+     * https://stackoverflow.com/a/67069936
+     */
+    let observerRefValue: HTMLDivElement | null;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        dispatch(slice.setIsSectionVisible(true));
+        observer.disconnect();
+      },
+      { threshold: 0.1 },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+      observerRefValue = sectionRef.current;
+    }
+    return () => {
+      if (!observerRefValue) return;
+      observer.unobserve(observerRefValue);
+    };
+  }, [dispatch, isCodeWindowInitialized, sectionRef]);
+
+  // Animate the section contents based on their delayed configurations.
+  React.useEffect(() => {
+    if (!isSectionVisible) return;
+
+    const displayContent = () => {
+      const durationInitialization = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
+      const durationHandWave = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationHandWave);
+      const durationMailbox = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2; // We play 2 animations, so divide by 2
+
+      dispatch(slice.setIsArticle1Visible(true));
+
+      const article2Delay = durationInitialization;
+      setTimeout(() => dispatch(slice.setIsArticle2Visible(true)), article2Delay);
+
+      const handWaveDelay = article2Delay + durationInitialization;
+      setTimeout(() => dispatch(slice.setIsHandWaveAnimated(true)), handWaveDelay);
+
+      const mailboxClosedDelay = handWaveDelay + durationHandWave;
+      setTimeout(() => {
+        dispatch(slice.setIsHandWaveAnimated(false));
+        dispatch(slice.setIsMailboxAnimatedClosed(true));
+      }, mailboxClosedDelay);
+
+      const mailboxOpenedDelay = mailboxClosedDelay + durationMailbox;
+      setTimeout(() => {
+        dispatch(slice.setIsMailboxAnimatedClosed(false));
+        dispatch(slice.setIsMailboxAnimatedOpened(true));
+        dispatch(slice.setIsMailboxImageOpened(true));
+      }, mailboxOpenedDelay);
+
+      setTimeout(
+        () => dispatch(slice.setIsMailboxAnimatedOpened(false)),
+        mailboxOpenedDelay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2,
+      );
+    };
+
+    setTimeout(displayContent, cssTimeToMilliseconds(variables.sectionTransitionDurationInitialize));
+  }, [dispatch, isSectionVisible]);
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion Component hooks                                              //
+  /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #region Component funcs                                                 //
+  /////////////////////////////////////////////////////////////////////////////
 
   /**
    * Sends a Google Analytics event when the back to top button is clicked and
@@ -60,126 +162,27 @@ const ContentSection = ({
   /**
    * Sends a Google Analytics event when the email link is clicked.
    */
-  const onEmailClick = () => reactGA.event({ category: 'click', action: 'email_mailto_link' });
-
-  /**
-   * Sends a Google Analytics event when the GitHub link is clicked.
-   */
-  const onGitHubClick = () => reactGA.event({ category: 'click', action: 'github_outbound_link' });
-
-  /**
-   * Sends a Google Analytics event when the LinkedIn link is clicked.
-   */
-  const onLinkedInClick = () => reactGA.event({ category: 'click', action: 'linkedin_outbound_link' });
-
-  /**
-   * Sends a Google Analytics event when the resume link is clicked.
-   */
-  const onResumeClick = () => reactGA.event({ category: 'click', action: 'resume_outbound_link' });
-
-  // Fetch the avatar from my GitHub profile and set it as this avatar image.
-  React.useEffect(() => {
-    fetch(GithubConfig.GITHUB_USER_URL)
-      .then((res) => res.json())
-      .then((result) => dispatch(setAvatarUrl(result.avatar_url)))
-      .catch((error) => console.error('Error:', error));
-  }, []);
-
-  // Display the content section on scroll after code window is initialized.
-  React.useEffect(() => {
-    if (!isCodeWindowInitialized) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        dispatch(setIsSectionVisible(true));
-        observer.disconnect();
-      },
-      { threshold: 0.1 },
-    );
-
-    observer.observe(sectionRef.current!);
-    return () => observer.unobserve(sectionRef.current!);
-  }, [isCodeWindowInitialized]);
-
-  // Animate the section contents based on their delayed configurations.
-  React.useEffect(() => {
-    if (!isSectionVisible) return;
-
-    const article1Delay = cssTimeToMilliseconds(variables.sectionTransitionDurationInitialize);
-
-    const article1Timeout = setTimeout(
-      () => dispatch(setIsArticle1Visible(true)), // TODO: hidden?
-      article1Delay,
-    );
-
-    const article2Delay =
-      article1Delay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
-
-    const article2Timeout = setTimeout(() => dispatch(setIsArticle2Visible(true)), article2Delay);
-
-    const handWaveDelay =
-      article2Delay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationInitialize);
-
-    const handWaveTimeout = setTimeout(() => dispatch(setIsHandWaveAnimated(true)), handWaveDelay);
-
-    const mailboxClosedDelay =
-      handWaveDelay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationHandWave);
-
-    const mailboxClosedTimeout = setTimeout(() => {
-      dispatch(setIsHandWaveAnimated(false));
-      dispatch(setIsMailboxAnimatedClosed(true));
-    }, mailboxClosedDelay);
-
-    const mailboxOpenedDelay =
-      mailboxClosedDelay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2;
-
-    const mailboxOpenedTimeout = setTimeout(() => {
-      dispatch(setIsMailboxAnimatedClosed(false));
-      dispatch(setIsMailboxAnimatedOpened(true));
-      dispatch(setIsMailboxImageOpened(true));
-    }, mailboxOpenedDelay);
-
-    const finalAnimationTimeout = setTimeout(
-      () => dispatch(setIsMailboxAnimatedOpened(false)),
-      mailboxOpenedDelay + cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2,
-    );
-
-    return () => {
-      clearTimeout(article1Timeout);
-      clearTimeout(article2Timeout);
-      clearTimeout(handWaveTimeout);
-      clearTimeout(mailboxClosedTimeout);
-      clearTimeout(mailboxOpenedTimeout);
-      clearTimeout(finalAnimationTimeout);
-    };
-  }, [isSectionVisible]);
+  const onEmailClick = () => {
+    reactGA.event({ category: 'click', action: 'email_mailto_link' });
+  };
 
   const handWaveOnMouseOver = () => {
     if (isHandWaveAnimated) return;
-    dispatch(setIsHandWaveAnimated(true));
+    dispatch(slice.setIsHandWaveAnimated(true));
     const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationHandWave);
-    setTimeout(() => dispatch(setIsHandWaveAnimated(false)), duration);
+    setTimeout(() => dispatch(slice.setIsHandWaveAnimated(false)), duration);
   };
 
   const mailboxOnMouseOver = () => {
     if (isMailboxAnimatedClosed || isMailboxAnimatedOpened) return;
-    dispatch(setIsMailboxAnimatedOpened(true));
+    dispatch(slice.setIsMailboxAnimatedOpened(true));
     const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2;
-    setTimeout(() => dispatch(setIsMailboxAnimatedOpened(false)), duration);
+    setTimeout(() => dispatch(slice.setIsMailboxAnimatedOpened(false)), duration);
   };
 
-  const article1Classes = classNames(styles.article, { [styles.hidden]: !isArticle1Visible });
-  const article2Classes = classNames(styles.article, { [styles.hidden]: !isArticle2Visible });
-  const handWaveClasses = classNames({ [styles.handWave]: isHandWaveAnimated });
-  const sectionClasses = classNames(styles.section, { [styles.hidden]: !isSectionVisible });
-
-  const mailboxClasses = classNames({
-    [styles.mailboxTranslate]: isMailboxAnimatedClosed && !isMailboxAnimatedOpened,
-    [styles.mailboxRotate]: isMailboxAnimatedOpened,
-  });
-
-  const mailboxEmoji = isMailboxImageOpened ? MailboxOpenedEmoji : MailboxClosedEmoji;
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion Component funcs                                              //
+  /////////////////////////////////////////////////////////////////////////////
 
   return (
     <section className={sectionClasses} ref={sectionRef}>
@@ -189,15 +192,8 @@ const ContentSection = ({
           Hello!{' '}
           <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" />{' '}
           My name is{' '}
-          <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
-            <a
-              href="https://austinwilliams.dev/#/linkedin/"
-              onClick={onLinkedInClick}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Austin
-            </a>
+          <HoverTooltip hoverTooltipId={'LinkedIn'} img={favicons.LINKEDIN} text={'LinkedIn'}>
+            <Link to="/linkedin">Austin</Link>
           </HoverTooltip>
           . I started my career by developing government programs and collaborating with major tech companies who
           taught me their art of delivering great software from start to finish.
@@ -207,18 +203,11 @@ const ContentSection = ({
         <img src={CodeImage} alt="banner" draggable="false" />
         <div>
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
-          <HoverTooltip hoverTooltipId={'Google Drive'} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
-            <a
-              href="https://austinwilliams.dev/#/resume/"
-              onClick={onResumeClick}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              resume
-            </a>
+          <HoverTooltip hoverTooltipId={'Google Drive'} img={favicons.GOOGLE_DRIVE} text={'Google Drive'}>
+            <Link to="/resume">resume</Link>
           </HoverTooltip>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
-          <HoverTooltip hoverTooltipId={'Send an email'} img={FavIcons.GMAIL} text={'Send an email'}>
+          <HoverTooltip hoverTooltipId={'Send an email'} img={favicons.GMAIL} text={'Send an email'}>
             <a href={`mailto:${ContactEmailAddress}`} onClick={onEmailClick}>
               {ContactEmailAddress}
             </a>
@@ -236,22 +225,12 @@ const ContentSection = ({
         <button type="button" onClick={onBackClick}>
           <ScrollIcon /> Back to top
         </button>
-        <a
-          href="https://github.com/au-williams/austinwilliams.dev"
-          onClick={onGitHubClick}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
+        <Link to="/github" replace={true}>
           <GitHubIcon /> GitHub
-        </a>
+        </Link>
       </footer>
     </section>
   );
-};
-
-ContentSection.propTypes = {
-  reactGA: PropTypes.object.isRequired,
-  sectionRef: PropTypes.object.isRequired,
 };
 
 export default ContentSection;

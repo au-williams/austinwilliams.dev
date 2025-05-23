@@ -1,9 +1,8 @@
-import { setIsPushed } from '@/redux/code-block-slice';
-import { type RootState, type AppDispatch } from '@/redux';
+import { type AppDispatch, type RootState } from '@/redux';
 import { useSelector, useDispatch } from 'react-redux';
+import * as slice from '@/redux/code-block-slice';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './code-block.module.scss';
 import variables from '@/styles/_variables.module.scss';
 
@@ -33,19 +32,15 @@ const CodeBlock = ({
   const dispatch = useDispatch<AppDispatch>();
   const isPushed = useSelector((state: RootState) => state.codeBlock[blockId]?.isPushed ?? false);
 
-  // Animate the code block component each time its current size value changes.
-  useEffect(() => {
-    dispatch(setIsPushed(blockId, true));
-  }, [currentSize]);
-
   // Create the CSS classes based on the component state.
   const classes = classNames(
     blockType,
-    { [styles.active]: isActiveBlock },
-    { [styles.color]: isColoredBlock },
-    { [styles.pushed]: isPushed },
+    { [styles['active']]: isActiveBlock },
+    { [styles['color']]: isColoredBlock },
+    { [styles['pushed']]: isPushed },
   );
 
+  // Set the style used to render the component.
   let style: React.CSSProperties | undefined;
 
   if (currentSize > 1) {
@@ -55,20 +50,16 @@ const CodeBlock = ({
     style = { width: `calc(${calculatedWidth} + ${calculatedSpace})` };
   }
 
-  return (
-    <div
-      className={classes}
-      onAnimationEnd={() => dispatch(setIsPushed(blockId, false))}
-      style={style}
-    />
-  );
-};
+  const onAnimationEnd = () => {
+    dispatch(slice.setIsPushed(blockId, false));
+  };
 
-CodeBlock.propTypes = {
-  blockType: PropTypes.string.isRequired,
-  currentSize: PropTypes.number.isRequired,
-  isActiveBlock: PropTypes.bool.isRequired,
-  isColoredBlock: PropTypes.bool.isRequired,
+  // Animate the code block component each time its current size value changes.
+  React.useEffect(() => {
+    dispatch(slice.setIsPushed(blockId, true));
+  }, [blockId, currentSize, dispatch]);
+
+  return <div className={classes} onAnimationEnd={onAnimationEnd} style={style} />;
 };
 
 export default CodeBlock;

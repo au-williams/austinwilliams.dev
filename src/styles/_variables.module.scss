@@ -85,6 +85,10 @@ $hover-tooltip-background-color: #131313;
 $hover-tooltip-border-radius: $base-border-radius;
 $hover-tooltip-translate-amount-click-depress: 0.1em;
 
+// RedirectPopup component
+$redirect-popup-transition-duration-fade-in: 200ms;
+$redirect-popup-transition-duration-fade-out: 200ms;
+
 // <section/>
 $section-article-transition-duration-hand-wave: 2s;
 $section-article-transition-duration-initialize: $base-transition-duration-initialize;
@@ -112,6 +116,8 @@ $section-translate-amount-fade-initialize: $base-translate-amount-fade-initializ
   codeLineSpace: $code-line-shoulder-space; // TODO: is this needed?
   codeWindowNameTransitionDurationInitialize: $code-window-name-transition-duration-initialize;
   codeWindowNameTransitionDurationHover: $code-window-name-transition-duration-hover;
+  redirectPopupTransitionDurationFadeIn: $redirect-popup-transition-duration-fade-in;
+  redirectPopupTransitionDurationFadeOut: $redirect-popup-transition-duration-fade-out;
   sectionTransitionDurationInitialize: $section-transition-duration-initialize;
   sectionArticleTransitionDurationHandWave: $section-article-transition-duration-hand-wave;
   sectionArticleTransitionDurationInitialize: $section-article-transition-duration-initialize;

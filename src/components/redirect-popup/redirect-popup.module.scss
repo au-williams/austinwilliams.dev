@@ -1,0 +1,437 @@
+@use "../../styles/variables.module";
+@use 'sass:color';
+
+.fixed-wrapper {
+  align-items: center;
+  background: rgb(0 0 0 / 75%); // variables.$body-color-background;
+  box-sizing: border-box;
+  display: flex;
+  font-family: variables.$body-font-family;
+  height: 100%;
+  justify-content: center;
+  padding: 0 1.5em; // TODO: body variable
+  position: fixed;
+  transition: opacity 200ms;
+  width: 100%;
+  z-index: 100000;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &.invisible {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .window-wrapper {
+    background: variables.$body-color-section;
+    border-color: #3c3c3c;
+    border-radius: variables.$base-border-radius;
+    border-style: solid;
+    border-width: 0 variables.$code-window-border-width variables.$code-window-border-width variables.$code-window-border-width;
+    box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
+    box-sizing: border-box;
+    position: relative;
+    transition: opacity 200ms, transform 200ms;
+    width: 42.5em;
+
+    &.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: scale(1);
+    }
+
+    &.invisible {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(.95);
+    }
+
+    .window-title {
+      align-items: center;
+      background-color: #3c3c3c;
+      display: flex;
+      flex-shrink: 0;
+      height: variables.$code-window-title-bar-height;
+      padding: 0 variables.$code-window-border-width;
+      z-index: 1;
+
+      // Title bar window icon
+      > div:nth-child(1) {
+        height: 0.5em;
+        width: 12.5em;
+        border-radius: 0.125em;
+        background: linear-gradient(90deg, #282828 25%, #444 50%, #282828 75%);
+        background-size: 200% 100%;
+        animation: scrollGradient 2s linear infinite;
+        margin: 0 variables.$code-window-border-width;
+        box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
+      }
+
+      @keyframes scrollGradient {
+        0% {
+          background-position: 0% 0%;
+        }
+
+        50% {
+          background-position: -100% 0%;
+        }
+
+        100% {
+          background-position: -200% 0%;
+        }
+      }
+
+      // Title bar close button
+      > div:nth-child(2) {
+        background-color: #de3249;
+        border-radius: 100%;
+        cursor: pointer;
+        height: variables.$code-window-title-bar-button-size;
+        margin: 0 variables.$code-window-border-width;
+        margin-left: auto;
+        width: variables.$code-window-title-bar-button-size;
+        box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
+
+        &:hover {
+          $hover-color: color.adjust(#de3249, $lightness: variables.$code-window-title-bar-button-hover-brightness);
+
+          background-color: $hover-color;
+          box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
+        }
+      }
+    }
+
+    .window-body {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: inherit;
+      margin: 1.675em;
+      gap: 0.75em;
+      position: relative;
+
+      .window-body-header {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .window-body-row {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+
+        a {
+          background: #131313;
+          border-radius: .15em;
+          box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
+          color: variables.$body-color-link;
+          display: inline-block;
+          padding: 0.1em .3em;
+          text-decoration: none;
+          vertical-align: text-bottom;
+          word-break: break-all;
+
+          &:active {
+            transform: translateY(variables.$code-window-footer-translate-amount-click-depress);
+          }
+        }
+
+        button {
+          // background: #888;
+          align-items: center;
+          border-radius: variables.$base-border-radius;
+          border: none;
+          box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
+          color: variables.$body-color-text;
+          display: flex;
+          font-family: variables.$body-font-family;
+          height: 1.5em;
+          font-size: 1em;
+          gap: 0.25em;
+          padding: 0.25em 0.5em;
+          -webkit-user-select: none; /* Safari */
+          -ms-user-select: none; /* IE 10 and IE 11 */
+          user-select: none; /* Standard syntax */
+
+          &.enabled {
+            cursor: pointer;
+            background: #3c3c3c;
+
+            &:active {
+              transform: translateY(variables.$code-window-footer-translate-amount-click-depress);
+            }
+
+            &:hover {
+              background: #303030;
+            }
+          }
+
+          &.disabled {
+            cursor: default;
+            background: #303030;
+          }
+
+          img {
+            height: 1em;
+          }
+
+        }
+
+        img {
+          vertical-align: text-bottom;
+        }
+      }
+
+      // "You're being redirected to ..."
+      > div:nth-child(1) {
+        font-size: 1.25em;
+        font-weight: bold;
+        gap: 0.5em;
+      }
+
+      // "Thanks for visiting! ..."
+      > div:nth-child(4) {
+        gap: 0.25em;
+        margin-top: 1em;
+      }
+
+      .go-back-span {
+        background: #131313;
+        border-radius: .15em;
+        display: inline-block;
+        padding: 0.1em .3em;
+        text-decoration: none;
+      }
+
+      .button-row {
+        display: flex;
+        gap: 1em;
+
+        button {
+          border-radius: variables.$base-border-radius;
+          border: none;
+          box-shadow: rgb(0 0 0 / 12%) 0 1px 3px, rgb(0 0 0 / 24%) 0 1px 2px;
+          color: variables.$body-color-text;
+          cursor: pointer;
+          flex: 1;
+          font-size: 1em;
+          padding: 0.25em;
+          text-align: center;
+          -webkit-user-select: none; /* Safari */
+          -ms-user-select: none; /* IE 10 and IE 11 */
+          user-select: none; /* Standard syntax */
+
+          &:active {
+            transform: translateY(variables.$code-window-footer-translate-amount-click-depress);
+          }
+
+          &:nth-child(1) {
+            // background: #3c3c3c;
+            background: #008000; // Web safe green https://encycolorpedia.com/008000;
+
+            &:hover {
+              background: #0a5c0a;
+            }
+          }
+
+          &:nth-child(2) {
+            background: #da2c43; // #de3249;
+
+            &:hover {
+              background: #9d1c2d;
+            }
+          }
+        }
+      }
+    }
+
+    img, svg {
+      height: 1.2em;
+      pointer-events: none;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
+    }
+  }
+}
+
+// shrink content to fit screen
+
+@media only screen and (height <= 675px), screen and (width <= 885px) {
+  .fixed-wrapper {
+    // font-size: 1.8vmin;
+    // padding: 0 1.8vw;
+  }
+}
+
+// portrait orientation
+
+@media only screen and (width <= 610px) {
+  .fixed-wrapper {
+    font-size: 1.8vmin;
+
+    .window-wrapper {
+      font-size: 1.875em;
+      width: 100%;
+
+      .window-body-header img {
+        height: 2.5em;
+      }
+    }
+  }
+
+  .window-title > div:nth-child(1) {
+    // width: 10em !important;
+  }
+
+  // "You're being redirected to ..."
+  .window-body > div:nth-child(1) {
+
+  }
+
+  .window-body > div:nth-child(2) {
+
+  }
+
+  .window-body-row > a {
+
+  }
+
+  .window-body-header > img {
+  }
+
+  .window-body-row > button {
+  }
+
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  // .article {
+  //   flex-direction: column;
+  //   padding-left: 1.2em;
+  //   padding-right: 1.2em;
+  //   text-align: center;
+
+  //   > img,
+  //   > svg {
+  //     margin: 0 0 1.125em;
+  //   }
+
+  //   > div {
+  //     margin: 0 auto;
+  //   }
+  // }
+
+  // .article:nth-child(2) > img {
+  //   display: none;
+  // }
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// #region Animations                                                        //
+///////////////////////////////////////////////////////////////////////////////
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  animation: fade-in variables.$redirect-popup-transition-duration-fade-in ease-out forwards;
+}
+
+@keyframes fade-in-scale {
+  0% {
+    opacity: 0;
+    pointer-events: none;
+
+    // Fade in
+    transform: scale(0.95);
+
+    // Slide in
+    // transform: translateY(1em);
+  }
+
+  50% {
+    // transform: scale(1.0275);
+  }
+
+  100% {
+    opacity: 1;
+    pointer-events: all;
+
+    // Fade in
+    transform: scale(1);
+
+    // Slide in
+    // transform: translateY(0);
+  }
+}
+
+.fade-in-scale {
+  animation: fade-in-scale variables.$redirect-popup-transition-duration-fade-in ease-out forwards;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.fade-out {
+  animation: fade-out variables.$redirect-popup-transition-duration-fade-out ease-out forwards;
+}
+
+@keyframes fade-out-scale {
+  0% {
+    opacity: 1;
+    pointer-events: all;
+
+    // Fade out
+    transform: scale(1);
+
+    // Slide out
+    // transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    pointer-events: none;
+
+    // Fade out
+    transform: scale(0.95);
+
+    // Slide out
+    // transform: translateY(1em);
+  }
+}
+
+.fade-out-scale {
+  animation: fade-out-scale variables.$redirect-popup-transition-duration-fade-out ease-out forwards;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// #endregion Animations                                                     //
+///////////////////////////////////////////////////////////////////////////////

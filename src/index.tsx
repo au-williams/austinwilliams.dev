@@ -1,22 +1,14 @@
 import { HashRouter, Routes, Route } from 'react-router';
 import { Provider } from 'react-redux';
-import { RedirectRoutes } from '@/config/app-config';
+import { RedirectPopupRoutes } from '@/config/app-config';
 import { store } from './redux';
 import App from './app/app';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import PageRedirect from './components/page-redirect/page-redirect';
+import RouteConfig from './types/route-config';
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import './index.scss';
-
-/**
- * Get a mapped Route and PageRedirect component for the RedirectRoute key.
- * @param {string} key
- * @returns {React.ReactElement}
- */
-const mapRedirectRoute = (key: string): React.ReactElement =>
-  <Route path={key} element={<PageRedirect href={RedirectRoutes[key]} />} />
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
@@ -24,8 +16,22 @@ root.render(
     <HashRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        {Object.keys(RedirectRoutes).map(mapRedirectRoute)}
+        {/* Create the routes in /config/app-config.ts */}
+        {RedirectPopupRoutes.map((route: RouteConfig) => (
+          <Route
+            key={route.key}
+            path={route.path}
+            element={
+              <App
+                redirectFavicon={route.favicon}
+                redirectDestination={route.destination}
+                redirectName={route.name}
+                redirectShareLink={route.shareLink}
+              />
+            }
+          />
+        ))}
       </Routes>
     </HashRouter>
-  </Provider>
+  </Provider>,
 );

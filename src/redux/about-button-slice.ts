@@ -1,56 +1,44 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import variables from '@/styles/_variables.module.scss';
 
+interface AboutButtonArrowStyle {
+  opacity: string;
+  transform: string;
+  transitionDuration: string;
+}
+
 interface AboutButtonState {
-  arrowDuration: string;
-  arrowOpacity: string;
-  arrowTransform: string;
-  intervalId: NodeJS.Timeout | undefined;
-  isHidden: boolean;
-  isHovered: boolean;
+  arrowStyle: AboutButtonArrowStyle;
+  isHovering: boolean;
+  isVisible: boolean;
 }
 
 const initialState: AboutButtonState = {
-  arrowDuration: '',
-  arrowOpacity: variables.aboutButtonArrowOpacityMinimum,
-  arrowTransform: 'translateY(0)',
-  intervalId: undefined,
-  isHidden: true,
-  isHovered: false,
+  arrowStyle: {
+    opacity: variables.aboutButtonArrowOpacityMinimum,
+    transform: 'translateY(0)',
+    transitionDuration: variables.aboutButtonArrowTransitionDuration,
+  },
+  isHovering: false,
+  isVisible: false,
 };
 
-const codeWindowSlice = createSlice({
-  name: 'codeWindow',
+const aboutButtonSlice = createSlice({
+  name: 'aboutButton',
   initialState,
   reducers: {
-    setAboutButtonArrowDuration: (state, action: PayloadAction<string>) => {
-      state.arrowDuration = action.payload;
+    setArrowStyle: (state, action: PayloadAction<AboutButtonArrowStyle>) => {
+      state.arrowStyle = action.payload;
     },
-    setAboutButtonArrowOpacity: (state, action: PayloadAction<string>) => {
-      state.arrowOpacity = action.payload;
+    setIsHovering: (state, action: PayloadAction<boolean>) => {
+      state.isHovering = action.payload;
     },
-    setAboutButtonArrowTransform: (state, action: PayloadAction<string>) => {
-      state.arrowTransform = action.payload;
-    },
-    setAboutButtonIntervalId: (state, action: PayloadAction<NodeJS.Timeout>) => {
-      state.intervalId = action.payload;
-    },
-    setAboutButtonIsHidden: (state, action: PayloadAction<boolean>) => {
-      state.isHidden = action.payload;
-    },
-    setAboutButtonIsHovering: (state, action: PayloadAction<boolean>) => {
-      state.isHovered = action.payload;
+    setIsVisible: (state, action: PayloadAction<boolean>) => {
+      state.isVisible = action.payload;
     },
   },
 });
 
-export const {
-  setAboutButtonArrowDuration,
-  setAboutButtonArrowOpacity,
-  setAboutButtonArrowTransform,
-  setAboutButtonIntervalId,
-  setAboutButtonIsHidden,
-  setAboutButtonIsHovering,
-} = codeWindowSlice.actions;
+export const { setArrowStyle, setIsHovering, setIsVisible } = aboutButtonSlice.actions;
 
-export default codeWindowSlice.reducer;
+export default aboutButtonSlice.reducer;
