@@ -193,7 +193,7 @@ const ContentSection = ({
           <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" />{' '}
           My name is{' '}
           <HoverTooltip hoverTooltipId={'LinkedIn'} img={favicons.LINKEDIN} text={'LinkedIn'}>
-            <Link to="/linkedin" replace={true}>
+            <Link to="/linkedin" replace>
               Austin
             </Link>
           </HoverTooltip>
@@ -206,7 +206,7 @@ const ContentSection = ({
         <div>
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
           <HoverTooltip hoverTooltipId={'Google Drive'} img={favicons.GOOGLE_DRIVE} text={'Google Drive'}>
-            <Link to="/resume" replace={true}>
+            <Link to="/resume" replace>
               resume
             </Link>
           </HoverTooltip>{' '}
@@ -229,7 +229,7 @@ const ContentSection = ({
         <button type="button" onClick={onBackClick}>
           <ScrollIcon /> Back to top
         </button>
-        <Link to="/github" replace={true}>
+        <Link to="/github" replace>
           <GitHubIcon /> GitHub
         </Link>
       </footer>

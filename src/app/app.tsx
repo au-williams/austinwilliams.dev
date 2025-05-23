@@ -6,6 +6,7 @@ import React from 'react';
 import ReactGA from 'react-ga4';
 import styles from './app.module.scss';
 import RedirectPopup from '@/components/redirect-popup/redirect-popup';
+import { useNavigate } from 'react-router';
 
 ///////////////////////////////////////////////////////////////////////////////
 // #region React Render                                                      //
@@ -23,6 +24,7 @@ const App = ({
   redirectShareLink?: string;
 }) => {
   const sectionRef = React.useRef(null);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     // Start Google Analytics and send startup analytics event.
@@ -30,7 +32,7 @@ const App = ({
     ReactGA.send('pageview');
     // Reset scroll position to top on page load.
     window.history.scrollRestoration = 'manual';
-  }, []);
+  }, [navigate]);
 
   return (
     <>
