@@ -42,8 +42,8 @@ export const favicons: {
   LINKEDIN: string;
 } = {
   GMAIL: 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico',
-  GOOGLE_DRIVE: 'https://drive.google.com/favicon.ico',
-  LINKEDIN: 'https://www.linkedin.com/favicon.ico',
+  GOOGLE_DRIVE: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg',
+  LINKEDIN: 'https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg',
 };
 
 /**
@@ -86,7 +86,7 @@ export const RedirectPopupRoutes = [
   }),
   new RouteConfig({
     destination: 'https://github.com/au-williams/austinwilliams.dev',
-    favicon: 'https://github.githubassets.com/favicons/favicon-dark.png',
+    favicon: 'https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.svg',
     name: 'GitHub',
     path: '/github',
     shareLink: 'https://austinwilliams.dev/github',
