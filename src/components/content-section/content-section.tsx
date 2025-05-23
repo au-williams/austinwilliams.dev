@@ -193,7 +193,9 @@ const ContentSection = ({
           <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" />{' '}
           My name is{' '}
           <HoverTooltip hoverTooltipId={'LinkedIn'} img={favicons.LINKEDIN} text={'LinkedIn'}>
-            <Link to="/linkedin">Austin</Link>
+            <Link to="/linkedin" replace={true}>
+              Austin
+            </Link>
           </HoverTooltip>
           . I started my career by developing government programs and collaborating with major tech companies who
           taught me their art of delivering great software from start to finish.
@@ -204,7 +206,9 @@ const ContentSection = ({
         <div>
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
           <HoverTooltip hoverTooltipId={'Google Drive'} img={favicons.GOOGLE_DRIVE} text={'Google Drive'}>
-            <Link to="/resume">resume</Link>
+            <Link to="/resume" replace={true}>
+              resume
+            </Link>
           </HoverTooltip>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
           <HoverTooltip hoverTooltipId={'Send an email'} img={favicons.GMAIL} text={'Send an email'}>
