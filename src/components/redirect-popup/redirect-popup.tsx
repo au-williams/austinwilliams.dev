@@ -63,7 +63,7 @@ const RedirectPopup = ({
     (event?: React.MouseEvent) => {
       // Do not navigate on right click.
       if (event?.button === 2) return;
-      navigate('/');
+      navigate('/', { replace: true });
     },
     [navigate],
   );
@@ -84,7 +84,7 @@ const RedirectPopup = ({
   const startRedirect = React.useCallback(() => {
     if (!redirectDestination) return;
     dispatch(slice.setIsRedirecting(true));
-    navigate('/');
+    navigate('/', { replace: true });
     window.location.href = redirectDestination;
   }, [dispatch, navigate, redirectDestination]);
 

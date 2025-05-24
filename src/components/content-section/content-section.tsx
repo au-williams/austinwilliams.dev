@@ -2,7 +2,7 @@ import { CodeImage, MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji } from '@/
 import { ContactEmailAddress, favicons, GithubConfig } from '@/config/app-config';
 import { cssTimeToMilliseconds } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import * as slice from '@/redux/content-section-slice';
 import AvatarIcon from '@/assets/icons/avatar_icon.svg?react';
@@ -30,6 +30,8 @@ const ContentSection = ({
   /////////////////////////////////////////////////////////////////////////////
   // #region Component props                                                 //
   /////////////////////////////////////////////////////////////////////////////
+
+  const navigate = useNavigate();
 
   // Load the state from Redux.
   const dispatch = useDispatch<AppDispatch>();
@@ -180,6 +182,21 @@ const ContentSection = ({
     setTimeout(() => dispatch(slice.setIsMailboxAnimatedOpened(false)), duration);
   };
 
+  /**
+   * Overwrite the onMouseUp event to avoid React Router polluting the clients
+   * browser history.
+   * @param {*} event
+   * @param {*} route
+   */
+  const navigateRoute = (event, route) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return; // Let browser handle it
+    }
+
+    event.preventDefault();
+    navigate(route, { replace: true });
+  };
+
   /////////////////////////////////////////////////////////////////////////////
   // #endregion Component funcs                                              //
   /////////////////////////////////////////////////////////////////////////////
@@ -193,9 +210,9 @@ const ContentSection = ({
           <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" />{' '}
           My name is{' '}
           <HoverTooltip hoverTooltipId={'LinkedIn'} img={favicons.LINKEDIN} text={'LinkedIn'}>
-            <Link to="/linkedin" replace>
+            <a href="#/linkedin" onMouseUp={(event) => navigateRoute(event, '/linkedin')}>
               Austin
-            </Link>
+            </a>
           </HoverTooltip>
           . I started my career by developing government programs and collaborating with major tech companies who
           taught me their art of delivering great software from start to finish.
@@ -206,9 +223,9 @@ const ContentSection = ({
         <div>
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
           <HoverTooltip hoverTooltipId={'Google Drive'} img={favicons.GOOGLE_DRIVE} text={'Google Drive'}>
-            <Link to="/resume" replace>
+            <a href="#/resume" onMouseUp={(event) => navigateRoute(event, '/resume')}>
               resume
-            </Link>
+            </a>
           </HoverTooltip>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
           <HoverTooltip hoverTooltipId={'Send an email'} img={favicons.GMAIL} text={'Send an email'}>
@@ -229,9 +246,9 @@ const ContentSection = ({
         <button type="button" onClick={onBackClick}>
           <ScrollIcon /> Back to top
         </button>
-        <Link to="/github" replace>
+        <a href="#/github" onMouseUp={(event) => navigateRoute(event, '/github')}>
           <GitHubIcon /> GitHub
-        </Link>
+        </a>
       </footer>
     </section>
   );
