@@ -7,6 +7,7 @@ import ReactGA from 'react-ga4';
 import styles from './app.module.scss';
 import RedirectPopup from '@/components/redirect-popup/redirect-popup';
 import { useNavigate } from 'react-router';
+import DebugMode from '@/components/debug-mode/debug-mode';
 
 ///////////////////////////////////////////////////////////////////////////////
 // #region React Render                                                      //
@@ -36,6 +37,7 @@ const App = ({
 
   return (
     <>
+      <DebugMode />
       <RedirectPopup
         reactGA={ReactGA}
         redirectFavicon={redirectFavicon}

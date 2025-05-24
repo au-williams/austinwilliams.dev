@@ -1,0 +1,52 @@
+@use "../../styles/variables.module";
+
+.debug-mode-wrapper {
+  align-items: flex-end;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  position: fixed;
+  font-size: 1.5em;
+  transition: opacity variables.$redirect-popup-transition-duration-fade-in;
+  width: 100%;
+  z-index: 200000000;
+  pointer-events: none;
+}
+
+.debug-mode-button {
+  // background: variables.$hover-tooltip-background-color; //#402828;
+  // box-shadow: variables.$base-box-shadow;
+  // font-size: 1.5em;
+  align-items: center;
+  background: none;
+  border-radius: variables.$hover-tooltip-border-radius;
+  border: none;
+  bottom: 1;
+  color: variables.$body-color-text;
+  cursor: pointer;
+  display: flex;
+  font-family: variables.$body-font-family;
+  gap: 0.25em;
+  left: 1;
+  margin: 1em;
+  pointer-events: all;
+  transition: opacity 100ms;
+
+
+  &.hidden {
+    opacity: 0;
+  }
+
+  &.visible {
+    opacity: .75;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+img {
+  height: 2em;
+}
