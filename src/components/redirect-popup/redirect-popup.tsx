@@ -84,6 +84,7 @@ const RedirectPopup = ({
   const startRedirect = React.useCallback(() => {
     if (!redirectDestination) return;
     dispatch(slice.setIsRedirecting(true));
+    dispatch(slice.setIsVisible(false));
     navigate('/', { replace: true });
     window.location.href = redirectDestination;
   }, [dispatch, navigate, redirectDestination]);
@@ -95,6 +96,14 @@ const RedirectPopup = ({
   /////////////////////////////////////////////////////////////////////////////
   // #region Component hooks                                                 //
   /////////////////////////////////////////////////////////////////////////////
+
+  // Reset if the page is loaded from browser cache.
+  React.useEffect(() => {
+    window.onpageshow = event => {
+      if (!event.persisted) return;
+      dispatch(slice.setIsRedirecting(false));
+    };
+  }, [dispatch]);
 
   // Initialize dependency values.
   React.useEffect(() => {
