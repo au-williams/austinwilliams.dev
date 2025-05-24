@@ -43,10 +43,10 @@ const ContentSection = ({
   const isMailboxImageOpened = useSelector((state: RootState) => state.contentSection.isMailboxImageOpened);
   const isSectionVisible = useSelector((state: RootState) => state.contentSection.isSectionVisible);
 
-  const article1Classes = classNames(styles.article, { [styles['hidden']]: !isArticle1Visible });
-  const article2Classes = classNames(styles.article, { [styles['hidden']]: !isArticle2Visible });
+  const article1Classes = classNames([styles.article, styles[isArticle1Visible ? 'visible' : 'hidden']]);
+  const article2Classes = classNames([styles.article, styles[isArticle2Visible ? 'visible' : 'hidden']]);
   const handWaveClasses = classNames({ [styles['handWave']]: isHandWaveAnimated });
-  const sectionClasses = classNames(styles.section, { [styles['hidden']]: !isSectionVisible });
+  const sectionClasses = classNames([styles.section, styles[isSectionVisible ? 'visible' : 'hidden']]);
 
   const mailboxClasses = classNames({
     [styles.mailboxTranslate]: isMailboxAnimatedClosed && !isMailboxAnimatedOpened,

@@ -36,26 +36,26 @@
     width: 42.5em;
 
     button {
-      -ms-user-select: none;
-      -webkit-user-select: none;
       border-radius: variables.$base-border-radius;
       border: none;
+      box-shadow: variables.$base-box-shadow;
+      color: variables.$body-color-text;
+      cursor: pointer;
       font-family: variables.$body-font-family;
       font-size: 1em;
       padding: 0.25em 0.5em;
       user-select: none;
-      box-shadow: variables.$base-box-shadow;
-      color: variables.$body-color-text;
-      cursor: pointer;
+      -ms-user-select: none;
+      -webkit-user-select: none;
     }
 
     img, svg {
-      -ms-user-select: none;
-      -webkit-user-select: none;
       height: 1.2em;
       pointer-events: none;
       user-select: none;
       vertical-align: text-bottom;
+      -ms-user-select: none;
+      -webkit-user-select: none;
     }
 
     &.visible {
@@ -131,6 +131,10 @@
         font-size: 1.25em;
         font-weight: bold;
         gap: 0.5em;
+
+        img {
+          height: 1em;
+        }
       }
 
       .window-body-row {
