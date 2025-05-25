@@ -67,8 +67,6 @@ This component is the final component in the [code-window](#-srccomponentscode-w
 
 This component is the middle component of the [code-window](#-srccomponentscode-window) component tree. It's responsible for encapsulating one-to-many [code-block](#-srccomponentscode-block) components and reacting to the clients mouseover events.
 
-🗃️ `Redux state` [/src/redux/code-line-slice.ts](src/redux/code-line-slice.ts)
-
 </details>
 
 <!-- code-window component -->
@@ -113,15 +111,17 @@ This component manages the tooltip that displays as a pop-up when hovering above
 
 </details>
 
-<!-- page-redirect component -->
+<!-- redirect-popup component -->
 
 <details>
 
-<summary>🧩 /src/components/page-redirect/</summary>
+<summary>🧩 /src/components/redirect-popup/</summary>
 
-### [🧩 /src/components/page-redirect/](src/components/page-redirect)
+### [🧩 /src/components/redirect-popup/](src/components/redirect-popup)
 
 This component manages redirecting the page using the React Router library. It's meant to allow analytics before redirect, and stub out future enhancements, such as displaying the URL you are redirecting to with a cancellation timer. Redirected routes are configurable in [/src/config/app-config.ts](#%EF%B8%8F-srcconfigapp-configts). 🛠️
+
+🗃️ `Redux state` [/src/redux/redirect-popup-slice.ts](src/redux/redirect-popup-slice.ts)
 
 </details>
 
