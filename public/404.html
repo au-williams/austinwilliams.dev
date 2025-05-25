@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Redirecting ...</title>
+  <!-- Redirect script to handle GitHub Pages 404 on direct links -->
+  <script>
+    if (!location.hash) {
+      // Build redirect URL to "/#" + path + query
+      const path = location.pathname === "/" ? "" : location.pathname;
+      const query = location.search || "";
+      location.replace("/#" + path + query);
+    }
+  </script>
+</head>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+</body>
+</html>

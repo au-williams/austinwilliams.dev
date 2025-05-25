@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router';
+import { HashRouter, Routes, Route, Navigate } from 'react-router';
 import { Provider } from 'react-redux';
 import { RedirectPopupRoutes } from '@/config/app-config';
 import { store } from './redux';
@@ -15,6 +15,9 @@ root.render(
   <Provider store={store}>
     <HashRouter>
       <Routes>
+        {/* Use 404 page as redirect applying /# to page URL */}
+        {/* This is hacky but needed for clean sharable URLs */}
+        <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/" element={<App />} />
         {/* Create the routes in /config/app-config.ts */}
         {RedirectPopupRoutes.map((route: RouteConfig) => (

@@ -1,6 +1,6 @@
+import { CheckMarkEmoji, HomeEmoji, LinkEmoji } from '@/assets/images';
 import { cssTimeToMilliseconds, pluralizeString } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
-import { CheckMarkEmoji, HomeEmoji, LinkEmoji } from '@/assets/images';
 import { RedirectPopupConfig } from '@/config/app-config';
 import { RemoveScroll } from 'react-remove-scroll';
 import { AppDispatch, type RootState } from '@/redux';
