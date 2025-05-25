@@ -1,6 +1,6 @@
 import { cssTimeToMilliseconds, pluralizeString } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
-import { HomeEmoji, LinkEmoji } from '@/assets/images';
+import { CheckMarkEmoji, HomeEmoji, LinkEmoji } from '@/assets/images';
 import { RedirectPopupConfig } from '@/config/app-config';
 import { RemoveScroll } from 'react-remove-scroll';
 import { AppDispatch, type RootState } from '@/redux';
@@ -16,6 +16,7 @@ import variables from '@/styles/_variables.module.scss';
  * The redirect component handles redirecting window locations.
  */
 const RedirectPopup = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   reactGA,
   redirectFavicon,
   redirectDestination,
@@ -208,7 +209,8 @@ const RedirectPopup = ({
                 className={classNames(styles[isCopyable ? 'enabled' : 'disabled'])}
                 onMouseUp={() => (isCopyable ? copyUrl() : null)}
               >
-                <img src={LinkEmoji} alt="link emoji" /> {isCopyable ? 'Copy URL' : 'Copied!'}
+                <img src={isCopyable ? LinkEmoji : CheckMarkEmoji} alt="link emoji" />{' '}
+                {isCopyable ? 'Copy URL' : 'Copied!'}
               </button>
             </div>
             <div className={styles['window-body-row']}>
