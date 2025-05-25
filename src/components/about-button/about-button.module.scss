@@ -1,23 +1,23 @@
-@use "../../styles/variables.module";
+@use "@/styles/variables.module" as *;
 
 .about-button {
   background: none;
   border: none;
-  color: variables.$about-button-arrow-svg-text-color;
+  color: $about-button-arrow-svg-text-color;
   cursor: pointer;
-  font-family: variables.$body-font-family;
+  font-family: $body-font-family;
   font-size: 2em;
   margin: 5vh 0;
-  transition: opacity variables.$about-button-transition-duration-initialize;
+  transition: opacity $about-button-transition-duration-initialize;
 
   svg {
-    fill: variables.$about-button-arrow-svg-text-color;
+    fill: $about-button-arrow-svg-text-color;
     height: 1em;
-    transition: transform variables.$about-button-arrow-transition-duration, opacity variables.$about-button-arrow-transition-duration;
+    transition: transform $about-button-arrow-transition-duration, opacity $about-button-arrow-transition-duration;
   }
 
   &:active {
-    transform: translateY(variables.$about-button-translate-amount-click-depress);
+    transform: translateY($about-button-translate-amount-click-depress);
   }
 
   &.hidden {

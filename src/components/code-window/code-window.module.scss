@@ -1,10 +1,10 @@
-@use "../../styles/variables.module";
+@use "@/styles/variables.module" as *;
 @use 'sass:color';
 
 .wrapper {
   background-color: #202020;
-  border-radius: variables.$code-window-border-radius;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: $code-window-border-radius;
+  box-shadow: $base-box-shadow;
   display: flex;
   flex-direction: column;
   height: 28.125em;
@@ -17,12 +17,12 @@
 
   &::before {
     background: #333;
-    border-left: variables.$code-window-border-width solid #3c3c3c;
-    border-radius: variables.$code-window-border-radius 0 0 variables.$code-window-border-radius;
+    border-left: $code-window-border-width solid #3c3c3c;
+    border-radius: $code-window-border-radius 0 0 $code-window-border-radius;
     content: '';
     height: 100%;
     position: absolute;
-    width: variables.$code-window-sidebar-width;
+    width: $code-window-sidebar-width;
   }
 }
 
@@ -31,8 +31,8 @@
   background-color: #3c3c3c;
   display: flex;
   flex-shrink: 0;
-  height: variables.$code-window-title-bar-height;
-  padding: 0 variables.$code-window-border-width;
+  height: $code-window-title-bar-height;
+  padding: 0 $code-window-border-width;
   z-index: 1;
 
   div {
@@ -43,14 +43,14 @@
     $background-color: #0078d7;
 
     background-color: $background-color;
-    border-radius: variables.$code-window-border-radius;
+    border-radius: $code-window-border-radius;
     display: inline-block;
-    height: variables.$code-window-title-bar-button-size;
-    margin: 0 (variables.$code-window-sidebar-width * 0.5 - variables.$code-window-title-bar-button-size * 0.5);
-    width: variables.$code-window-title-bar-button-size;
+    height: $code-window-title-bar-button-size;
+    margin: 0 ($code-window-sidebar-width * 0.5 - $code-window-title-bar-button-size * 0.5);
+    width: $code-window-title-bar-button-size;
 
     &:hover {
-      $hover-color: color.adjust($background-color, $lightness: calc(variables.$code-window-title-bar-button-hover-brightness / 1.5));
+      $hover-color: color.adjust($background-color, $lightness: calc($code-window-title-bar-button-hover-brightness / 1.5));
 
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
@@ -61,9 +61,9 @@
   div:nth-child(3),
   div:nth-child(4) {
     border-radius: 100%;
-    height: variables.$code-window-title-bar-button-size;
-    margin: 0 variables.$code-window-border-width;
-    width: variables.$code-window-title-bar-button-size;
+    height: $code-window-title-bar-button-size;
+    margin: 0 $code-window-border-width;
+    width: $code-window-title-bar-button-size;
   }
 
   div:nth-child(2) {
@@ -73,7 +73,7 @@
     margin-left: auto;
 
     &:hover {
-      $hover-color: color.adjust($background-color, $lightness: calc(variables.$code-window-title-bar-button-hover-brightness / 1.5));
+      $hover-color: color.adjust($background-color, $lightness: calc($code-window-title-bar-button-hover-brightness / 1.5));
 
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
@@ -86,7 +86,7 @@
     background-color: $background-color;
 
     &:hover {
-      $hover-color: color.adjust($background-color, $lightness: variables.$code-window-title-bar-button-hover-brightness);
+      $hover-color: color.adjust($background-color, $lightness: $code-window-title-bar-button-hover-brightness);
 
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
@@ -99,7 +99,7 @@
     background-color: $background-color;
 
     &:hover {
-      $hover-color: color.adjust($background-color, $lightness: variables.$code-window-title-bar-button-hover-brightness);
+      $hover-color: color.adjust($background-color, $lightness: $code-window-title-bar-button-hover-brightness);
 
       background-color: $hover-color;
       box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
@@ -110,7 +110,7 @@
 .body {
   border-color: #3c3c3c;
   border-style: solid;
-  border-width: 0 variables.$code-window-border-width;
+  border-width: 0 $code-window-border-width;
   height: inherit;
   position: relative;
 }
@@ -132,8 +132,8 @@
     content: '';
     font-size: 1em;
     height: 100%;
-    margin-bottom: variables.$code-line-shoulder-space;
-    min-height: 5 * (variables.$code-block-size + variables.$code-line-shoulder-space * 2) - 0.1em; // [- val] hack to realign scroll position
+    margin-bottom: $code-line-shoulder-space;
+    min-height: 5 * ($code-block-size + $code-line-shoulder-space * 2) - 0.1em; // [- val] hack to realign scroll position
     pointer-events: none;
   }
 
@@ -146,9 +146,9 @@
 .name {
   align-items: center;
   background-color: rgba(0 0 0 / 50%);
-  border-radius: calc(variables.$code-window-border-radius / 2);
+  border-radius: calc($code-window-border-radius / 2);
   display: flex;
-  font-family: variables.$body-font-family;
+  font-family: $body-font-family;
   font-size: 2.875em;
   height: 1.65em;
   inset: 0;
@@ -157,7 +157,7 @@
   opacity: 0;
   pointer-events: none;
   position: absolute;
-  transition: opacity variables.$code-window-name-transition-duration-hover;
+  transition: opacity $code-window-name-transition-duration-hover;
   width: 8.95em;
 
   &.visible {
@@ -179,12 +179,12 @@
   background-color: #3c3c3c;
   border-color: #3c3c3c;
   border-style: solid;
-  border-width: 0 variables.$code-window-border-width;
-  height: variables.$code-window-border-width;
+  border-width: 0 $code-window-border-width;
+  height: $code-window-border-width;
   transition:
-    background-color variables.$code-window-footer-transition-duration-hover,
-    border-color variables.$code-window-footer-transition-duration-hover,
-    height variables.$code-window-footer-transition-duration-hover;
+    background-color $code-window-footer-transition-duration-hover,
+    border-color $code-window-footer-transition-duration-hover,
+    height $code-window-footer-transition-duration-hover;
   z-index: 1;
 
   &.visible {
@@ -255,7 +255,7 @@
   > span {
     color: #d4d4d4;
     cursor: default;
-    font-family: variables.$body-font-family;
+    font-family: $body-font-family;
     font-size: 0.8em;
 
     &:nth-last-child(1) {
@@ -268,7 +268,7 @@
     border: none;
     cursor: pointer;
     font-size: 1em;
-    min-width: variables.$code-window-sidebar-width;
+    min-width: $code-window-sidebar-width;
     position: relative;
 
     &:active svg {
@@ -283,16 +283,16 @@
 }
 
 .tooltip {
-  border-radius: variables.$code-window-border-radius;
+  border-radius: $code-window-border-radius;
   bottom: 150%;
   color: #d4d4d4;
-  font-family: variables.$body-font-family;
+  font-family: $body-font-family;
   font-size: 0.8em;
   padding: 0.675em;
   pointer-events: none;
   position: absolute;
   text-align: center;
-  transition: background-color variables.$code-window-footer-tooltip-transition-duration;
+  transition: background-color $code-window-footer-tooltip-transition-duration;
   visibility: hidden;
   z-index: 1;
 
@@ -343,33 +343,33 @@
 }
 
 .fade {
-  animation: fade-in variables.$code-window-transition-duration-initialize ease-out forwards;
+  animation: fade-in $code-window-transition-duration-initialize ease-out forwards;
   pointer-events: none;
   opacity: 0;
 }
 
 @keyframes shake-x {
   0%   { transform: translateX(0); }
-  25%  { transform: translateX(-1 * variables.$code-window-shake-animation-translate-amount); }
-  50%  { transform: translateX(variables.$code-window-shake-animation-translate-amount); }
-  75%  { transform: translateX(-1 * calc(variables.$code-window-shake-animation-translate-amount / 2)); }
-  100% { transform: translateX(calc(variables.$code-window-shake-animation-translate-amount / 2)); }
+  25%  { transform: translateX(-1 * $code-window-shake-animation-translate-amount); }
+  50%  { transform: translateX($code-window-shake-animation-translate-amount); }
+  75%  { transform: translateX(-1 * calc($code-window-shake-animation-translate-amount / 2)); }
+  100% { transform: translateX(calc($code-window-shake-animation-translate-amount / 2)); }
 }
 
 @keyframes shake-y {
   0%   { transform: translateY(0); }
-  25%  { transform: translateY(-1 * variables.$code-window-shake-animation-translate-amount); }
-  50%  { transform: translateY(variables.$code-window-shake-animation-translate-amount); }
-  75%  { transform: translateY(-1 * calc(variables.$code-window-shake-animation-translate-amount / 2)); }
-  100% { transform: translateY(calc(variables.$code-window-shake-animation-translate-amount / 2)); }
+  25%  { transform: translateY(-1 * $code-window-shake-animation-translate-amount); }
+  50%  { transform: translateY($code-window-shake-animation-translate-amount); }
+  75%  { transform: translateY(-1 * calc($code-window-shake-animation-translate-amount / 2)); }
+  100% { transform: translateY(calc($code-window-shake-animation-translate-amount / 2)); }
 }
 
 .shakenX {
-  animation: shake-x variables.$code-window-shake-animation-duration ease-in-out;
+  animation: shake-x $code-window-shake-animation-duration ease-in-out;
 }
 
 .shakenY {
-  animation: shake-y variables.$code-window-shake-animation-duration ease-in-out;
+  animation: shake-y $code-window-shake-animation-duration ease-in-out;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

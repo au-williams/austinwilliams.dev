@@ -1,4 +1,4 @@
-@use "../../styles/variables.module";
+@use "@/styles/variables.module" as *;
 @use 'sass:color';
 
 .fixed-wrapper {
@@ -10,7 +10,7 @@
   justify-content: center;
   padding: 0 2em; // TODO: body variable
   position: fixed;
-  transition: opacity variables.$redirect-popup-transition-duration-fade-in;
+  transition: opacity $redirect-popup-transition-duration-fade-in;
   width: 100%;
   z-index: 100000;
 
@@ -25,23 +25,23 @@
   }
 
   .window-wrapper {
-    background: variables.$body-color-section;
+    background: $body-color-section;
     border-color: #3c3c3c;
-    border-radius: variables.$base-border-radius;
+    border-radius: $base-border-radius;
     border-style: solid;
-    border-width: 0 variables.$code-window-border-width variables.$code-window-border-width variables.$code-window-border-width;
-    box-shadow: variables.$base-box-shadow;
+    border-width: 0 $code-window-border-width $code-window-border-width;
+    box-shadow: $base-box-shadow;
     box-sizing: border-box;
-    transition: opacity variables.$redirect-popup-transition-duration-fade-in, transform variables.$redirect-popup-transition-duration-fade-in;
+    transition: opacity $redirect-popup-transition-duration-fade-in, transform $redirect-popup-transition-duration-fade-in;
     width: 42.5em;
 
     button {
-      border-radius: variables.$base-border-radius;
+      border-radius: $base-border-radius;
       border: none;
-      box-shadow: variables.$base-box-shadow;
-      color: variables.$body-color-text;
+      box-shadow: $base-box-shadow;
+      color: $body-color-text;
       cursor: pointer;
-      font-family: variables.$body-font-family;
+      font-family: $body-font-family;
       font-size: 1em;
       padding: 0.25em 0.5em;
       user-select: none;
@@ -74,12 +74,12 @@
       align-items: center;
       background-color: #3c3c3c;
       display: flex;
-      height: variables.$code-window-title-bar-height;
-      padding: 0 variables.$code-window-border-width;
+      height: $code-window-title-bar-height;
+      padding: 0 $code-window-border-width;
       z-index: 1;
 
       div {
-        box-shadow: variables.$base-box-shadow;
+        box-shadow: $base-box-shadow;
       }
 
       // Title bar window icon
@@ -97,12 +97,12 @@
         background-color: #de3249;
         border-radius: 100%;
         cursor: pointer;
-        height: variables.$code-window-title-bar-button-size;
+        height: $code-window-title-bar-button-size;
         margin-left: auto;
-        width: variables.$code-window-title-bar-button-size;
+        width: $code-window-title-bar-button-size;
 
         &:hover {
-          $hover-color: color.adjust(#de3249, $lightness: variables.$code-window-title-bar-button-hover-brightness);
+          $hover-color: color.adjust(#de3249, $lightness: $code-window-title-bar-button-hover-brightness);
 
           background-color: $hover-color;
           box-shadow: 0 0 0.5em rgba($hover-color, 0.15);
@@ -149,22 +149,22 @@
 
         a {
           background: #131313;
-          border-radius: variables.$base-border-radius;
-          box-shadow: variables.$base-box-shadow;
-          color: variables.$body-color-link; // TODO: visited color!
+          border-radius: $base-border-radius;
+          box-shadow: $base-box-shadow;
+          color: $body-color-link; // TODO: visited color!
           display: inline-block;
           padding: 0.1em .3em; // TODO: same as section links?
           text-decoration: none;
           word-break: break-all;
 
           &:active {
-            transform: translateY(variables.$code-window-footer-translate-amount-click-depress);
+            transform: translateY($code-window-footer-translate-amount-click-depress);
           }
         }
 
         button {
           align-items: center;
-          color: variables.$body-color-text;
+          color: $body-color-text;
           display: flex;
           gap: 0.25em;
 
@@ -177,7 +177,7 @@
             cursor: pointer;
 
             &:active {
-              transform: translateY(variables.$code-window-footer-translate-amount-click-depress);
+              transform: translateY($code-window-footer-translate-amount-click-depress);
             }
 
             &:hover {
@@ -201,7 +201,7 @@
           text-align: center;
 
           &:active {
-            transform: translateY(variables.$code-window-footer-translate-amount-click-depress);
+            transform: translateY($code-window-footer-translate-amount-click-depress);
           }
 
           &:nth-child(1) {

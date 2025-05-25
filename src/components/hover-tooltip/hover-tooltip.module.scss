@@ -1,21 +1,21 @@
-@use "../../styles/variables.module";
+@use "@/styles/variables.module" as *;
 
 .wrapper {
   display: inline-block;
   position: relative;
 
   &:active {
-    transform: translateY(variables.$hover-tooltip-translate-amount-click-depress)
+    transform: translateY($hover-tooltip-translate-amount-click-depress)
   }
 }
 
 .tooltip {
   align-items: center;
-  background: variables.$hover-tooltip-background-color;
-  border-radius: variables.$hover-tooltip-border-radius;
+  background: $hover-tooltip-background-color;
+  border-radius: $hover-tooltip-border-radius;
   bottom: 100%;
-  box-shadow: variables.$base-box-shadow;
-  color: variables.$body-color-text;
+  box-shadow: $base-box-shadow;
+  color: $body-color-text;
   display: flex;
   font-size: 0.85em;
   gap: 0.2em;
@@ -26,7 +26,7 @@
   position: absolute;
   transform-origin: bottom center;
   transform: translateY(0);
-  transition: opacity variables.$hover-tooltip-animation-duration-hover, transform variables.$hover-tooltip-animation-duration-hover;
+  transition: opacity $hover-tooltip-animation-duration-hover, transform $hover-tooltip-animation-duration-hover;
   white-space: nowrap;
   z-index: 1;
 

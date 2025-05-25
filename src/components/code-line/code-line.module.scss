@@ -1,4 +1,4 @@
-@use "../../styles/variables.module";
+@use "@/styles/variables.module" as *;
 
 // TODO: RAISE code line when hovering? reset when exiting?
 
@@ -7,29 +7,29 @@
   border: none;
   cursor: pointer;
   display: flex;
-  padding: variables.$code-line-shoulder-space 0;
+  padding: $code-line-shoulder-space 0;
 
   &:active {
     // Move the code line down as click feedback for the user.
-    transform: translateY(variables.$code-line-translate-amount-click-depress);
+    transform: translateY($code-line-translate-amount-click-depress);
   }
 
   &:last-of-type {
-    margin-top: (variables.$code-line-shoulder-space);
+    margin-top: ($code-line-shoulder-space);
   }
 }
 
 .lineNumber {
-  $line-number-size: 0.45 * variables.$code-block-size;
-  $line-number-top-bottom-margin: calc(variables.$code-block-size / 2) - calc($line-number-size / 2);
-  $line-number-left-right-margin: calc(variables.$code-window-sidebar-width / 2) - calc($line-number-size / 2);
+  $line-number-size: 0.45 * $code-block-size;
+  $line-number-top-bottom-margin: calc($code-block-size / 2) - calc($line-number-size / 2);
+  $line-number-left-right-margin: calc($code-window-sidebar-width / 2) - calc($line-number-size / 2);
 
   border-radius: 100%;
   background-color: #888;
   height: $line-number-size;
   margin-bottom: $line-number-top-bottom-margin;
   margin-left: $line-number-left-right-margin;
-  margin-right: $line-number-left-right-margin * 2 - variables.$code-line-shoulder-space;
+  margin-right: $line-number-left-right-margin * 2 - $code-line-shoulder-space;
   margin-top: $line-number-top-bottom-margin;
   transition: background-color 25ms, box-shadow 25ms;
   width: $line-number-size;

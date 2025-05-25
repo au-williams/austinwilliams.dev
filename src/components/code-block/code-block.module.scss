@@ -1,4 +1,4 @@
-@use "../../styles/variables.module";
+@use "@/styles/variables.module" as *;
 
 ///////////////////////////////////////////////////////////////////////////////
 // #region Placeholder Selectors                                             //
@@ -7,25 +7,25 @@
 
 %angle,
 %block {
-  border-radius: variables.$code-window-border-radius;
-  margin: 0 variables.$code-line-shoulder-space;
+  border-radius: $code-window-border-radius;
+  margin: 0 $code-line-shoulder-space;
   pointer-events: none;
 }
 
 %angle {
-  border-bottom: variables.$code-block-size * 0.5 solid transparent;
-  border-top: variables.$code-block-size * 0.5 solid transparent;
-  transition: border-color variables.$code-block-color-transition-duration-hover;
+  border-bottom: $code-block-size * 0.5 solid transparent;
+  border-top: $code-block-size * 0.5 solid transparent;
+  transition: border-color $code-block-color-transition-duration-hover;
 }
 
 %block {
-  background-color: variables.$code-block-color-unfocused;
-  height: variables.$code-block-size;
-  transition: background-color variables.$code-block-color-transition-duration-hover;
-  width: variables.$code-block-size;
+  background-color: $code-block-color-unfocused;
+  height: $code-block-size;
+  transition: background-color $code-block-color-transition-duration-hover;
+  width: $code-block-size;
 
   &.active {
-    background-color: variables.$code-block-color-unfocused-dimmed
+    background-color: $code-block-color-unfocused-dimmed
   }
 }
 
@@ -41,7 +41,7 @@
   @extend %block;
 
   &.color {
-    background-color: variables.$code-block-color-attribute;
+    background-color: $code-block-color-attribute;
   }
 }
 
@@ -49,13 +49,13 @@
   @extend %block;
 
   &.color {
-    background-color: variables.$code-block-color-content;
+    background-color: $code-block-color-content;
   }
 }
 
 .indent {
   @extend %block;
-  
+
   background-color: transparent;
 
   &.active {
@@ -66,12 +66,12 @@
 .operator {
   @extend %block;
 
-  height: variables.$code-block-size * 0.5;
-  margin: 0 (variables.$code-block-size * 0.25) + variables.$code-line-shoulder-space;
-  width: variables.$code-block-size * 0.5;
+  height: $code-block-size * 0.5;
+  margin: 0 ($code-block-size * 0.25) + $code-line-shoulder-space;
+  width: $code-block-size * 0.5;
 
   &.color {
-    background-color: variables.$code-block-color-operator;
+    background-color: $code-block-color-operator;
   }
 }
 
@@ -79,7 +79,7 @@
   @extend %block;
 
   &.color {
-    background-color: variables.$code-block-color-string;
+    background-color: $code-block-color-string;
   }
 }
 
@@ -87,7 +87,7 @@
   @extend %block;
 
   &.color {
-    background-color: variables.$code-block-color-tag-name;
+    background-color: $code-block-color-tag-name;
   }
 }
 
@@ -102,30 +102,30 @@
 .closeAngle {
   @extend %angle;
 
-  border-left: 0.8 * variables.$code-block-size solid variables.$code-block-color-unfocused;
-  margin-right: 0.2 * variables.$code-block-size + variables.$code-line-shoulder-space;
+  border-left: 0.8 * $code-block-size solid $code-block-color-unfocused;
+  margin-right: 0.2 * $code-block-size + $code-line-shoulder-space;
 
   &.active {
-    border-left-color: variables.$code-block-color-unfocused-dimmed;
+    border-left-color: $code-block-color-unfocused-dimmed;
   }
 
   &.color {
-    border-left-color: variables.$code-block-color-angle;
+    border-left-color: $code-block-color-angle;
   }
 }
 
 .openAngle {
   @extend %angle;
 
-  border-right: 0.8 * variables.$code-block-size solid variables.$code-block-color-unfocused;
-  margin-left: 0.2 * variables.$code-block-size + variables.$code-line-shoulder-space;
+  border-right: 0.8 * $code-block-size solid $code-block-color-unfocused;
+  margin-left: 0.2 * $code-block-size + $code-line-shoulder-space;
 
   &.active {
-    border-right-color: variables.$code-block-color-unfocused-dimmed;
+    border-right-color: $code-block-color-unfocused-dimmed;
   }
 
   &.color {
-    border-right-color: variables.$code-block-color-angle;
+    border-right-color: $code-block-color-angle;
   }
 }
 
@@ -139,7 +139,7 @@
 
 @keyframes push {
   from {
-    transform: translateY(variables.$code-line-translate-amount-click-depress);
+    transform: translateY($code-line-translate-amount-click-depress);
   }
 
   to {
