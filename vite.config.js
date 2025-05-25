@@ -1,5 +1,6 @@
+import { createHtmlPlugin } from 'vite-plugin-html';
 import { defineConfig } from 'vite';
-// import eslint from 'vite-plugin-eslint';
+import eslint from 'vite-plugin-eslint';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
@@ -11,8 +12,13 @@ export default defineConfig({
     outDir: './build',
     emptyOutDir: true,
   },
-  // plugins: [eslint(), react(), svgr(), tsconfigPaths()],
-  plugins: [react(), svgr(), tsconfigPaths()],
+  plugins: [
+    createHtmlPlugin({ minify: true, template: 'public/index.html' }),
+    eslint(),
+    react(),
+    svgr(),
+    tsconfigPaths()
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
