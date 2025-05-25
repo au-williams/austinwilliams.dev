@@ -226,6 +226,14 @@
   }
 }
 
+// shrink content to fit screen
+
+@media only screen and (height <= 675px), screen and (width <= 885px) {
+  .fixed-wrapper {
+    font-size: 1.8vmin;
+  }
+}
+
 // portrait orientation
 
 @media only screen and (width <= 610px) {

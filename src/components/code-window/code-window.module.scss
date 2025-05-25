@@ -311,8 +311,9 @@
   button:active & { transform: translateY(0.0938em); }
 }
 
+// shrink content to fit screen
+
 @media only screen and (height <= 675px), screen and (width <= 885px) {
-  // Shrink code window to fit screen
   .wrapper { font-size: 1.8vmin; }
 }
 
