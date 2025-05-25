@@ -1,6 +1,6 @@
 @use "../../styles/variables.module";
 
-.aboutButton {
+.about-button {
   background: none;
   border: none;
   color: variables.$about-button-arrow-svg-text-color;
@@ -26,5 +26,11 @@
 
   &.visible {
     opacity: 1;
+  }
+}
+
+@media only screen and (width <= 610px) {
+  .about-button {
+    font-size: 5vmin;
   }
 }

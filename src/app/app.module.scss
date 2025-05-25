@@ -7,13 +7,3 @@
   height: 100vh;
   justify-content: center;
 }
-
-@media only screen and (height <= 675px), screen and (width <= 885px) {
-  // Shrink code window to fit screen
-  .wrapper { font-size: 1.8vmin; }
-}
-
-@media only screen and (width <= 610px) {
-  // Shrink about button to fit screen
-  .wrapper > button { font-size: 2.75em; }
-}
