@@ -67,6 +67,8 @@ This component is the final component in the [code-window](#-srccomponentscode-w
 
 This component is the middle component of the [code-window](#-srccomponentscode-window) component tree. It's responsible for encapsulating one-to-many [code-block](#-srccomponentscode-block) components and reacting to the clients mouseover events.
 
+🗃️ `Redux state` [/src/redux/code-line-slice.ts](src/redux/code-line-slice.ts)
+
 </details>
 
 <!-- code-window component -->

@@ -1,3 +1,6 @@
+import { AppDispatch, RootState } from '@/redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as slice from '@/redux/code-line-slice';
 import classNames from 'classnames';
 import CodeBlock from '@/components/code-block/code-block';
 import CodeBlockModel from '@/types/code-block-model';
@@ -11,6 +14,7 @@ import styles from './code-line.module.scss';
  */
 const CodeLine = ({
   codeBlocks,
+  codeLineId,
   isActiveLine,
   isClicked,
   onClick,
@@ -21,29 +25,30 @@ const CodeLine = ({
   isClicked: boolean;
   onClick: (param: boolean) => void;
 }): React.JSX.Element => {
-  const isHoveringRef = useRef<boolean>(false); // TODO: Might need to be state
+  const dispatch = useDispatch<AppDispatch>();
+  const isHovered = useSelector((state: RootState) => state.codeLine[codeLineId]?.isHovered ?? false);
 
   const lineNumberClasses = classNames(
     styles['line-number'],
     { [styles['clicked']]: isClicked },
-    { [styles['hovered']]: isHoveringRef.current && !isClicked },
+    { [styles['hovered']]: isHovered && !isClicked },
   );
 
   return (
     <div
       className={styles['code-line']}
-      onBlur={() => (isHoveringRef.current = false)}
+      onBlur={() => dispatch(slice.setIsHovered(codeLineId, false))}
       onClick={() => onClick(!isClicked)}
-      onFocus={() => (isHoveringRef.current = true)}
-      onMouseLeave={() => (isHoveringRef.current = false)}
-      onMouseOver={() => (isHoveringRef.current = true)}
+      onFocus={() => dispatch(slice.setIsHovered(codeLineId, true))}
+      onMouseLeave={() => dispatch(slice.setIsHovered(codeLineId, false))}
+      onMouseOver={() => dispatch(slice.setIsHovered(codeLineId, true))}
       role="presentation"
     >
       <div className={lineNumberClasses} />
       {codeBlocks.map(({ blockType, currentSize, key }, index) => {
         const isLastBlock = index === codeBlocks.length - 1;
         const isActiveBlock = isActiveLine && isLastBlock;
-        const isColoredBlock = isClicked || isHoveringRef.current;
+        const isColoredBlock = isClicked || isHovered;
 
         return (
           <CodeBlock
