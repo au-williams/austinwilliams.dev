@@ -7,10 +7,6 @@ import ReactGA from 'react-ga4';
 import RedirectPopup from '@/components/redirect-popup/redirect-popup';
 import styles from './app.module.scss';
 
-///////////////////////////////////////////////////////////////////////////////
-// #region React Render                                                      //
-///////////////////////////////////////////////////////////////////////////////
-
 const App = ({
   redirectFavicon,
   redirectDestination,
@@ -41,7 +37,7 @@ const App = ({
         redirectName={redirectName}
         redirectShareLink={redirectShareLink}
       />
-      <header className={styles['wrapper']}>
+      <header className={styles['header']}>
         <CodeWindow />
         <AboutButton reactGA={ReactGA} sectionRef={sectionRef} />
       </header>
@@ -51,7 +47,3 @@ const App = ({
 };
 
 export default App;
-
-///////////////////////////////////////////////////////////////////////////////
-// #endregion React Render                                                   //
-///////////////////////////////////////////////////////////////////////////////

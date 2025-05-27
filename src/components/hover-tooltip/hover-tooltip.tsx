@@ -28,7 +28,7 @@ const HoverTooltip = ({
       onMouseOut={() => dispatch(slice.setIsHovering(hoverTooltipId, false))}
       onMouseOver={() => dispatch(slice.setIsHovering(hoverTooltipId, true))}
     >
-      <div className={classNames(styles.tooltip, { [styles.hidden]: !isHovering })}>
+      <div className={classNames([styles.tooltip, styles[isHovering ? 'visible' : 'hidden']])}>
         <img src={img} alt={`${text} favicon`} />
         <span>{text}</span>
       </div>

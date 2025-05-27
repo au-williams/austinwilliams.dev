@@ -20,12 +20,10 @@
   font-size: 0.85em;
   gap: 0.2em;
   margin-bottom: 0.2675em;
-  opacity: 1;
   padding: 0.1em .3em;
   pointer-events: none;
   position: absolute;
   transform-origin: bottom center;
-  transform: translateY(0);
   transition: opacity $hover-tooltip-animation-duration-hover, transform $hover-tooltip-animation-duration-hover;
   white-space: nowrap;
   z-index: 1;
@@ -49,5 +47,10 @@
   &.hidden {
     opacity: 0;
     transform: translateY(0.25em);
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -24,14 +24,14 @@ const CodeLine = ({
   const isHoveringRef = useRef<boolean>(false); // TODO: Might need to be state
 
   const lineNumberClasses = classNames(
-    styles.lineNumber,
-    { [styles.clicked]: isClicked },
-    { [styles.hovered]: isHoveringRef.current && !isClicked },
+    styles['line-number'],
+    { [styles['clicked']]: isClicked },
+    { [styles['hovered']]: isHoveringRef.current && !isClicked },
   );
 
   return (
     <div
-      className={styles.codeLine}
+      className={styles['code-line']}
       onBlur={() => (isHoveringRef.current = false)}
       onClick={() => onClick(!isClicked)}
       onFocus={() => (isHoveringRef.current = true)}

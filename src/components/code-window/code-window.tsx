@@ -16,9 +16,10 @@ import PauseIcon from '@/assets/icons/pause-icon.svg?react';
 import PinOffIcon from '@/assets/icons/pin-off-icon.svg?react';
 import PinOnIcon from '@/assets/icons/pin-on-icon.svg?react';
 import PlayIcon from '@/assets/icons/play-icon.svg?react';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import RewindIcon from '@/assets/icons/rewind-icon.svg?react';
 import styles from './code-window.module.scss';
+import variables from '@/styles/_variables.module.scss';
 
 /**
  * The CodeWindow component renders CodeLineModel objects, which
@@ -73,33 +74,27 @@ const getNextIndentSize = (codeLines: CodeLineModel[], codeScopeCount: number): 
   return lastIndentSize;
 };
 
-// ------------ //
-// react render //
-// ------------ //
-
 const CodeWindow = () => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
 
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component properties                                            //
+  // #region props                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
-  // TODO: refs! Only state if ui update
+  const [codeLines, setCodeLines] = React.useState<CodeLineModel[]>([]);
+  const [codeSpeed, setCodeSpeed] = React.useState<number>(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
 
-  const [codeLines, setCodeLines] = useState<CodeLineModel[]>([]);
-  const [codeSpeed, setCodeSpeed] = useState<number>(CodeGenerationConfig.CODE_GENERATION_DEFAULT_SPEED);
+  const [charCount, setCharCount] = React.useState<number>(0);
+  const [lineCount, setLineCount] = React.useState<number>(0);
 
-  const [charCount, setCharCount] = useState<number>(0);
-  const [lineCount, setLineCount] = useState<number>(0);
+  const [isCodePaused, setIsCodePaused] = React.useState<boolean>(false);
+  const [isFooterPinned, setIsFooterPinned] = React.useState<boolean>(false);
+  const [isComponentReady, setIsComponentReady] = React.useState<boolean>(false);
 
-  const [isCodePaused, setIsCodePaused] = useState<boolean>(false);
-  const [isFooterPinned, setIsFooterPinned] = useState<boolean>(false);
-  const [isComponentReady, setIsComponentReady] = useState<boolean>(false);
-
-  const [isWindowAnimatedX, setIsWindowAnimatedX] = useState(false);
-  const [isWindowAnimatedY, setIsWindowAnimatedY] = useState(false);
-  const [windowAnimationStack, setWindowAnimationStack] = useState('x,0'); // TODO: ref?
+  const [isWindowAnimatedX, setIsWindowAnimatedX] = React.useState(false);
+  const [isWindowAnimatedY, setIsWindowAnimatedY] = React.useState(false);
+  const [windowAnimationStack, setWindowAnimationStack] = React.useState('x,0'); // TODO: ref?
 
   const isHovered = useSelector((state: RootState) => state.codeWindow.isHovered);
   const isInitialized = useSelector((state: RootState) => state.codeWindow.isInitialized);
@@ -136,11 +131,11 @@ const CodeWindow = () => {
   );
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component properties                                         //
+  // #endregion props                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component methods                                               //
+  // #region funcs                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   const decreaseCodeSpeed = () => {
@@ -163,8 +158,8 @@ const CodeWindow = () => {
   };
 
   const onFocusOrMouseOver = () => {
-    if (isInitialized && nameTransitionDuration != styles.codeWindowNameTransitionDurationHover) {
-      dispatch(slice.setNameTransitionDuration(styles.codeWindowNameTransitionDurationHover));
+    if (isInitialized && nameTransitionDuration != variables.codeWindowNameTransitionDurationHover) {
+      dispatch(slice.setNameTransitionDuration(variables.codeWindowNameTransitionDurationHover));
     }
     dispatch(slice.setIsCodeWindowHovered(true));
   };
@@ -200,11 +195,11 @@ const CodeWindow = () => {
   };
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component methods                                            //
+  // #endregion funcs                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component render                                                //
+  // #region hooks                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   React.useEffect(() => {
@@ -435,6 +430,10 @@ const CodeWindow = () => {
     windowAnimationStack,
   ]);
 
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion hooks                                                        //
+  /////////////////////////////////////////////////////////////////////////////
+
   return (
     <div
       className={windowClasses}
@@ -498,10 +497,6 @@ const CodeWindow = () => {
       </div>
     </div>
   );
-
-  /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component render                                             //
-  /////////////////////////////////////////////////////////////////////////////
 };
 
 export default CodeWindow;

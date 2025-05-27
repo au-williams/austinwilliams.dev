@@ -33,17 +33,23 @@ export const CodeGenerationConfig: {
 export const ContactEmailAddress: string = 'me@austinwilliams.dev';
 
 /**
- * Config for the favicon URLs displayed as tooltips.
+ * Config for the favicon URLs displayed in popups and tooltips.
  * @type {object}
  */
-export const favicons: {
+export const FavIcons: {
+  GITHUB: string;
   GMAIL: string;
   GOOGLE_DRIVE: string;
   LINKEDIN: string;
 } = {
-  GMAIL: 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico',
-  GOOGLE_DRIVE: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg',
-  LINKEDIN: 'https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg',
+  GITHUB:
+    'https://raw.githubusercontent.com/au-williams/austinwilliams.dev/refs/heads/master/src/assets/icons/github-icon.svg',
+  GMAIL:
+    'https://raw.githubusercontent.com/au-williams/austinwilliams.dev/refs/heads/master/src/assets/icons/gmail-icon.svg',
+  GOOGLE_DRIVE:
+    'https://raw.githubusercontent.com/au-williams/austinwilliams.dev/refs/heads/master/src/assets/icons/google-drive-icon.svg',
+  LINKEDIN:
+    'https://raw.githubusercontent.com/au-williams/austinwilliams.dev/refs/heads/master/src/assets/icons/linkedin-icon.svg',
 };
 
 /**
@@ -70,30 +76,31 @@ export const RedirectPopupConfig: {
   COUNTDOWN_ENABLED: boolean;
   COUNTDOWN_SECONDS: number;
 } = {
-  COUNTDOWN_ENABLED: true, // Enables / disables the redirect countdown. Used for debugging.
+  COUNTDOWN_ENABLED: true, // Toggles the redirect countdown. Used for debugging.
   COUNTDOWN_SECONDS: 5, // How many seconds the countdown will start with.
 };
 
 /**
+ * Routes handled by React Router + data for the redirect-popup component.
  */
 export const RedirectPopupRoutes = [
   new RouteConfig({
     destination: 'https://www.linkedin.com/in/auwilliams',
-    favicon: favicons.LINKEDIN,
+    favicon: FavIcons.LINKEDIN,
     name: 'LinkedIn',
     path: '/linkedin',
     shareLink: 'https://austinwilliams.dev/linkedin',
   }),
   new RouteConfig({
     destination: 'https://github.com/au-williams/austinwilliams.dev',
-    favicon: 'https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.svg',
+    favicon: FavIcons.GITHUB,
     name: 'GitHub',
     path: '/github',
     shareLink: 'https://austinwilliams.dev/github',
   }),
   new RouteConfig({
     destination: 'https://drive.google.com/file/d/1mKUPaKy712dURDLOFG7bvaAWEomKIHwC/view',
-    favicon: favicons.GOOGLE_DRIVE,
+    favicon: FavIcons.GOOGLE_DRIVE,
     name: 'Google Drive',
     path: '/resume',
     shareLink: 'https://austinwilliams.dev/resume',

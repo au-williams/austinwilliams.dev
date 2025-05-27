@@ -1,5 +1,5 @@
 import { CodeImage, MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji } from '@/assets/images';
-import { ContactEmailAddress, favicons, GithubConfig } from '@/config/app-config';
+import { ContactEmailAddress, FavIcons, GithubConfig } from '@/config/app-config';
 import { cssTimeToMilliseconds } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
 import { Link } from 'react-router';
@@ -28,7 +28,7 @@ const ContentSection = ({
   sectionRef: React.RefObject<HTMLDivElement | null>;
 }): React.JSX.Element => {
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component props                                                 //
+  // #region props                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   // Load the state from Redux.
@@ -43,24 +43,62 @@ const ContentSection = ({
   const isMailboxImageOpened = useSelector((state: RootState) => state.contentSection.isMailboxImageOpened);
   const isSectionVisible = useSelector((state: RootState) => state.contentSection.isSectionVisible);
 
-  const article1Classes = classNames([styles.article, styles[isArticle1Visible ? 'visible' : 'hidden']]);
-  const article2Classes = classNames([styles.article, styles[isArticle2Visible ? 'visible' : 'hidden']]);
-  const handWaveClasses = classNames({ [styles['handWave']]: isHandWaveAnimated });
-  const sectionClasses = classNames([styles.section, styles[isSectionVisible ? 'visible' : 'hidden']]);
+  const article1Classes = classNames([styles['article'], styles[isArticle1Visible ? 'visible' : 'hidden']]);
+  const article2Classes = classNames([styles['article'], styles[isArticle2Visible ? 'visible' : 'hidden']]);
+  const handWaveClasses = classNames({ [styles['hand-wave']]: isHandWaveAnimated });
+  const sectionClasses = classNames([styles['section'], styles[isSectionVisible ? 'visible' : 'hidden']]);
 
   const mailboxClasses = classNames({
-    [styles.mailboxTranslate]: isMailboxAnimatedClosed && !isMailboxAnimatedOpened,
-    [styles.mailboxRotate]: isMailboxAnimatedOpened,
+    [styles['mailbox-translate']]: isMailboxAnimatedClosed && !isMailboxAnimatedOpened,
+    [styles['mailbox-rotate']]: isMailboxAnimatedOpened,
   });
 
   const mailboxEmoji = isMailboxImageOpened ? MailboxOpenedEmoji : MailboxClosedEmoji;
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component props                                              //
+  // #endregion props                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component hooks                                                 //
+  // #region funcs                                                           //
+  /////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Sends a Google Analytics event when the back to top button is clicked and
+   * scrolls the web client back to the top of the page.
+   */
+  const onBackClick = () => {
+    reactGA.event({ category: 'click', action: 'back_to_top_button' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  /**
+   * Sends a Google Analytics event when the email link is clicked.
+   */
+  const onEmailClick = () => {
+    reactGA.event({ category: 'click', action: 'email_mailto_link' });
+  };
+
+  const handWaveOnMouseOver = () => {
+    if (isHandWaveAnimated) return;
+    dispatch(slice.setIsHandWaveAnimated(true));
+    const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationHandWave);
+    setTimeout(() => dispatch(slice.setIsHandWaveAnimated(false)), duration);
+  };
+
+  const mailboxOnMouseOver = () => {
+    if (isMailboxAnimatedClosed || isMailboxAnimatedOpened) return;
+    dispatch(slice.setIsMailboxAnimatedOpened(true));
+    const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2;
+    setTimeout(() => dispatch(slice.setIsMailboxAnimatedOpened(false)), duration);
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion funcs                                                        //
+  /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #region hooks                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   // Fetch the avatar from my GitHub profile and set it as this avatar image.
@@ -143,45 +181,7 @@ const ContentSection = ({
   }, [dispatch, isSectionVisible]);
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component hooks                                              //
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // #region Component funcs                                                 //
-  /////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Sends a Google Analytics event when the back to top button is clicked and
-   * scrolls the web client back to the top of the page.
-   */
-  const onBackClick = () => {
-    reactGA.event({ category: 'click', action: 'back_to_top_button' });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  /**
-   * Sends a Google Analytics event when the email link is clicked.
-   */
-  const onEmailClick = () => {
-    reactGA.event({ category: 'click', action: 'email_mailto_link' });
-  };
-
-  const handWaveOnMouseOver = () => {
-    if (isHandWaveAnimated) return;
-    dispatch(slice.setIsHandWaveAnimated(true));
-    const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationHandWave);
-    setTimeout(() => dispatch(slice.setIsHandWaveAnimated(false)), duration);
-  };
-
-  const mailboxOnMouseOver = () => {
-    if (isMailboxAnimatedClosed || isMailboxAnimatedOpened) return;
-    dispatch(slice.setIsMailboxAnimatedOpened(true));
-    const duration = cssTimeToMilliseconds(variables.sectionArticleTransitionDurationMailbox) / 2;
-    setTimeout(() => dispatch(slice.setIsMailboxAnimatedOpened(false)), duration);
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component funcs                                              //
+  // #endregion hooks                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   return (
@@ -192,7 +192,7 @@ const ContentSection = ({
           Hello!{' '}
           <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" />{' '}
           My name is{' '}
-          <HoverTooltip hoverTooltipId={'LinkedIn'} img={favicons.LINKEDIN} text={'LinkedIn'}>
+          <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
             <Link to="/linkedin" replace>
               Austin
             </Link>
@@ -205,13 +205,13 @@ const ContentSection = ({
         <img src={CodeImage} alt="banner" draggable="false" />
         <div>
           I love working with computers and I&apos;m always open to new opportunities. My{' '}
-          <HoverTooltip hoverTooltipId={'Google Drive'} img={favicons.GOOGLE_DRIVE} text={'Google Drive'}>
+          <HoverTooltip hoverTooltipId={'Google Drive'} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
             <Link to="/resume" replace>
               resume
             </Link>
           </HoverTooltip>{' '}
           is sharable online and you can reach me for employment inquiries by email at{' '}
-          <HoverTooltip hoverTooltipId={'Send an email'} img={favicons.GMAIL} text={'Send an email'}>
+          <HoverTooltip hoverTooltipId={'Send an email'} img={FavIcons.GMAIL} text={'Send an email'}>
             <a href={`mailto:${ContactEmailAddress}`} onClick={onEmailClick}>
               {ContactEmailAddress}
             </a>

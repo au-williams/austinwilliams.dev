@@ -5,10 +5,10 @@ import { RedirectPopupConfig } from '@/config/app-config';
 import { RemoveScroll } from 'react-remove-scroll';
 import { AppDispatch, type RootState } from '@/redux';
 import { useNavigate } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as slice from '@/redux/redirect-popup-slice';
 import classNames from 'classnames';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import styles from './redirect-popup.module.scss';
 import variables from '@/styles/_variables.module.scss';
 
@@ -30,17 +30,17 @@ const RedirectPopup = ({
   redirectShareLink?: string;
 }) => {
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component props                                                 //
+  // #region props                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   const navigate = useNavigate();
 
-  const cachedDestination = useRef(redirectDestination);
-  const cachedFavicon = useRef(redirectFavicon);
-  const cachedName = useRef(redirectName);
-  const popupRef = useRef<HTMLDivElement>(null);
+  const cachedDestination = React.useRef(redirectDestination);
+  const cachedFavicon = React.useRef(redirectFavicon);
+  const cachedName = React.useRef(redirectName);
+  const popupRef = React.useRef<HTMLDivElement>(null);
 
-  const [remainingSeconds, setRemainingSeconds] = useState(RedirectPopupConfig.COUNTDOWN_SECONDS);
+  const [remainingSeconds, setRemainingSeconds] = React.useState(RedirectPopupConfig.COUNTDOWN_SECONDS);
 
   const dispatch = useDispatch<AppDispatch>();
   const isCopyable = useSelector((state: RootState) => state.redirectPopup.isCopyable);
@@ -48,11 +48,11 @@ const RedirectPopup = ({
   const isVisible = useSelector((state: RootState) => state.redirectPopup.isVisible);
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component props                                              //
+  // #endregion props                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component funcs                                                 //
+  // #region funcs                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   /**
@@ -91,11 +91,11 @@ const RedirectPopup = ({
   }, [dispatch, navigate, redirectDestination]);
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component funcs                                              //
+  // #endregion funcs                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component hooks                                                 //
+  // #region hooks                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   // Reset if the page is loaded from browser cache.
@@ -172,7 +172,7 @@ const RedirectPopup = ({
   }, [closePopup, isVisible, redirectDestination, startRedirect]);
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component hooks                                              //
+  // #endregion hooks                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   return (

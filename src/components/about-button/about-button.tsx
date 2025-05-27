@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as slice from '@/redux/about-button-slice';
 import ChevronIcon from '@/assets/icons/chevron-down-solid.svg?react';
 import classNames from 'classnames';
-import React, { useRef } from 'react';
+import React from 'react';
 import styles from './about-button.module.scss';
 import variables from '@/styles/_variables.module.scss';
 
@@ -22,7 +22,7 @@ const AboutButton = ({
   sectionRef: React.RefObject<HTMLDivElement | null>;
 }): React.JSX.Element => {
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component props                                                 //
+  // #region props                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   // Load the state from Redux.
@@ -32,14 +32,32 @@ const AboutButton = ({
   const isInitialized = useSelector((state: RootState) => state.codeWindow.isInitialized);
   const isVisible = useSelector((state: RootState) => state.aboutButton.isVisible);
 
-  const intervalRef = useRef<number | null>(null);
+  const intervalRef = React.useRef<number | null>(null);
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component props                                              //
+  // #endregion props                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
-  // #region Component hooks                                                 //
+  // #region funcs                                                           //
+  /////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Sends a Google Analytics event when the about button's clicked and scrolls
+   * the web client down beyond the landing and to the start of the sectionRef.
+   */
+  const onAboutButtonClick = () => {
+    if (!sectionRef.current) return;
+    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    reactGA.event({ category: 'click', action: 'about_button' });
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #endregion funcs                                                        //
+  /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // #region hooks                                                           //
   /////////////////////////////////////////////////////////////////////////////
 
   /**
@@ -92,25 +110,7 @@ const AboutButton = ({
   }, [dispatch, isHovering]);
 
   /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component hooks                                              //
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // #region Component funcs                                                 //
-  /////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Sends a Google Analytics event when the about button's clicked and scrolls
-   * the web client down beyond the landing and to the start of the sectionRef.
-   */
-  const onAboutButtonClick = () => {
-    if (!sectionRef.current) return;
-    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
-    reactGA.event({ category: 'click', action: 'about_button' });
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // #endregion Component funcs                                              //
+  // #endregion hooks                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
   return (

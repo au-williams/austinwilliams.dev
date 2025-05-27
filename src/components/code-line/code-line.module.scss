@@ -2,7 +2,7 @@
 
 // TODO: RAISE code line when hovering? reset when exiting?
 
-.codeLine {
+.code-line {
   align-items: center;
   border: none;
   cursor: pointer;
@@ -19,7 +19,7 @@
   }
 }
 
-.lineNumber {
+.line-number {
   $line-number-size: 0.45 * $code-block-size;
   $line-number-top-bottom-margin: calc($code-block-size / 2) - calc($line-number-size / 2);
   $line-number-left-right-margin: calc($code-window-sidebar-width / 2) - calc($line-number-size / 2);

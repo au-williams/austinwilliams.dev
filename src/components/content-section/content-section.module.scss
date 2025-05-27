@@ -194,12 +194,12 @@
   100% { transform: translateY(0) rotate(0deg); }
 }
 
-.mailboxTranslate {
+.mailbox-translate {
   animation: mailbox-translate calc($section-article-transition-duration-mailbox * 0.5) forwards;
   transform-origin: center bottom;
 }
 
-.mailboxRotate {
+.mailbox-rotate {
   animation: mailbox-rotate calc($section-article-transition-duration-mailbox * 0.5) forwards;
   transform-origin: center bottom;
 }
@@ -215,7 +215,7 @@
   100% { transform: rotate(0deg); }
 }
 
-.handWave {
+.hand-wave {
   animation: hand-wave $section-article-transition-duration-hand-wave forwards;
   transform-origin: 70% 70%;
 }
