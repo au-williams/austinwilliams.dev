@@ -23,6 +23,19 @@
   }
 }
 
+.article:nth-child(1),
+.article:nth-child(3) {
+  > div {
+    margin: 0 0 0 1.125em;
+  }
+}
+
+.article:nth-child(2) {
+  > div {
+    margin: 0 1.125em 0 0;
+  }
+}
+
 .article {
   align-items: center;
   display: flex;
@@ -79,7 +92,6 @@
 
   > div {
     font-size: 1.5em;
-    margin: 0 0 0 1.125em;
     width: 100%;
 
     img,

@@ -201,6 +201,18 @@ const ContentSection = ({
           taught me their art of delivering great software from start to finish.
         </div>
       </article>
+      <article className={article1Classes}>
+        <div>
+          I own and operate {' '}
+          <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'test'}>
+            <Link to="/linkedin" replace>
+              AUSTIN WILLIAMS DEVELOPMENT
+            </Link>
+          </HoverTooltip>
+          {' '}where I design, develop, and manage websites and web services for other businesses. You{'\''}re provided with high quality services at the lowest prices.
+        </div>
+        <img src={avatarUrl} alt="avatar" draggable="false" />
+      </article>
       <article className={article2Classes}>
         <img src={CodeImage} alt="banner" draggable="false" />
         <div>
