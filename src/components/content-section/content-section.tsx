@@ -43,6 +43,8 @@ const ContentSection = ({
   const isMailboxImageOpened = useSelector((state: RootState) => state.contentSection.isMailboxImageOpened);
   const isSectionVisible = useSelector((state: RootState) => state.contentSection.isSectionVisible);
 
+  const article0Classes = classNames([styles['article']])
+
   const article1Classes = classNames([styles['article'], styles[isArticle1Visible ? 'visible' : 'hidden']]);
   const article2Classes = classNames([styles['article'], styles[isArticle2Visible ? 'visible' : 'hidden']]);
   const handWaveClasses = classNames({ [styles['hand-wave']]: isHandWaveAnimated });
@@ -184,68 +186,93 @@ const ContentSection = ({
   // #endregion hooks                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
+  // Website card for carousel
+  const Website = ({ href, imgSrc, content }: { href: string; imgSrc: string; content: React.ReactNode }) => (
+    <a className="carousel-card" href={href} target="_blank" rel="noopener noreferrer">
+      <div className="carousel-card-image-wrapper">
+        <img src={imgSrc} alt="Website" />
+        <div className="carousel-card-overlay">{content}</div>
+      </div>
+    </a>
+  );
+
   return (
-    <section className={sectionClasses} ref={sectionRef}>
-      <article className={article1Classes}>
-        {avatarUrl ? <img src={avatarUrl} alt="avatar" draggable="false" /> : <AvatarIcon />}
-        <div>
-          Hello!{' '}
-          <img src={WaveEmoji} className={handWaveClasses} onMouseOver={handWaveOnMouseOver} alt="waving emoji" />{' '}
-          My name is{' '}
-          <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
-            <Link to="/linkedin" replace>
-              Austin
-            </Link>
-          </HoverTooltip>
-          . I started my career by developing government programs and collaborating with major tech companies who
-          taught me their art of delivering great software from start to finish.
-        </div>
-      </article>
-      <article className={article1Classes}>
-        <div>
-          I own and operate {' '}
-          <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'test'}>
-            <Link to="/linkedin" replace>
-              AUSTIN WILLIAMS DEVELOPMENT
-            </Link>
-          </HoverTooltip>
-          {' '}where I design, develop, and manage websites and web services for other businesses. You{'\''}re provided with high quality services at the lowest prices.
-        </div>
-        <img src={avatarUrl} alt="avatar" draggable="false" />
-      </article>
-      <article className={article2Classes}>
-        <img src={CodeImage} alt="banner" draggable="false" />
-        <div>
-          I love working with computers and I&apos;m always open to new opportunities. My{' '}
-          <HoverTooltip hoverTooltipId={'Google Drive'} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
-            <Link to="/resume" replace>
-              resume
-            </Link>
-          </HoverTooltip>{' '}
-          is sharable online and you can reach me for employment inquiries by email at{' '}
-          <HoverTooltip hoverTooltipId={'Send an email'} img={FavIcons.GMAIL} text={'Send an email'}>
-            <a href={`mailto:${ContactEmailAddress}`} onClick={onEmailClick}>
-              {ContactEmailAddress}
-            </a>
-          </HoverTooltip>
-          .{' '}
-          <img
-            src={mailboxEmoji}
-            className={mailboxClasses}
-            onMouseOver={mailboxOnMouseOver}
-            alt="mailbox emoji"
-          />
-        </div>
-      </article>
-      <footer className={styles.footer}>
-        <button type="button" onClick={onBackClick}>
-          <ScrollIcon /> Back to top
-        </button>
-        <Link to="/github" replace>
-          <GitHubIcon /> GitHub
-        </Link>
-      </footer>
-    </section>
+    <>
+      <section className={sectionClasses} ref={sectionRef}>
+        <article className={article1Classes}>
+          {avatarUrl ? <img src={avatarUrl} alt="avatar" draggable="false" /> : <AvatarIcon />}
+          <div>
+            Hello!{' '}
+            <img
+              src={WaveEmoji}
+              className={handWaveClasses}
+              onMouseOver={handWaveOnMouseOver}
+              alt="waving emoji"
+            />{' '}
+            My name is{' '}
+            <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
+              <Link to="/linkedin" replace>
+                Austin
+              </Link>
+            </HoverTooltip>
+            . I started my career by developing government programs and collaborating with major tech companies who
+            taught me their art of delivering great software from start to finish.
+          </div>
+        </article>
+        <article className={article1Classes}>
+          <div>
+            I own and operate {' '}
+            <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'test'}>
+              <Link to="/linkedin" replace>
+                AUSTIN WILLIAMS DEVELOPMENT, LLC
+              </Link>
+            </HoverTooltip>
+            {' '}that I use to design, develop, and manage websites and web services for other businesses. You{'\''}re provided with the highest quality service at the lowest prices. Below are some of the websites I maintain. 👇
+          </div>
+        </article>
+        <article className={article0Classes}>
+          <div className={styles['carousel']}>
+            <Website
+              href="https://example.com"
+              imgSrc="https://browsee.io/blog/content/images/2019/03/testing.jpg"
+              content={"Website Overlay Text"}
+            />
+          </div>
+        </article>
+        <article className={article2Classes}>
+          <img src={CodeImage} alt="banner" draggable="false" />
+          <div>
+            I love working with computers and I&apos;m always open to new opportunities. My{' '}
+            <HoverTooltip hoverTooltipId={'Google Drive'} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
+              <Link to="/resume" replace>
+                resume
+              </Link>
+            </HoverTooltip>{' '}
+            is sharable online and you can reach me for employment inquiries by email at{' '}
+            <HoverTooltip hoverTooltipId={'Send an email'} img={FavIcons.GMAIL} text={'Send an email'}>
+              <a href={`mailto:${ContactEmailAddress}`} onClick={onEmailClick}>
+                {ContactEmailAddress}
+              </a>
+            </HoverTooltip>
+            .{' '}
+            <img
+              src={mailboxEmoji}
+              className={mailboxClasses}
+              onMouseOver={mailboxOnMouseOver}
+              alt="mailbox emoji"
+            />
+          </div>
+        </article>
+        <footer className={styles.footer}>
+          <button type="button" onClick={onBackClick}>
+            <ScrollIcon /> Back to top
+          </button>
+          <Link to="/github" replace>
+            <GitHubIcon /> GitHub
+          </Link>
+        </footer>
+      </section>
+    </>
   );
 };
 

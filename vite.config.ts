@@ -8,10 +8,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
-  build: {
-    outDir: './build',
-    emptyOutDir: true,
-  },
   plugins: [
     createHtmlPlugin({ minify: true, template: 'public/index.html' }),
     eslint(),

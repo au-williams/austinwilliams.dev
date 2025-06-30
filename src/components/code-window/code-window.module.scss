@@ -1,5 +1,6 @@
 @use "@/styles/variables.module" as *;
 @use 'sass:color';
+@use "@/styles/mixins" as *;
 
 .wrapper {
   background-color: #202020;
@@ -313,7 +314,7 @@
 
 // shrink content to fit screen
 
-@media only screen and (height <= 675px), screen and (width <= 885px) {
+@include respond-to(tablet) {
   .wrapper { font-size: 1.8vmin; }
 }
 

@@ -1,4 +1,5 @@
 @use "@/styles/variables.module" as *;
+@use "@/styles/mixins" as *;
 
 .about-button {
   background: none;
@@ -31,7 +32,7 @@
 
 // shrink content to fit screen
 
-@media only screen and (height <= 675px), screen and (width <= 885px) {
+@include respond-to(tablet) {
   .about-button {
     font-size: 3.75vmin;
   }
@@ -39,7 +40,7 @@
 
 // portrait orientation
 
-@media only screen and (width <= 610px) {
+@include respond-to(mobile) {
   .about-button {
     font-size: 5vmin;
   }

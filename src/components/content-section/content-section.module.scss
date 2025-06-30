@@ -1,4 +1,14 @@
 @use "@/styles/variables.module" as *;
+@use "@/styles/mixins" as *;
+
+.carousel {
+  background-color: $body-color-background;
+  height: 6em;
+  box-shadow: $base-box-shadow inset;
+  border-radius: $base-border-radius;
+  box-sizing: border-box;
+  padding: 1em;
+}
 
 .section {
   background-color: $body-color-section;
@@ -24,7 +34,7 @@
 }
 
 .article:nth-child(1),
-.article:nth-child(3) {
+.article:nth-child(4) {
   > div {
     margin: 0 0 0 1.125em;
   }
@@ -152,7 +162,7 @@
 
 // shrink content to fit screen
 
-@media only screen and (height <= 675px), screen and (width <= 885px) {
+@include respond-to(tablet) {
   .footer, .section {
     font-size: 1.8vmin;
   }
@@ -160,7 +170,7 @@
 
 // portrait orientation
 
-@media only screen and (width <= 610px) {
+@include respond-to(mobile) {
   .article, .footer {
     font-size: 1.675em;
   }
