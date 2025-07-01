@@ -6,6 +6,7 @@ import MailboxClosedEmoji from './mailbox-closed-emoji.png';
 import MailboxOpenedEmoji from './mailbox-opened-emoji.png';
 import PersonEmoji from './person-emoji.png';
 import WaveEmoji from './wave-emoji.png';
+import YelmGlass from './yelm-glass.png';
 export {
   CheckMarkEmoji,
   CodeImage,
@@ -15,4 +16,5 @@ export {
   MailboxOpenedEmoji,
   PersonEmoji,
   WaveEmoji,
+  YelmGlass,
 };

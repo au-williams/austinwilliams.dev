@@ -1,4 +1,4 @@
-import { CodeImage, MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji } from '@/assets/images';
+import { MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji, YelmGlass } from '@/assets/images';
 import { ContactEmailAddress, FavIcons, GithubConfig } from '@/config/app-config';
 import { cssTimeToMilliseconds } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
@@ -188,11 +188,9 @@ const ContentSection = ({
 
   // Website card for carousel
   const Website = ({ href, imgSrc, content }: { href: string; imgSrc: string; content: React.ReactNode }) => (
-    <a className="carousel-card" href={href} target="_blank" rel="noopener noreferrer">
-      <div className="carousel-card-image-wrapper">
-        <img src={imgSrc} alt="Website" />
-        <div className="carousel-card-overlay">{content}</div>
-      </div>
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      <img src={imgSrc} alt="Website" />
+      <div>{content}</div>
     </a>
   );
 
@@ -221,27 +219,55 @@ const ContentSection = ({
         </article>
         <article className={article1Classes}>
           <div>
-            I own and operate {' '}
+            I own and operate a company named {' '}
             <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'test'}>
               <Link to="/linkedin" replace>
-                AUSTIN WILLIAMS DEVELOPMENT, LLC
+                Austin Williams Development, LLC
               </Link>
             </HoverTooltip>
-            {' '}that I use to design, develop, and manage websites and web services for other businesses. You{'\''}re provided with the highest quality service at the lowest prices. Below are some of the websites I maintain. 👇
+            where I design, develop, and manage websites and web services for other businesses. You{"'"}re provided
+            with the highest quality service at the lowest prices. Here are some of those websites. 👇
+            {/* with the highest quality service at the lowest prices. Here are some of the websites I maintain. 👇 */}
           </div>
         </article>
         <article className={article0Classes}>
           <div className={styles['carousel']}>
             <Website
               href="https://example.com"
-              imgSrc="https://browsee.io/blog/content/images/2019/03/testing.jpg"
-              content={"Website Overlay Text"}
+              imgSrc={YelmGlass}
+              content={"yelmglass.com"}
             />
           </div>
         </article>
-        <article className={article2Classes}>
-          <img src={CodeImage} alt="banner" draggable="false" />
+        <article className={article1Classes}>
           <div>
+            These are created from scratch to support the unique needs of each business. You can provide me with a design or let me create one for you, and I{"'"}ll handle the rest while adhering to the latest accessibility standards and legal requirements.{' '}
+          </div>
+        </article>
+        <article className={article2Classes}>
+          {/* <img src={CodeImage} alt="banner" draggable="false" /> */}
+          <div>
+            I{"'"}m always excited to take on new projects, whether independently with a growing business or part of a team building great products. You can view my{' '}
+            <HoverTooltip hoverTooltipId={'Google Drive'} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
+              <Link to="/resume" replace>
+                resume
+              </Link>
+            </HoverTooltip>{' '}
+            to learn more about my background and experience, or contact me at {' '}
+            <HoverTooltip hoverTooltipId={'Send an email'} img={FavIcons.GMAIL} text={'Send an email'}>
+              <a href={`mailto:${ContactEmailAddress}`} onClick={onEmailClick}>
+                {ContactEmailAddress}
+              </a>
+            </HoverTooltip>
+            .{' '}
+            <img
+              src={mailboxEmoji}
+              className={mailboxClasses}
+              onMouseOver={mailboxOnMouseOver}
+              alt="mailbox emoji"
+            />
+          </div>
+          {/* <div>
             I love working with computers and I&apos;m always open to new opportunities. My{' '}
             <HoverTooltip hoverTooltipId={'Google Drive'} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
               <Link to="/resume" replace>
@@ -261,7 +287,7 @@ const ContentSection = ({
               onMouseOver={mailboxOnMouseOver}
               alt="mailbox emoji"
             />
-          </div>
+          </div> */}
         </article>
         <footer className={styles.footer}>
           <button type="button" onClick={onBackClick}>

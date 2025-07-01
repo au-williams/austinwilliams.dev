@@ -8,6 +8,37 @@
   border-radius: $base-border-radius;
   box-sizing: border-box;
   padding: 1em;
+
+  a {
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0 !important;
+    position: relative;
+    width: 8em;
+
+    div {
+      align-items: center;
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 0 0 $base-border-radius $base-border-radius;
+      bottom: 0;
+      box-sizing: border-box;
+      color: white;
+      display: flex;
+      font-size: 0.8em;
+      height: 1.5em;
+      position: absolute;
+      width: 100%;
+      padding-left: 1em;
+    }
+
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit:fill !important;
+      border-radius: $base-border-radius;
+    }
+  }
 }
 
 .section {
@@ -33,18 +64,18 @@
   }
 }
 
-.article:nth-child(1),
-.article:nth-child(4) {
-  > div {
-    margin: 0 0 0 1.125em;
-  }
-}
+// .article:nth-child(1),
+// .article:nth-child(4) {
+//   > div {
+//     margin: 0 0 0 1.125em;
+//   }
+// }
 
-.article:nth-child(2) {
-  > div {
-    margin: 0 1.125em 0 0;
-  }
-}
+// .article:nth-child(2) {
+//   > div {
+//     margin: 0 1.125em 0 0;
+//   }
+// }
 
 .article {
   align-items: center;
@@ -85,15 +116,14 @@
     padding-bottom: 2.25em;
   }
 
-  > img,
-  > svg {
+  > img {
+    margin: 0 1.875em 0 0;
     background-color: #18191a;
     border-radius: 100%;
     border: 0.35em solid #18191a;
     box-shadow: $base-box-shadow;
     box-sizing: border-box;
     height: 8em;
-    margin-right: 1.125em;
     min-height: 8em;
     min-width: 8em;
     pointer-events: none;
