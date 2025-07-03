@@ -1,13 +1,15 @@
-import { CheckMarkEmoji, HomeEmoji, LinkEmoji } from '@/assets/images';
+import { AppDispatch, type RootState } from '@/redux';
 import { cssTimeToMilliseconds, pluralizeString } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
 import { RedirectPopupConfig } from '@/config/app-config';
 import { RemoveScroll } from 'react-remove-scroll';
-import { AppDispatch, type RootState } from '@/redux';
-import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import * as slice from '@/redux/redirect-popup-slice';
+import CheckMarkEmoji from '@/assets/images/check-mark-emoji.png';
 import classNames from 'classnames';
+import HomeEmoji from '@/assets/images/home-emoji.png';
+import LinkEmoji from '@/assets/images/link-emoji.png';
 import React from 'react';
 import styles from './redirect-popup.module.scss';
 import variables from '@/styles/_variables.module.scss';

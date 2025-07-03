@@ -7,8 +7,7 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "plugin:@typescript-eslint/recommended"
   ],
   "ignorePatterns": ["**/*-env.d.ts"],
   "parser": "@typescript-eslint/parser",
@@ -23,7 +22,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "react", "react-refresh", "prettier", "import"],
+  "plugins": ["@typescript-eslint", "react", "react-refresh", "import"],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "@typescript-eslint/no-unused-expressions": "off",
@@ -37,7 +36,6 @@
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "no-shadow": "off",
     "no-use-before-define": "off",
-    "prettier/prettier": "warn",
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
     "react/function-component-definition": [
       "warn",

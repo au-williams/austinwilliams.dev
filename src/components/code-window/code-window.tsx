@@ -1,6 +1,5 @@
 import { CodeGenerationConfig } from '@/config/app-config';
 import { getFormattedNumber, getRandomBit, getRandomBool, getRandomNumber } from '@/utilities';
-import { PersonEmoji } from '@/assets/images';
 import { type RootState, type AppDispatch } from '@/redux';
 import { useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,6 +12,7 @@ import CodeLineModel from '@/types/code-line-model';
 import EraserIcon from '@/assets/icons/eraser-icon.svg?react';
 import FastForwardIcon from '@/assets/icons/fast-forward-icon.svg?react';
 import PauseIcon from '@/assets/icons/pause-icon.svg?react';
+import PersonEmoji from '@/assets/images/person-emoji.png';
 import PinOffIcon from '@/assets/icons/pin-off-icon.svg?react';
 import PinOnIcon from '@/assets/icons/pin-on-icon.svg?react';
 import PlayIcon from '@/assets/icons/play-icon.svg?react';

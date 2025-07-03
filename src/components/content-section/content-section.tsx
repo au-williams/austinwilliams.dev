@@ -1,4 +1,3 @@
-import { MailboxClosedEmoji, MailboxOpenedEmoji, WaveEmoji, YelmGlass } from '@/assets/images';
 import { ContactEmailAddress, FavIcons, GithubConfig } from '@/config/app-config';
 import { cssTimeToMilliseconds } from '@/utilities';
 import { GA4 } from 'react-ga4/types/ga4';
@@ -6,14 +5,21 @@ import { Link } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import * as slice from '@/redux/content-section-slice';
 import AvatarIcon from '@/assets/icons/avatar-icon.svg?react';
+import CardsRUs from '@/assets/images/cards-r-us.png';
 import classNames from 'classnames';
 import GitHubIcon from '@/assets/icons/github-icon.svg?react';
 import HoverTooltip from '../hover-tooltip/hover-tooltip';
+import MailboxClosedEmoji from '@/assets/images/mailbox-closed-emoji.png';
+import MailboxOpenedEmoji from '@/assets/images/mailbox-opened-emoji.png';
+import PointDownEmoji from '@/assets/images/point-down-emoji.png';
 import React from 'react';
 import ScrollIcon from '@/assets/icons/scroll-icon.svg?react';
 import styles from './content-section.module.scss';
 import type { RootState, AppDispatch } from '@/redux';
 import variables from '@/styles/_variables.module.scss';
+import WaveEmoji from '@/assets/images/wave-emoji.png';
+import WebsiteCard from '../website-card/website-card';
+import YelmGlass from '@/assets/images/yelm-glass.png';
 
 /**
  * The section containing articles and footer buttons. This is animated in when
@@ -186,74 +192,82 @@ const ContentSection = ({
   // #endregion hooks                                                        //
   /////////////////////////////////////////////////////////////////////////////
 
-  // Website card for carousel
-  const Website = ({ href, imgSrc, content }: { href: string; imgSrc: string; content: React.ReactNode }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      <img src={imgSrc} alt="Website" />
-      <div>{content}</div>
-    </a>
-  );
+  const avatar = avatarUrl
+    ? <img src={avatarUrl} alt="avatar" draggable="false" />
+    : <AvatarIcon />;
 
   return (
     <>
       <section className={sectionClasses} ref={sectionRef}>
         <article className={article1Classes}>
-          {avatarUrl ? <img src={avatarUrl} alt="avatar" draggable="false" /> : <AvatarIcon />}
+          {avatar}
           <div>
-            Hello!{' '}
+            {'Hello! '}
             <img
               src={WaveEmoji}
               className={handWaveClasses}
               onMouseOver={handWaveOnMouseOver}
               alt="waving emoji"
-            />{' '}
-            My name is{' '}
-            <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'LinkedIn'}>
-              <Link to="/linkedin" replace>
-                Austin
-              </Link>
+            />
+            {' My name is '}
+            <HoverTooltip
+              hoverTooltipId={'LinkedIn'}
+              img={FavIcons.LINKEDIN}
+              text={'LinkedIn'}
+            >
+              <Link to="/linkedin" replace>Austin</Link>
             </HoverTooltip>
-            . I started my career by developing government programs and collaborating with major tech companies who
-            taught me their art of delivering great software from start to finish.
+            {'. I started my career by developing government programs and collaborating with major tech companies who taught me their art of delivering great software from start to finish.'}
           </div>
         </article>
         <article className={article1Classes}>
           <div>
-            I own and operate a company named {' '}
-            <HoverTooltip hoverTooltipId={'LinkedIn'} img={FavIcons.LINKEDIN} text={'test'}>
-              <Link to="/linkedin" replace>
-                Austin Williams Development, LLC
-              </Link>
+            {'I own and operate a company named '}
+            <HoverTooltip
+              hoverTooltipId={'Austin Williams Development, LLC'}
+              img={FavIcons.LINKEDIN}
+              text={'Test'}
+            >
+              <Link to="/linkedin" replace>Austin Williams Development, LLC</Link>
             </HoverTooltip>
-            where I design, develop, and manage websites and web services for other businesses. You{"'"}re provided
-            with the highest quality service at the lowest prices. Here are some of those websites. 👇
-            {/* with the highest quality service at the lowest prices. Here are some of the websites I maintain. 👇 */}
+            {` where I design, develop, and manage websites and web services for other businesses. You're provided with the highest quality service at the lowest prices. Here are some of those websites. `}
+            <img
+              src={PointDownEmoji}
+              className={handWaveClasses}
+              onMouseOver={handWaveOnMouseOver}
+              alt="waving emoji"
+            />
           </div>
         </article>
         <article className={article0Classes}>
           <div className={styles['carousel']}>
-            <Website
-              href="https://example.com"
+            <WebsiteCard
+              href="#"
               imgSrc={YelmGlass}
               content={"yelmglass.com"}
+            />
+            <WebsiteCard
+              href="#"
+              imgSrc={CardsRUs}
+              content={"cards-r-us.com"}
             />
           </div>
         </article>
         <article className={article1Classes}>
           <div>
-            These are created from scratch to support the unique needs of each business. You can provide me with a design or let me create one for you, and I{"'"}ll handle the rest while adhering to the latest accessibility standards and legal requirements.{' '}
+            These are created from scratch to support the unique needs of each business. You can provide me with designs or let me make them for you, and I{"'"}ll handle the rest while adhering to the latest accessibility standards and legal requirements online.
           </div>
         </article>
         <article className={article2Classes}>
           {/* <img src={CodeImage} alt="banner" draggable="false" /> */}
           <div>
-            I{"'"}m always excited to take on new projects, whether independently with a growing business or part of a team building great products. You can view my{' '}
+            I{"'"}m always excited to take on new projects — whether independently with a growing business or as a teammate in your organization. You can view my{' '}
             <HoverTooltip hoverTooltipId={'Google Drive'} img={FavIcons.GOOGLE_DRIVE} text={'Google Drive'}>
               <Link to="/resume" replace>
                 resume
               </Link>
             </HoverTooltip>{' '}
-            to learn more about my background and experience, or contact me at {' '}
+            to learn about my background and experience, or contact me directly at {' '}
             <HoverTooltip hoverTooltipId={'Send an email'} img={FavIcons.GMAIL} text={'Send an email'}>
               <a href={`mailto:${ContactEmailAddress}`} onClick={onEmailClick}>
                 {ContactEmailAddress}
